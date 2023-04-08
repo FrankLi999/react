@@ -1,5 +1,21 @@
 https://learning.oreilly.com/library/view/learn-react-with/9781804614204/
 
+custom hook:
+    https://react.dev/reference/react
+    https://blog.bitsrc.io/step-by-step-guide-on-building-a-custom-react-hook-in-typescript-167e243045a4
+    Custom hooks let us abstract away the logic of React components and re-use them! I suggest only doing this with logic that actually gets reused a ton throughout your web application.
+
+        A custom Hook is a JavaScript function whose name starts with ”use” and that may call other Hooks.
+
+    If you have code in a component that you feel would make sense to extract, either for reuse elsewhere or to keep the component simpler, you can pull that out into a function. 
+
+        // common behavir to set page title
+        function useTitle(title) {
+            useEffect(() => {
+                document.title = title;
+            }, [title]);
+        }
+
 # create a project
     npx create-react-app myreactapp --template typescript
     npm i -D prettier
