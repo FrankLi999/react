@@ -10,9 +10,10 @@ import Form from "@rjsf/bootstrap-4";
 
 
 function FormComponent() {
-   const schema: RJSFSchema = require("../jsonFiles/schema.json")
-   const formData = require("../jsonFiles/formData.json")
-   const uiSchema = require("../jsonFiles/uiSchema.json")
+   const schema: RJSFSchema = require("../jsonFiles/config-data-schema.json")
+   const formData = require("../jsonFiles/config-data-form-data.json")
+   const uiSchema = require("../jsonFiles/config-data-form-uischema.json")
+   const log = (type: any) => console.log.bind(console, type);
     // const schema: RJSFSchema = schemaForm;
     return (
         <div className="form">
@@ -21,10 +22,25 @@ function FormComponent() {
                 uiSchema={uiSchema}
                 formData={formData}
                 validator={validator}
+                onSubmit={data => submitData(data)}
             >
             </Form>
         </div>
     )
 }
 
+async function submitData(data: any) {
+    console.log('submitted data', data)
+    console.log('submitted for data', data.formData)
+    try {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'accept': 'text/html' },
+            body: JSON.stringify(data.formData),
+        };
+        await fetch("/api/config-data", requestOptions);
+      } catch (err) {
+        console.log(err);
+      }
+}
 export default FormComponent

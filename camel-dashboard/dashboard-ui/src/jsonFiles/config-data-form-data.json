@@ -1,0 +1,12 @@
+{
+    "application": "s2i-ccpay-integrator",
+    "label": "master",
+    "profile": "default",
+    "props": [
+      {
+        "propKey": "key",
+        "propValue": "value"
+      }
+    ]
+  }
+  

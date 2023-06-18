@@ -1,0 +1,29 @@
+
+spring:
+  profiles.active: jdbc
+  # sql.init.platform: h2    
+  datasource:
+    url: jdbc:h2:mem:configdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1
+  # r2dbc:
+  #   url: r2dbc:h2:mem:configdb
+  #   username: 'sa'
+  #   password: 'sa'
+  h2.console:
+    # Required for h2-console server
+    enabled: true
+    # Optional variable /h2-console forward from the path to session created h2 console server uri
+    path: /h2-console
+    # Optional h2 console port if not set or set 0, available port is given
+    port: 8082
