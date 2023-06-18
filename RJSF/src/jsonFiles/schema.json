@@ -1,0 +1,231 @@
+{
+  "title": "Test form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Perterstein",
+      "minLength": 8
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name",
+      "default": "Haroldein",
+      "minLength": 8
+    },
+    "Age": {
+      "type": "integer"
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "title": "GitHub"
+    },
+    "email-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password"
+    },
+    "optionsEnumRadio": {
+      "type": "string",
+      "title": "Gender",
+      "enum": [
+        "Male",
+        "Female",
+        "I prefer not to say"
+      ]
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10,
+      "pattern": "\\d+"
+    },
+    "UniversityName": {
+      "type": "string",
+      "enum": [
+        "Sharda University",
+        "Amity University",
+        "Galgotia University"
+      ],
+      "default": "Sharda University"
+    },
+    "Qualification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Univ/Board": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Certifications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "A brief intro": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Languages": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "English",
+          "Japanese",
+          "Chinese"
+        ]
+      }
+    },
+    "multipleChoicesList": {
+      "type": "array",
+      "title": "Tick all the prog. languages you know",
+      "items": {
+        "type": "string",
+        "enum": [
+          "JAVA",
+          "Javascript",
+          "Flutter",
+          "Phython",
+          "C++",
+          "C",
+          "C#",
+          "Ruby",
+          "Go lang"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "fixedItemsList": {
+      "type": "array",
+      "items": [
+        {
+          "title": "Have you cleared all the dues?",
+          "type": "boolean"
+        }
+      ]
+    },
+    "file": {
+      "type": "string",
+      "title": "Resume (Single File upload)",
+      "format": "data-url"
+    },
+    "files": {
+      "type": "array",
+      "title": "Upload all available ID Proofs (Multiple File upload)",
+      "items": {
+        "type": "string",
+        "format": "data-url"
+      }
+    },
+    "filesAccept": {
+      "type": "string",
+      "format": "data-url",
+      "title": "Single File having .pdf extension"
+    },
+    "Are you Indian?": {
+      "type": "boolean"
+    },
+    "dateAndTime": {
+      "title": "date and time",
+      "type": "object",
+      "properties": {
+        "Date with time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Date": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Alt Date and Time": {
+      "title": "Pick a date and time for written test",
+      "type": "string"
+    },
+    "integerRange": {
+      "title": "Wieght- Integer range",
+      "type": "integer",
+      "minimum": 42,
+      "maximum": 100
+    },
+    "integerRangeSteps": {
+      "title": "Annual family income in lacs - Integer range (by 10)",
+      "type": "integer",
+      "minimum": 50,
+      "maximum": 100,
+      "multipleOf": 10
+    },
+    "color": {
+      "type": "string",
+      "title": "Choose theme for your profile: color picker",
+      "default": "#151ce6"
+    },
+    "disabled": {
+      "type": "string",
+      "title": "A disabled field",
+      "default": "I am disabled."
+    },
+    "readonly": {
+      "type": "string",
+      "title": "A readonly field",
+      "default": "I am read-only."
+    },
+    "selectWidgetOptions": {
+      "title": "Custom select widget with options",
+      "type": "string",
+      "enum": [
+        "foo",
+        "bar"
+      ],
+      "enumNames": [
+        "Foo",
+        "Bar"
+      ]
+    },
+    "multipleChoicesList2": {
+      "type": "array",
+      "title": "Pick max two items",
+      "uniqueItems": true,
+      "maxItems": 2,
+      "items": {
+        "type": "string",
+        "enum": [
+          "foo",
+          "bar",
+          "fuzz"
+        ]
+      }
+    },
+    "customArray": {
+      "title": "Custom array of strings",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checkbox": {
+      "type": "boolean",
+      "title": "I agree to the terms and conditions.",
+      "description": "This is the checkbox-description"
+    }
+  }
+}
