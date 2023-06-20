@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+import reactor.core.publisher.Mono;
 import com.example.camel.dashboard.dto.ConfigData;
 import com.example.camel.dashboard.service.ConfigDataService;
 
@@ -19,7 +19,7 @@ public class ConfigDataController {
     private ConfigDataService configDataService;
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody ConfigData configData) {
-        configDataService.create(configData);
+    public Mono<Void> create(@RequestBody ConfigData configData) {
+        return configDataService.create(configData);
     }
 }

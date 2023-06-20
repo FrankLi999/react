@@ -1,5 +1,5 @@
 {
-    "application": "s2i-ccpay-integrator",
+    "application": "my-camel-integrator",
     "label": "master",
     "profile": "default",
     "props": [

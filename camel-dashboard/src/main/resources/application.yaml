@@ -7,6 +7,13 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: sa
+
+    # platform: postgresql
+    # driver-class-name: org.postgresql.Driver
+    # url: jdbc:postgresql://spostgresql:5432/camel-config?sslmode=require
+    # username: postgresql
+    # password: 123456
+
     hikari:
       connection-timeout: 5000
       maximum-pool-size: 10
@@ -16,10 +23,14 @@ spring:
         jdbc:
           sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
           order: 1
+  r2dbc:
+    url: r2dbc:h2:mem:configdb
+    username: 'sa'
+    password: 'sa'
   # r2dbc:
-  #   url: r2dbc:h2:mem:configdb
-  #   username: 'sa'
-  #   password: 'sa'
+  #   url: jdbc:postgresql://spostgresql:5432/camel-config?sslmode=require
+    # username: postgresql
+    # password: 123456
   h2.console:
     # Required for h2-console server
     enabled: true

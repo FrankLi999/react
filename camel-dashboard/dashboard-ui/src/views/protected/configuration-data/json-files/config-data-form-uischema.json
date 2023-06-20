@@ -11,7 +11,7 @@
     "ui:title": "Application",
     "ui:autofocus": true,
     "ui:emptyValue": "",
-    "ui:autocomplete": "s2i-ccpay-integrator"
+    "ui:autocomplete": "my-camel-integrator"
   },
   "profile": {
     "ui:title": "Profile",
