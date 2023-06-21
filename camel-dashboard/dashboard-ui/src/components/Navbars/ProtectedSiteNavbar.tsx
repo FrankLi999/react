@@ -36,8 +36,8 @@ function ProtectedSiteNavbar() {
                             >
                                 <i className="fas fa-list"></i>
                             </Dropdown.Toggle>
-                            <Dropdown.Menu
-                                alignRight
+                            // alignRight
+                            <Dropdown.Menu                                
                                 aria-labelledby="navbarDropdownMenuLink"
                             ><Dropdown.Item
                                     href="/"
