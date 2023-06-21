@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ProtectedSiteNavbar from "../components/Navbars/ProtectedSiteNavbar";
 import ProtectedSiteFooter from "../components/Footers/ProtectedSiteFooter";
 import Sidebar from "../components/Sidebar/Sidebar";
 // @ts-ignore
 const ProtectedSiteLayout = ({ children }) => {
     return (
+        <Suspense>
         <>
             <div className="sb-nav-fixed">
                 
@@ -22,6 +23,7 @@ const ProtectedSiteLayout = ({ children }) => {
                 </div>
             </div>
         </>
+        </Suspense>
     );
 }
 
