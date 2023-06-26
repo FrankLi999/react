@@ -1,7 +1,5 @@
 global:
   name: consul
-  metrics:
-    enabled: true
   datacenter: dc1
   image: registry.connect.redhat.com/hashicorp/consul:1.14.3-ubi 
   imageK8S: registry.connect.redhat.com/hashicorp/consul-k8s-control-plane:1.0.2-ubi
@@ -30,3 +28,4 @@ connectInject:
     multus: true
     cniBinDir: /var/lib/cni/bin
     cniNetDir: /etc/kubernetes/cni/net.d
+

@@ -1,0 +1,67 @@
+{
+  "services": [{
+    "id": "s1i1", "name": "service-1", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9011, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s1i2", "name": "service-1", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9012, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s1i3", "name": "service-1", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9013, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s1i4", "name": "service-1", "address": "host.docker.internal", "port": 9014, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s2i1", "name": "service-2", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9021, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s2i2", "name": "service-2", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9022, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s2i3", "name": "service-2", "tags": ["camel", "service-call"], "address": "host.docker.internal", "port": 9023, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }, {
+    "id": "s2i4", "name": "service-2", "address": "host.docker.internal", "port": 9024, "connect": {
+      "sidecar_service": {
+        "proxy": {
+          "local_service_address": "host.docker.internal"
+        }
+      }
+    }
+  }]
+}

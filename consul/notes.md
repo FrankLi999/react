@@ -1,3 +1,16 @@
+# Logging
+
+## Docker plugin:
+
+  loki: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+  fluentd: 
+     https://adamtheautomator.com/efk-stack/
+## Openshift
+   elastic-search:  deploying the OpenShift Elasticsearch and Red Hat OpenShift Logging Operators. The OpenShift Elasticsearch Operator creates and manages the Elasticsearch cluster used by OpenShift Logging. The logging subsystem Operator creates and manages the components of the logging stack.
+
+  loki: https://docs.openshift.com/container-platform/4.13/logging/cluster-logging-loki.html
+
+
 consul service mesh:
   secure communication
   observability, 
@@ -7,15 +20,25 @@ consul service mesh:
 https://learning.oreilly.com/library/view/consul-up-and/9781098106133/
 https://learning.oreilly.com/videos/hashicorp-certified/9781805128861/
 https://developer.hashicorp.com/consul/tutorials/kubernetes/kubernetes-openshift-red-hat
+
+# observerbility
+    https://developer.hashicorp.com/consul/tutorials/docker/docker-compose-observability
+
+    docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+#     
+
 # set up
 ```
 crc setup
 crc start
+#linux
 eval $(crc oc-env)
+#windows
+@FOR /f "tokens=*" %i IN ('crc oc-env') DO @call %i
 oc login -u kubeadmin https://api.crc.testing:6443
 
   Username: kubeadmin
-  Password: FXvwm-fugT5-f95yx-FvA2o
+  Password: mAXsB-GCyIU-URVku-4IVPG
 
  kubectl cluster-info
  oc new-project consul
