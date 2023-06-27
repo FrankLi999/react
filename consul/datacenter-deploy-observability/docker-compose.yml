@@ -5,7 +5,7 @@ version: "3.7"
 services:
   # https://developer.hashicorp.com/consul/tutorials/day-0/docker-container-agents
   consul-server:
-    image: hashicorp/consul:1.10.0
+    image: hashicorp/consul:1.15
     container_name: consul-server
     command: ["consul", "agent", "-config-file=/config/config.hcl", "-config-dir=/config"]
     volumes:
@@ -15,10 +15,12 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.2
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
+    # depends_on:
+    #   - "fluentd"        
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
     # kibana search: logs-docker*
     # logging:
     #   driver: elastic/elastic-logging-plugin:7.17.0
@@ -26,12 +28,12 @@ services:
     #     hosts: "http://localhost:9200"
     #     user: "elastic"
     #     password: "changeme"
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
-  # https://github.com/nicholasjackson/fake-service
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+  # # https://github.com/nicholasjackson/fake-service
   ingress:
     image: nicholasjackson/fake-service:v0.25.2
     container_name: ingress
@@ -41,30 +43,30 @@ services:
       LISTEN_ADDR: 0.0.0.0:9090
       UPSTREAM_URIS: "http://localhost:9091"
       MESSAGE: "Hello World"
-      NAME: "Ingress"
+      NAME: "ingress"
       SERVER_TYPE: "http"
       TIMING_50_PERCENTILE: 30ms
       TIMING_90_PERCENTILE: 60ms
       TIMING_99_PERCENTILE: 90ms
       TIMING_VARIANCE: 10
-      TRACING_ZIPKIN: "http://tempo:9411"
+      TRACING_ZIPKIN: "http://tempo:9411"      
     ports:
     - "9090:9090"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.3
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
-  # https://github.com/nicholasjackson/docker-consul-envoy      
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+  # # https://github.com/nicholasjackson/docker-consul-envoy      
   ingress_proxy:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
     container_name: ingress_proxy
     depends_on:
       - "ingress"
@@ -78,15 +80,15 @@ services:
     - "./fake-service/central_config:/central_config"
     command: ["consul", "connect", "envoy", "-sidecar-for", "ingress-v1"]
     network_mode: "service:ingress"
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
 
   web:
     image: nicholasjackson/fake-service:v0.25.2
@@ -108,17 +110,17 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.4
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
   web_proxy:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
     container_name: web_proxy
     depends_on:
       - "web"
@@ -132,15 +134,15 @@ services:
     - "./fake-service/central_config:/central_config"
     command: ["consul", "connect", "envoy", "-sidecar-for", "web-v1"]
     network_mode: "service:web"
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
 
   api:
     image: nicholasjackson/fake-service:v0.25.2
@@ -163,18 +165,18 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.5
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
   # https://github.com/nicholasjackson/docker-consul-envoy      
   api_proxy:
-    image: nicholasjackson/consul-envoy:v1.6.1-v0.10.0
+    image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
     container_name: api_proxy
     depends_on:
       - "api"
@@ -188,212 +190,212 @@ services:
     - "./fake-service/central_config:/central_config"
     command: ["consul", "connect", "envoy", "-sidecar-for", "api-v1"]
     network_mode: "service:api"
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: 'http://localhost:3100/api/prom/push'
     logging:
-      driver: "fluentd"
+      driver: loki
       options:
-        fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
 
-#   node-exporter:
-#     image: prom/node-exporter:v1.1.2
-#     container_name: node-exporter
-#     restart: always
-#     volumes:
-#       - /proc:/host/proc:ro
-#       - /sys:/host/sys:ro
-#       - /:/rootfs:ro
-#     command: 
-#       - '--path.procfs=/host/proc' 
-#       - '--path.sysfs=/host/sys'
-#       - --collector.filesystem.ignored-mount-points
-#       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-#     networks:
-#       vpcbr:
-#         ipv4_address: 10.5.0.7
-#     ports:
-#       - 9100:9100
-#     # logging:
-#     #   driver: loki
-#     #   options:
-#     #     loki-url: 'http://localhost:3100/api/prom/push'
-#     logging:
-#       driver: "fluentd"
-#       options:
-#         fluentd-address: localhost:24224
-#         tag: s2ilogging.log
-
-#   prometheus:
-#     image: prom/prometheus:v2.26.0
-#     container_name: prometheus
-#     restart: always
-#     volumes:
-#       - ./prometheus/prometheus.yml:/etc/prometheus.yml
-#     entrypoint:
-#       - /bin/prometheus
-#       - --config.file=/etc/prometheus.yml
-#     networks:
-#       vpcbr:
-#         ipv4_address: 10.5.0.8
-#     ports:
-#       - "9092:9090"
-#     # logging:
-#     #   driver: loki
-#     #   options:
-#     #     loki-url: 'http://localhost:3100/api/prom/push'
-#     logging:
-#       driver: "fluentd"
-#       options:
-#         fluentd-address: localhost:24224
-#         tag: s2ilogging.log
-
-#   tempo:
-#     image: grafana/tempo:1f1c40b3
-#     container_name: tempo
-#     command: ["-config.file=/etc/tempo.yaml"]
-#     volumes:
-#       - ./tempo/tempo.yaml:/etc/tempo.yaml
-#     networks:
-#       vpcbr:
-#         ipv4_address: 10.5.0.9
-#     ports:
-#       - "14268:14268" # jaeger ingest
-#       - "3100"  # tempo
-#       - "9411:9411" #zipkin
-#     # logging:
-#     #   driver: loki
-#     #   options:
-#     #     loki-url: 'http://localhost:3100/api/prom/push'
-#     logging:
-#       driver: "fluentd"
-#       options:
-#         fluentd-address: localhost:24224
-#         tag: s2ilogging.log
-
-# # Alternative to Tempo
-# #  jaeger:
-# #    image: jaegertracing/all-in-one:1.22
-# #    container_name: jaeger
-# #    environment:
-# #      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
-# #      COLLECTOR_ZIPKIN_HOST_PORT: 9411
-# #    ports:
-# #    - "5775:5775/udp"
-# #    - "6831:6831/udp"
-# #    - "6832:6832/udp"
-# #    - "5778:5778"
-# #    - "16686:16686"
-# #    - "14268:14268"
-# #    - "9411:9411"
-# #    networks:
-# #      vpcbr:
-# #        ipv4_address: 10.5.0.6
-
-#   grafana:
-#     image: grafana/grafana:7.5.3
-#     container_name: grafana
-#     restart: always
-#     volumes:
-#       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-#       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-#       - ./grafana/dashboards:/var/lib/grafana/dashboards
-#     environment:
-#       - GF_AUTH_ANONYMOUS_ENABLED=true
-#       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-#       - GF_AUTH_DISABLE_LOGIN_FORM=true
-#     networks:
-#       vpcbr:
-#         ipv4_address: 10.5.0.10
-#     ports:
-#       - "3000:3000"
-#     # logging:
-#     #   driver: loki
-#     #   options:
-#     #     loki-url: 'http://localhost:3100/api/prom/push'
-#     logging:
-#       driver: "fluentd"
-#       options:
-#         fluentd-address: localhost:24224
-#         tag: s2ilogging.log
-
-#   loki:
-#     image: grafana/loki:2.1.0
-#     container_name: loki
-#     command: -config.file=/etc/loki/local-config.yaml
-#     networks:
-#       vpcbr:
-#         ipv4_address: 10.5.0.11
-#     ports:
-#       - "3100:3100"                                   # loki needs to be exposed so it receives logs
-#     environment:
-#       - JAEGER_AGENT_HOST=tempo
-#       - JAEGER_ENDPOINT=http://tempo:14268/api/traces # send traces to Tempo
-#       - JAEGER_SAMPLER_TYPE=const
-#       - JAEGER_SAMPLER_PARAM=1
-#     # logging:
-#     #   driver: loki
-#     #   options:
-#     #     loki-url: 'http://localhost:3100/api/prom/push'
-#     logging:
-#       driver: "fluentd"
-#       options:
-#         fluentd-address: localhost:24224
-#         tag: s2ilogging.log
-  elasticsearch:
-    image: elasticsearch:7.17.0
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      # - bootstrap.memory_lock=true
-      # - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      # - ELASTIC_PASSWORD=changeme
-      # - xpack.security.enabled=true
-    # volumes:
-    #   - esdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    networks:
-      vpcbr:
-        ipv4_address: 10.5.0.12
-    expose:
-      - "9200"
-  kibana:
-    image: kibana:7.17.0
-    container_name: kibana
-    environment:
-      # - ELASTICSEARCH_USERNAME=elastic
-      # - ELASTICSEARCH_PASSWORD=changeme
-      # - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200      
-    ports:
-      - "5601:5601"
-    networks:
-      vpcbr:
-        ipv4_address: 10.5.0.13
-    links: # Links kibana service to the elasticsearch container
-      - elasticsearch        
-    depends_on:
-      - elasticsearch
-
-  fluentd:
-    build: ./fluentd
-    container_name: fluentd
+  node-exporter:
+    image: prom/node-exporter:v1.1.2
+    container_name: node-exporter
+    restart: always
     volumes:
-      - ./fluentd/conf:/fluentd/etc
-    ports:
-      - "24224:24224"
-      - "24224:24224/udp"
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.14
-    links: # Sends incoming logs to the elasticsearch container.
-      - elasticsearch        
-    depends_on:
-      - elasticsearch
+        ipv4_address: 10.5.0.7
+    ports:
+      - 9100:9100
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+
+  prometheus:
+    image: prom/prometheus:v2.26.0
+    container_name: prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus.yml
+    entrypoint:
+      - /bin/prometheus
+      - --config.file=/etc/prometheus.yml
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.8
+    ports:
+      - "9092:9090"
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+
+  tempo:
+    image: grafana/tempo:1f1c40b3
+    container_name: tempo
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.9
+    ports:
+      - "14268:14268" # jaeger ingest
+      - "3100"  # tempo
+      - "9411:9411" #zipkin
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+
+# Alternative to Tempo
+#  jaeger:
+#    image: jaegertracing/all-in-one:1.22
+#    container_name: jaeger
+#    environment:
+#      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
+#      COLLECTOR_ZIPKIN_HOST_PORT: 9411
+#    ports:
+#    - "5775:5775/udp"
+#    - "6831:6831/udp"
+#    - "6832:6832/udp"
+#    - "5778:5778"
+#    - "16686:16686"
+#    - "14268:14268"
+#    - "9411:9411"
+#    networks:
+#      vpcbr:
+#        ipv4_address: 10.5.0.6
+
+  grafana:
+    image: grafana/grafana:7.5.3
+    container_name: grafana
+    restart: always
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.10
+    ports:
+      - "3000:3000"
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+
+  loki:
+    image: grafana/loki:2.1.0
+    container_name: loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.11
+    ports:
+      - "3100:3100"                                   # loki needs to be exposed so it receives logs
+    environment:
+      - JAEGER_AGENT_HOST=tempo
+      - JAEGER_ENDPOINT=http://tempo:14268/api/traces # send traces to Tempo
+      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_PARAM=1
+    logging:
+      driver: loki
+      options:
+        loki-url: 'http://localhost:3100/api/prom/push'
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: s2ilogging.log
+#   elasticsearch:
+#     image: elasticsearch:7.17.0
+#     container_name: elasticsearch
+#     environment:
+#       - discovery.type=single-node
+# #      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#       # - bootstrap.memory_lock=true
+#       # - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#       # - ELASTIC_PASSWORD=changeme
+#       # - xpack.security.enabled=true
+#     # volumes:
+#     #   - esdata:/usr/share/elasticsearch/data
+#     ports:
+#       - 9200:9200
+#     networks:
+#       vpcbr:
+#         ipv4_address: 10.5.0.12
+#     expose:
+#       - "9200"
+#   kibana:
+#     image: kibana:7.17.0
+#     container_name: kibana
+#     environment:
+#       # - ELASTICSEARCH_USERNAME=elastic
+#       # - ELASTICSEARCH_PASSWORD=changeme
+#       # - ELASTICSEARCH_URL=http://elasticsearch:9200
+#       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200      
+#     ports:
+#       - "5601:5601"
+#     networks:
+#       vpcbr:
+#         ipv4_address: 10.5.0.13
+#     links: # Links kibana service to the elasticsearch container
+#       - elasticsearch        
+#     depends_on:
+#       - elasticsearch
+
+#   fluentd:
+#     build: ./fluentd
+#     container_name: fluentd
+#     volumes:
+#       - ./fluentd/conf:/fluentd/etc
+#     ports:
+#       - "24224:24224"
+#       - "24224:24224/udp"
+#     networks:
+#       vpcbr:
+#         ipv4_address: 10.5.0.14
+#     links: # Sends incoming logs to the elasticsearch container.
+#       - elasticsearch        
+#     depends_on:
+#       - elasticsearch
 networks:
   vpcbr:
     driver: bridge
