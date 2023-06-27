@@ -10,7 +10,6 @@ RUN apk add --no-cache --update --virtual .build-deps \
 && gem uninstall -I elasticsearch \
 && gem install elasticsearch -v 7.17.0 \
 && sudo gem install fluent-plugin-elasticsearch --no-document --version 5.1.5 \
-&& gem install fluent-plugin-grafana-loki \
 && sudo gem sources --clear-all \
 && apk del .build-deps \
 && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
