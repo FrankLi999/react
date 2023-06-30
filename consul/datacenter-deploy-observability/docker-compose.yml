@@ -32,7 +32,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
   # # https://github.com/nicholasjackson/fake-service
   ingress:
     image: nicholasjackson/fake-service:v0.25.2
@@ -63,7 +63,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
   # # https://github.com/nicholasjackson/docker-consul-envoy      
   ingress_proxy:
     image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
@@ -88,7 +88,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   web:
     image: nicholasjackson/fake-service:v0.25.2
@@ -118,7 +118,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
   web_proxy:
     image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
     container_name: web_proxy
@@ -142,7 +142,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   api:
     image: nicholasjackson/fake-service:v0.25.2
@@ -173,7 +173,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
   # https://github.com/nicholasjackson/docker-consul-envoy      
   api_proxy:
     image: nicholasjackson/consul-envoy:1.15-distroless-v1.24.6
@@ -198,7 +198,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   node-exporter:
     image: prom/node-exporter:v1.1.2
@@ -226,7 +226,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   prometheus:
     image: prom/prometheus:v2.26.0
@@ -250,7 +250,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   tempo:
     image: grafana/tempo:1f1c40b3
@@ -273,7 +273,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
 # Alternative to Tempo
 #  jaeger:
@@ -319,7 +319,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
 
   loki:
     image: grafana/loki:2.1.0
@@ -343,7 +343,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: s2ilogging.log
+        tag: mylogging.log
   elasticsearch:
     image: elasticsearch:7.17.0
     container_name: elasticsearch

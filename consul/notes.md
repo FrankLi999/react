@@ -1,3 +1,62 @@
+# open telemetry
+    https://help.sumologic.com/docs/apm/traces/get-started-transaction-tracing/opentelemetry-instrumentation/java/traceid-spanid-injection-into-logs-configuration/
+	https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/logger-mdc-instrumentation.md
+	https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/logback/logback-mdc-1.0/library
+# api governance
+    service discovery: needed?
+	https://www.digitalml.com/api-governance-best-practices/
+	https://www.postman.com/api-platform/api-governance/
+	
+	spectral guideline: define governance rule
+		https://learning.postman.com/docs/api-governance/configurable-rules/spectral/
+		lint tools: https://redocly.com/
+	Discoverable: APIs are easy to find and use by the entire organization
+
+	Complete, Consistent, and Compliant: APIs are high quality and deliver reliable consumer experiences
+
+	Reusable: APIs can be easily reused/updated/extended, and composed together
+
+	Secure: so that data is safe, risk is minimized, and you’re complying with regulation
+
+	Collaborative: well thought-out and well-documented so that everyone in your ecosystem can understand, use, and collaborate on them.
+
+
+	API governance is the practice of defining and applying standards, policies, and processes that ensure your APIs are standardized, reliable, and secure. 
+	Fundamentally, API governance provides the guardrails that result in great APIs, and is a key component of a mature API management program.
+	
+		> Policies and standards are applied through checks and validations, for e.g. checking API basepath uniqueness. This can either be 
+		done manually or automatically.
+	
+		> common model:	https://www.digitalml.com/7-reasons-to-use-a-resource-model-while-designing-restful-apis/
+		
+		>>> 1. Have a centralized set of enterprise-wide API governance rules…
+			Ensuring API uniqueness
+			Checking important metadata fields which ensure discoverability and reusability e.g. owner, lifecycle state, the capability the API supports, classification
+			Access control rules for who can do what with your APIs and when
+
+		>>> 2. But build in flexibility and responsiveness
+		
+			Needing a certain API security policy based on LoB or taxonomy classification
+			When an API design meets a certain condition, a particular error response (which has been defined in the canonical model) is needed
+			Based on HTTP Method Type, certain headers and/or response codes are required
+
+		>>> 3. Automate governance checks and validation for speed and enablement
+			https://www.digitalml.com/ignite-platform/
+			
+		>>> 4. Manage your APIs as abstracted Designs in a Holistic Catalog
+		
+		>>>> 5. Build in data consistency through reusable domain models and components
+		>>>> 6. Apply governance at all stages of the API lifecycle
+		>>>> 7. Implement robust API versioning
+		>>>> 8. Ensure your API governance rules are met before an API can be deployed
+		>>>> 9. Education and training to reframe the API governance mindset
+		
+# gravitee
+  
+  https://medium.com/graviteeio/setting-up-gravitee-api-management-behind-consul-service-mesh-b2e9085ebc27
+  https://shenyu.apache.org/
+  https://github.com/apache/shenyu
+		API governance: Request, response, parameter mapping, Hystrix, RateLimiter plugin
 # Logging
 
 ## Docker plugin:

@@ -20,7 +20,7 @@ function LockScreen() {
                             <Card.Title as="h4" className="text-center font-weight-light my-4">TODO: Lock Screen</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title as="h4">S2I Integrator</Card.Title>
+                            <Card.Title as="h4">Integrator</Card.Title>
                             <Form.Group>
                                 <Form.Control
                                     placeholder="Enter Password"

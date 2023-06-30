@@ -7,7 +7,7 @@ function PublicSiteFooter() {
             <footer className="py-4 bg-light mt-auto">
                 <div className="container-fluid">
                     <div className="d-flex align-items-center justify-content-between small">
-                        <div className="text-muted">S2i Integrator Dashboard</div>
+                        <div className="text-muted">Integrator Dashboard</div>
                         <div>
                             <a href="#">Public Site Footer</a>
                             &middot;

@@ -19,8 +19,8 @@ function PublicSiteNavbar() {
                 <Container>
                     <div className="navbar-wrapper">
                         <Navbar.Brand href="#pablo" onClick={(e: { preventDefault: () => void; }) => e.preventDefault()}>
-                            <span className="d-none d-md-block">S2I Integrator Dashboard</span>
-                            <span className="d-block d-md-none">S2I Integrator Dashboard</span>
+                            <span className="d-none d-md-block">Integrator Dashboard</span>
+                            <span className="d-block d-md-none">Integrator Dashboard</span>
                         </Navbar.Brand>
                     </div>
                     <button

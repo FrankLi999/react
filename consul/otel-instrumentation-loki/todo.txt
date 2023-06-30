@@ -1,0 +1,12 @@
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:9411/api/v2/spans": Connect to http://localhost:9411 [localhost/127.0.0.1] failed: Connection refused
+2023-06-27 20:56:43     at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:888)
+2023-06-27 20:56:43     at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:868)
+2023-06-27 20:56:43     at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:764)
+2023-06-27 20:56:43     at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:646)
+2023-06-27 20:56:43     at org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender$RestTemplateHttpPostCall.doExecute(ZipkinRestTemplateSender.java:68)
+2023-06-27 20:56:43     at org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender$RestTemplateHttpPostCall.doExecute(ZipkinRestTemplateSender.java:48)
+2023-06-27 20:56:43     at zipkin2.Call$Base.execute(Call.java:391)
+2023-06-27 20:56:43     at zipkin2.reporter.AsyncReporter$BoundedAsyncReporter.flush(AsyncReporter.java:299)
+2023-06-27 20:56:43     at zipkin2.reporter.AsyncReporter$Flusher.run(AsyncReporter.java:378)
+2023-06-27 20:56:43     at java.base/java.lang.Thread.run(Thread.java:833)
+2023-06-27 20:56:43 Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:9411 [localhost/127.0.0.1] failed: Connection refused

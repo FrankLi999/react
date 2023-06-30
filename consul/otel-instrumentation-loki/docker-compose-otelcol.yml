@@ -1,0 +1,43 @@
+---
+version: "3.9"
+x-default-logging: &logging
+  # driver: "json-file"
+  # options:
+  #   max-size: "5m"
+  #   max-file: "2"
+  driver: loki
+  options:
+    loki-url: 'http://localhost:3100/api/prom/push'  
+services: 
+  # OpenTelemetry Collector
+  otelcol:
+    image: otel/opentelemetry-collector-contrib:0.80.0
+    container_name: otelcol
+    deploy:
+      resources:
+        limits:
+          memory: 125M
+    restart: unless-stopped
+    command: [ "--config=/etc/otelcol-config.yml", "--config=/etc/otelcol-config-extras.yml" ]
+    volumes:
+      - ./otelcollector/otelcol-config.yml:/etc/otelcol-config.yml
+      - ./otelcollector/otelcol-config-extras.yml:/etc/otelcol-config-extras.yml
+    ports:
+      - "4317:4317"      # OTLP over gRPC receiver
+      - "4318:4318"      # OTLP over HTTP receiver
+      - "55680:55680"
+      # - "9411:9411"
+      - "9464:9464"     # Prometheus exporter
+      - "8888:8888"     # metrics endpoint
+    # depends_on:
+    #   - tempo
+    #   - loki
+    #   - prometheus
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.18
+    logging: *logging      
+networks:
+  vpcbr:
+    external: true
+    name: otel-instrumentation_vpcbr
