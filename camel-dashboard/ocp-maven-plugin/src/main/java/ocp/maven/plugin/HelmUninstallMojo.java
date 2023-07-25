@@ -6,6 +6,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import ocp.maven.plugin.helm.UninstallCommand;
+import org.apache.maven.project.MavenProject;
 
 /**
  * Uninstall a Helm release. This is the equivalent of passing "helm uninstall" from the Helm CLI
@@ -14,6 +15,9 @@ import ocp.maven.plugin.helm.UninstallCommand;
  */
 @Mojo(name = "helm-uninstall")
 public class HelmUninstallMojo extends AbstractMojo {
+
+	@Parameter(defaultValue = "${project}", required = true, readonly = true)
+	private MavenProject project;
 
 	/**
 	 * The Helm release name
@@ -33,13 +37,20 @@ public class HelmUninstallMojo extends AbstractMojo {
 	@Parameter(property = "wait")
 	private boolean wait;
 	
+	/**
+	 * The target environment, sandbox, dev, qa, prod etc
+	 */
+	@Parameter(property = "environment")
+	private String environment;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		getLog().info(String.format("Uninstalling release \"%s\"", releaseName));
 		
-		new UninstallCommand.Builder(releaseName)
+		new UninstallCommand.Builder(project, releaseName)
 				.namespace(namespace)
 				.wait(wait)
+				.environment(environment)
 				.build()
 				.execute();
 	}

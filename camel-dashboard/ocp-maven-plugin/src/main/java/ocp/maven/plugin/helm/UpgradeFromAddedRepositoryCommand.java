@@ -2,6 +2,7 @@ package ocp.maven.plugin.helm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.maven.project.MavenProject;
 
 /**
  * An implementation of Helm upgrade when referencing a chart from a locally added repository (from <i>helm repo add</i>)
@@ -17,7 +18,7 @@ public class UpgradeFromAddedRepositoryCommand extends BaseUpgradeCommand {
 	private Logger log = LoggerFactory.getLogger(UpgradeFromAddedRepositoryCommand.class);
 	
 	public UpgradeFromAddedRepositoryCommand(Builder builder) {
-		super(builder.getReleaseName(), builder.getValuesFiles(), builder.getInlineValues(), builder.getWait(), builder.getNamespace());
+		super(builder.getProject(), builder.getReleaseName(), builder.getValuesFiles(), builder.getInlineValues(), builder.getWait(), builder.getNamespace(), builder.getEnvironment());
 		this.chartName = builder.chartName;
 		this.version = builder.version;
 		this.repositoryName = builder.repositoryName;
@@ -42,8 +43,8 @@ public class UpgradeFromAddedRepositoryCommand extends BaseUpgradeCommand {
 		private String version;
 		private String repositoryName;
 		
-		public Builder(String releaseName, String chartName, String repositoryName) {
-			super(releaseName);
+		public Builder(MavenProject project, String releaseName, String chartName, String repositoryName) {
+			super(project, releaseName);
 			this.chartName = chartName;
 			this.repositoryName = repositoryName;
 		}

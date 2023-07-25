@@ -2,7 +2,10 @@ package ocp.maven.plugin.helm;
 
 import java.util.List;
 import java.util.Map;
-
+import java.io.File;
+import org.apache.maven.project.MavenProject;
+import ocp.maven.plugin.FileSystemUtils;
+import ocp.maven.plugin.SystemUtils;
 /**
  * The base Helm upgrade command class
  * 
@@ -21,12 +24,33 @@ public abstract class BaseUpgradeCommand extends BaseCommand {
 	 */
 	final Map<String,String> inlineValues;
 	
-	public BaseUpgradeCommand(String releaseName, List<String> valuesFiles, Map<String,String> inlineValues, boolean wait, String namespace) {
-		super(releaseName, namespace, wait);
+	public BaseUpgradeCommand(MavenProject project, String releaseName, List<String> valuesFiles, Map<String,String> inlineValues, boolean wait, String namespace, String environment) {
+		super(project, releaseName, namespace, environment, wait);
 		this.valuesFiles = valuesFiles;
 		this.inlineValues = inlineValues;
 	}
 	
+	@Override
+    public BaseCommand prepareForExecution() {
+        try {
+            File baseDir = this.project.getBasedir();
+
+            String targetDir = this.project.getBuild().getDirectory();
+
+            File destFolder = new File(String.format("%s/ocp", targetDir));
+            if(destFolder.exists()) {
+                destFolder.delete();
+            }
+            destFolder.mkdirs();
+            // copies executables, helm, from the jar file of this maven plugin 
+            FileSystemUtils.copyDirectoryFromJar(String.format("/bin/%s", SystemUtils.systemSpecificSubDirectory()), String.format("%s/ocp/helm", targetDir), 0);
+            // copy helm values files from the deployed application
+            FileSystemUtils.copyDirectory(String.format("%s/src/ocp/helm/%s-values.yaml", baseDir, this.environment), String.format("%s/ocp/helm", targetDir));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return this;
+    } 
 	/**
 	 * A common set of Helm upgrade flags
 	 * 

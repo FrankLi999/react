@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 /**
  * The base command used to execute inheriting Helm commands
@@ -14,12 +15,16 @@ public abstract class BaseCommand {
 
 	final String releaseName;
 	final String namespace;
+	final String environment;
 	final boolean wait;
+	final MavenProject project;
 	
-	public BaseCommand(String releaseName, String namespace, boolean wait) {
+	public BaseCommand(MavenProject project, String releaseName, String namespace, String environment, boolean wait) {
 		this.releaseName = releaseName;
 		this.namespace = namespace;
+		this.environment = environment;
 		this.wait = wait;
+		this.project = project;
 	}
 	
 	/**
@@ -75,4 +80,6 @@ public abstract class BaseCommand {
 			throw new MojoExecutionException(e);
 		} 
 	}
+
+	public BaseCommand prepareForExecution() { return this; }
 }

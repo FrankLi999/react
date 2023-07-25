@@ -1,11 +1,13 @@
 package ocp.maven.plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import ocp.maven.plugin.helm.UpgradeFromAddedRepositoryCommand;
 import ocp.maven.plugin.helm.UpgradeFromHttpRepositoryCommand;
 import ocp.maven.plugin.helm.UpgradeFromLocalChartCommand;
+import ocp.maven.plugin.helm.UpgradeFromBuildInChartCommand;
 import ocp.maven.plugin.helm.UpgradeFromOciRegistryCommand;
 import ocp.maven.plugin.helm.model.Values;
 import org.apache.maven.plugin.AbstractMojo;
@@ -60,6 +62,12 @@ public class HelmUpgradeMojo extends AbstractMojo {
 	@Parameter(property = "namespace")
 	private String namespace;
 
+	/**
+	 * The target environment, sandbox, dev, qa, prod etc
+	 */
+	@Parameter(property = "environment")
+	private String environment;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		chart.validate();
@@ -71,7 +79,22 @@ public class HelmUpgradeMojo extends AbstractMojo {
 			valuesFiles = values.getFiles();
 			inlineValues = values.getSet();
 		}
-		
+		String targetDir = this.project.getBuild().getDirectory();
+		if (environment == null || environment.length() == 0) {
+            environment = "sandbox";
+		}
+
+		if (namespace == null || namespace.length() == 0) {
+            namespace = "my-sandbox";
+		}
+
+		if (valuesFiles == null) {
+			valuesFiles = new ArrayList<>();
+		}
+		String envSpecificValueFile = String.format("%s/ocp/helm/%s-values.yaml", targetDir, environment);
+		if (!valuesFiles.contains(envSpecificValueFile)) {
+			valuesFiles.add(envSpecificValueFile);
+		}
 		String chartName = chart.getName();
 		String repositoryUrl = chart.getRepository().getUrl();
 		String repositoryName = chart.getRepository().getName();
@@ -83,7 +106,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 		
 		switch (chart.getUpgradeType()) {
 		case UPGRADE_FROM_HTTP_REPOSITORY:
-			new UpgradeFromHttpRepositoryCommand.Builder(releaseName, chartName, repositoryUrl)
+			new UpgradeFromHttpRepositoryCommand.Builder(project, releaseName, chartName, repositoryUrl)
 					.inlineValues(inlineValues)
 					.valuesFiles(valuesFiles)
 					.version(chartVersion)
@@ -91,38 +114,52 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.password(password)
 					.wait(wait)
 					.namespace(namespace)
+					.environment(environment)
 					.build()
 					.execute();
 			break;
 		case UPGRADE_FROM_OCI_REGISTRY:
-			new UpgradeFromOciRegistryCommand.Builder(releaseName, chartName, repositoryUrl)
+			new UpgradeFromOciRegistryCommand.Builder(project, releaseName, chartName, repositoryUrl)
 					.inlineValues(inlineValues)
 					.valuesFiles(valuesFiles)
 					.version(chartVersion)
 					.wait(wait)
 					.namespace(namespace)
+					.environment(environment)
 					.build()
 					.execute();
 			break;
 		case UPGRADE_FROM_ADDED_REPOSITORY:
-			new UpgradeFromAddedRepositoryCommand.Builder(releaseName, chartName, repositoryName)
+			new UpgradeFromAddedRepositoryCommand.Builder(project, releaseName, chartName, repositoryName)
 					.inlineValues(inlineValues)
 					.valuesFiles(valuesFiles)
 					.version(chartVersion)
 					.wait(wait)
 					.namespace(namespace)
+					.environment(environment)
 					.build()
 					.execute();
 			break;
 		case UPGRADE_FROM_LOCAL:
-			new UpgradeFromLocalChartCommand.Builder(releaseName, repositoryUrl)
+			new UpgradeFromLocalChartCommand.Builder(project, releaseName, repositoryUrl)
 					.inlineValues(inlineValues)
 					.valuesFiles(valuesFiles)
 					.wait(wait)
 					.namespace(namespace)
+					.environment(environment)
 					.build()
 					.execute();
 			break;
+        case UPGRADE_FROM_BUILD_IN_REPOSITORY:
+			new UpgradeFromBuildInChartCommand.Builder(project, releaseName, repositoryUrl)
+					.inlineValues(inlineValues)
+					.valuesFiles(valuesFiles)
+					.wait(wait)
+					.namespace(namespace)
+					.environment(environment)
+					.build()
+					.execute();
+			break;			
 		default:
 			break;
 		}

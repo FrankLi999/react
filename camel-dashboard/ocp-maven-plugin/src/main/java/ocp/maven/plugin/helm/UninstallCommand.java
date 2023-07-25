@@ -1,5 +1,7 @@
 package ocp.maven.plugin.helm;
 
+import org.apache.maven.project.MavenProject;
+
 /**
  * The Helm uninstall implementation
  * 
@@ -8,7 +10,7 @@ package ocp.maven.plugin.helm;
 public class UninstallCommand extends BaseCommand {
 
 	private UninstallCommand(Builder builder) {
-		super(builder.getReleaseName(), builder.getNamespace(), builder.getWait());
+		super(builder.getProject(), builder.getReleaseName(), builder.getNamespace(), builder.getEnvironment(), builder.getWait());
 	}
 	
 	@Override
@@ -21,8 +23,8 @@ public class UninstallCommand extends BaseCommand {
 	
 	public static class Builder extends BaseBuilder<Builder> {
 		
-		public Builder(String releaseName) {
-			super(releaseName);
+		public Builder(MavenProject project, String releaseName) {
+			super(project, releaseName);
 		}
 		
 		@Override

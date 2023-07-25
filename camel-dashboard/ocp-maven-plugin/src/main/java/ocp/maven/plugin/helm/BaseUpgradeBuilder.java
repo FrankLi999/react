@@ -2,6 +2,7 @@ package ocp.maven.plugin.helm;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.maven.project.MavenProject;
 
 /**
  * A builder object used to build different Helm upgrade commands
@@ -16,8 +17,8 @@ public abstract class BaseUpgradeBuilder<T> extends BaseBuilder<T> {
 	private List<String> valuesFiles;
 	private Map<String,String> inlineValues;
 	
-	public BaseUpgradeBuilder(String releaseName) {
-		super(releaseName);
+	public BaseUpgradeBuilder(MavenProject project, String releaseName) {
+		super(project, releaseName);
 		builder = getBuilder();
 	}
 	

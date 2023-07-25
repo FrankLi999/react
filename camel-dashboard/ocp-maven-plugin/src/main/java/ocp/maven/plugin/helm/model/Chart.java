@@ -42,6 +42,10 @@ public class Chart {
 	public CommandType getUpgradeType() {
 		if (repository.getUrl() != null) {
 			String r = repository.getUrl().toLowerCase();
+			if (r.contains("build-in://")) {
+				log.debug("Repository type: build in");
+				return CommandType.UPGRADE_FROM_BUILD_IN_REPOSITORY;
+			}
 			if (r.contains("https://") || r.contains("http://")) {
 				log.debug("Repository type: http(s)");
 				return CommandType.UPGRADE_FROM_HTTP_REPOSITORY;
@@ -49,7 +53,7 @@ public class Chart {
 			if (r.contains("oci://")) {
 				log.debug("Repository type: oci");
 				return CommandType.UPGRADE_FROM_OCI_REGISTRY;
-			}
+			}			
 		}
 		
 		if (repository.getName() != null) {

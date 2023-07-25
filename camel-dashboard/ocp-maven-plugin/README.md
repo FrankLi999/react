@@ -59,7 +59,7 @@ A Maven plugin for deploying my-camel applications to OpenShift platforms.
              <releaseName>my-camel-integrator</releaseName>
              <chart>
                  <repository>
-                      <url>./my-camel</url>
+                      <url>build-in://my-camel</url>
                  </repository>
              </chart>
              <namespace>my-camel</namespace>
