@@ -116,6 +116,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.namespace(namespace)
 					.environment(environment)
 					.build()
+					.prepareForExecution()
 					.execute();
 			break;
 		case UPGRADE_FROM_OCI_REGISTRY:
@@ -127,6 +128,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.namespace(namespace)
 					.environment(environment)
 					.build()
+					.prepareForExecution()
 					.execute();
 			break;
 		case UPGRADE_FROM_ADDED_REPOSITORY:
@@ -138,6 +140,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.namespace(namespace)
 					.environment(environment)
 					.build()
+					.prepareForExecution()
 					.execute();
 			break;
 		case UPGRADE_FROM_LOCAL:
@@ -148,6 +151,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.namespace(namespace)
 					.environment(environment)
 					.build()
+					.prepareForExecution()
 					.execute();
 			break;
         case UPGRADE_FROM_BUILD_IN_REPOSITORY:
@@ -158,6 +162,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.namespace(namespace)
 					.environment(environment)
 					.build()
+					.prepareForExecution()
 					.execute();
 			break;			
 		default:
