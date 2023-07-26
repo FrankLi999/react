@@ -22,16 +22,16 @@ public abstract class BaseCommand {
 	}
 	
 	/**
-	 * Generates the Helm command string for the implementing class
+	 * Generates the Kustomize command string for the implementing class
 	 * 
-	 * @return The Helm command string
+	 * @return The Kustomize command string
 	 */
 	abstract String[] createCommand();
 
 	/**
-	 * Adds a common set of flags applicable to all Helm commands
+	 * Adds a common set of flags applicable to all Kustomize commands
 	 * 
-	 * @return The common set of Helm flags
+	 * @return The common set of Kustomize flags
 	 */
 	String[] addCommonFlags() {
 		String flags = "-k ";
@@ -45,9 +45,9 @@ public abstract class BaseCommand {
 	}
 	
 	/**
-	 * Execute the Helm command. Displays all output to the command line and returns a MojoExecutionException for Helm failures.
+	 * Execute the Kustomize command. Displays all output to the command line and returns a MojoExecutionException for Kustomize failures.
 	 * 
-	 * @throws MojoExecutionException An exception is thrown if the Helm command returns non-0
+	 * @throws MojoExecutionException An exception is thrown if the Kustomize command returns non-0
 	 */
 	public void execute() throws MojoExecutionException {
 		try {

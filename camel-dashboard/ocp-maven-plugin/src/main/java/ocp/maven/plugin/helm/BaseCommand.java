@@ -2,6 +2,8 @@ package ocp.maven.plugin.helm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -32,23 +34,22 @@ public abstract class BaseCommand {
 	 * 
 	 * @return The Helm command string
 	 */
-	abstract String createCommand();
+	abstract String[] createCommand();
 	
 	/**
 	 * Adds a common set of flags applicable to all Helm commands
 	 * 
 	 * @return The common set of Helm flags
 	 */
-	String addCommonFlags() {
-		String flags = "";
+	List<String> addCommonFlags() {
+		List<String> flags = new ArrayList<>();
+		flags.add("-k ");
 		
 		if (wait) {
-			flags += "--wait ";
+			// flags += "--wait ";
+			flags.add("wait --for=condition=Ready");
+
 		}
-		if (namespace != null) {
-			flags += String.format("--namespace %s ", namespace);
-		}
-		
 		return flags;
 	}
 	
@@ -59,7 +60,8 @@ public abstract class BaseCommand {
 	 */
 	public void execute() throws MojoExecutionException {
 		try {
-			Process proc = Runtime.getRuntime().exec(createCommand());
+			// Process proc = Runtime.getRuntime().exec(createCommand());
+			Process proc = new ProcessBuilder(createCommand()).start();
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			BufferedReader stderr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 			

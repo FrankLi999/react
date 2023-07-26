@@ -1,6 +1,11 @@
 package ocp.maven.plugin.helm;
 
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.maven.project.MavenProject;
+import ocp.maven.plugin.SystemUtils;
 
 /**
  * The Helm uninstall implementation
@@ -14,11 +19,17 @@ public class UninstallCommand extends BaseCommand {
 	}
 	
 	@Override
-	String createCommand() {
-		String command = String.format("helm uninstall %s ", releaseName);
-		command += addCommonFlags();
+	String[] createCommand() {
+		List<String> command = new ArrayList<>();
+        
+        command.add(Paths.get(project.getBuild().getDirectory(), "ocp", "helm", "bin", SystemUtils.systemSpecificSubDirectory(), "helm").toString());
+        command.add("uninstall");        		
+		command.add(releaseName);
+
+		// String command = String.format("helm uninstall %s ", releaseName);
+		// command += addCommonFlags();
 		
-		return command;
+		return command.toArray(new String[0]);
 	}
 	
 	public static class Builder extends BaseBuilder<Builder> {

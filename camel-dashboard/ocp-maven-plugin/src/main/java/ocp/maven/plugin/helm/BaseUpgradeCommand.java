@@ -1,5 +1,6 @@
 package ocp.maven.plugin.helm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
@@ -56,21 +57,21 @@ public abstract class BaseUpgradeCommand extends BaseCommand {
 	 * 
 	 * @return Common Helm upgrade flags
 	 */
-	String addUpgradeFlags() {
-		String flags = "";
+	List<String> addUpgradeFlags() {
+		List<String> flags = new ArrayList<>();
 		
 		if (valuesFiles != null) {
 			for (String file : valuesFiles) {
-				flags += String.format("--values %s ", file);
+				flags.add(String.format("--values %s ", file));
 			}
 		}
 		if (inlineValues != null) {
 			for (Map.Entry<String,String> entry : inlineValues.entrySet()) {
-				flags += String.format("--set %s=%s ", entry.getKey(), entry.getValue());
+				flags.add(String.format("--set %s=%s ", entry.getKey(), entry.getValue()));
 			}
 		}
 		
-		flags += addCommonFlags();
+		flags.addAll(addCommonFlags());
 		
 		return flags;
 	}
