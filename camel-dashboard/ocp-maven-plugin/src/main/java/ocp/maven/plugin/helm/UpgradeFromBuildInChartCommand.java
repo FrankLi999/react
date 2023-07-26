@@ -29,9 +29,9 @@ public class UpgradeFromBuildInChartCommand extends BaseUpgradeCommand {
 		super.prepareForExecution();
         try {
             String targetDir = this.project.getBuild().getDirectory();
-			String chartDirectory = localPath.substring("build-in://".length());
+			// String chartDirectory = localPath.substring("build-in://".length());
             // copies chart files from the jar file of this maven plugin
-            FileSystemUtils.copyDirectoryFromJar(String.format("/charts/%s", chartDirectory), String.format("%s/ocp/helm", targetDir), 0);
+            FileSystemUtils.copyDirectoryFromJar(String.format("/charts/%s", localPath), Paths.get(targetDir, "ocp", "helm").toString(), 0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class UpgradeFromBuildInChartCommand extends BaseUpgradeCommand {
         command.add("upgrade");
         command.add("--install");				
 		command.add(releaseName);
-        command.add(localPath);
+        command.add(Paths.get(project.getBuild().getDirectory(), "ocp", "helm", "charts", localPath).toString());
 
 		command.addAll(addUpgradeFlags());
 		log.debug("Helm command: " + command);

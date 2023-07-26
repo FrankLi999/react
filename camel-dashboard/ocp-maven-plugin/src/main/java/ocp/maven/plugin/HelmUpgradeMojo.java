@@ -1,5 +1,6 @@
 package ocp.maven.plugin;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +92,8 @@ public class HelmUpgradeMojo extends AbstractMojo {
 		if (valuesFiles == null) {
 			valuesFiles = new ArrayList<>();
 		}
-		String envSpecificValueFile = String.format("%s/ocp/helm/%s-values.yaml", targetDir, environment);
+		// String envSpecificValueFile = String.format("%s/ocp/helm/%s-values.yaml", targetDir, environment);
+		String envSpecificValueFile = Paths.get(targetDir, "ocp", "helm", String.format("%s-values.yaml", environment)).toString();
 		if (!valuesFiles.contains(envSpecificValueFile)) {
 			valuesFiles.add(envSpecificValueFile);
 		}
@@ -155,7 +157,7 @@ public class HelmUpgradeMojo extends AbstractMojo {
 					.execute();
 			break;
         case UPGRADE_FROM_BUILD_IN_REPOSITORY:
-			new UpgradeFromBuildInChartCommand.Builder(project, releaseName, repositoryUrl)
+			new UpgradeFromBuildInChartCommand.Builder(project, releaseName, repositoryUrl.substring("build-in://".length()))
 					.inlineValues(inlineValues)
 					.valuesFiles(valuesFiles)
 					.wait(wait)

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import org.apache.maven.project.MavenProject;
 import ocp.maven.plugin.FileSystemUtils;
 import ocp.maven.plugin.SystemUtils;
@@ -38,15 +42,23 @@ public abstract class BaseUpgradeCommand extends BaseCommand {
 
             String targetDir = this.project.getBuild().getDirectory();
 
-            File destFolder = new File(String.format("%s/ocp", targetDir));
+            File destFolder = new File(Paths.get(targetDir, "ocp", "helm").toString());
             if(destFolder.exists()) {
                 destFolder.delete();
             }
             destFolder.mkdirs();
+			// copy helm values files from the deployed application
+            // FileSystemUtils.copyDirectory(String.format("%s/src/ocp/helm/%s-values.yaml", baseDir, this.environment), String.format("%s/ocp/helm", targetDir));
+			Files.copy(
+				Paths.get(baseDir.getPath(), "src", "ocp", "helm", String.format("%s-values.yaml", this.environment)), 
+				Paths.get(targetDir, "ocp", "helm", String.format("%s-values.yaml", this.environment)), 
+				StandardCopyOption.REPLACE_EXISTING);
+
             // copies executables, helm, from the jar file of this maven plugin 
-            FileSystemUtils.copyDirectoryFromJar(String.format("/bin/%s", SystemUtils.systemSpecificSubDirectory()), String.format("%s/ocp/helm", targetDir), 0);
-            // copy helm values files from the deployed application
-            FileSystemUtils.copyDirectory(String.format("%s/src/ocp/helm/%s-values.yaml", baseDir, this.environment), String.format("%s/ocp/helm", targetDir));
+            FileSystemUtils.copyDirectoryFromJar(
+				String.format("/bin/%s", SystemUtils.systemSpecificSubDirectory()), 
+				Paths.get(targetDir, "ocp", "helm").toString(), 
+				0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

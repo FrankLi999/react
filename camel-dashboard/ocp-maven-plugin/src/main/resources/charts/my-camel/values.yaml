@@ -29,7 +29,7 @@ container:
   actuatorPort: 8443
   targetPort: 8443
   # nodePort:
-  schema: https
+  schema: HTTPS
   liveness:
     path: /actuator/health
     initialDelaySeconds: 180

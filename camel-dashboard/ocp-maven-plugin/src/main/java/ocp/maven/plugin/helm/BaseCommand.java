@@ -43,15 +43,32 @@ public abstract class BaseCommand {
 	 */
 	List<String> addCommonFlags() {
 		List<String> flags = new ArrayList<>();
-		flags.add("-k ");
+		
 		
 		if (wait) {
 			// flags += "--wait ";
-			flags.add("wait --for=condition=Ready");
-
+			flags.add("--wait");	
 		}
+		if (namespace != null) {
+	 		// flags += String.format("--namespace %s ", namespace);
+			flags.add("--namespace");	
+			flags.add(namespace);	
+	 	}
 		return flags;
 	}
+
+	// String addCommonFlags() {
+	// 	String flags = "";
+		
+	// 	if (wait) {
+	// 		flags += "--wait ";
+	// 	}
+	// 	if (namespace != null) {
+	// 		flags += String.format("--namespace %s ", namespace);
+	// 	}
+		
+	// 	return flags;
+	// }
 	
 	/**
 	 * Execute the Helm command. Displays all output to the command line and returns a MojoExecutionException for Helm failures.

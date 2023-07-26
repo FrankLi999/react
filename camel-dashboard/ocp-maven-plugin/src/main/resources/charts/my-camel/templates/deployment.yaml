@@ -68,19 +68,22 @@ spec:
             - name: KEY_STORE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "myCamel.fullname" .}}-secrets
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
                   key: key-store-password
             - name: KEY_STORE_PATH
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "myCamel.fullname" .}}-secrets
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
                   key: key-store
 #            - name: INTEGRATOR_KEY_ALIAS
 #              value: "1"
             - name: INTEGRATOR_KEY_ALIAS
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "myCamel.fullname" .}}-secrets
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
                   key: key-alias
             {{- end}}
           resources:
@@ -89,7 +92,8 @@ spec:
             - name: my-camel-spring-config
               mountPath: "/my/config"
             {{- if eq .Values.route.tls.termination "reencrypt" }}
-            - name: {{ include "myCamel.fullname" .}}-reencrypt-certs
+            # - name: {{ include "myCamel.fullname" .}}-reencrypt-cert
+            - name: my-camel-reencrypt-cert
               mountPath: "/my/security"
             {{- end }}
             {{- with .Values.extraVolumeMounts }}
@@ -105,13 +109,12 @@ spec:
       terminationGracePeriodSeconds: 30
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 12 }}  
-      {{- with .Values.nodeSelector }}
       volumes:
         - name: my-camel-spring-config
           configMap:
             name: {{ include "myCamel.fullname" .}}-spring-config
         {{- if eq .Values.route.tls.termination "reencrypt" }}
-        - name: my-camel-reencrypt-certs
+        - name: my-camel-reencrypt-cert
           secret:
             secretName: my-camel-reencrypt-cert
             defaultMode: 420
@@ -119,6 +122,7 @@ spec:
         {{- with .Values.extraVolumes }}
         {{- tpl . $ | nindent 8 }}
         {{- end }}
+      {{- with .Values.nodeSelector }}  
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
