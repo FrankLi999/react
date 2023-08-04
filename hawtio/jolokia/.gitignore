@@ -1,0 +1,14 @@
+target
+*.iml
+*.ipr
+*.iws
+*~
+/classes/
+.idea
+wiki
+felix
+.settings
+.classpath
+.project
+.gitshots
+test-output
