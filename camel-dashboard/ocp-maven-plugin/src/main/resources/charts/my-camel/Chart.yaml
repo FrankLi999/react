@@ -1,5 +1,0 @@
-apiVersion: v2
-name: my-camel
-description: OCP Helm chart for My Camel Integrators
-type: application
-version: 0.0.1

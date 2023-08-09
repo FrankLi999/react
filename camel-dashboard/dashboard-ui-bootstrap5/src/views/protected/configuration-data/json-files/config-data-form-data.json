@@ -1,0 +1,12 @@
+{
+    "application": "my-camel-integrator",
+    "label": "master",
+    "profile": "default",
+    "props": [
+      {
+        "propKey": "key",
+        "propValue": "value"
+      }
+    ]
+  }
+  

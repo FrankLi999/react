@@ -1,7 +1,7 @@
 import React from "react";
 import { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
-// import Form from "@rjsf/core";
+// import Form from "@rjsf/bootstrap-4";
 import Form from "../../../components/bootstrap5/Form";
 // import schemaForm from './jsonFiles/schema.json';
 // import formData from './jsonFiles/formData.json';

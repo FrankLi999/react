@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Builder
-@Table("MY_CONFIG_DATA")
+@Table("APP_PROPERTIES")
 public class ConfigDataEntity {
     // @Id
     // private Long id;

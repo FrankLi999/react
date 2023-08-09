@@ -1,40 +1,108 @@
-
+# Adding SameSite=Strict for session cookie is recommended
+server:
+  port: 8080
+  shutdown: graceful
+  servlet.session.cookie.same-site: strict
 spring:
+  application:
+    name: camel-dashboard
   profiles.active: jdbc
+  jmx.enabled: true
   # sql.init.platform: h2    
   datasource:
-    url: jdbc:h2:mem:configdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: sa
-
-    # platform: postgresql
-    # driver-class-name: org.postgresql.Driver
-    # url: jdbc:postgresql://spostgresql:5432/camel-config?sslmode=require
-    # username: postgresql
-    # password: 123456
+    # url: jdbc:h2:mem:configdb
+    # driver-class-name: org.h2.Driver
+    # username: sa
+    # password: sa
+    platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
 
     hikari:
       connection-timeout: 5000
       maximum-pool-size: 10
-  cloud:
-    config:
-      server:
-        jdbc:
-          sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
-          order: 1
+  # cloud:
+  #   config:
+  #     server:
+  #       jdbc:
+  #         sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+  #         order: 1
   r2dbc:
-    url: r2dbc:h2:mem:configdb
-    username: 'sa'
-    password: 'sa'
-  # r2dbc:
-  #   url: jdbc:postgresql://spostgresql:5432/camel-config?sslmode=require
-    # username: postgresql
-    # password: 123456
-  h2.console:
-    # Required for h2-console server
-    enabled: true
-    # Optional variable /h2-console forward from the path to session created h2 console server uri
-    path: /h2-console
-    # Optional h2 console port if not set or set 0, available port is given
-    port: 8082
+    # url: r2dbc:h2:mem:configdb
+    # username: 'sa'
+    # password: 'sa'
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+  # h2.console:
+  #   # Required for h2-console server
+  #   enabled: true
+  #   # Optional variable /h2-console forward from the path to session created h2 console server uri
+  #   path: /h2-console
+  #   # Optional h2 console port if not set or set 0, available port is given
+  #   port: 8082
+management:
+  endpoints.web.exposure.include: health, info,hawtio,jolokia
+  # Information for Spring Boot Info endpoint
+  info:
+    env.enabled: true
+    java.enabled: true
+    app.name: ${spring.application.name}
+
+logging.level:
+  com.example: DEBUG
+  io.hawt: INFO
+  org.springframework: WARN
+
+camel:
+  springboot.name: ${spring.application.name}
+
+# Uncomment these properties to enable the Camel plugin Trace tab
+#camel.springboot.tracing=true
+#camel.springboot.backlog-tracing=true
+#camel.springboot.use-breadcrumb=true
+
+hawtio:
+  authenticationEnabled: false
+  http:
+    enableCORS: true
+    proxyAllowlist: "*"
+#
+# Hawtio properties to change the behaviours for HTTP headers
+# (Hawtio version >2.15.1)
+#
+
+# By default, Access-Control-Allow-Origin is no more sent.
+# To send the HTTP header, uncomment the following line.
+#hawtio.http.enableCORS=true
+
+# When hawtio.http.enableCORS=true is set, Hawtio by default sends:
+#
+#   Access-Control-Allow-Origin: *
+#
+# You can customise the header value with the following property.
+#hawtio.http.accessControlAllowOrigin=https://example.com
+
+# By default, Hawtio sends the following HTTP headers:
+#
+#   X-Frame-Options: DENY
+#   Content-Security-Policy: frame-ancestors 'none'
+#
+# By uncommenting the following line, these headers are changed like these
+# (the behaviour in 2.15.1 and before):
+#
+#   X-Frame-Options: SAMEORIGIN
+#   Content-Security-Policy: frame-ancestors 'self'
+#
+#hawtio.http.allowXFrameSameOrigin=true
+
+# By default, Hawtio sends the following HTTP header:
+#
+#   Referrer-Policy: strict-origin
+#
+# You can customise the header by setting the following property.
+#hawtio.http.referrerPolicy=no-referrer
+
+

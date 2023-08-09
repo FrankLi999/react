@@ -1,7 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: integrator-env
-  # namespace: my-sandbox
-data:
-  SPRING_PROFILES_ACTIVE: sandbox

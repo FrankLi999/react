@@ -1,4 +1,0 @@
-- op: replace
-  path: /data
-  value:
-    SPRING_PROFILES_ACTIVE: dev

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
+		<version>2.7.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -18,35 +18,96 @@
         <spring-cloud.version>2022.0.3</spring-cloud.version>
 		<node.version>v18.16.0</node.version>
         <npm.version>9.5.1</npm.version>
+		<hawtio.version>3.0-SNAPSHOT</hawtio.version>
+		<spring-cloud.version>2021.0.8</spring-cloud.version>
+		<camel-version>3.21.0</camel-version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 	</properties>
     <dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
+    <dependencies>
+	  <dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-dependencies</artifactId>
+		<version>${spring-cloud.version}</version>
+		<type>pom</type>
+		<scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-spring-boot-bom</artifactId>
+        <version>${camel-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.hawt</groupId>
+        <artifactId>hawtio-bom</artifactId>
+        <version>${hawtio.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 	<dependencies>
 	    <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+        <!-- Hawtio -->
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-springboot</artifactId>
+		</dependency>
+		<!--
+		Include hawtio-log-logback if you want to use Logs plugin with Spring Boot.
+		Currently only Logback is supported.
+		-->
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-log-logback</artifactId>
+		</dependency>
 
+		<!-- Camel -->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+		</dependency>
+		<!--
+		This dependency is mandatory for enabling Camel management
+		via JMX / Hawtio.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-management-starter</artifactId>
+		</dependency>
+		<!--
+		This dependency is required for viewing Camel routes source XML.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-xml</artifactId>
+		</dependency>
+		<!--
+		To enable Camel plugin debugging feature, add this dependency.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-debug-starter</artifactId>
+		</dependency>
 		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>	
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -60,6 +121,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>r2dbc-postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!--
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -75,6 +147,7 @@
 			<artifactId>spring-boot-webflux-h2-console</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -86,25 +159,38 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		-->
 	</dependencies>
 
 	<build>
 		<plugins>
+		    <!--
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
 			</plugin>
+			-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+				    <execution>
+					    <goals>
+						    <goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
+				    <!--
+				    <layers>
+					    <enabled>true</enabled>
+						<configuration>${project.basedir}/src/docker/layers.xml</configuration>
+					</layers>
+					-->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -112,7 +198,9 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin><plugin>
+			</plugin>
+			<!--
+			<plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
@@ -132,7 +220,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>			
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -183,6 +271,7 @@
                     </execution>
                 </executions>
             </plugin>
+			-->
 		</plugins>
 	</build>
 
