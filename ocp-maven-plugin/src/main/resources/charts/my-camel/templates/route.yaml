@@ -1,0 +1,51 @@
+{{- if .Values.route.enabled -}}
+  {{- $fullName := include "myCamel.fullname" . -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ include "myCamel.fullname" . }}
+    {{- include "myCamel.labels" . | nindent 4 }}
+  {{- with .Values.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  host: {{ .Values.route.host }}
+  to:
+    kind: Service
+    name: {{ $fullName }}
+    weight: 100
+  port:
+    targetPort: my-tcp
+  {{- if .Values.route.tls }}
+  tls:
+    termination: {{ .Values.route.tls.termination }}
+    insecureEdgeTerminationPolicy: Redirect
+    {{ if eq .Values.route.tls.termination "reencrypt" }}
+    destinationCACertificate: |
+      -----BEGIN CERTIFICATE-----
+      MIIDRDCCAiygAwIBAgIQOa8SkF7Q0q6eZEbwYKt4UTANBgkqhkiG9w0BAQsFADAn
+      MSUwIwYDVQQDExxzMmktaW50ZWdyYXRvci1zZWxmc2lnbmVkLWNhMB4XDTIzMDUz
+      MTEyNDY0NFoXDTIzMDgyOTEyNDY0NFowJzElMCMGA1UEAxMcczJpLWludGVncmF0
+      b3Itc2VsZnNpZ25lZC1jYTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+      AMzhqljRsyFZhvapNgAhEnpJSme+Gc/z8nPGgXd3JxUphcSU2OqSch5rbtBz4c9X
+      RiaIgpX9+hPDJtIeNONcp0j9/6FD4Y5eneCyOIT6CD4Kg55iZYNZm2igb5UpESeB
+      3ggSI1NlKCFfQ8hzBRvpwBACc+oErTYn/Rqu1zmGmtf4N/8vY28cK669tN5L6CbM
+      wkPNOG3kaFTn9io6lX5FHOxizqbPtLjy66zA2aDpaEjHpWreh+KXNI6ucN0m0x6j
+      kXH+NuwX9fOmS5jhakywGnsOMNICVSm31eR4vBN/WdKyCUNI1Wo/5cKI5NTr4dlE
+      qPREZRUqWD9ONZWigtoj3K0CAwEAAaNsMGowDgYDVR0PAQH/BAQDAgKkMA8GA1Ud
+      EwEB/wQFMAMBAf8wHQYDVR0OBBYEFNmOQJpATlB5JZimSTFx0SqlDm1tMCgGA1Ud
+      EQQhMB+CHXMyaS1zYW5kYm94LnN2Yy5jbHVzdGVyLmxvY2FsMA0GCSqGSIb3DQEB
+      CwUAA4IBAQAPFf2fyRQIinonQi6prxmdZACyQ+4TyTASsS9FQvlobJ6kLJ8nTu5d
+      AQ0iN0r7u55YscrVGDCXi44ZRrgWoydPVltG7yj0ixEIWXYuea3buxQ2uvECbTsX
+      O4C0ZUQtsBQIOy0wb3lBP9ltF/RBtjxVrGx9hz8pffcdF5hIqRq47R8pXjowWQA2
+      FFYYrF9/seQiqs7gNWazdEP0lVaczA7/C4fsQypsOLEuAXTMDDcWfzWtEOSD7XAM
+      GVms0uob8WnTI2+gLkMnAKMVBgdH7rDxH4sfZytT4Uzk48SruTXZKeA+Y1fLz0CW
+      qelmyH6xQWbMQNJHa5uL6YnXkeyR4aef
+      -----END CERTIFICATE-----
+    {{- end}}
+  {{- end }}
+  wildcardPolicy: None
+  {{- end }}

@@ -1,0 +1,142 @@
+#
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "myCamel.fullname" . }}
+  labels:
+    app: {{ include "myCamel.fullname" . }}
+    {{- include "myCamel.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.hpa.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
+  selector:
+    matchLabels:
+      app: {{ include "myCamel.fullname" . }}
+      {{- include "myCamel.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "myCamel.fullname" . }}
+        deployment: {{ include "myCamel.fullname" . }}
+        {{- include "myCamel.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "myCamel.fullname" . }}
+          image: "{{ .Values.image.registry | trim }}/{{ .Values.image.name | trim }}:{{ .Values.image.tag | trim }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.container.liveness.path }}
+              port: {{ .Values.container.actuatorPort }}
+              scheme: {{ .Values.container.schema }}
+            initialDelaySeconds: {{ .Values.container.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.container.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.container.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.container.liveness.failureThreshold }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.container.readiness.path }}
+              port: {{ .Values.container.actuatorPort }}
+              scheme: {{ .Values.container.schema }}
+            initialDelaySeconds: {{ .Values.container.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.container.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.container.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.container.readiness.failureThreshold }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "myCamel.fullname" .}}-env
+                  key:
+                    SPRING_PROFILES_ACTIVE
+            {{- if eq .Values.route.tls.termination "reencrypt" }}
+            - name: KEY_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
+                  key: key-store-password
+            - name: KEY_STORE_PATH
+              valueFrom:
+                secretKeyRef:
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
+                  key: key-store
+#            - name: INTEGRATOR_KEY_ALIAS
+#              value: "1"
+            - name: INTEGRATOR_KEY_ALIAS
+              valueFrom:
+                secretKeyRef:
+                  # name: {{ include "myCamel.fullname" .}}-secrets
+                  name: my-camel--secrets
+                  key: key-alias
+            {{- end}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: my-camel-spring-config
+              mountPath: "/my/config"
+            {{- if eq .Values.route.tls.termination "reencrypt" }}
+            # - name: {{ include "myCamel.fullname" .}}-reencrypt-cert
+            - name: my-camel-reencrypt-cert
+              mountPath: "/my/security"
+            {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- tpl . $ | nindent 12 }}
+            {{- end }}
+          # serviceAccountName: {{ include "myCamel.serviceAccountName" . }}
+          
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 12 }}  
+      volumes:
+        - name: my-camel-spring-config
+          configMap:
+            name: {{ include "myCamel.fullname" .}}-spring-config
+        {{- if eq .Values.route.tls.termination "reencrypt" }}
+        - name: my-camel-reencrypt-cert
+          secret:
+            secretName: my-camel-reencrypt-cert
+            defaultMode: 420
+        {{- end }}
+        {{- with .Values.extraVolumes }}
+        {{- tpl . $ | nindent 8 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}  
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+#  strategy:
+#    #    rollingUpdate:
+#    #      maxSurge: 1
+#    #      maxUnavailable: 1
+#    type: RollingUpdate
+#  progressDeadlineSeconds: 600

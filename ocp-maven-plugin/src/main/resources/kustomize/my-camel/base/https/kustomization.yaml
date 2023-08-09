@@ -1,0 +1,26 @@
+# oc kustomize base/https -o https-deployment.yaml
+# oc apply -k  $(System.ArtifactsDirectory)/my-camel-integrator/src/ocp/kustomize/base/https
+# oc apply -k  base/https
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patches:
+- target:
+    group: "apps"
+    version: v1
+    kind: Deployment
+    name: integrator
+  path: deployment-patch.yaml   
+- target:
+    group: "route.openshift.io"
+    version: v1
+    kind: Route
+    name: integrator
+  path: route-patch.yaml 
+- target:
+    group: "" # or core
+    version: v1
+    kind: Service
+    name: integrator
+  path: service-patch.yaml
+resources:
+- ../http
