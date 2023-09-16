@@ -1,10 +1,12 @@
 const path = require('path')
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+const { ModuleFederationPlugin } = require('webpack').container
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const CracoEsbuildPlugin = require('craco-esbuild')
 const { dependencies } = require('./package.json')
 const { hawtioBackend } = require('@hawtio/backend-middleware')
 
 module.exports = {
+  plugins: [{ plugin: CracoEsbuildPlugin }],
   webpack: {
     alias: {
       // Required when doing `yarn link`
@@ -46,6 +48,14 @@ module.exports = {
 
       // For suppressing sourcemap warnings coming from some dependencies
       webpackConfig.ignoreWarnings = [/Failed to parse source map/]
+
+      webpackConfig.resolve = {
+        ...webpackConfig.resolve,
+        fallback: {
+          path: require.resolve('path-browserify'),
+          os: require.resolve('os-browserify'),
+        },
+      }
 
       // Tweak ModuleScopePlugin for allowing aliases outside of src
       const moduleScopePlugin = webpackConfig.resolve.plugins.find(p => p.constructor.name === 'ModuleScopePlugin')

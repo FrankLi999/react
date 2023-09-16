@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Bean;
  * Autoconfiguration for Hawtio Log.
  */
 @AutoConfiguration
-// @ConditionalOnClass(LogQuerySupport.class)
+@ConditionalOnClass(LogQuerySupport.class)
 public class HawtioLogAutoConfiguration {
 
     @Bean
-    // @ConditionalOnMissingBean
-    // @ConditionalOnClass(LogbackLogQuery.class)
+    @ConditionalOnMissingBean
+    @ConditionalOnClass(LogbackLogQuery.class)
     public LogbackLogQuery logbackLogQuery() {
         LogbackLogQuery logQuery = new LogbackLogQuery();
         logQuery.start();

@@ -2,10 +2,10 @@ package io.hawt.quarkus.auth;
 
 import java.util.Arrays;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.security.auth.Subject;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import io.hawt.system.AuthenticateResult;
 import io.hawt.util.Strings;

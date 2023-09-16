@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Auth>
-      <RouterProvider router={routes} />
-    </Auth>
+    <Auth>      
+      <RouterProvider router={routes} />      
+    </Auth>    
   </React.StrictMode>
 );
 

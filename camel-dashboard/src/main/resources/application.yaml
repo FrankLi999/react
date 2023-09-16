@@ -6,7 +6,9 @@ server:
 spring:
   application:
     name: camel-dashboard
-  profiles.active: jdbc
+  profiles.active: 
+    - jdbc
+    - ${SPRING_PROFILES_ACTIVE:local}
   jmx.enabled: true
   # sql.init.platform: h2    
   datasource:
@@ -19,16 +21,19 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 123456
-
     hikari:
       connection-timeout: 5000
       maximum-pool-size: 10
-  # cloud:
-  #   config:
-  #     server:
-  #       jdbc:
-  #         sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
-  #         order: 1
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1
+  security:
+    user:
+      name: s2i
+      password: s2i  
   r2dbc:
     # url: r2dbc:h2:mem:configdb
     # username: 'sa'
@@ -44,12 +49,20 @@ spring:
   #   # Optional h2 console port if not set or set 0, available port is given
   #   port: 8082
 management:
-  endpoints.web.exposure.include: health, info,hawtio,jolokia
+  endpoints:
+    health:
+      enabled: true
+      show-details: always
+      # expose liveness/readiness probes
+      probes:
+        enabled: true
+    web.exposure.include: health, info,hawtio,jolokia
   # Information for Spring Boot Info endpoint
   info:
     env.enabled: true
     java.enabled: true
     app.name: ${spring.application.name}
+  server.port: ${server.port}
 
 logging.level:
   com.example: DEBUG

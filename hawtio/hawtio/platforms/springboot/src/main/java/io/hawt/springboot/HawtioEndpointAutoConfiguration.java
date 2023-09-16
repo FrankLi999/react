@@ -21,7 +21,7 @@ import org.springframework.context.annotation.PropertySource;
  * Autoconfiguration for Hawtio on Spring Boot.
  */
 @Configuration
-// @ConditionalOnWebApplication
+@ConditionalOnWebApplication
 @PropertySource("classpath:/io/hawt/springboot/application.properties")
 @EnableConfigurationProperties
 public class HawtioEndpointAutoConfiguration {
@@ -41,7 +41,6 @@ public class HawtioEndpointAutoConfiguration {
         ServerProperties serverProperties,
         ManagementServerProperties managementServerProperties,
         DispatcherServletPath dispatcherServletPath) {
-            
         return new EndpointPathResolver(webEndpointProperties, serverProperties, managementServerProperties, dispatcherServletPath);
     }
 
@@ -56,7 +55,6 @@ public class HawtioEndpointAutoConfiguration {
     @ConditionalOnBean(HawtioConfigurationProperties.class)
     public HawtioProperties hawtioProperties(HawtioConfigurationProperties hawtioConfigurationProperties) {
         return new HawtioProperties(hawtioConfigurationProperties.getHawtio());
-
     }
 
     private static class HawtioConfigurationProperties {

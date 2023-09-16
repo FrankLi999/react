@@ -161,10 +161,10 @@ public class HawtioProcessor {
                     for (String urlPattern : filterMappings.getUrlPatterns()) {
                         if (filterMappings.getDispatchers() != null) {
                             for (DispatcherType dispatcher : filterMappings.getDispatchers()) {
-                                builder.addFilterUrlMapping(DEFAULT_CONTEXT_PATH + urlPattern, jakarta.servlet.DispatcherType.valueOf(dispatcher.name()));
+                                builder.addFilterUrlMapping(DEFAULT_CONTEXT_PATH + urlPattern, javax.servlet.DispatcherType.valueOf(dispatcher.name()));
                             }
                         } else {
-                            builder.addFilterUrlMapping(DEFAULT_CONTEXT_PATH + urlPattern, jakarta.servlet.DispatcherType.REQUEST);
+                            builder.addFilterUrlMapping(DEFAULT_CONTEXT_PATH + urlPattern, javax.servlet.DispatcherType.REQUEST);
                         }
                     }
                 });
@@ -176,7 +176,7 @@ public class HawtioProcessor {
         // Quarkus path filter
         // This filter must be placed at the end of filter chain
         FilterBuildItem pathHandler = FilterBuildItem.builder("PathFilter", HawtioQuarkusPathFilter.class.getName())
-            .addFilterUrlMapping(DEFAULT_CONTEXT_PATH + "/*", jakarta.servlet.DispatcherType.REQUEST)
+            .addFilterUrlMapping(DEFAULT_CONTEXT_PATH + "/*", javax.servlet.DispatcherType.REQUEST)
             .build();
         filter.produce(pathHandler);
 

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A {@link jakarta.servlet.ServletContextListener} which initialises key hawtio services in the webapp
+ * A {@link javax.servlet.ServletContextListener} which initialises key hawtio services in the webapp
  */
 public class HawtioContextListener implements ServletContextListener {
 

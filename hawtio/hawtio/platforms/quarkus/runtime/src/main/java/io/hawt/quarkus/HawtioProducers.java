@@ -2,8 +2,8 @@ package io.hawt.quarkus;
 
 import io.hawt.web.auth.Redirector;
 
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Singleton;
+import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
 @Singleton
 public class HawtioProducers {
