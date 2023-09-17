@@ -36,7 +36,12 @@ public class ConfigDataService {
         // return this.configDataRepository.findAll().groupBy(this::getKey).map(g -> g.collectList().map(this::toConfigData)).flatMap(c -> c).sort();
     }
 
-    // TODO: exception handling
+    @Transactional
+    public Mono<Void> updateApplications(final List<ConfigData> configData) {
+        List<ConfigDataEntity> configDateEntries = configData.stream().flatMap(config -> config.getProps().stream().map(prop -> createConfigDataEntity(config, prop))).collect(Collectors.toUnmodifiableList());
+        return Flux.fromIterable(configDateEntries).flatMap(e -> this.configDataRepository.updatePropertyValue(e.getApplication(), e.getProfile(), e.getLabel(), e.getPropKey(), e.getPropValue())).then();
+    }
+
     @Transactional
     public Mono<Void> deletePropertyValues(final ConfigData config) {
         List<ConfigDataEntity> configDateEntries = config.getProps().stream().map(prop -> createConfigDataEntity(config, prop)).collect(Collectors.toUnmodifiableList());

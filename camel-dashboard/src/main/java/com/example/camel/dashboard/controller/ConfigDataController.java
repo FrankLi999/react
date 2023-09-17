@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,16 +25,22 @@ public class ConfigDataController {
     @Autowired
     private ConfigDataService configDataService;
     
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Flux<ConfigData> findAll() {
+        return configDataService.findAll();
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> post(@RequestBody List<ConfigData> configData) {
         return configDataService.createAll(configData);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public Flux<ConfigData> findAll() {
-        return configDataService.findAll();
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Void> update(@RequestBody List<ConfigData> configData) {
+        return configDataService.updateApplications(configData);
     }
 
     @DeleteMapping(path ="/prop-values", consumes = MediaType.APPLICATION_JSON_VALUE)
