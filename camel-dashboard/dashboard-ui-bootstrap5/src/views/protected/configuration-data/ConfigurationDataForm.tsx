@@ -61,7 +61,7 @@ async function submitData(data: any) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'accept': 'text/html' },
-            body: JSON.stringify(data.formData),
+            body: JSON.stringify([data.formData]),
         };
         await fetch("/api/config-data", requestOptions);
     } catch (err) {
