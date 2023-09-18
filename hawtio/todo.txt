@@ -66,4 +66,15 @@
 		io/hawt/springboot
 		application.properties
 		
-	
+	===========================================================
+
+    add connect:
+        path: /actuator/hawtio/jolokia
+
+
+    connected dashboard url:
+         /actuator/hawtio/jmx?con=...
+
+         instead of    
+
+         /actuator/hawtio?con=...
