@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 // @Jacksonized
 public class ConfigurationProperty {
+   private Long id;
    private String propKey; 
    private String propValue;
 }

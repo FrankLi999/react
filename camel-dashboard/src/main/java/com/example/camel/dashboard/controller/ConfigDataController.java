@@ -37,21 +37,9 @@ public class ConfigDataController {
         return configDataService.createAll(configData);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> update(@RequestBody List<ConfigData> configData) {
-        return configDataService.updateApplications(configData);
-    }
-
-    @DeleteMapping(path ="/prop-values", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> deletePropertyValues(@RequestBody ConfigData configData) {
-        return configDataService.deletePropertyValues(configData);
-    }
-
-    @DeleteMapping(path ="/applications", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> deleteApplications(@RequestBody List<ConfigData> configData) {
-        return configDataService.deleteApplicationProfiles(configData);
+        return configDataService.deleteByIds(configData);
     }
 }
