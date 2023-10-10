@@ -79,7 +79,7 @@ public class ConfigDataService {
             return null;
         }
         ConfigDataEntity entity = entities.get(0);
-        return ConfigData.builder().application(entity.getApplication()).profile(entity.getProfile()).label(entity.getLabel()).props(entities.stream().map(this::toConfigurationProperty).collect(Collectors.toList())).build();
+        return ConfigData.builder().key(String.format("%s,%s", entity.getApplication(), entity.getProfile())).application(entity.getApplication()).profile(entity.getProfile()).label(entity.getLabel()).props(entities.stream().map(this::toConfigurationProperty).collect(Collectors.toList())).build();
     }
 
     private Sort orderByApplicationProfileAndLabel() {

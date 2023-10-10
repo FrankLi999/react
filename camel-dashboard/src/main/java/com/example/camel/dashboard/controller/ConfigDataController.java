@@ -20,7 +20,7 @@ import com.example.camel.dashboard.entity.ConfigDataEntity;
 import com.example.camel.dashboard.service.ConfigDataService;
 
 @RestController
-@RequestMapping("/api/config-data")
+@RequestMapping("/api/configurations")
 public class ConfigDataController {
     @Autowired
     private ConfigDataService configDataService;

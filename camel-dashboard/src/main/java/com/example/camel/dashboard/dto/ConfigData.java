@@ -10,6 +10,7 @@ import lombok.Data;
 @Builder
 //@Jacksonized
 public class ConfigData implements Comparable<ConfigData> {
+    private String key;
     private String application;
     private String profile;
     private String label;

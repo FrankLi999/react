@@ -63,7 +63,7 @@ async function submitData(data: any) {
             headers: { 'Content-Type': 'application/json', 'accept': 'text/html' },
             body: JSON.stringify([data.formData]),
         };
-        await fetch("/api/config-data", requestOptions);
+        await fetch("/api/configurations", requestOptions);
     } catch (err) {
         console.log(err);
     }

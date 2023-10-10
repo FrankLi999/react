@@ -5,6 +5,8 @@ import AuthGuard from "./views/protected/AuthGuard";
 import Error404 from "./views/error/Error404";
 import { lazy } from "react";
 const ConfigurationDataForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataForm"));
+const Configurations = lazy(() => import("./views/protected/configuration-data/Configurations"));
+const ConfigurationAppDetails = lazy(() => import("./views/protected/configuration-data/ConfigurationAppDetails"));
 const RefreshConfiguration = lazy(() => import("./views/protected/configuration-data/RefreshConfiguration"));
 const Login = lazy(() => import("./views/public/Login"));
 const LockScreen = lazy(() => import("./views/public/LockScreen"));
@@ -16,6 +18,14 @@ var routes = createHashRouter([
         element: <AuthGuard />,
         children: [{
             path: "/integrator/configuration-data",
+            element: <Configurations/>
+        },
+        {
+            path: "/integrator/configuration-app-details",
+            element: <ConfigurationAppDetails/>
+        },
+        {
+            path: "/integrator/configuration-form",
             element: <ConfigurationDataForm/>
         },
         {
