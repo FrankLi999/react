@@ -65,7 +65,17 @@
 		
 		io/hawt/springboot
 		application.properties
-		
+
+
+6. hawt-war 
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>${servlet-api-version}</version>
+      <scope>provided</scope>
+    </dependency>
+     
+
 	===========================================================
 
     add connect:
