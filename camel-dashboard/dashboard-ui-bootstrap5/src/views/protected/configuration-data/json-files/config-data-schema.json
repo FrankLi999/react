@@ -15,12 +15,6 @@
       "profile": {
         "type": "string",
         "title": "Spring Profile",
-        "enum": [
-          "default",
-          "sandbox",
-          "qa",
-          "prod"
-        ],
         "default": "default"
       },
       "label": {
@@ -35,6 +29,9 @@
           "uniqueItems": true,
           "minItems": 1,
           "properties": {
+            "id": {
+              "type": "number"
+            },
             "propKey": {
               "type": "string"
             },

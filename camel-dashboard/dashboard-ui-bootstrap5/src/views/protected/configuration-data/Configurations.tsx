@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { ConfigurationModel } from "./ConfigurationModel";
@@ -6,9 +8,37 @@ import SimpleCard from "../../../components/card/SimpleCard";
 
 
 function Configurations() {
+    const navigate = useNavigate(); 
+  
     const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
-
+    const detailsLink = (cell, row, rowIndex, formatExtraData) => {
+      return (
+        <>
+        <Button
+          onClick={() => {
+            editAppConfiurationDetails(row);
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          onClick={() => {
+            showAppConfiurationDetails(row);
+          }}
+        >
+          Config
+        </Button>
+        </>
+      );
+      
+    };
+    const editAppConfiurationDetails = (row: ConfigurationModel) => {
+      navigate("/integrator/configuration-form", {state: {...row}})
+    }
+    const showAppConfiurationDetails = (row: ConfigurationModel) => {
+      navigate("/integrator/configuration-app-details", {state: {...row}}) 
+    }
     const configurationTableColumns = [
       {
         dataField: "application",
@@ -33,7 +63,9 @@ function Configurations() {
         text: "Details",
         sort: false,
         isDummyField: true,
-        editable: false
+        editable: false,
+        formatter: detailsLink,
+
       }
     ];
     
@@ -75,6 +107,10 @@ function Configurations() {
         })
     }, []);
     
+    
+
+    
+
     if (loading) {
       return <p>Loading...</p>;
     } else {

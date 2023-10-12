@@ -11,7 +11,7 @@ function RefreshConfiguration() {
         <>
             <Container>
                 <Row className="justify-content-center">
-                    <Col lg="5" md="8">
+                    <Col lg="10" md="8">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h4" className="text-center font-weight-light my-4">Refresh Configuration Data</Card.Title>
