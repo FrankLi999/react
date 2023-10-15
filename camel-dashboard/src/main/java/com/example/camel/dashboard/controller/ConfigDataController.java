@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.example.camel.dashboard.dto.ConfigData;
+import com.example.camel.dashboard.dto.ApplicationProfile;
 import com.example.camel.dashboard.entity.ConfigDataEntity;
 import com.example.camel.dashboard.service.ConfigDataService;
 
@@ -37,9 +38,15 @@ public class ConfigDataController {
         return configDataService.createAll(configData);
     }
 
-    @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> deleteApplications(@RequestBody List<ConfigData> configData) {
-        return configDataService.deleteByIds(configData);
+    public Mono<Void> put(@RequestBody List<ConfigData> configData) {
+        return configDataService.recreateAll(configData);
+    }
+
+    @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Flux<ConfigData> deleteApplicationProfiles(@RequestBody List<ApplicationProfile> applicationProfiles) {
+        return configDataService.deleteApplicationProfiles(applicationProfiles);
     }
 }

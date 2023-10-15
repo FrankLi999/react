@@ -5,7 +5,8 @@ import AuthGuard from "./views/protected/AuthGuard";
 import Error404 from "./views/error/Error404";
 import { lazy } from "react";
 import { ConfigurationModel } from "./views/protected/configuration-data/ConfigurationModel";
-const ConfigurationDataForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataForm"));
+const ConfigurationDataEditForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataEditForm"));
+const ConfigurationDataCreateForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataCreateForm"));
 const Configurations = lazy(() => import("./views/protected/configuration-data/Configurations"));
 const ConfigurationAppDetails = lazy(() => import("./views/protected/configuration-data/ConfigurationAppDetails"));
 const RefreshConfiguration = lazy(() => import("./views/protected/configuration-data/RefreshConfiguration"));
@@ -26,8 +27,12 @@ var routes = createHashRouter([
             element:<ConfigurationAppDetails/>
         },
         {
-            path: "/integrator/configuration-form",
-            element: <ConfigurationDataForm/>
+            path: "/integrator/configuration-form-edit",
+            element: <ConfigurationDataEditForm/>
+        },
+        {
+            path: "/integrator/configuration-form-create",
+            element: <ConfigurationDataCreateForm/>
         },
         {
             path: "/integrator/refresh-configuration",

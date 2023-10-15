@@ -24,9 +24,9 @@ public interface ConfigDataRepository extends ReactiveCrudRepository<ConfigDataE
     // @Query("DELETE FROM APP_PROPERTIES WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey")
     // Mono<Void> deletePropertyValue(String application, String profile, String label, String propKey);
 
-    // @Modifying
-    // @Query("DELETE FROM APP_PROPERTIES WHERE application = :application and profile = :profile")
-    // Mono<Void> deleteApplicationProfile(String application, String profile);
+    @Modifying
+    @Query("DELETE FROM APP_PROPERTIES WHERE application = :application and profile = :profile")
+    Mono<Void> deleteApplicationProfile(String application, String profile);
 
     // @Modifying
     // @Query("UPDATE APP_PROPERTIES SET PROP_VALUE = :propValue WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey")

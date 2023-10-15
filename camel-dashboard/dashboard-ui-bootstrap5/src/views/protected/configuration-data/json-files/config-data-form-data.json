@@ -4,6 +4,7 @@
     "profile": "default",
     "props": [
       {
+        "id": 1,
         "propKey": "key",
         "propValue": "value"
       }

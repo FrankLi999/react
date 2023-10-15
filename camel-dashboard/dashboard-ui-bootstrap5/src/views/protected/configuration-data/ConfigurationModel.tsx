@@ -7,7 +7,6 @@ export interface ConfigurationModel {
 }
 
 export interface ConfigurationProperty {
-    id: number;
     propKey: string;
     propValue: string;
 }

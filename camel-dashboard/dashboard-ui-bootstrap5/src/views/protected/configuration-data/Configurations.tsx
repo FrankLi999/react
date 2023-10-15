@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { Container, Card, Col, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { ConfigurationModel } from "./ConfigurationModel";
-import SimpleCard from "../../../components/card/SimpleCard";
-
-
+import DeleteConfirmation from "./DeleteConfirmation";
 function Configurations() {
     const navigate = useNavigate(); 
-  
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [deleteRow, setDeleteRow] = useState<ConfigurationModel|null>(null);
     const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
+    const hideConfirmationModal = () => {
+      setDisplayConfirmationModal(false);
+    };
     const detailsLink = (cell, row, rowIndex, formatExtraData) => {
       return (
         <>
@@ -29,15 +32,52 @@ function Configurations() {
         >
           Config
         </Button>
+        <Button
+          onClick={() => {
+            showDeleteModal(row);
+          }}
+        >
+          Delete
+        </Button>
         </>
       );
       
     };
+    const addAppConfiurationDetails = () => {
+      navigate("/integrator/configuration-form-create")
+    }
     const editAppConfiurationDetails = (row: ConfigurationModel) => {
-      navigate("/integrator/configuration-form", {state: {...row}})
+      navigate("/integrator/configuration-form-edit", {state: {...row}})
     }
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
       navigate("/integrator/configuration-app-details", {state: {...row}}) 
+    }
+    
+    const showDeleteModal = (row: ConfigurationModel) => {
+      setDeleteRow(row);
+      setDisplayConfirmationModal(true);
+    }
+
+    async function deleteAppConfiurationDetails(row: ConfigurationModel) {
+      console.log('delete app profile', row)
+      try {
+          const requestOptions = {
+              method: 'DELETE',
+              headers: { 'Content-Type': 'application/json', 'accept': '*/*' },
+              body: JSON.stringify([{application: row.application, profile: row.profile}]),
+          };
+          setLoading(true);
+          await fetch("/api/configurations", requestOptions)
+                    .then(response => response.json())
+                    .then((data: ConfigurationModel[]) => {
+                      setconfigurations(data);
+                      setLoading(false);
+                      setDisplayConfirmationModal(false);
+                    });
+          console.log("deleted");
+      } catch (err) {
+          console.log(err);
+      }
     }
     const configurationTableColumns = [
       {
@@ -107,23 +147,48 @@ function Configurations() {
         })
     }, []);
     
-    
-
-    
-
     if (loading) {
       return <p>Loading...</p>;
     } else {
-      return <SimpleCard title="Integrator Applications">
-        <BootstrapTable
-          bootstrap4
-          keyField="key"
-          data={configurations}
-          columns={configurationTableColumns}
-          pagination={paginationFactory(paginationOptions)}
-          noDataIndication={"Table is empty"}
-        />
-      </SimpleCard>
+      return (
+        <>
+          <Container fluid>
+            <Row>
+                <Col md="12">
+                    <Card>
+                        <Card.Header>
+                            <Card.Title as="h4">Camel Integrator Configurations</Card.Title>
+                            <p className="card-category">Application profiles</p>
+                            <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                              <Button onClick={() => {
+                                  addAppConfiurationDetails();
+                                }}>
+                                Add
+                              </Button>
+                            </div>
+                        </Card.Header>
+                        <Card.Body>
+                            <Row>
+                                <Col md="12">
+                                  <BootstrapTable
+                                    bootstrap4
+                                    keyField="key"
+                                    data={configurations}
+                                    columns={configurationTableColumns}
+                                    pagination={paginationFactory(paginationOptions)}
+                                    noDataIndication={"Table is empty"}
+                                  />
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideConfirmationModal} 
+              row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
+        </Container>
+        </>
+      );
     }
 }      
 

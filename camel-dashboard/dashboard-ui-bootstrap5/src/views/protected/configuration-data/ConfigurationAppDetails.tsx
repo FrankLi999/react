@@ -5,22 +5,15 @@ import { Button } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import paginationFactory from "react-bootstrap-table2-paginator";
-import {ConfigurationProperty} from "./ConfigurationModel";
 
 function ConfigurationAppDetails() {
   const navigate = useNavigate(); 
   const { state } = useLocation();
   const editConfig = () => {
-    navigate("/integrator/configuration-form", {state: {...state}})
+    navigate("/integrator/configuration-form-edit", {state: {...state}})
   }
   
   const appConfigColumns = [
-    {
-      dataField: "id",
-      text: "ID",
-      sort: true,
-      editable: false
-    },
     {
       dataField: "propKey",
       text: "Property",
@@ -78,7 +71,7 @@ function ConfigurationAppDetails() {
                 <div className="text-center">
                   <BootstrapTable
                     bootstrap4
-                    keyField="id"
+                    keyField="propKey"
                     data={state.props}
                     columns={appConfigColumns}
                     pagination={paginationFactory(paginationOptions)}
