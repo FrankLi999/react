@@ -34,6 +34,11 @@ public class ConfigDataService {
         return this.deleteProfiles(configData).then(this.saveAll(configData));
     }
 
+    @Transactional
+    public Flux<ConfigData> recreateAllAndFindAll(final List<ConfigData> configData) {
+        return this.deleteProfiles(configData).then(this.saveAll(configData)).thenMany(findAll());
+    }
+
     public Flux<ConfigData> findAll() {
         return this.configDataRepository.findAll(orderByApplicationProfileAndLabel()).groupBy(this::getKey).map(g -> g.collectList().map(this::toConfigData)).flatMap(c -> c).sort();
     }

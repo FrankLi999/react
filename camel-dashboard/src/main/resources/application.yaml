@@ -34,6 +34,13 @@ spring:
     user:
       name: s2i
       password: s2i  
+
+  webflux:
+    multipart:
+      max-in-memory-size: 512KB
+      max-parts: 3
+      max-disk-usage-per-part: 1024KB
+      max-headers-size: 5KB      
   r2dbc:
     # url: r2dbc:h2:mem:configdb
     # username: 'sa'

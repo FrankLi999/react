@@ -4,16 +4,59 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import axios from 'axios';
 import { ConfigurationModel } from "./ConfigurationModel";
 import DeleteConfirmation from "./DeleteConfirmation";
+import ImportConfiguration from './ImportConfiguration';
+
 function Configurations() {
     const navigate = useNavigate(); 
-    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
+    const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
+    
     const [deleteRow, setDeleteRow] = useState<ConfigurationModel|null>(null);
     const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
-    const hideConfirmationModal = () => {
-      setDisplayConfirmationModal(false);
+
+    const importConfigurations = (configIle: File) => {
+      // data: ConfigurationModel[]| null
+      
+      console.log(">>>>>>>> import configuration:", configIle);
+      const formData = new FormData();
+      formData.append('file', configIle);
+      // try {
+      //     const requestOptions = {
+      //         method: 'POST',
+      //         headers: {
+      //             'content-type': 'multipart/form-data'
+      //         },
+      //         body: formData,
+      //     };
+      //     await fetch("/api/import", requestOptions);
+      // } catch (err) {
+      //     console.log(err);
+      // }
+      const config = {
+          headers: {
+              'content-type': 'multipart/form-data'
+          },
+      };
+      axios.post("/api/import", formData, config).then((response) => {
+          console.log(response.data);
+          setconfigurations(response.data);
+          setDisplayImportConfirmationModal(false);
+      }).catch((error) => {
+          console.error("Error uploading spring config: ", error);
+          setDisplayImportConfirmationModal(false);
+      });      
+    }
+
+    const hideImportConfigurationModal = () => {
+      setDisplayImportConfirmationModal(false);
+    };
+
+    const hideDeleteConfirmationModal = () => {
+      setDisplayDeleteConfirmationModal(false);
     };
     const detailsLink = (cell, row, rowIndex, formatExtraData) => {
       return (
@@ -43,6 +86,19 @@ function Configurations() {
       );
       
     };
+    const exportConfig = () => {
+      // const jsonURL = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      //   JSON.stringify(configurations)
+      // )}`;
+      const data = new Blob([JSON.stringify(configurations, null, 2)], { type: "text/json" });
+      const jsonURL = window.URL.createObjectURL(data);
+      const link = document.createElement("a");
+      document.body.appendChild(link);
+      link.href = jsonURL;
+      link.download = "spring-config.json";
+      link.click();
+      document.body.removeChild(link);
+    }
     const addAppConfiurationDetails = () => {
       navigate("/integrator/configuration-form-create")
     }
@@ -53,9 +109,13 @@ function Configurations() {
       navigate("/integrator/configuration-app-details", {state: {...row}}) 
     }
     
+    const showImportConfigurationModal = () => {
+      setDisplayImportConfirmationModal(true);
+    }
+
     const showDeleteModal = (row: ConfigurationModel) => {
       setDeleteRow(row);
-      setDisplayConfirmationModal(true);
+      setDisplayDeleteConfirmationModal(true);
     }
 
     async function deleteAppConfiurationDetails(row: ConfigurationModel) {
@@ -72,7 +132,7 @@ function Configurations() {
                     .then((data: ConfigurationModel[]) => {
                       setconfigurations(data);
                       setLoading(false);
-                      setDisplayConfirmationModal(false);
+                      setDisplayDeleteConfirmationModal(false);
                     });
           console.log("deleted");
       } catch (err) {
@@ -159,12 +219,14 @@ function Configurations() {
                         <Card.Header>
                             <Card.Title as="h4">Camel Integrator Configurations</Card.Title>
                             <p className="card-category">Application profiles</p>
-                            <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                              <Button onClick={() => {
+                            <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
+                              <Button className="ml-1" onClick={() => {
                                   addAppConfiurationDetails();
                                 }}>
-                                Add
+                                Add Application Profile
                               </Button>
+                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
+                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
                             </div>
                         </Card.Header>
                         <Card.Body>
@@ -184,8 +246,9 @@ function Configurations() {
                     </Card>
                 </Col>
             </Row>
-            <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideConfirmationModal} 
+            <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal} 
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
+            <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />  
         </Container>
         </>
       );

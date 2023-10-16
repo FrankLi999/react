@@ -33,6 +33,27 @@
 		<type>pom</type>
 		<scope>import</scope>
       </dependency>
+	  <dependency>
+		<groupId>de.codecentric</groupId>
+		<artifactId>spring-boot-admin-dependencies</artifactId>
+		<version>${spring-boot-admin.version}</version>
+		<type>pom</type>
+		<scope>import</scope>
+	</dependency>
+	<dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-spring-boot-bom</artifactId>
+        <version>${camel-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.hawt</groupId>
+        <artifactId>hawtio-bom</artifactId>
+        <version>${hawtio.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 	<dependencies>
@@ -40,10 +61,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-server</artifactId>
+		</dependency>
+	    <!-- config server -->
+		<!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	    -->
 		<dependency>
@@ -54,6 +97,63 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>r2dbc-postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<!--
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.r2dbc</groupId>
+			<artifactId>r2dbc-h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>me.yaman.can</groupId>
+			<artifactId>spring-boot-webflux-h2-console</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		-->
+		<!-- Hawtio -->
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-springboot</artifactId>
+		</dependency>
+		<!--
+		Include hawtio-log-logback if you want to use Logs plugin with Spring Boot.
+		Currently only Logback is supported.
+		-->
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-log-logback</artifactId>
+		</dependency>
+		<!-- Camel -->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+		</dependency>
+		<!--
+		This dependency is mandatory for enabling Camel management
+		via JMX / Hawtio.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-management-starter</artifactId>
+		</dependency>
+		<!--
+		This dependency is required for viewing Camel routes source XML.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-xml</artifactId>
+		</dependency>
+		<!--
+		To enable Camel plugin debugging feature, add this dependency.
+		-->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-debug-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
