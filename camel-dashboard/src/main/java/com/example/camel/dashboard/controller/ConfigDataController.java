@@ -37,6 +37,7 @@ public class ConfigDataController {
     @Autowired
     private ConfigDataService configDataService;
     @Autowired ObjectMapper objectMapper;
+
     @GetMapping(path="/configurations", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Flux<ConfigData> findAll() {

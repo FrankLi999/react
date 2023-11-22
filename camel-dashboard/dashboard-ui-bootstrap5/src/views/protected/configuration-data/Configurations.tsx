@@ -114,8 +114,8 @@ function Configurations() {
     }
 
     const showDeleteModal = (row: ConfigurationModel) => {
-      setDeleteRow(row);
-      setDisplayDeleteConfirmationModal(true);
+      setDeleteRow(() => row);
+      setDisplayDeleteConfirmationModal(() => true);
     }
 
     async function deleteAppConfiurationDetails(row: ConfigurationModel) {
@@ -126,13 +126,13 @@ function Configurations() {
               headers: { 'Content-Type': 'application/json', 'accept': '*/*' },
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
-          setLoading(true);
+          setLoading(() => true);
           await fetch("/api/configurations", requestOptions)
                     .then(response => response.json())
                     .then((data: ConfigurationModel[]) => {
-                      setconfigurations(data);
-                      setLoading(false);
-                      setDisplayDeleteConfirmationModal(false);
+                      setconfigurations(() => data);
+                      setLoading(() => false);
+                      setDisplayDeleteConfirmationModal(() => false);
                     });
           console.log("deleted");
       } catch (err) {
@@ -197,13 +197,13 @@ function Configurations() {
     };
 
     useEffect(() => {
-      setLoading(true);
+      setLoading(() => true);
   
       fetch('api/configurations')
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
-          setconfigurations(data);
-          setLoading(false);
+          setconfigurations(() => data);
+          setLoading(() => false);
         })
     }, []);
     

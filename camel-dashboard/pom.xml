@@ -21,8 +21,6 @@
         <npm.version>9.5.1</npm.version>
 		<spring-cloud.version>2021.0.8</spring-cloud.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-		<hawtio.version>3.0-SNAPSHOT</hawtio.version>
-		<camel-version>4.0.0</camel-version>
 	</properties>
     <dependencyManagement>
     <dependencies>
