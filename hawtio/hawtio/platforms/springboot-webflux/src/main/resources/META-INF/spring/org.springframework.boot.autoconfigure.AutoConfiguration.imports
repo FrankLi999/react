@@ -1,0 +1,3 @@
+org.springframework.boot.actuate.autoconfigure.jolokia.JolokiaEndpointAutoConfiguration
+io.hawt.springboot.HawtioEndpointAutoConfiguration
+io.hawt.springboot.HawtioLogAutoConfiguration
