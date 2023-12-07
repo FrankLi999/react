@@ -7,5 +7,5 @@ const nextConfig = {
   //   appDir: true
   // }
 }
-
+console.log(">>>>XXXX env", process.env.NEXT_PUBLIC_XXX);
 module.exports = nextConfig
