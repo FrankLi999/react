@@ -8,6 +8,7 @@ import LanguageChanger from '@/components/LanguageChanger';
 import MainStyleedComponent from '@/components/MainStyleedComponent';
 import ThemeToggle from '@/components/ThemeToggle';
 import SkeletonCard from '@/components/SkeletonCard';
+import { myConfig} from "@/myCOnfig"
 // import dynamic from 'next/dynamic';
 
 // const NextjsRemoteComponent = dynamic(() => import('remote/nextjs-remote-component'), {
@@ -25,6 +26,10 @@ export default async function Home({ params: { locale } }: {
     };}) {
   const [user, setUser] = useState(null);    
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
+  const XXX = 'NEXT_PUBLIC_XXX';
+  const XXX_var = process.env[XXX];
+  const isCluent = typeof window
+  const NEXT_PUBLIC_ENV_VARIABLE1='NEXT_PUBLIC_ENV_VARIABLE1';
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}
@@ -46,6 +51,11 @@ export default async function Home({ params: { locale } }: {
         <SkeletonCard/>
         <br/><br/>
         { /* <NextjsRemoteComponent /> */}
+
+        
+        1xxx: {XXX_var}<br/><br/>
+        2NEXT_PUBLIC_ENV_VARIABLE1: {process.env[NEXT_PUBLIC_ENV_VARIABLE1]}<br/><br/>
+        {myConfig.var1}
     </TranslationsProvider>
   );
 }

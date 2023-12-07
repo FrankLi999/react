@@ -68,6 +68,14 @@ issue with App router:
     https://github.com/module-federation/universe/issues/1183
 
 npm install module-federation/nextjs-mf
+
+## API
+App router:
+    If you are using the App Router, you can use Server Components or Route Handlers instead of API Routes.
+
+Page Router:
+    Any file inside the folder pages/api is mapped to /api/* and will be treated as an API endpoint instead of a page. 
+
 ## ORM
 
 https://github.com/georgwittberger/next-app-router-template
@@ -76,3 +84,46 @@ https://next-auth.js.org/
 https://www.prisma.io/
 https://trpc.io/
 
+## openshift confmap to env file
+
+config map:  
+    apiVersion: v1
+    name: my-env-local
+    data:
+    .env: |-
+        NEXT_PUBLIC_API_URL=http:/your.domain.com/api
+        API_URL=http://another.endpoint.com/serverSide
+    kind: ConfigMap
+
+depoyment:
+
+    apiVersion: apps/v1
+kind: Deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+    spec:
+      containers:
+      - image: your/image:latest
+        imagePullPolicy: Always
+        name: your-app
+        ports:
+        volumeMounts:
+        - mountPath: /app/.env.local
+          name: env-local
+          readOnly: true
+          subPath: .env.local
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: .env
+            path: .env.local
+          name: my-env-local
+        name: env-local

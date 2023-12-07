@@ -17,7 +17,7 @@ console.log(">>>>>>>>>>>>> AMY_OS_VAR",  process.env.MY_OS_VAR)
 console.log(">>>>>>>>>>>>> API_PARAM",  process.env.API_PARAM)
 console.log(">>>>>>>>>>>>> API_URL_WITH_PARAM",  process.env.API_URL_WITH_PARAM)
 console.log(">>>>>>>>>>>>> mf remote",  `nextjs-romote@${process.env.NEXTJS_REMOTE_UI}/_next/static/chunks/remoteEntry.js`)
-
+console.log(">>>>>>>>>>>>> NEXT_PUBLIC_XXX",  process.env.NEXT_PUBLIC_XX)
 const nextJsRemote = (isServer) => {
     return {
       "remote": `remote@${process.env.NEXTJS_REMOTE_UI}/_next/static/${isServer ? 'ssr' : 'chunks'}/remoteEntry.js` 
