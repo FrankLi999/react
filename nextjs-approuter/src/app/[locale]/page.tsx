@@ -8,7 +8,7 @@ import LanguageChanger from '@/components/LanguageChanger';
 import MainStyleedComponent from '@/components/MainStyleedComponent';
 import ThemeToggle from '@/components/ThemeToggle';
 import SkeletonCard from '@/components/SkeletonCard';
-import { myConfig} from "@/myCOnfig"
+import { AppConfig} from "@/AppConfig"
 // import dynamic from 'next/dynamic';
 
 // const NextjsRemoteComponent = dynamic(() => import('remote/nextjs-remote-component'), {
@@ -55,7 +55,7 @@ export default async function Home({ params: { locale } }: {
         
         1xxx: {XXX_var}<br/><br/>
         2NEXT_PUBLIC_ENV_VARIABLE1: {process.env[NEXT_PUBLIC_ENV_VARIABLE1]}<br/><br/>
-        {myConfig.var1}
+        {AppConfig.var1}
     </TranslationsProvider>
   );
 }
