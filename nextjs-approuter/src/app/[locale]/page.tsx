@@ -55,7 +55,7 @@ export default async function Home({ params: { locale } }: {
         
         1xxx: {XXX_var}<br/><br/>
         2NEXT_PUBLIC_ENV_VARIABLE1: {process.env[NEXT_PUBLIC_ENV_VARIABLE1]}<br/><br/>
-        {AppConfig.var1}
+        AppConfig.var1: {AppConfig.var1}
     </TranslationsProvider>
   );
 }
