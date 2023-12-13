@@ -163,7 +163,7 @@ const htmlContent = `
 				</tr>
 			</table>	
 			<table cellpadding="0" cellspacing="0" summary="Order details table summary text">
-				<caption class="sr-only">Payment information table caption text</caption>				
+				<caption style="float:left;">Payment information table caption text</caption>				
 				<tr class="heading">
 					<th>Order Item</th>
 					<th>Check #</th>
