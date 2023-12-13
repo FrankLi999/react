@@ -9,6 +9,19 @@ const htmlContent = `
 		<title>HOT and DDR invoice</title>
 
 		<style>
+			.sr-only {
+				border: 0 !important;
+				clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+				-webkit-clip-path: inset(50%) !important;
+					clip-path: inset(50%) !important;  /* 2 */
+				height: 1px !important;
+				margin: -1px !important;
+				overflow: hidden !important;
+				padding: 0 !important;
+				position: absolute !important;
+				width: 1px !important;
+				white-space: nowrap !important;            /* 3 */
+			}
 			.invoice-box {
 				max-width: 800px;
 				margin: auto;
@@ -109,7 +122,7 @@ const htmlContent = `
 				<tr class="top">
 					<td colspan="2">
 						<table>
-							<caption>Invoice information table caption text</caption>	
+							<caption class="sr-only">Invoice information table caption text</caption>	
 							<tr>
 								<th class="title">
 									<img
@@ -128,11 +141,10 @@ const htmlContent = `
 						</table>
 					</td>
 				</tr>
-
-				<tr class="information">
+				<p id="clientInfoTableDesc" class="sr-only">Client information table caption text</p>
+				<tr class="information" aria-describedby="clientInfoTableDesc">
 					<td colspan="2">
 						<table>
-							<caption>Client information table caption text</caption>	
 							<tr>
 								<td>
 									GSIC.<br />
@@ -151,7 +163,7 @@ const htmlContent = `
 				</tr>
 			</table>	
 			<table cellpadding="0" cellspacing="0" summary="Order details table summary text">
-				<caption>Payment information table caption text</caption>				
+				<caption class="sr-only">Payment information table caption text</caption>				
 				<tr class="heading">
 					<th>Order Item</th>
 					<th>Check #</th>
@@ -163,8 +175,8 @@ const htmlContent = `
 					<td>1000</td>
 				</tr>
 			</table>	
-			<table cellpadding="0" cellspacing="0" summary="Order details table summary text">	
-				<caption>Order Details table caption text</caption>
+			<p id="orderDetailTableDesc" class="sr-only">Order Details table caption text.</p>
+			<table cellpadding="0" cellspacing="0" summary="Order details table summary text" aria-describedby="orderDetailTableDesc">	
 				<tr class="heading">
 					<th>Item</th>
 
@@ -192,7 +204,7 @@ const htmlContent = `
 				<tr class="total">
 					<td>Total</td>
 
-					<td>Total: $333.00</td>
+					<td>$333.00</td>
 				</tr>
 			</table>
 		</div>
