@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "bufferutil": "^4.0.8",
-    "html-pdf-chrome": "^0.8.4",
+    "chrome-launcher": "^1.1.0",
+    "devtools-protocol": "^0.0.1236148",
     "next": "14.0.4",
     "puppeteer": "^21.6.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "ws": "^7.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

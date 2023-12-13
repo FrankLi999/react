@@ -1,5 +1,4 @@
-// import Article from '@/components/Article';
-// import PDFLayout from '@/components/PDFLayout';
+// import pdfHelper from '@/lib/puppeteerPdfHelper';
 import pdfHelper from '@/lib/pdfHelper';
 
 type GetParams = {
@@ -14,14 +13,11 @@ type GetParams = {
     // filename for the file that the user is trying to download
     const filename = params.filename;
   
-    // const buffer = await pdfHelper.componentToPDFBuffer(
-    //   <PDFLayout><Article/></PDFLayout>
-    // );
 
+    const htmlContent = '<h1>Hello World</h1><p>This is custom HTML content.</p>';
+    const buffer = await pdfHelper.generatePDFfromHTML(htmlContent);
 
-    const buffer = await pdfHelper.componentToPDFBuffer();
-
-
+    console.log(">>>>>>>>>>>>>>>>> pdf created");
     // return a new response but use 'content-disposition' to suggest saving the file to the user's computer
     return new Response(buffer, {
       headers: {
