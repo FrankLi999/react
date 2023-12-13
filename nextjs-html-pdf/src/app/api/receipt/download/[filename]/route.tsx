@@ -109,18 +109,21 @@ const htmlContent = `
 				<tr class="top">
 					<td colspan="2">
 						<table>
+							<caption>Invoice information table caption text</caption>	
 							<tr>
-                  <td>
-                    Invoice #: 123<br />
-                    Created: January 1, 2023<br />
-                    Due: February 1, 2023
-                  </td>
-                  <td class="title">
-                      <img
-                        src="https://www.ontario.ca/themes/ontario_2021/assets/ontario-logo--desktop.svg"
-                        style="width: 100%; max-width: 300px"
-                      />
-                  </td>								
+								<th class="title">
+									<img
+										src="https://www.ontario.ca/themes/ontario_2021/assets/ontario-logo--desktop.svg"
+										alt="Service ontario log alt text"
+										style="width: 100%; max-width: 300px"
+									/>
+								</th>
+
+								<td>
+									Invoice #: 123<br />
+									Created: January 1, 2023<br />
+									Due: February 1, 2023
+								</td>
 							</tr>
 						</table>
 					</td>
@@ -129,6 +132,7 @@ const htmlContent = `
 				<tr class="information">
 					<td colspan="2">
 						<table>
+							<caption>Client information table caption text</caption>	
 							<tr>
 								<td>
 									GSIC.<br />
@@ -145,11 +149,12 @@ const htmlContent = `
 						</table>
 					</td>
 				</tr>
-
+			</table>	
+			<table cellpadding="0" cellspacing="0" summary="Order details table summary text">
+				<caption>Payment information table caption text</caption>				
 				<tr class="heading">
-					<td>Payment Method</td>
-
-					<td>Check #</td>
+					<th>Order Item</th>
+					<th>Check #</th>
 				</tr>
 
 				<tr class="details">
@@ -157,11 +162,13 @@ const htmlContent = `
 
 					<td>1000</td>
 				</tr>
-
+			</table>	
+			<table cellpadding="0" cellspacing="0" summary="Order details table summary text">	
+				<caption>Order Details table caption text</caption>
 				<tr class="heading">
-					<td>Item</td>
+					<th>Item</th>
 
-					<td>Price</td>
+					<th>Price</th>
 				</tr>
 
 				<tr class="item">
@@ -183,7 +190,7 @@ const htmlContent = `
 				</tr>
 
 				<tr class="total">
-					<td></td>
+					<td>Total</td>
 
 					<td>Total: $333.00</td>
 				</tr>
