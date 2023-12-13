@@ -110,6 +110,9 @@ https://squad.renovationman.com/article/why-we-chose-chromium-to-generate-our-pd
     });
     });
 
+## PDFKit
+https://pdfkit.org/docs/accessibility.html
+
 ## Ref
 Server-side PDF generation example using Next.js
 

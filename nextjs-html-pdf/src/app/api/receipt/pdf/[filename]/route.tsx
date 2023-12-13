@@ -1,5 +1,5 @@
-// import pdfHelper from '@/lib/puppeteerPdfHelper';
-import pdfHelper from '@/lib/pdfHelper';
+import pdfHelper from '@/lib/puppeteerPdfHelper';
+// import pdfHelper from '@/lib/pdfHelper';
 
 const htmlContent = `
 <!DOCTYPE html>
@@ -110,17 +110,17 @@ const htmlContent = `
 					<td colspan="2">
 						<table>
 							<tr>
-                  <td>
-                    Invoice #: 123<br />
-                    Created: January 1, 2023<br />
-                    Due: February 1, 2023
-                  </td>
-                  <td class="title">
-                      <img
-                        src="https://www.ontario.ca/themes/ontario_2021/assets/ontario-logo--desktop.svg"
-                        style="width: 100%; max-width: 300px"
-                      />
-                  </td>								
+								<td>
+									Invoice #: 123<br />
+									Created: January 1, 2023<br />
+									Due: February 1, 2023
+								</td>
+								<td class="title">
+									<img
+										src="https://www.ontario.ca/themes/ontario_2021/assets/ontario-logo--desktop.svg"
+										style="width: 100%; max-width: 300px"
+									/>
+								</td>
 							</tr>
 						</table>
 					</td>
