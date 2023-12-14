@@ -112,6 +112,12 @@ https://squad.renovationman.com/article/why-we-chose-chromium-to-generate-our-pd
 
 ## PDFKit
 https://pdfkit.org/docs/accessibility.html
+https://github.com/foliojs/pdfkit
+
+### html tables
+https://github.com/bpampuch/pdfmake
+https://github.com/natancabral/pdfkit-table
+https://stackoverflow.com/questions/23625988/html-table-in-pdfkit-expressjs-nodejs
 
 ## Ref
 Server-side PDF generation example using Next.js
