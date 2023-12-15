@@ -36,7 +36,7 @@ const generatePDF = async () => {
       doc
         .font('Palatino')
         .fontSize(20)
-        .text('HOT and DDR Invoice', 100, 100);
+        .text('HOT and DDR Invoice', 100, 90, {align: 'center'});
     })
   );
 
@@ -78,7 +78,8 @@ const generatePDF = async () => {
   infoSection.end();
   struct.add(infoSection);
 
-  const table = {
+
+const table = {
     title: "Order Details",
     subtitle: "Order Items and Total",
     headers: ["Item", "Cost"],
@@ -89,13 +90,23 @@ const generatePDF = async () => {
       ["Total", "$300.00"],
     ],
   };
-  doc.table( table, { 
+  const tableSection = doc.struct('Sect');
+  struct.add(tableSection);
+  
+  const orderDetailTable = doc.markStructureContent('Sect');
+  tableSection.add(orderDetailTable);
+  // const tableSection = doc.struct('Sect', [
+  doc.table(table, { 
     // A4 595.28 x 841.89 (portrait) (about width sizes)
     x: 100,
     y: 230,
     width: 400,
     //columnsSize: [ 200, 100, 100 ],
   }); 
+  
+  tableSection.end();
+  // tableSection.end();
+  // struct.add(tableSection);
 
   console.log(">>>>>>>>>>>>>>>>>>>>2.3");
   doc.end();
