@@ -78,6 +78,25 @@ const generatePDF = async () => {
   infoSection.end();
   struct.add(infoSection);
 
+  const table = {
+    title: "Order Details",
+    subtitle: "Order Items and Total",
+    headers: ["Item", "Cost"],
+    rows: [
+      ["HOT Application", "$0.00"],
+      ["HOT Renewal", "$180.00"],
+      ["DDR Registration", "$120.00"],
+      ["Total", "$300.00"],
+    ],
+  };
+  doc.table( table, { 
+    // A4 595.28 x 841.89 (portrait) (about width sizes)
+    x: 100,
+    y: 230,
+    width: 400,
+    //columnsSize: [ 200, 100, 100 ],
+  }); 
+
   console.log(">>>>>>>>>>>>>>>>>>>>2.3");
   doc.end();
   
