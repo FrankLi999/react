@@ -15,6 +15,7 @@ function ConfigurationAppDetails() {
   // const navigate = useNavigate(); 
   const router = useRouter();
   const { states, dispatch } = useIntegratorConfigurationDataContext();
+  console.log("Will show details1111", states.currentRow, states.currentRow.props.length);
   // const { state } = useLocation();
   const editConfig = () => {
     // navigate("/integrator/configuration-form-edit", {state: {...state}})
@@ -63,6 +64,8 @@ function ConfigurationAppDetails() {
       text: 'All', value: states.currentRow.props.length
     } ]
   };
+
+  console.log("Will show detail222222", paginationOptions);
   return (
     <>
       <Container>
@@ -82,7 +85,7 @@ function ConfigurationAppDetails() {
                   <BootstrapTable
                     bootstrap4
                     keyField="propKey"
-                    data={state.props}
+                    data={states.props}
                     columns={appConfigColumns}
                     pagination={paginationFactory(paginationOptions)}
                     noDataIndication={"Table is empty"}

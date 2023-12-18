@@ -1,6 +1,8 @@
 
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+// import { Link, useLocation } from "react-router-dom";
+import { usePathname, useRouter } from 'next/navigation'
 import {
     Badge,
     Button,
@@ -18,11 +20,13 @@ import {
 } from "react-bootstrap";
 const Sidebar = () => {
     // to check for active links and opened collapses
-    let location = useLocation();
+    // let location = useLocation();
+    const pathname = usePathname();
+    const router = useRouter();
     // this is for the user collapse
     const [checkoutCollapseState, setCheckoutCollapseState] = React.useState(false);
     const activeRoute = (path: any) => {
-        return location.pathname === path ? "active" : "";
+        return pathname === path ? "active" : "";
     };
     return (
         <>
@@ -56,7 +60,7 @@ const Sidebar = () => {
                                             as="li"
                                             key="ConfigurationData"
                                         >
-                                            <Nav.Link to="/integrator/configuration-data" as={Link} className="nav-link collapsed">
+                                            <Nav.Link href={`/integrator/configuration-data`} as={Link} className="nav-link collapsed">
                                                 <>
                                                     <p>Configuration Data</p>
                                                 </>
@@ -67,7 +71,7 @@ const Sidebar = () => {
                                             as="li"
                                             key="RefreshConfiguration"
                                         >
-                                            <Nav.Link to="/integrator/refresh-configuration" as={Link} className="nav-link collapsed">
+                                            <Nav.Link href={`/integrator/refresh-configuration`} as={Link} className="nav-link collapsed">
                                                 <>
                                                     <p>Refresh Configuration</p>
                                                 </>

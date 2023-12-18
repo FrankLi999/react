@@ -1,5 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+// import { Link, useLocation } from "react-router-dom";
+import { useRouter, usePathname } from 'next/navigation'
 import {
     Badge,
     Button,
@@ -11,8 +13,9 @@ import {
 } from "react-bootstrap";
 function PublicSiteNavbar() {
     const [collapseOpen, setCollapseOpen] = React.useState(false);
-    const location = useLocation();
-
+    // const location = useLocation();
+    const pathname = usePathname();
+    const router = useRouter();
     return (
         <>
             <Navbar className="sb-topnav navbar navbar-expand navbar-dark bg-dark" variant="dark" expand="lg">
@@ -36,24 +39,24 @@ function PublicSiteNavbar() {
                         <Nav navbar>
                             <Nav.Item
                                 className={
-                                    location.pathname === "/public/login"
+                                    pathname === "/public/login"
                                         ? "active mr-1"
                                         : "mr-1"
                                 }
                             >
-                                <Nav.Link to="public/login" as={Link}>
+                                <Nav.Link href={`public/login`} as={Link}>
                                     <i className="nc-icon nc-mobile"></i>
                                     Login
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item
                                 className={
-                                    location.pathname === "/public/lock-screen"
+                                    pathname === "/public/lock-screen"
                                         ? "active mr-1"
                                         : "mr-1"
                                 }
                             >
-                                <Nav.Link to="/public/lock-screen" as={Link}>
+                                <Nav.Link href={`/public/lock-screen`} as={Link}>
                                     <i className="nc-icon nc-key-25"></i>
                                     Lock
                                 </Nav.Link>

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ProtectedSiteNavbar from "../components/Navbars/ProtectedSiteNavbar";
 import ProtectedSiteFooter from "../components/Footers/ProtectedSiteFooter";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../components/Sidebars/Sidebar";
 // @ts-ignore
 const ProtectedSiteLayout = ({ children }) => {
     return (

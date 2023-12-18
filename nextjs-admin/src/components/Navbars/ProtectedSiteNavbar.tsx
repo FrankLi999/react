@@ -1,5 +1,5 @@
+import Link from "next/link";
 import React from "react";
-import {Link} from "react-router-dom";
 import {
     Badge,
     Button,
@@ -22,7 +22,7 @@ function ProtectedSiteNavbar() {
     return (
         <>
             <Navbar className="sb-topnav navbar navbar-expand navbar-dark bg-dark" variant="dark" expand="lg">
-                <Link to="/" className="navbar-brand">Camel Dashboard</Link>
+                <Link href={`/integrator/configuration-data`} className="navbar-brand">Camel Dashboard</Link>
                 <Button className="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" onClick={() => document.body.classList.toggle("sb-sidenav-toggled")}>
                     <i className="fas fa-bars"></i>
                 </Button>

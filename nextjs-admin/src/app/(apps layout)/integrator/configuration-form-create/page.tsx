@@ -13,11 +13,11 @@ import {
 import Link from "next/link";
 
 function ConfigurationDataCreateForm() {
-    const schema: RJSFSchema = require("@/configuration-form-schema/config-data-schema.json");
-    const uiSchema = require("@/configuration-form-schema/config-data-form-uischema-create.json");
+    const schema: RJSFSchema = require("@/data/configuration-form-schema/config-data-schema.json");
+    const uiSchema = require("@/data/configuration-form-schema/config-data-form-uischema-create.json");
     const log = (type: any) => console.log.bind(console, type);
     // const schema: RJSFSchema = schemaForm;
-    const formData = require("@/configuration-form-schema/config-data-form-data.json")
+    const formData = require("@/data/configuration-form-schema/config-data-form-data.json")
     async function submitData(data: any) {
         console.log('submitted data', data)
         console.log('submitted for data', data.formData)

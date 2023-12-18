@@ -1,20 +1,15 @@
-package com.example.camel.dashboard.repository.reactive;
+package com.example.camel.dashboard.repository.mvc.reactive;
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import org.springframework.data.r2dbc.repository.Query;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import com.example.camel.dashboard.entity.ConfigDataEntity;
+import com.example.camel.dashboard.entity.r2dbc.ConfigDataEntity;
 
 public interface ConfigDataRepository extends ReactiveCrudRepository<ConfigDataEntity, Long>, ReactiveSortingRepository<ConfigDataEntity, Long> {
     @Query("SELECT * FROM APP_PROPERTIES WHERE application = :application")

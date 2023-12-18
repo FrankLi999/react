@@ -14,6 +14,7 @@ import { useIntegratorConfigurationDataContext} from '@/context/integrator-confi
 
 function Configurations() {
     const { states, dispatch } = useIntegratorConfigurationDataContext();
+    console.log(">>>>>>>>> config data:>>>>>>> 0000", states.configurations);
     // const navigate = useNavigate(); 
     const router = useRouter();
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
@@ -46,7 +47,7 @@ function Configurations() {
               'content-type': 'multipart/form-data'
           },
       };
-      axios.post("/api/import", formData, config).then((response) => {
+      axios.post("/api/imports", formData, config).then((response) => {
           console.log(response.data);
           console.log(states.configurations);
           setconfigurations(response.data);
@@ -117,6 +118,7 @@ function Configurations() {
     }
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
       // navigate("/integrator/configuration-app-details", {state: {...row}}) 
+      console.log("Will show details", row);
       dispatch({ type: "set_current_row", currentRow: {...row}});
       router.push('/integrator/configuration-app-details');
     }
@@ -218,6 +220,7 @@ function Configurations() {
         .then((data: ConfigurationModel[]) => {
           dispatch({ type: "set_configurations", configurations: data });
           setconfigurations(() => data);          
+          console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
           setLoading(() => false);
         })
     }, []);
