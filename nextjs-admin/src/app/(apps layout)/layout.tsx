@@ -1,13 +1,18 @@
 'use client';
-import MainLayout from '@/layout/apps-layout'
+// TODO: this sgould be a template
+import Link from "next/link";
+import ProtectedSiteLayout from "@/layout/ProtectedSiteLayout";
 
 const AppsLayout = ({ children }) => {
-
-    return (
-        <MainLayout>
+    let authenticated = true;
+    return authenticated ? (
+        <ProtectedSiteLayout>
             {children}
-        </MainLayout>
-    )
+        </ProtectedSiteLayout>
+    ) : (
+     
+        <Link href={`/auth/login`}>Log in</Link>
+    );
 }
 
 export default AppsLayout

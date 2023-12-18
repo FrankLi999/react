@@ -1,16 +1,11 @@
 'use client'
-import classNames from 'classnames'
-import { usePathname } from 'next/navigation';
+import PublicSiteLayout from "@/layout/PublicSiteLayout";
 
-const AuthLayout = ({ children }) => {
-    const pathName = usePathname();
-    const lockScreenAuth = pathName.match('/auth/lock-screen');
-
+const AuthLayout = (children) => {
     return (
-        <div className={classNames("hk-wrapper hk-pg-auth", { "bg-primary-dark-3": lockScreenAuth })} data-footer="simple" >
+        <PublicSiteLayout>
             {children}
-        </div>
-    )
-}
-
-export default AuthLayout
+        </PublicSiteLayout>
+    );
+};
+export default AuthLayout;
