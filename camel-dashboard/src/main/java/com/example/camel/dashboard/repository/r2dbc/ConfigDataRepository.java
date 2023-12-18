@@ -1,4 +1,4 @@
-package com.example.camel.dashboard.repository.mvc.reactive;
+package com.example.camel.dashboard.repository.r2dbc;
 import java.util.List;
 
 import org.springframework.data.r2dbc.repository.Modifying;

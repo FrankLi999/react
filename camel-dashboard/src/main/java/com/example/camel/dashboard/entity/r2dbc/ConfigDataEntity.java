@@ -1,4 +1,4 @@
-package com.example.camel.dashboard.entity;
+package com.example.camel.dashboard.entity.r2dbc;
 import lombok.Builder;
 import lombok.Data;
 

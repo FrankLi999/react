@@ -1,6 +1,7 @@
-package com.example.camel.dashboard.config;
+package com.example.camel.dashboard.config.reactive;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -53,5 +54,14 @@ public class RouterConfiguration implements WebFluxConfigurer {
             .addResourceLocations("classpath:/my-camel-static/");    
             
         // @formatter:on
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry corsRegistry) {
+        corsRegistry.addMapping("/**")
+                // .allowedMethods("PUT")
+                //.maxAge(3600);
+                //.allowedOrigins("http://allowed-origin.com");
+                .allowedOrigins("*");
     }
 }

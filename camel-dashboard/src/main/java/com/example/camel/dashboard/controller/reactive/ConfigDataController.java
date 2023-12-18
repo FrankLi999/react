@@ -46,7 +46,7 @@ public class ConfigDataController {
         return configDataService.createAll(configData);
     }
 
-    @PostMapping(path = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/imports", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Flux<ConfigData> upload(@RequestPart("file") Mono<FilePart> configFilePartMono) {
         return  configFilePartMono

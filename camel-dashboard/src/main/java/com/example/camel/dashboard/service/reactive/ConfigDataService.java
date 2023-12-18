@@ -15,8 +15,8 @@ import reactor.core.publisher.Flux;
 import com.example.camel.dashboard.dto.ApplicationProfile;
 import com.example.camel.dashboard.dto.ConfigData;
 import com.example.camel.dashboard.dto.ConfigurationProperty;
-import com.example.camel.dashboard.entity.ConfigDataEntity;
-import com.example.camel.dashboard.repository.reactive.ConfigDataRepository;
+import com.example.camel.dashboard.entity.r2dbc.ConfigDataEntity;
+import com.example.camel.dashboard.repository.r2dbc.ConfigDataRepository;
 
 @Service
 public class ConfigDataService {
@@ -50,13 +50,13 @@ public class ConfigDataService {
 
     // @Transactional
     // public Mono<Void> updateApplications(final List<ConfigData> configData) {
-    //     List<ConfigDataEntity> configDateEntries = configData.stream().flatMap(config -> config.getProps().stream().map(prop -> createConfigDataEntity(config, prop))).collect(Collectors.toUnmodifiableList());
+    //     List<com.example.camel.dashboard.entity.mvc.ConfigDataEntity> configDateEntries = configData.stream().flatMap(config -> config.getProps().stream().map(prop -> createConfigDataEntity(config, prop))).collect(Collectors.toUnmodifiableList());
     //     return Flux.fromIterable(configDateEntries).flatMap(e -> this.configDataRepository.updatePropertyValue(e.getApplication(), e.getProfile(), e.getLabel(), e.getPropKey(), e.getPropValue())).then();
     // }
 
     // @Transactional
     // public Mono<Void> deletePropertyValues(final ConfigData config) {
-    //     List<ConfigDataEntity> configDateEntries = config.getProps().stream().map(prop -> createConfigDataEntity(config, prop)).collect(Collectors.toUnmodifiableList());
+    //     List<com.example.camel.dashboard.entity.mvc.ConfigDataEntity> configDateEntries = config.getProps().stream().map(prop -> createConfigDataEntity(config, prop)).collect(Collectors.toUnmodifiableList());
     //     return Flux.fromIterable(configDateEntries).flatMap(e -> this.configDataRepository.deletePropertyValue(e.getApplication(), e.getProfile(), e.getLabel(), e.getPropKey())).then();
     // }
 

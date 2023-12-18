@@ -5,7 +5,7 @@ package com.example.camel.dashboard.service.mvc;
 //import java.util.TreeMap;
 //import java.util.stream.Collectors;
 //
-//import com.example.camel.dashboard.entity.ConfigDataEntityKey;
+//import com.example.camel.dashboard.entity.r2dbc.com.example.camel.dashboard.entity.mvc.ConfigDataEntityKey;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ package com.example.camel.dashboard.service.mvc;
 //import com.example.camel.dashboard.dto.ApplicationProfile;
 //import com.example.camel.dashboard.dto.ConfigData;
 //import com.example.camel.dashboard.dto.ConfigurationProperty;
-//import com.example.camel.dashboard.entity.ConfigDataEntity;
+//import com.example.camel.dashboard.entity.r2dbc.com.example.camel.dashboard.entity.mvc.ConfigDataEntity;
 //import com.example.camel.dashboard.repository.com.example.camel.dashboard.repository.mvc.ConfigDataRepository;
 //
 //@Service
@@ -43,10 +43,10 @@ public class ConfigDataService {
 //    }
 //
 //    public List<ConfigData> findAll() {
-//        List<ConfigDataEntity> configDataEntities = this.configDataRepository.findAll();
+//        List<com.example.camel.dashboard.entity.mvc.ConfigDataEntity> configDataEntities = this.configDataRepository.findAll();
 //        List<ConfigData> configDataList = new ArrayList<>();
 //        configDataEntities.stream().collect(Collectors.groupingBy(
-//                c -> ConfigDataEntityKey.builder().application(c.getApplication()).profile(c.getProfile()).label(c.getLabel()).build(),
+//                c -> com.example.camel.dashboard.entity.mvc.ConfigDataEntityKey.builder().application(c.getApplication()).profile(c.getProfile()).label(c.getLabel()).build(),
 //                TreeMap::new,
 //                Collectors.mapping(e -> ConfigurationProperty.builder().propKey(e.getPropKey()).propValue(e.getPropValue()).build(), Collectors.toList())))
 //                .forEach((k, v) -> configDataList.add(ConfigData.builder().key(String.format("%s,%s", k.getApplication(), k.getProfile())).application(k.getApplication()).profile(k.getProfile()).label(k.getLabel()).props(v).build()));
@@ -66,12 +66,12 @@ public class ConfigDataService {
 //    }
 //
 //    private void saveAll(final List<ConfigData> configData) {
-//        List<ConfigDataEntity> configDateEntries = configData.stream().flatMap(config -> config.getProps().stream().map(prop -> createConfigDataEntity(config, prop))).collect(Collectors.toUnmodifiableList());
+//        List<com.example.camel.dashboard.entity.mvc.ConfigDataEntity> configDateEntries = configData.stream().flatMap(config -> config.getProps().stream().map(prop -> createConfigDataEntity(config, prop))).collect(Collectors.toUnmodifiableList());
 //        this.configDataRepository.saveAll(configDateEntries);
 //    }
 //
-//    private ConfigDataEntity createConfigDataEntity(ConfigData configData, ConfigurationProperty prop) {
-//        return ConfigDataEntity.builder().application(configData.getApplication()).profile(configData.getProfile()).label(configData.getLabel()).propKey(prop.getPropKey()).propValue(prop.getPropValue()).build();
+//    private com.example.camel.dashboard.entity.mvc.ConfigDataEntity createConfigDataEntity(ConfigData configData, ConfigurationProperty prop) {
+//        return com.example.camel.dashboard.entity.mvc.ConfigDataEntity.builder().application(configData.getApplication()).profile(configData.getProfile()).label(configData.getLabel()).propKey(prop.getPropKey()).propValue(prop.getPropValue()).build();
 //    }
 //
 //    private ApplicationProfile createApplicationProfile(ConfigData configData) {

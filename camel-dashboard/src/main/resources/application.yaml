@@ -13,30 +13,30 @@ spring:
   # sql.init.platform: h2    
   sql.init.platform: oracle    
   # sql.init.platform: postgresql   
-  datasource:
-    # platform: oracle  
-    # url: jdbc:h2:mem:configdb
-    # driver-class-name: org.h2.Driver
-    # username: sa
-    # password: sa
-    # platform: postgresql
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/postgres
-#    username: postgres
-#    password: 123456      
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin://localhost:1521/FREE
-    username: C##Camel
-    password: Passw0rd
-    hikari:
-      connection-timeout: 5000
-      maximum-pool-size: 10
-  cloud:
-    config:
-      server:
-        jdbc:
-          sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
-          order: 1
+#  datasource:
+#    # platform: oracle
+#    # url: jdbc:h2:mem:configdb
+#    # driver-class-name: org.h2.Driver
+#    # username: sa
+#    # password: sa
+#    # platform: postgresql
+##    driver-class-name: org.postgresql.Driver
+##    url: jdbc:postgresql://localhost:5432/postgres
+##    username: postgres
+##    password: 123456
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin://localhost:1521/FREE
+#    username: C##Camel
+#    password: Passw0rd
+#    hikari:
+#      connection-timeout: 5000
+#      maximum-pool-size: 10
+#  cloud:
+#    config:
+#      server:
+#        jdbc:
+#          sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+#          order: 1
   security:
     user:
       name: s2i
