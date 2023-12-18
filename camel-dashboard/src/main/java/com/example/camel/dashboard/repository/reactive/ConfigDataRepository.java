@@ -1,4 +1,4 @@
-package com.example.camel.dashboard.repository;
+package com.example.camel.dashboard.repository.reactive;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;

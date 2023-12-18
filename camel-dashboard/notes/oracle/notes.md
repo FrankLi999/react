@@ -8,6 +8,7 @@ GRANT CREATE SESSION TO C##Camel;
 
 GRANT RESOURCE TO C##Camel;
 
+ALTER USER C##Camel quota unlimited on USERS;
 ##############
 
 DROP TABLE IF EXISTS APP_PROPERTIES;

@@ -1,4 +1,4 @@
-package com.example.camel.dashboard.controller;
+package com.example.camel.dashboard.controller.reactive;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.http.codec.multipart.FilePart;
-import org.springframework.core.ResolvableType;
-import org.springframework.core.io.buffer.DataBufferUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,8 +25,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.example.camel.dashboard.dto.ConfigData;
 import com.example.camel.dashboard.dto.ApplicationProfile;
-import com.example.camel.dashboard.entity.ConfigDataEntity;
-import com.example.camel.dashboard.service.ConfigDataService;
+import com.example.camel.dashboard.service.reactive.ConfigDataService;
 
 @RestController
 @RequestMapping("/api")

@@ -1,4 +1,4 @@
-package com.example.camel.dashboard.service;
+package com.example.camel.dashboard.service.reactive;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ import com.example.camel.dashboard.dto.ApplicationProfile;
 import com.example.camel.dashboard.dto.ConfigData;
 import com.example.camel.dashboard.dto.ConfigurationProperty;
 import com.example.camel.dashboard.entity.ConfigDataEntity;
-import com.example.camel.dashboard.repository.ConfigDataRepository;
+import com.example.camel.dashboard.repository.reactive.ConfigDataRepository;
 
 @Service
 public class ConfigDataService {
