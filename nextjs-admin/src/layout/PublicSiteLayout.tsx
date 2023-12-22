@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import PublicSiteNavbar from "../components/Navbars/PublicSiteNavbar";
-import PublicSiteFooter from "../components/Footers/PublicSiteFooter";
+import PublicSiteNavbar from "@/components/Navbars/PublicSiteNavbar";
+import PublicSiteFooter from "@/components/Footers/PublicSiteFooter";
 
 // @ts-ignore
 const PublicSiteLayout = ({ children }) => {

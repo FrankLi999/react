@@ -1,7 +1,7 @@
 'use client'
 import PublicSiteLayout from "@/layout/PublicSiteLayout";
 
-const AuthLayout = (children) => {
+const AuthLayout = ({children}) => {
     return (
         <PublicSiteLayout>
             {children}

@@ -4,7 +4,7 @@ module.exports = {
     return [
       {
       source: '/',
-      destination: '/integrator/configuration-data',
+      destination: '/home',
       permanent: true,
       },
     ]

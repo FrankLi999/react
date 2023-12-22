@@ -39,24 +39,24 @@ function PublicSiteNavbar() {
                         <Nav navbar>
                             <Nav.Item
                                 className={
-                                    pathname === "/public/login"
+                                    pathname === "/auth/signin"
                                         ? "active mr-1"
                                         : "mr-1"
                                 }
                             >
-                                <Nav.Link href={`public/login`} as={Link}>
+                                <Nav.Link href={`/auth/signinn`} as={Link}>
                                     <i className="nc-icon nc-mobile"></i>
                                     Login
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item
                                 className={
-                                    pathname === "/public/lock-screen"
+                                    pathname === "/auth/lock-screen"
                                         ? "active mr-1"
                                         : "mr-1"
                                 }
                             >
-                                <Nav.Link href={`/public/lock-screen`} as={Link}>
+                                <Nav.Link href={`/auth/lock-screen`} as={Link}>
                                     <i className="nc-icon nc-key-25"></i>
                                     Lock
                                 </Nav.Link>

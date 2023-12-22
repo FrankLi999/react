@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'react-perfect-scrollbar/dist/css/styles.css';
 import '@/styles/scss/nextjs-admin.scss';
+import NextAuthProvider from '@/context/session/NextAuthProvider';
 const inter = Inter({ subsets: ["latin"] });
 // metadata
 export const metadata = {
@@ -34,9 +35,11 @@ export default function RootLayout({ children }: {
     <html lang="en">
       { /*  <body className={`${inter.variable} ${outfit.variable}`}>*/ }
       <body className={`${inter.className}`}> 
-        <GlobalStateProvider>
-          {children}
-        </GlobalStateProvider>
+        <NextAuthProvider>
+          <GlobalStateProvider>
+            {children}
+          </GlobalStateProvider>
+        </NextAuthProvider>  
       </body>
     </html>
   )
