@@ -1,5 +1,5 @@
-import https from 'https';
-import http from 'http';
+// import https from 'https';
+// import http from 'http';
 
 const apiRequest = async (params: {
     method: string,
@@ -17,29 +17,39 @@ const apiRequest = async (params: {
         //      key: fs.readFileSync(private_key_path, "utf8")
         //    })
     // };
-    
-    const httpsAgent = new https.Agent({
-      rejectUnauthorized: false,
-      // keepAlive: true
-    });
+    // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+    // const sslConfiguredAgent = new https.Agent({
+    // //   cert: fs.readFileSync(path.resolve(__dirname, './path/to/public-cert.pem'), `utf-8`,  ),
+    // //   key: fs.readFileSync(path.resolve(__dirname, './path/to/private-key.key'), 'utf-8', ),  
+    //   rejectUnauthorized: false,
+    //   keepAlive: true
+    // });
     // const httpAgent = new http.Agent({
     //   keepAlive: true
     // });
-    const httpAgent = null;
+    // const httpAgent = null;
     try {
         const requestOptions = {
             method: params.method,
             headers: params.headers,
-            body: (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data),
-            agent: (url) => url.protocol === 'https' ? httpsAgent : httpAgent
+            // agent: sslConfiguredAgent
         };
-        const API_BASE_URL = 'API_BASE_URL';
-        const apiUrl = `${process.env[API_BASE_URL]}/${params.url}`;
-        const response = await fetch(apiUrl, requestOptions);
-        if (!response.ok) {
-            console.log("API Error Response,", `${response.status} ${response.statusText}`, response.json());
+        if (params.data) {
+            requestOptions.body = (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data);
         }
-        return Response.json(response.json(), {status: response.status});
+        console.log(">>>>>>>>>requestOptions>>>>>>agent", requestOptions.agent);
+        const API_BASE_URL = 'API_BASE_URL';
+        const apiUrl = `${process.env[API_BASE_URL]}${params.url}`;
+        console.log(">>>>>>>>>apiUrl>>>>>>agent", apiUrl);
+        const response = await fetch(apiUrl, requestOptions);
+        const responseBody = await response.json();
+        console.log(">>>>>>>>>response>>---->>>> ok ", response.ok);
+        console.log(">>>>>>>>>response>>---->>>> status", response.status);
+        console.log(">>>>>>>>>response>>---->>>> statusText", response.statusText);
+        if (!response.ok) {
+            console.log("API Error Response,", `${response.status} ${response.statusText}`, responseBody);
+        }
+        return Response.json(responseBody, {status: response.status});
     } catch (err) {
         console.log("Unexpected API Error", err);
         return Response.json({ err }, {status: 500})
