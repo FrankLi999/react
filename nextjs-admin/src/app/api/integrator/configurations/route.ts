@@ -1,23 +1,26 @@
 import apiRequest  from '@/utils/ApiRequest';
+import { ConfigurationModel } from '../../../../type/ConfigurationModel';
 
 const contextPath = `/api/configurations`;
 
-export async function GET(request: Request) {
+export function GET(request: Request) {
   console.log(">>>>>>>>>>>>> /api/configurations>>>> get", request.url);
-  const apiResponse = await apiRequest({
+  // const apiResponse = 
+  return apiRequest({
     method: 'GET',
     url: contextPath,
     headers: {
       Accept: 'application/json'
     },
   });
-  const responseBody = await apiResponse.json();
-  console.log(
-    `GET ${contextPath} result is: `,
-    JSON.stringify(responseBody),
-  );
-
-  return new Response(responseBody, {status: apiResponse.status});
+  // const responseBody = await apiResponse.json() as ConfigurationModel[];
+  // console.log(
+  //   `GET ${contextPath} result is: `, responseBody,
+  // );
+  // console.log(
+  //   `GET ${contextPath} result `,
+  // );
+  // return new Response(responseBody, {status: apiResponse.status});
 }
 
 export async function POST(request: Request) {
