@@ -1,7 +1,7 @@
 import apiRrequest  from '@/utils/ApiRequest';
 
 export async function GET() {
-  const contextPath = `/api/imports`;
+  const contextPath = `/api/import`;
   const apiResponse = apiRequest({
     method: 'GET',
     url: '/api/import',
@@ -9,11 +9,11 @@ export async function GET() {
       Accept: 'application/json'
     },
   });
-
+  const responseBody = await apiResponse.json();
   console.log(
-    '/api/import]  result is: ',
-    JSON.stringify(apiResponse.json()),
+    'GET /api/import  result is: ',
+    JSON.stringify(responseBody),
   );
 
-  return new Response(apiResponse.json(), {status: apiResponse.status()});
+  return new Response(responseBody, {status: apiResponse.status});
 }
