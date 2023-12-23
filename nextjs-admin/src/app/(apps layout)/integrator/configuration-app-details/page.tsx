@@ -15,7 +15,7 @@ function ConfigurationAppDetails() {
   // const navigate = useNavigate(); 
   const router = useRouter();
   const { states, dispatch } = useIntegratorConfigurationDataContext();
-  console.log("Will show details1111", states.currentRow, states.currentRow.props.length);
+  console.log("Will show details1111", states.currentRow, states.currentRow.props);
   // const { state } = useLocation();
   const editConfig = () => {
     // navigate("/integrator/configuration-form-edit", {state: {...state}})
@@ -33,12 +33,12 @@ function ConfigurationAppDetails() {
     },
     {
       dataField: "propValue",
-      text: "Profile",
+      text: "Value",
       sort: false,
       editable: false
     }
   ];
-  const paginationOptions = {
+  const paginationOptions = states.currentRow.props && states.currentRow.props.length > 0 ? {
     // custom: true,
     sizePerPage: 5,
     paginationSize: 5,
@@ -60,12 +60,35 @@ function ConfigurationAppDetails() {
       text: '10', value: 10
     }, {
       text: '30', value: 10
-    },{
+    }, {
       text: 'All', value: states.currentRow.props.length
-    } ]
+    }]
+  } : {
+    // custom: true,
+    sizePerPage: 5,
+    paginationSize: 5,
+    pageStartIndex: 1,
+    firstPageText: "First",
+    prePageText: "Back",
+    nextPageText: "Next",
+    lastPageText: "Last",
+    nextPageTitle: "First page",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Next page",
+    lastPageTitle: "Last page",
+    showTotal: false,
+    // totalSize: 3
+    totalSize: 3,
+    sizePerPageList: [ {
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: '30', value: 10
+    }]
   };
 
-  console.log("Will show detail222222", paginationOptions);
+  console.log("Will show detail222222", states.currentRow.props);
   return (
     <>
       <Container>
@@ -82,15 +105,15 @@ function ConfigurationAppDetails() {
               </Card.Header>
               <Card.Body>
                 <div className="text-center">
+                  { (states.currentRow.props && states.currentRow.props.length > 0) &&
                   <BootstrapTable
                     bootstrap4
                     keyField="propKey"
-                    data={states.props}
+                    data={states.currentRow.props}
                     columns={appConfigColumns}
                     pagination={paginationFactory(paginationOptions)}
                     noDataIndication={"Table is empty"}
-                    cellEdit={ cellEditFactory({ mode: 'dbclick' }) }
-                  />
+                />}
                 </div>
               </Card.Body>
               <Card.Footer className="card-footer text-center">
