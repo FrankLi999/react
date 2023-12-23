@@ -215,7 +215,7 @@ function Configurations() {
               method: 'GET'
       }; 
       // TODO: this is client side
-      const apiResponse = await fetch('api/integrator/configurations', requestOptions);
+      const apiResponse = await fetch('/api/integrator/configurations', requestOptions);
       // if (!apiResponse.ok()) {
       //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
       // } else {
