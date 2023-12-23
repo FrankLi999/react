@@ -27,7 +27,7 @@ function ConfigurationDataCreateForm() {
                 headers: { 'Content-Type': 'application/json', 'accept': 'application/json' },
                 body: JSON.stringify([data.formData]),
             };
-            await fetch("/api/configurations", requestOptions);
+            await fetch("/api/integrator/configurations", requestOptions);
         } catch (err) {
             console.log(err);
         }

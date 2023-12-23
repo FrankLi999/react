@@ -38,7 +38,7 @@ function Configurations() {
       //         },
       //         body: formData,
       //     };
-      //     await fetch("/api/import", requestOptions);
+      //     await fetch("/api/integrator/import", requestOptions);
       // } catch (err) {
       //     console.log(err);
       // }
@@ -47,7 +47,7 @@ function Configurations() {
               'content-type': 'multipart/form-data'
           },
       };
-      axios.post("/api/imports", formData, config).then((response) => {
+      axios.post("/api/integrator/imports", formData, config).then((response) => {
           console.log(response.data);
           console.log(states.configurations);
           setconfigurations(response.data);
@@ -141,7 +141,7 @@ function Configurations() {
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
           setLoading(() => true);
-          await fetch("/api/configurations", requestOptions)
+          await fetch("/api/integrator/configurations", requestOptions)
                     .then(response => response.json())
                     .then((data: ConfigurationModel[]) => {
                       dispatch({ type: "set_configurations", configurations: data });
@@ -215,7 +215,7 @@ function Configurations() {
     useEffect(() => {
       setLoading(() => true);
   
-      fetch('api/configurations')
+      fetch('api/integrator/configurations')
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
           dispatch({ type: "set_configurations", configurations: data });

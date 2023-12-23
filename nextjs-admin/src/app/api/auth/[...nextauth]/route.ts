@@ -42,6 +42,7 @@ export const authOptions: AuthOptions = {
                 token.provider = 'github';
             }
             if (!token.provider) token.provider = token.name?.startsWith('camel_anon_') ? 'anonymous' : 'next_auth';
+            token.role = token.provider == 'anonymous' ? 'anon' : 'authenticated'
             return token;
         },
         async session({session, token, user}: {session: Session, token: JWT, user: AdapterUser}): Promise<Session> {
