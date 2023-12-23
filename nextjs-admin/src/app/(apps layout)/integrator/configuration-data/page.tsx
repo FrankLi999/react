@@ -6,12 +6,10 @@ import { Button } from "react-bootstrap";
 import { useRouter } from 'next/navigation'
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import axios from 'axios';
 import { ConfigurationModel } from "@/type/ConfigurationModel";
 import DeleteConfirmation from "./DeleteConfirmation";
 import ImportConfiguration from './ImportConfiguration';
 import { useIntegratorConfigurationDataContext} from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
-
 function Configurations() {
     const { states, dispatch } = useIntegratorConfigurationDataContext();
     console.log(">>>>>>>>> config data:>>>>>>> 0000", states.configurations);
@@ -50,7 +48,8 @@ function Configurations() {
       } catch (err) {
           console.error("Error uploading spring config: ", error);
           setDisplayImportConfirmationModal(false);
-      }    
+      }
+
     }
 
     const hideImportConfigurationModal = () => {
@@ -181,7 +180,7 @@ function Configurations() {
       }
     ];
     
-    const paginationOptions = {
+    const paginationOptions = configurations.length > 0 ? {
       // custom: true,
       sizePerPage: 5,
       paginationSize: 5,
@@ -203,30 +202,52 @@ function Configurations() {
         text: '10', value: 10
       }, {
         text: '30', value: 10
-      },{
+      }, {
         text: 'All', value: configurations.length
       } ]
+    } : {
+      sizePerPage: 5,
+      paginationSize: 5,
+      pageStartIndex: 1,
+      firstPageText: "First",
+      prePageText: "Back",
+      nextPageText: "Next",
+      lastPageText: "Last",
+      nextPageTitle: "First page",
+      prePageTitle: "Pre page",
+      firstPageTitle: "Next page",
+      lastPageTitle: "Last page",
+      showTotal: false,
+      // totalSize: 3
+      totalSize: 3,
+      sizePerPageList: [ {
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: '30', value: 10
+      } ]
     };
-
     useEffect(() => {
-      setLoading(() => true);
-      console.log(">>>>>>>>>wii load data:>>>>>>> ");
+      console.log(">>>>>>>>>wii load data:>>>>>>> ", configurations);
+      if (configurations === null || configurations.length === 0) {
+        setLoading(() => true);
+      }
       const requestOptions = {
-              method: 'GET'
+          method: 'GET',
+          headers: {'Accept': '*/*' },    
       }; 
-      // TODO: this is client side
-      const apiResponse = await fetch('/api/integrator/configurations', requestOptions);
-      // if (!apiResponse.ok()) {
-      //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
-      // } else {
-        const data = apiResponse.json() as ConfigurationModel[]; 
-        dispatch({ type: "set_configurations", configurations: data });
-        setconfigurations(() => data);          
-        console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
-        setLoading(() => false);
-      // }
+      fetch('/api/integrator/configurations', requestOptions)
+        .then(response => response.json())
+        .then((data: ConfigurationModel[]) => {
+          console.log(">>>>>>>>>>>>>>>> configuration data>>>", data);
+          dispatch({ type: "set_configurations", configurations: data });
+          setconfigurations(() => data);          
+          console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
+          setLoading(() => false);
+        })
     }, []);
-    
+
     if (loading) {
       return <p>Loading...</p>;
     } else {
@@ -252,14 +273,14 @@ function Configurations() {
                         <Card.Body>
                             <Row>
                                 <Col md="12">
-                                  <BootstrapTable
+                                  {configurations.length > 0 && <BootstrapTable
                                     bootstrap4
                                     keyField="key"
                                     data={configurations}
                                     columns={configurationTableColumns}
                                     pagination={paginationFactory(paginationOptions)}
                                     noDataIndication={"Table is empty"}
-                                  />
+                                  />}
                                 </Col>
                             </Row>
                         </Card.Body>
