@@ -24,7 +24,7 @@ function Configurations() {
    const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const importConfigurations = (configIle: File) => {
+    const importConfigurations = async (configIle: File) => {
       // data: ConfigurationModel[]| null
       
       console.log(">>>>>>>> import configuration:", configIle);
