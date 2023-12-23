@@ -4,8 +4,8 @@ import http from 'http';
 const apiRequest = async (params: {
     method: string,
     url: string, 
-    data: any,
-    headers:Record<string, string> | Headers | [string, string][]
+    data?: any,
+    headers?:Record<string, string> | Headers | [string, string][]
 }) => {
 
     // const requestOptions = {
@@ -33,7 +33,8 @@ const apiRequest = async (params: {
             body: (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data),
             agent: (url) => url.protocol === 'https' ? httpsAgent : httpAgent
         };
-        const apiUrl = `${process.env.API_BASE_URL}/${params.url}`;
+        const API_BASE_URL = 'API_BASE_URL';
+        const apiUrl = `${process.env[API_BASE_URL]}/${params.url}`;
         const response = await fetch(apiUrl, requestOptions);
         if (!response.ok) {
             console.log("API Error Response,", `${response.status} ${response.statusText}`, response.json());
