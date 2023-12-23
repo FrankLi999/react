@@ -37,7 +37,6 @@ const apiRequest = async (params: {
         if (params.data) {
             requestOptions.body = (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data);
         }
-        console.log(">>>>>>>>>requestOptions>>>>>>agent", requestOptions.agent);
         const API_BASE_URL = 'API_BASE_URL';
         const apiUrl = `${process.env[API_BASE_URL]}${params.url}`;
         console.log(">>>>>>>>>apiUrl>>>>>>agent", apiUrl);
