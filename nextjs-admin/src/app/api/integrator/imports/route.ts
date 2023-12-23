@@ -1,16 +1,19 @@
-import { getServerSession } from "next-auth";
+import apiRrequest  from '@/utils/ApiRequest';
 
 export async function GET() {
-  console.log('>>>>>>>>>>>protected ...');
-  const session = await getServerSession();
-  console.log('>>>>>>>>>>>protected .session..', session);
-  if (!session) {
-    return new Response("Unauthorized", {
-      status: 401,
-    });
-  }
-
-  return new Response("Hello, Next.js!", {
-    status: 200,
+  const contextPath = `/api/imports`;
+  const apiResponse = apiRequest({
+    method: 'GET',
+    url: '/api/import',
+    headers: {
+      Accept: 'application/json'
+    },
   });
+
+  console.log(
+    '/api/import]  result is: ',
+    JSON.stringify(apiResponse.json()),
+  );
+
+  return new Response(apiResponse.json(), {status: apiResponse.status()});
 }
