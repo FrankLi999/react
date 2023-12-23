@@ -2,8 +2,8 @@ import apiRequest  from '@/utils/ApiRequest';
 
 const contextPath = `/api/configurations`;
 
-export async function GET() {
-
+export async function GET(request: Request) {
+  console.log(">>>>>>>>>>>>> /api/configurations>>>> get", request.url);
   const apiResponse = await apiRequest({
     method: 'GET',
     url: contextPath,
@@ -11,13 +11,13 @@ export async function GET() {
       Accept: 'application/json'
     },
   });
-
+  const responseBody = await apiResponse.json();
   console.log(
     `GET ${contextPath} result is: `,
-    JSON.stringify(apiResponse.json()),
+    JSON.stringify(responseBody),
   );
 
-  return new Response(apiResponse.json(), {status: apiResponse.status()});
+  return new Response(responseBody, {status: apiResponse.status});
 }
 
 export async function POST(request: Request) {
@@ -25,15 +25,15 @@ export async function POST(request: Request) {
     method: 'POST',
     url: contextPath,
     headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
-    body: request.body
+    data: request.body
   });
-
+  const responseBody = await apiResponse.json();
   console.log(
     `POST ${contextPath} result is: `,
-    JSON.stringify(apiResponse.json()),
+    JSON.stringify(responseBody),
   );
 
-  return new Response(apiResponse.json(), {status: apiResponse.status()});
+  return new Response(responseBody, {status: apiResponse.status});
 }
 
 export async function PUT(request: Request) {
@@ -41,15 +41,15 @@ export async function PUT(request: Request) {
     method: 'PUT',
     url: contextPath,
     headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
-    body: request.body
+    data: request.body
   });
-
+  const responseBody = await apiResponse.json();
   console.log(
-    `POST ${contextPath} result is: `,
-    JSON.stringify(apiResponse.json()),
+    `PUT ${contextPath} result is: `,
+    JSON.stringify(responseBody),
   );
 
-  return new Response(apiResponse.json(), {status: apiResponse.status()});
+  return new Response(responseBody, {status: apiResponse.status});
 }
 
 export async function DELETE(request: Request) {
@@ -57,13 +57,13 @@ export async function DELETE(request: Request) {
     method: 'DELETE',
     url: contextPath,
     headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
-    body: request.body
+    data: request.body
   });
-
+  const responseBody = await apiResponse.json();
   console.log(
-    `POST ${contextPath} result is: `,
-    JSON.stringify(apiResponse.json()),
+    `DELETE ${contextPath} result is: `,
+    JSON.stringify(responseBody),
   );
 
-  return new Response(apiResponse.json(), {status: apiResponse.status()});
+  return new Response(responseBody, {status: apiResponse.status});
 }
