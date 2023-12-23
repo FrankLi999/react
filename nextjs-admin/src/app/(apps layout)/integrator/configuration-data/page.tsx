@@ -131,20 +131,22 @@ function Configurations() {
       try {
           const requestOptions = {
               method: 'DELETE',
-              headers: { 'Content-Type': 'application/json', 'accept': '*/*' },
+              headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
           setLoading(() => true);
-          await fetch("/api/integrator/configurations", requestOptions)
-                    .then(response => response.json())
-                    .then((data: ConfigurationModel[]) => {
-                      dispatch({ type: "set_configurations", configurations: data });
-                      setconfigurations(() => data);
-                      console.log(states.configurations);
-                      setLoading(() => false);
-                      setDisplayDeleteConfirmationModal(() => false);
-                    });
-          console.log("deleted");
+          const apiResponse = await fetch("/api/integrator/configurations", requestOptions);
+          // if (!apiResponse.ok()) {
+          //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
+          // } else {
+            const data = response.json() as ConfigurationModel[];
+            dispatch({ type: "set_configurations", configurations: data });
+            setconfigurations(() => data);
+            console.log(states.configurations);
+            setLoading(() => false);
+            setDisplayDeleteConfirmationModal(() => false);
+            console.log("deleted");
+          // }
       } catch (err) {
           console.log(err);
       }
@@ -208,15 +210,21 @@ function Configurations() {
 
     useEffect(() => {
       setLoading(() => true);
-  
-      fetch('api/integrator/configurations')
-        .then(response => response.json())
-        .then((data: ConfigurationModel[]) => {
-          dispatch({ type: "set_configurations", configurations: data });
-          setconfigurations(() => data);          
-          console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
-          setLoading(() => false);
-        })
+      console.log(">>>>>>>>>wii load data:>>>>>>> ");
+      const requestOptions = {
+              method: 'GET'
+      }; 
+      // TODO: this is client side
+      const apiResponse = await fetch('api/integrator/configurations', requestOptions);
+      // if (!apiResponse.ok()) {
+      //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
+      // } else {
+        const data = apiResponse.json() as ConfigurationModel[]; 
+        dispatch({ type: "set_configurations", configurations: data });
+        setconfigurations(() => data);          
+        console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
+        setLoading(() => false);
+      // }
     }, []);
     
     if (loading) {
