@@ -29,34 +29,28 @@ function Configurations() {
       
       console.log(">>>>>>>> import configuration:", configIle);
       const formData = new FormData();
-      formData.append('file', configIle);
-      // try {
-      //     const requestOptions = {
-      //         method: 'POST',
-      //         headers: {
-      //             'content-type': 'multipart/form-data'
-      //         },
-      //         body: formData,
-      //     };
-      //     await fetch("/api/integrator/import", requestOptions);
-      // } catch (err) {
-      //     console.log(err);
-      // }
-      const config = {
-          headers: {
-              'content-type': 'multipart/form-data'
-          },
-      };
-      axios.post("/api/integrator/imports", formData, config).then((response) => {
-          console.log(response.data);
-          console.log(states.configurations);
-          setconfigurations(response.data);
-          dispatch({ type: "set_configurations", configurations: response.data });
-          setDisplayImportConfirmationModal(false);
-      }).catch((error) => {
+      formData.append('file', configIle);      
+      
+      try {
+          const requestOptions = {
+              method: 'POST',
+              headers: {'content-type': 'multipart/form-data', 'accept': 'application/json' },
+              body: formData
+          };
+          const apiResponse = await fetch("/api/integrator/imports", requestOptions);
+          // if (!apiResponse.ok()) {
+          //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
+          // } else {
+            console.log(apiResponse.json());
+            console.log(states.configurations);
+            setconfigurations(apiResponse.json());
+            dispatch({ type: "set_configurations", configurations: apiResponse.json() });
+            setDisplayImportConfirmationModal(false);
+          // }
+      } catch (err) {
           console.error("Error uploading spring config: ", error);
           setDisplayImportConfirmationModal(false);
-      });      
+      }    
     }
 
     const hideImportConfigurationModal = () => {
