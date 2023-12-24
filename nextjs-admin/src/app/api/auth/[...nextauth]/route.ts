@@ -5,11 +5,14 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 import {AdapterUser} from "next-auth/adapters";
 import { logger } from "@/logger";
+import log4js from 'log4js';
 // import { uniqueNamesGenerator, Config, adjectives, colors, starWars, animals } from 'unique-names-generator';
 import { randomUUID } from 'crypto';
-import Debug from 'debug';
-const debug = Debug("nextjs:api:auth");
+// import Debug from 'debug';
+// const debug = Debug("nextjs:api:auth");
 
+const log = log4js.getLogger("nextjs:api:auth");
+// log.level = "debug";
 export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
@@ -31,9 +34,14 @@ export const authOptions: AuthOptions = {
     ],
     callbacks: {
         async jwt({token, account, profile}: {token: JWT, account: Account | null, profile?: Profile}): Promise<JWT> {
-            logger.info(">>>>>>>>>> jwt token," + token);
-            logger.info(">>>>>>>>>> jwt account," + account);
-            logger.info(">>>>>>>>>> jwt profile," + profile);
+            logger.info("winston >>>>>>>>>> jwt token," + token);
+            logger.info("winston >>>>>>>>>> jwt account," + account);
+            logger.info("winston >>>>>>>>>> jwt profile," + profile);
+
+
+            log.info("log4js >>>>>>>>>> jwt token," + token);
+            log.info("log4js >>>>>>>>>> jwt account," + account);
+            log.info("log4js >>>>>>>>>> jwt profile," + profile);
             if (account && account?.expires_at && account?.type === 'oauth') {
                 // at sign-in, persist in the JWT the GitHub account details to enable brokered requests in the future
                 token.access_token = account.access_token;
@@ -48,9 +56,14 @@ export const authOptions: AuthOptions = {
         },
         async session({session, token, user}: {session: Session, token: JWT, user: AdapterUser}): Promise<Session> {
             // don't make the token (JWT) contents available to the client session (JWT), but flag that they're server-side
-            logger.info(">>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
-            logger.info(">>>>>>>>>> session user," + user);
-            logger.info(">>>>>>>>>> session session," + session);
+            logger.info("winston >>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
+            logger.info("winston >>>>>>>>>> session user," + user);
+            logger.info("winston >>>>>>>>>> session session," + session);
+
+            log.info("log4js >>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
+            log.info("log4js >>>>>>>>>> session user," + user);
+            log.info("log4js >>>>>>>>>> session session," + session);
+
             if (token.provider) {
                 session.token_provider = token.provider;
             } else if (token.name && !token.name.startsWith('camel_anon_')) {
@@ -59,23 +72,25 @@ export const authOptions: AuthOptions = {
             return session;
         },
         async signIn(userDetail) {
-          logger.info('>>> userDetail ....' + userDetail);
+          logger.info('winston >>> userDetail ....' + userDetail);
+          log.info('log4js >>> userDetail ....' + userDetail);
           if (Object.keys(userDetail).length === 0) {
             return false;
           }
           return true;
         },
         async redirect({ baseUrl }) {
-          logger.info('redirect ...' + baseUrl);
+          logger.info('winston redirect ...' + baseUrl);
+          log.info('log4js redirect ...' + baseUrl);
           return `${baseUrl}/integrator/configuration-data`;
         },
     },
     events: {
         async signIn({user, account, profile}: {user: User, account: Account | null, profile?: Profile}): Promise<void> {
-            debug(`signIn of ${user.name} from ${user?.provider || account?.provider}`);
+            log.debug(`log4js  signIn of ${user.name} from ${user?.provider || account?.provider}`);
         },
         async signOut({session, token}: {session: Session, token: JWT}): Promise<void> {
-            debug(`signOut of ${token.name} from ${token.provider}`);
+            log.debug(`log4js  signOut of ${token.name} from ${token.provider}`);
         },
     },
     session: {

@@ -1,12 +1,15 @@
 import apiRequest  from '@/utils/ApiRequest';
+import log4js from 'log4js';
 import { ConfigurationModel } from '../../../../type/ConfigurationModel';
 import * as oracleDBUtil from '@/utils/oracleDBUtil'
 import * as configurationRepo from '@/repo/ConfigurationRepo';
 import { logger } from "@/logger";
 const contextPath = `/api/configurations`;
-
+const log = log4js.getLogger("integrator:api:configurations");
+// log.level = "debug";
 export async function GET(request: Request) {
-  logger.info(`>>>>>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
+  logger.info(`>>>>windston>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
+  log.info(`>>>log4js>>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
   // // const apiResponse = 
   // return apiRequest({
   //   method: 'GET',

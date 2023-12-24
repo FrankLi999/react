@@ -5,6 +5,7 @@ import { Inter, Outfit } from "next/font/google";
 import '@/styles/scss/nextjs-admin.scss';
 import NextAuthProvider from '@/context/session/NextAuthProvider';
 import * as oracleDBUtil from '@/utils/oracleDBUtil';
+import log4jsInit from '@/Log4js';
 const inter = Inter({ subsets: ["latin"] });
 // metadata
 export const metadata = {
@@ -27,11 +28,10 @@ export const metadata = {
 //   display: 'swap',
 // })
 
-
+log4jsInit();
 export default async function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       { /*  <body className={`${inter.variable} ${outfit.variable}`}>*/ }
