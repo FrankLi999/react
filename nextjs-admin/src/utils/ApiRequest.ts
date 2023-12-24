@@ -33,10 +33,11 @@ const apiRequest = async (params: {
             method: params.method,
             headers: params.headers,
             // agent: sslConfiguredAgent
+            body: params.data
         };
-        if (params.data) {
-            requestOptions.body = (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data);
-        }
+        // if (params.data) {
+        //     requestOptions.body = (typeof params.data === 'string' || params.data instanceof String) ? params.data: JSON.stringify(params.data);
+        // }
         const API_BASE_URL = 'API_BASE_URL';
         const apiUrl = `${process.env[API_BASE_URL]}${params.url}`;
         console.log(">>>>>>>>>apiUrl>>>>>>agent", apiUrl);

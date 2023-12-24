@@ -27,7 +27,7 @@ function AppHome() {
                             </Card.Body>
                             <Card.Footer className="card-footer text-center">
                                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <Link href={`/`}> Go to home page </Link>
+                                    <Link href={`/integrator/configuration-data`}> Go to home page </Link>
                                 </div>                                
                             </Card.Footer>
                         </Card>

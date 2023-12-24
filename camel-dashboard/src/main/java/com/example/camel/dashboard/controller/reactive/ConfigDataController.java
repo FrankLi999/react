@@ -65,7 +65,7 @@ public class ConfigDataController {
     }
 
     @PutMapping(path="/configurations", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Mono<Void> put(@RequestBody List<ConfigData> configData) {
         return configDataService.recreateAll(configData);
     }

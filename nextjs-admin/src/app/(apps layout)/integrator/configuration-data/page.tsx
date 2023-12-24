@@ -22,10 +22,10 @@ function Configurations() {
    const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const importConfigurations = async (configIle: File) => {
+    const importConfigurations = async (configFile: File) => {
       // data: ConfigurationModel[]| null
       
-      console.log(">>>>>>>> import configuration:", configIle);
+      console.log(">>>>>>>> import configuration:", configFile);
       const formData = new FormData();
       formData.append('file', configIle);      
       

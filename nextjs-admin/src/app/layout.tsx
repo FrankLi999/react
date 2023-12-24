@@ -4,6 +4,7 @@ import { Inter, Outfit } from "next/font/google";
 // import 'react-perfect-scrollbar/dist/css/styles.css';
 import '@/styles/scss/nextjs-admin.scss';
 import NextAuthProvider from '@/context/session/NextAuthProvider';
+import * as oracleDBUtil from '@/utils/oracleDBUtil';
 const inter = Inter({ subsets: ["latin"] });
 // metadata
 export const metadata = {
@@ -27,7 +28,7 @@ export const metadata = {
 // })
 
 
-export default function RootLayout({ children }: {
+export default async function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
 
