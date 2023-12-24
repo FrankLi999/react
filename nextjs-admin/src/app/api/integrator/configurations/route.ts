@@ -2,10 +2,11 @@ import apiRequest  from '@/utils/ApiRequest';
 import { ConfigurationModel } from '../../../../type/ConfigurationModel';
 import * as oracleDBUtil from '@/utils/oracleDBUtil'
 import * as configurationRepo from '@/repo/ConfigurationRepo';
+import { logger } from "@/logger";
 const contextPath = `/api/configurations`;
 
 export async function GET(request: Request) {
-  // console.log(">>>>>>>>>>>>> /api/configurations>>>> get", request.url);
+  logger.info(`>>>>>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
   // // const apiResponse = 
   // return apiRequest({
   //   method: 'GET',

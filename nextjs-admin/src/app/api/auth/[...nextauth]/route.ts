@@ -4,6 +4,7 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 import {AdapterUser} from "next-auth/adapters";
+import { logger } from "@/logger";
 // import { uniqueNamesGenerator, Config, adjectives, colors, starWars, animals } from 'unique-names-generator';
 import { randomUUID } from 'crypto';
 import Debug from 'debug';
@@ -30,9 +31,9 @@ export const authOptions: AuthOptions = {
     ],
     callbacks: {
         async jwt({token, account, profile}: {token: JWT, account: Account | null, profile?: Profile}): Promise<JWT> {
-            console.log(">>>>>>>>>> jwt token,", token);
-            console.log(">>>>>>>>>> jwt account,", account);
-            console.log(">>>>>>>>>> jwt profile,", profile);
+            logger.info(">>>>>>>>>> jwt token," + token);
+            logger.info(">>>>>>>>>> jwt account," + account);
+            logger.info(">>>>>>>>>> jwt profile," + profile);
             if (account && account?.expires_at && account?.type === 'oauth') {
                 // at sign-in, persist in the JWT the GitHub account details to enable brokered requests in the future
                 token.access_token = account.access_token;
@@ -47,9 +48,9 @@ export const authOptions: AuthOptions = {
         },
         async session({session, token, user}: {session: Session, token: JWT, user: AdapterUser}): Promise<Session> {
             // don't make the token (JWT) contents available to the client session (JWT), but flag that they're server-side
-            console.log(">>>>>>>>>> session token,", (token.name && !token.name.startsWith('camel_anon_')));
-            console.log(">>>>>>>>>> session user,", user);
-            console.log(">>>>>>>>>> session session,", session);
+            logger.info(">>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
+            logger.info(">>>>>>>>>> session user," + user);
+            logger.info(">>>>>>>>>> session session," + session);
             if (token.provider) {
                 session.token_provider = token.provider;
             } else if (token.name && !token.name.startsWith('camel_anon_')) {
@@ -58,14 +59,14 @@ export const authOptions: AuthOptions = {
             return session;
         },
         async signIn(userDetail) {
-          console.log('>>> userDetail ....', userDetail);
+          logger.info('>>> userDetail ....' + userDetail);
           if (Object.keys(userDetail).length === 0) {
             return false;
           }
           return true;
         },
         async redirect({ baseUrl }) {
-          console.log('redirect ...', baseUrl);
+          logger.info('redirect ...' + baseUrl);
           return `${baseUrl}/integrator/configuration-data`;
         },
     },

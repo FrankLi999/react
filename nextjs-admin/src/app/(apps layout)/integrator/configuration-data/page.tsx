@@ -12,7 +12,7 @@ import ImportConfiguration from './ImportConfiguration';
 import { useIntegratorConfigurationDataContext} from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
 function Configurations() {
     const { states, dispatch } = useIntegratorConfigurationDataContext();
-    console.log(">>>>>>>>> config data:>>>>>>> 0000", states.configurations);
+    console.log(">>>>>>>>> config data:>>>>>>> 0000 " +  states.configurations);
     // const navigate = useNavigate(); 
     const router = useRouter();
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
@@ -126,7 +126,7 @@ function Configurations() {
     }
 
     async function deleteAppConfiurationDetails(row: ConfigurationModel) {
-      console.log('delete app profile', row)
+      console.log('delete app profile ' + row)
       try {
           const requestOptions = {
               method: 'DELETE',
@@ -147,7 +147,7 @@ function Configurations() {
             console.log("deleted");
           // }
       } catch (err) {
-          console.log(err);
+        logger.error(err);
       }
     }
     const configurationTableColumns = [
@@ -229,7 +229,7 @@ function Configurations() {
       } ]
     };
     useEffect(() => {
-      console.log(">>>>>>>>>wii load data:>>>>>>> ", configurations);
+      console.log(">>>>>>>>>wii load data:>>>>>>> " + configurations);
       if (configurations === null || configurations.length === 0) {
         setLoading(() => true);
       }
