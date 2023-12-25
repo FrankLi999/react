@@ -11,7 +11,10 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => token?.role === "authenticated",
+      authorized: ({ token }) => {
+        console.log(">>>>>>>>>>middleware>>>>>>>> token");
+        return token && !token.name?.startsWith('camel_anon_')
+      },
     },
   }
 )
