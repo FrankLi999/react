@@ -1,4 +1,5 @@
 import apiRequest  from '@/utils/ApiRequest';
+import { maskData, maskString, maskArguments } from 'data-guardian';
 import log4js from 'log4js';
 import { ConfigurationModel } from '../../../../type/ConfigurationModel';
 import * as oracleDBUtil from '@/utils/oracleDBUtil'
@@ -8,8 +9,8 @@ const contextPath = `/api/configurations`;
 const log = log4js.getLogger("integrator:api:configurations");
 // log.level = "debug";
 export async function GET(request: Request) {
-  logger.info(`>>>>windston>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
-  log.info(`>>>log4js>>>>>>>>>> /api/configurations>>>> get:${logger.info}`);
+  logger.info(`>>>>windston>>>>>>>>> /api/configurations>>>> get:${request.url}`);
+  log.info(`>>>log4js>>>>>>>>>> /api/configurations>>>> get:${request.url}`);
   // // const apiResponse = 
   // return apiRequest({
   //   method: 'GET',
@@ -23,7 +24,21 @@ export async function GET(request: Request) {
   // console.log('created connection poll >>>>>');
   try {
     const result = await configurationRepo.findAll();
-    return new Response(JSON.stringify(result), {status: 200});
+    const resultJson = JSON.stringify(result);
+    const customMaskingConfig = {
+      keyCheck: (key) => {
+        // add your custom logic here. Return true for keys you want to mask
+        return ['propKey', 'propValue'].includes(key);
+      },
+      maskingChar: '#',
+      maskLength: 3,
+  };
+    const maskedJsonOutput2 = maskData(result, customMaskingConfig);
+    logger.info("winston api configurations >>>>> ");
+    logger.info(maskedJsonOutput2);
+    log.info("log4js api configurations >>>>> ");
+    log.info(maskedJsonOutput2);
+    return new Response(resultJson, {status: 200});
   } catch (err) {
     return new Response(err, {status: 500});
   }

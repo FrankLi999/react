@@ -44,7 +44,6 @@ export const findAll = async () => {
     }
     // always close the ResultSet
     await rs.close();
-    logger.info(configurationModel);
     return configurationModel;
   } catch (err) {
     console.error(err);
