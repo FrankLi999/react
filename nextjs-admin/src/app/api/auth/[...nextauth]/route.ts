@@ -13,7 +13,9 @@ import log4js from 'log4js';
 import { randomUUID } from 'crypto';
 // import Debug from 'debug';
 // const debug = Debug("nextjs:api:auth");
-
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import clientPromise from "@/lib/mongodb"
+const mongoAdapter = MongoDBAdapter(clientPromise);
 const log = log4js.getLogger("nextjs:api:auth");
 // log.level = "debug";
 export const authOptions: AuthOptions = {
@@ -37,14 +39,15 @@ export const authOptions: AuthOptions = {
     ],
     callbacks: {
         async jwt({token, account, profile}: {token: JWT, account: Account | null, profile?: Profile}): Promise<JWT> {
-            logger.info("winston >>>>>>>>>> jwt token," + token);
-            logger.info("winston >>>>>>>>>> jwt account," + account);
-            logger.info("winston >>>>>>>>>> jwt profile," + profile);
+            logger.info("winston >>>>>>>>>> jwt token," );
+            // logger.info("winston >>>>>>>>>> jwt account," + account);
+            // logger.info("winston >>>>>>>>>> jwt profile," + profile);
 
 
-            log.info("log4js >>>>>>>>>> jwt token," + token);
-            log.info("log4js >>>>>>>>>> jwt account," + account);
-            log.info("log4js >>>>>>>>>> jwt profile," + profile);
+            log.info("log4js >>>>>>>>>> jwt token,");
+            // log.info("log4js >>>>>>>>>> jwt account," + account);
+            // log.info("log4js >>>>>>>>>> jwt profile," + profile);
+            console.log(token, account, profile);
             if (account && account?.expires_at && account?.type === 'oauth') {
                 // at sign-in, persist in the JWT the GitHub account details to enable brokered requests in the future
                 token.access_token = account.access_token;
@@ -59,16 +62,17 @@ export const authOptions: AuthOptions = {
         },
         async session({session, token, user}: {session: Session, token: JWT, user: AdapterUser}): Promise<Session> {
             // don't make the token (JWT) contents available to the client session (JWT), but flag that they're server-side
-            logger.info("winston >>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
-            logger.info("winston >>>>>>>>>> session user," + user);
-            logger.info("winston >>>>>>>>>> session session," + session);
+            logger.info("winston >>>>>>>>>> session token,");
+            // logger.info("winston >>>>>>>>>> session user," + user);
+            // logger.info("winston >>>>>>>>>> session session," + session);
 
-            log.info("log4js >>>>>>>>>> session token," +(token.name && !token.name.startsWith('camel_anon_')));
-            log.info("log4js >>>>>>>>>> session user," + user);
-            log.info("log4js >>>>>>>>>> session session," + session);
+            log.info("log4js >>>>>>>>>> session token,");
+            // log.info("log4js >>>>>>>>>> session user," + user);
+            // log.info("log4js >>>>>>>>>> session session," + session);
+            console.log(token, session, user);
 
-            if (token.provider) {
-                session.token_provider = token.provider;
+            if (token?.provider) {
+                session.token_provider = token?.provider;
             } else if (token.name && !token.name.startsWith('camel_anon_')) {
                 session.token_provider = 'next_auth';
             }
@@ -99,9 +103,11 @@ export const authOptions: AuthOptions = {
         },
     },
     // adapter: IORedisAdapter(redis),
+    adapter: mongoAdapter,
     session: {
         // use default, an encrypted JWT (JWE) store in the session cookie
         strategy: "jwt" as SessionStrategy,
+        maxAge: 30 * 60
     },
     pages: {
       signIn: "/auth/signin",

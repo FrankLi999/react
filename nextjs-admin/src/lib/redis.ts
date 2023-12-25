@@ -1,8 +1,14 @@
 import Redis from "ioredis";
 
-const redis = new Redis({password: 'redis'});
+const redis = new Redis({
+    host: process.env['REDIS_HOST'],
+    port:  process.env['REDIS_PORT'],
+    password:  process.env['REDIS_PASSWORD']
+});
 
-// if (process.env.NODE_ENV === "development") global.redis = redis;
+if (process.env.NODE_ENV === "development") {
+    global.redis = redis;
+}
 
 export default redis;
 
