@@ -1,9 +1,12 @@
+// https://github.com/quanhua92/next-auth-ioredis-adapter-example
 import NextAuth, {Account, Profile, AuthOptions, SessionStrategy, Awaitable, Session, User} from "next-auth"
 import Okta from "next-auth/providers/okta";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 import {AdapterUser} from "next-auth/adapters";
+import redis from '@/lib/redis';
+import { IORedisAdapter } from "@/lib/IORedisAdapter";
 import { logger } from "@/logger";
 import log4js from 'log4js';
 // import { uniqueNamesGenerator, Config, adjectives, colors, starWars, animals } from 'unique-names-generator';
@@ -51,7 +54,7 @@ export const authOptions: AuthOptions = {
                 token.provider = 'github';
             }
             if (!token.provider) token.provider = token.name?.startsWith('camel_anon_') ? 'anonymous' : 'next_auth';
-            token.role = token.provider == 'anonymous' ? 'anon' : 'authenticated'
+            token.role = token.provider === 'anonymous' ? 'anon' : 'authenticated'
             return token;
         },
         async session({session, token, user}: {session: Session, token: JWT, user: AdapterUser}): Promise<Session> {
@@ -69,6 +72,8 @@ export const authOptions: AuthOptions = {
             } else if (token.name && !token.name.startsWith('camel_anon_')) {
                 session.token_provider = 'next_auth';
             }
+            // session.user.id = user.id;
+            // session.user.role = token.name && !token.name.startsWith('camel_anon_') ? (user.role || "authenticated") : 'anon'; 
             return session;
         },
         async signIn(userDetail) {
@@ -93,6 +98,7 @@ export const authOptions: AuthOptions = {
             log.debug(`log4js  signOut of ${token.name} from ${token.provider}`);
         },
     },
+    // adapter: IORedisAdapter(redis),
     session: {
         // use default, an encrypted JWT (JWE) store in the session cookie
         strategy: "jwt" as SessionStrategy,
