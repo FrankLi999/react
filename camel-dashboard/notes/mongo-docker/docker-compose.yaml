@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  mongodb_container:
+    # image: mongo:4.4.3
+    image: mongo:latest
+    container_name: mongo
+    #environment:
+    #  MONGO_INITDB_ROOT_USERNAME: root
+    #  MONGO_INITDB_ROOT_PASSWORD: Passw0rd
+    ports:
+      - 27017:27017
+    #command:
+      #- '--replSet'  
+      #- 'rs0'
+      #- '--auth'
+      #- '-f'
+      #- '/etc/mongo.conf'
+    volumes:
+      - mongo-data:/data/db
+      - ./config/mongo.conf:/etc/mongo.conf
+    networks:
+      - wcm-network
+volumes:
+  mongo-data:
+    external: true      
+networks:
+  wcm-network:
+    external: true       
