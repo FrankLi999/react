@@ -5,17 +5,18 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 import {AdapterUser} from "next-auth/adapters";
-import redis from '@/lib/redis';
-import { IORedisAdapter } from "@/lib/IORedisAdapter";
+// import redis from '@/lib/redis';
+// import { IORedisAdapter } from "@/lib/IORedisAdapter";
 import { logger } from "@/logger";
 import log4js from 'log4js';
 // import { uniqueNamesGenerator, Config, adjectives, colors, starWars, animals } from 'unique-names-generator';
 import { randomUUID } from 'crypto';
 // import Debug from 'debug';
 // const debug = Debug("nextjs:api:auth");
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from "@/lib/mongodb"
-const mongoAdapter = MongoDBAdapter(clientPromise);
+// import { MongoDBAdapter } from "@auth/mongodb-adapter"
+// import clientPromise from "@/lib/mongodb"
+// const mongoAdapter = MongoDBAdapter(clientPromise);
+// const redisAdapter = IORedisAdapter(redis);
 const log = log4js.getLogger("nextjs:api:auth");
 // log.level = "debug";
 export const authOptions: AuthOptions = {
@@ -102,8 +103,8 @@ export const authOptions: AuthOptions = {
             log.debug(`log4js  signOut of ${token.name} from ${token.provider}`);
         },
     },
-    // adapter: IORedisAdapter(redis),
-    adapter: mongoAdapter,
+    // adapter: redisAdapter,
+    // adapter: mongoAdapter,
     session: {
         // use default, an encrypted JWT (JWE) store in the session cookie
         strategy: "jwt" as SessionStrategy,
