@@ -6,21 +6,22 @@ export default function AnonymousSessionProvider({
 }: {
     children: ReactNode
 }) {
-    const {data: session, status} = useSession();
-    console.log("<<<<<<<<<<anon provider >sessopm>>", session);
-    console.log("<<<<<<<<<<anon provider >>status>", status);
-    console.log(">>>>>>>anon provider...need sign in, ", session === undefined || session?.user?.name && session?.user?.name.startsWith('anon_'));
-    /*
+    const {data, status} = useSession();
+    
     useEffect(() => {
+        
+        console.log("<<<<<<<<<<anon provider >>status>", status);
+        
         if (status === "unauthenticated") {
-            // login as anonymous
+            // login as anonymous            
+            console.log("<<<<<<<<<<anon provider >unauthenticated>***>");
+            console.log("<<<<<<<<<<anon provider >session>>", data);
             signIn("credentials")
                 .then((data) => {
                     // async sign-in returned
-                });
+            });
         }
     }, [status]);
-    */
     return (
         <>
             {children}

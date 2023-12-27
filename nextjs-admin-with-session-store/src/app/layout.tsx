@@ -6,6 +6,7 @@ import '@/styles/scss/nextjs-admin.scss';
 import NextAuthProvider from '@/context/session/NextAuthProvider';
 import * as oracleDBUtil from '@/utils/oracleDBUtil';
 import log4jsInit from '@/Log4js';
+import getNextAuthServerSession from '@/lib/getNextAuthServerSession';
 const inter = Inter({ subsets: ["latin"] });
 // metadata
 export const metadata = {
@@ -32,6 +33,7 @@ log4jsInit();
 export default async function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
+  const session = await getNextAuthServerSession();
   return (
     <html lang="en">
       { /*  <body className={`${inter.variable} ${outfit.variable}`}>*/ }

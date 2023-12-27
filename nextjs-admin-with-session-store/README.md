@@ -1,3 +1,18 @@
+https://github.com/decovicdev/next-auth-database-session
+
+nextjs oauth agent:
+  https://github.com/curityio/oauth-agent-node-nextjs
+
+  POST /login/start	Start a login by providing the request URL to the SPA and setting temporary cookies.
+  POST /login/end	Complete a login and issuing secure cookies for the SPA containing encrypted tokens.
+  GET /userInfo	Return information from the User Info endpoint for the SPA to display.
+  GET /claims	Return ID token claims such as auth_time and acr.
+  POST /refresh	Refresh an access token and rewrite cookies.
+  POST /logout	Clear cookies and return an end session request URL.
+
+
+  Strong browser security with HTTP only and SameSite=strict cookies
+
 nextauth-redis
 https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-upstash-redis/src/index.ts
 

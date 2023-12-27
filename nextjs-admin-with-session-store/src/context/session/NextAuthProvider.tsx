@@ -4,14 +4,15 @@ import {SessionProvider} from 'next-auth/react';
 import {ReactNode} from 'react';
 import AnonymousSessionProvider from "@/context/session/AnonymousSessionProvider";
 
-export default function NextAuthProvider({
+export default function NextAuthProvider({session,
     children
 }: {
     children: ReactNode;
 }) {
+    console.log(">>>>>>>>>>>NextAuthProvider>>>>>", session);
     return (
         <>
-            <SessionProvider>
+            <SessionProvider session={session}>
                 <AnonymousSessionProvider>
                     {children}
                 </AnonymousSessionProvider>    
