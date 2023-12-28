@@ -1,11 +1,12 @@
 'use client';
 // TODO: this sgould be a template
-import { useEffect } from "react";
-import { IntegratorConfigurationDataProvider } from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
+import { useEffect, useState } from "react";
 import { useSession} from "next-auth/react"
 import { permanentRedirect } from 'next/navigation'
-
+import Link from "next/link";
+import { IntegratorConfigurationDataProvider } from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
 const AppsLayout = ({ children }) => {
+    const { authenticated, setAuthenticated} = useState(false);
     const {data, status} = useSession();
     // console.log(">>>>>>integrator>AppsLayout...status, ", status);
     // console.log(">>>>integrator>>>AppsLayout...session, ", session);
@@ -26,18 +27,20 @@ const AppsLayout = ({ children }) => {
         // });
         permanentRedirect('/auth/signin');
         
+      } else {
+        setAuthenticated(true);
       }
       console.log(">>>>>>>AppsLayout...after redirect, ");
     }, [status]);
     
-    
-    if (data && data.user?.name && data?.user?.name.startsWith('camel_anon_')) {
-      return (<div>Need log in</div>);
-    } else {
-      return (<IntegratorConfigurationDataProvider>
-        {children}
-        </IntegratorConfigurationDataProvider>);
-    }
+    return authenticated ? (
+        <IntegratorConfigurationDataProvider>
+            {children}
+        </IntegratorConfigurationDataProvider>
+    ) : (
+     
+        <Link href={`/auth/login`}>Log in</Link>
+    );
 }
 
 export default AppsLayout
