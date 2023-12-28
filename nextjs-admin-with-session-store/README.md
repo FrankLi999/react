@@ -1,5 +1,5 @@
 https://github.com/decovicdev/next-auth-database-session
-
+https://github.com/nextauthjs/next-auth/discussions/4394
 nextjs oauth agent:
   https://github.com/curityio/oauth-agent-node-nextjs
 

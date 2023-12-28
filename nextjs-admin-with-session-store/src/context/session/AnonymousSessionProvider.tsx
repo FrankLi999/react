@@ -16,6 +16,7 @@ export default function AnonymousSessionProvider({
             // login as anonymous            
             console.log("<<<<<<<<<<anon provider >unauthenticated>***>");
             console.log("<<<<<<<<<<anon provider >session>>", data);
+            // await signIn("credentials");
             signIn("credentials")
                 .then((data) => {
                     // async sign-in returned

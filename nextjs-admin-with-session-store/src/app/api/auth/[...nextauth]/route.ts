@@ -1,5 +1,6 @@
 // https://github.com/quanhua92/next-auth-ioredis-adapter-example
 import NextAuth, {Account, Profile, AuthOptions,  SessionStrategy, Awaitable, Session, User } from "next-auth"
+import { ObjectId } from "mongodb"
 import { cookies } from "next/headers";
 import Okta from "next-auth/providers/okta";
 import GitHubProvider from "next-auth/providers/github";
@@ -25,16 +26,72 @@ const session = {
 interface RouteHandlerContext {
   params: { nextauth: string[] }
 }
+// const getAdapter() {
+//   async getSessionAndUser(sessionToken) {
+//     const id = sessionToken;
+//     const session = await getSession(id);
+//     if (!session) return null;
+//     const user = await getUser(session.userId);
+//     if (!user) return null;
+//     return { session, user };
+//   },
+// }
+
+const getAdapter = ()=> ({
+  ...MongoDBAdapter(clientPromise, {databaseName: 'nextAuth'}),
+  async purgeSession(sessionToken) {
+    let db = (await clientPromise).db('nextAuth');
+    const deleteResult = await db.collection('sessions').deleteOne({
+      sessionToken : sessionToken
+    });
+    console.log(">>>>>>>>> session purged", sessionToken);
+    console.log(">>>>>>>>> session purged, deleteResult", deleteResult);
+  },
+  async getSessionAndUser(sessionToken) {
+    let db = (await clientPromise).db('nextAuth');
+    const userAndSession = await db.collection('sessions').findOne({
+      sessionToken : sessionToken
+    });
+    console.log("SESSION USER :", sessionToken, userAndSession);
+    if (!userAndSession) return null;
+    
+    //insert session data whatever you like 
+    const { user, ...session } = userAndSession
+    console.log("USER", user, userAndSession)
+    if (user && user.name) {
+        return { user: user, session : session }
+    } else {
+      console.log("FIND USER", userAndSession.userId);
+      const user = await db.collection('users').findOne({ _id: new ObjectId(userAndSession.userId) });
+      console.log("FOUND USER", user);
+      if (!user) return null;      
+      return {
+        user: user,
+        session: {
+          ...userAndSession
+        }
+      }
+    }
+  },
+})
 
 export const authOptions = (request: NextRequest, context: RouteHandlerContext): AuthOptions => {
-  const adapter: Adapter = MongoDBAdapter(clientPromise);
+  const adapter: Adapter = getAdapter();
   const { params } = context;
-  console.log(">>>>>>>>>>>>authOptions>>>>>", params);
+  console.log(">>>>>>>>>>>>authOptions>>>>>", params, request.method);
   const isCredentialsCallback =
     params?.nextauth?.includes("callback") &&
     params.nextauth.includes("credentials") &&
     request.method === "POST";
+  const isGetCallback =
+    params?.nextauth?.includes("callback") &&
+    request.method === "GET";  
+  const isCallback =
+    params?.nextauth?.includes("callback") &&
+    request.method === "POST";    
   console.log(">>>>>>>>>>>>authOptions>>>isCredentialsCallback>>", isCredentialsCallback);
+  console.log(">>>>>>>>>>>>authOptions>>>isGetCallback>>", isGetCallback);
+  console.log(">>>>>>>>>>>>authOptions>>>isCallback>>", isCallback);
   return {
     providers: [
       CredentialsProvider({
@@ -55,7 +112,7 @@ export const authOptions = (request: NextRequest, context: RouteHandlerContext):
       }),
     ],
     callbacks: {
-      async signIn(user) {
+      async signIn({user}) {
         logger.info('winston >>> user signin ....' + user);
         log.info('log4js >>> user signin ....' + user);
         console.log(">>>>>>>>>sign in user>", user);
@@ -64,27 +121,45 @@ export const authOptions = (request: NextRequest, context: RouteHandlerContext):
         //   req.query?.nextauth?.includes("callback") &&
         //   req.query?.nextauth?.includes("credentials") &&
         //   req.method === "POST";
-        console.log(">>>>>>>>>sign in req query>", params);  
-        if (isCredentialsCallback) {
-          console.log(">>>>>>>>>sign in isCredentialsCallback>", isCredentialsCallback);       
+        console.log(">>>>>>>>>sign in req query param>", params);  
+        console.log(">>>>>>>>>sign in req isCredentialsCallback>", isCredentialsCallback);  
+        console.log(">>>>>>>>>sign in req isGetCallback>", isGetCallback); 
+        console.log(">>>>>>>>>>>>authOptions>>>isCallback>>", isCallback);
+        if (isCredentialsCallback) {       
           const sessionToken = randomUUID()
           const sessionExpiry = new Date(Date.now() + session.maxAge * 1000)
-          console.log(">>>>>>>>> will create user session created>>>>"); 
-          const s = await adapter.createSession({
-              sessionToken : sessionToken,
-              userId: user.id,
-              user : {
-                  name : user.name,
-                  email : user.email
-              },
-              expires: sessionExpiry,
-              // userAgent: req.headers["user-agent"] ?? null,
-          });
+          const userSession = {
+            sessionToken : sessionToken,
+            userId: user.id,
+            user : {
+                name : user.name,
+                email : user.email
+            },
+            expires: sessionExpiry,
+            // userAgent: req.headers["user-agent"] ?? null,
+          };
+          console.log(">>>>>>>>> will create user session>>>>", userSession); 
+          const s = await adapter.createSession(userSession);
           console.log(">>>>>>>>> user session created>>>>", s); 
           cookies().set("next-auth.session-token", sessionToken, {
               expires: sessionExpiry,
           });
           console.log(">>>>>>>>> cookie created>>>>", cookies().get("next-auth.session-token")); 
+        } else if (isGetCallback) {
+          // TODO: only do it for anon session
+          console.log("sign in none credential >>>>>>session>>")
+          const currentSessionToken = cookies().get("next-auth.session-token").value;
+          console.log("delete session >>>>>>>>", currentSessionToken);
+          if (currentSessionToken) {
+            cookies().delete("next-auth.session-token");
+            console.log("deleted session cookie >>will deleteSession>>>>>>", currentSessionToken);
+            await adapter.purgeSession(currentSessionToken);
+            console.log("deleted session >>>>>>>>", currentSessionToken);
+          }          
+        } else {
+          console.log(">>>>>>>>>>> github signin user", user);
+          console.log(">>>>>>>>>>> github signin isGetCallback", isGetCallback);
+          console.log(">>>>>>>>>>> github signin isGetCallback", cookies());
         }
         return true;
       },
@@ -92,8 +167,8 @@ export const authOptions = (request: NextRequest, context: RouteHandlerContext):
         logger.info('winston redirect ...' + baseUrl);
         log.info('log4js redirect ...' + `${baseUrl}/integrator/configuration-data`);
         // return `${baseUrl}/integrator/configuration-data`;
-        // return `${baseUrl}/home`;
-        return baseUrl;
+        return `${baseUrl}/home`;
+        // return baseUrl;
       },
     },
     jwt: {
