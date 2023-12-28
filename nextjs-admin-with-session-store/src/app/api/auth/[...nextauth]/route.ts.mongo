@@ -6,13 +6,13 @@ import Okta from "next-auth/providers/okta";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { JWT, encode, decode } from "next-auth/jwt"
-import redis from '@/lib/redis';
-import { IORedisAdapter } from "@/lib/IORedisAdapter";
+// import redis from '@/lib/redis';
+// import { IORedisAdapter } from "@/lib/IORedisAdapter";
 import { logger } from "@/logger";
 import log4js from 'log4js';
 import { randomUUID } from 'crypto';
-// import { MongoDBAdapter } from "@auth/mongodb-adapter"
-// import clientPromise from "@/lib/mongodb"
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import clientPromise from "@/lib/mongodb"
 import { Adapter } from "next-auth/adapters";
 import { NextRequest } from "next/server";
 const log = log4js.getLogger("nextjs:api:auth");
@@ -26,9 +26,57 @@ const session = {
 interface RouteHandlerContext {
   params: { nextauth: string[] }
 }
+// const getAdapter() {
+//   async getSessionAndUser(sessionToken) {
+//     const id = sessionToken;
+//     const session = await getSession(id);
+//     if (!session) return null;
+//     const user = await getUser(session.userId);
+//     if (!user) return null;
+//     return { session, user };
+//   },
+// }
+
+const getAdapter = ()=> ({
+  ...MongoDBAdapter(clientPromise, {databaseName: 'nextAuth'}),
+  async purgeSession(sessionToken) {
+    let db = (await clientPromise).db('nextAuth');
+    const deleteResult = await db.collection('sessions').deleteOne({
+      sessionToken : sessionToken
+    });
+    console.log(">>>>>>>>> session purged", sessionToken);
+    console.log(">>>>>>>>> session purged, deleteResult", deleteResult);
+  },
+  async getSessionAndUser(sessionToken) {
+    let db = (await clientPromise).db('nextAuth');
+    const userAndSession = await db.collection('sessions').findOne({
+      sessionToken : sessionToken
+    });
+    console.log("SESSION USER :", sessionToken, userAndSession);
+    if (!userAndSession) return null;
+    
+    //insert session data whatever you like 
+    const { user, ...session } = userAndSession
+    console.log("USER", user, userAndSession)
+    if (user && user.name) {
+        return { user: user, session : session }
+    } else {
+      console.log("FIND USER", userAndSession.userId);
+      const user = await db.collection('users').findOne({ _id: new ObjectId(userAndSession.userId) });
+      console.log("FOUND USER", user);
+      if (!user) return null;      
+      return {
+        user: user,
+        session: {
+          ...userAndSession
+        }
+      }
+    }
+  },
+})
 
 export const authOptions = (request: NextRequest, context: RouteHandlerContext): AuthOptions => {
-  const adapter: Adapter = IORedisAdapter(redis);
+  const adapter: Adapter = getAdapter();
   const { params } = context;
   console.log(">>>>>>>>>>>>authOptions>>>>>", params, request.method);
   const isCredentialsCallback =
@@ -83,10 +131,10 @@ export const authOptions = (request: NextRequest, context: RouteHandlerContext):
           const userSession = {
             sessionToken : sessionToken,
             userId: user.id,
-            user : JSON.stringify({
+            user : {
                 name : user.name,
                 email : user.email
-            }),
+            },
             expires: sessionExpiry,
             // userAgent: req.headers["user-agent"] ?? null,
           };

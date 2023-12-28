@@ -209,13 +209,38 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
       const id = session.sessionToken;
       return await setSession(id, { ...session, id });
     },
+    // async getSessionAndUser(sessionToken) {
+    //   const id = sessionToken;
+    //   const session = await getSession(id);
+    //   if (!session) return null;
+    //   const user = await getUser(session.userId);
+    //   if (!user) return null;
+    //   return { session, user };
+    // },
+    // Updated for anon credentials
     async getSessionAndUser(sessionToken) {
+      console.log(">>>>>>>>> getSessionAndUser", sessionToken);
       const id = sessionToken;
-      const session = await getSession(id);
-      if (!session) return null;
-      const user = await getUser(session.userId);
-      if (!user) return null;
-      return { session, user };
+      const userAndSession = await getSession(id);
+      console.log("SESSION USER :", sessionToken, userAndSession);
+      if (!userAndSession) return null;
+      const { user, ...session } = userAndSession
+      console.log("USER", user, userAndSession)
+      if (user) {
+          console.log("found user >>>",  { user: JSON.parse(user), session : session })
+          return { user: JSON.parse(user), session : session }
+      } else {
+        console.log("FIND USER", userAndSession.userId);
+        const user = await getUser(userAndSession.userId);
+        console.log("FOUND USER", user);
+        if (!user) return null;      
+        return {
+          user: user,
+          session: {
+            ...userAndSession
+          }
+        }
+      }
     },
     async updateSession(updates) {
       const id = updates.sessionToken;
@@ -224,6 +249,17 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
       return await setSession(id, { ...session, ...updates });
     },
     deleteSession,
+    //Added for anon credentials
+    async purgeSession(sessionToken) {
+      console.log(">>>>>>>>>>purgeSession>>>")
+      const session = await getSession(sessionToken);
+      if (!session) return null;
+      const key = getSessionKey(sessionToken);
+      await client.del(key);
+      await client.del(getSessionByUserIdKey(session.userId));
+      console.log(">>>>>>>>> session purged", sessionToken);
+  
+    },
     async createVerificationToken(verificationToken) {
       const id = verificationToken.identifier;
       await setVerificationToken(id, verificationToken);
