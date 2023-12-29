@@ -3,7 +3,11 @@
 import React, { useRef, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const ImportConfiguration = ({ showModal, hideModal, importConfiguration }) => {
+const ImportConfiguration = ({ showModal, hideModal, importConfiguration }: {
+  showModal: boolean;
+  hideModal: () => void;
+  importConfiguration: (configIle: File) => void;
+}) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadedFile, setUploadedFile] = useState<File|null>(null);
     const handleUpload = () => {
