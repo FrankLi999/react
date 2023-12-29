@@ -34,7 +34,7 @@ export const init = async () => {
         // await dostuff();
     
       } catch (err) {
-        console.error('init() error: ' + err.message);
+        console.error('init() error: ', err);
       }
 
     }
@@ -50,7 +50,7 @@ export const closePool = async () => {
       console.log('Pool closed');
       // process.exit(0);
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
       // process.exit(1);
     }
 }
