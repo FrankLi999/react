@@ -4,6 +4,7 @@ import { ApplicationProfile } from '@/dto/ApplicationProfile';
 import { ConfigData } from '@/dto/ConfigData';
 import { ConfigDataEntity } from './entity/ConfigDataEntity';
 import { logger } from "@/logger";
+import { ConfigurationModel } from '@/type/ConfigurationModel';
 export const findAll = async () => {
   let connection;
   try {
@@ -19,10 +20,10 @@ export const findAll = async () => {
     console.log(result.rows);
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
     // return result.rows as ConfigDataEntity[];
-    const rs = result.resultSet;
+    const rs = result.resultSet as oracledb.ResultSet<any>;
     let row;
     let i = 1;
-    const configurationModel = [];
+    const configurationModel: ConfigurationModel[] = [];
     while ((row = await rs.getRow())) {
       logger.info("getRow(): row " + i++);
        const key = `${row[0]}-${row[1]}-${row[2]}`;
@@ -76,10 +77,10 @@ export const findByApplication = async (application: string) => {
     console.log(result.rows);
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
     // return result.rows as ConfigDataEntity[];
-    const rs = result.resultSet;
+    const rs = result.resultSet as oracledb.ResultSet<any>;
     let row;
     let i = 1;
-    const configurationModel = [];
+    const configurationModel: ConfigurationModel[] = [];
     while ((row = await rs.getRow())) {
       console.log("getRow(): row " + i++);
        const key = `${row[0]}-${row[1]}-${row[2]}`;
@@ -125,7 +126,7 @@ export const deleteProfiles = async (configData: ConfigData[]) => {
       profile: { type: oracledb.STRING}
     }
   };
-  const binds: ApplicationProfile[] = [];
+  const binds: oracledb.BindParameters[] = [];
   configData.forEach(e => {
     binds.push({
       application: e.application,
@@ -165,7 +166,7 @@ export const saveAll = async (configData: ConfigData[]) => {
       profile: { type: oracledb.STRING}
     }
   };
-  const binds: ConfigDataEntity[] = [];
+  const binds: oracledb.BindParameters[] = [];
   configData.forEach(config => {
     config.props.forEach(prop => {
       binds.push({
