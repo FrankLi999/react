@@ -5,8 +5,10 @@ import { useSession} from "next-auth/react"
 import { permanentRedirect } from 'next/navigation'
 import Link from "next/link";
 import { IntegratorConfigurationDataProvider } from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
-const AppsLayout = ({ children }) => {
-    const { authenticated, setAuthenticated} = useState(false);
+const AppsLayout = ({ children }: {
+    children: React.ReactNode;
+  }) => {
+    const [ authenticated, setAuthenticated] = useState(false);
     const {data, status} = useSession();
     // console.log(">>>>>>integrator>AppsLayout...status, ", status);
     // console.log(">>>>integrator>>>AppsLayout...session, ", session);
@@ -31,7 +33,7 @@ const AppsLayout = ({ children }) => {
         setAuthenticated(true);
       }
       console.log(">>>>>>>AppsLayout...after redirect, ");
-    }, [status]);
+    }, [data, status]);
     
     return authenticated ? (
         <IntegratorConfigurationDataProvider>
