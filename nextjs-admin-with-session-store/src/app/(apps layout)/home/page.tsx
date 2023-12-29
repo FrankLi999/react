@@ -21,13 +21,13 @@ function AppHome() {
                                 <div className="text-center">
                                     <p className="mb-5  text-muted text-18">
                                         Place holder: need to make a post call like: <br />
-                                        curl -H "Content-Type: application/json" -d {} http://my-camel-integrator:8080/actuator/refresh
+                                       {`curl -H "Content-Type: application/json" -d {} http://my-camel-integrator:8080/actuator/refresh`}
                                     </p>
                                 </div>
                             </Card.Body>
                             <Card.Footer className="card-footer text-center">
                                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <Link href={`/integrator/configuration-data`}> Go to home page </Link>
+                                    <Link href={`/integrator/configuration-data`}> Go to configurations </Link>
                                 </div>                                
                             </Card.Footer>
                         </Card>
