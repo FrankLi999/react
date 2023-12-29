@@ -1,7 +1,14 @@
 'use client'
+import { ConfigurationModel } from "@/type/ConfigurationModel";
 import { Modal, Button } from "react-bootstrap";
  
-const DeleteConfirmation = ({ showModal, hideModal, confirmModal, row, message }) => {
+const DeleteConfirmation = ({ showModal, hideModal, confirmModal, row, message }: {
+  showModal: boolean;
+  hideModal: () => void;
+  confirmModal: (row: ConfigurationModel|null) => void;
+  row: ConfigurationModel | null;
+  message: string;
+}) => {
     return (
         <Modal show={showModal} onHide={hideModal}>
         <Modal.Header closeButton>
