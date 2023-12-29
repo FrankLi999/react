@@ -1,11 +1,10 @@
+'use client';
 
-'use client'
 import ProtectedSiteLayout from "@/layout/ProtectedSiteLayout";
-//import { useSession } from "next-auth/react"
-const AppsLayout = ({ children }) => {
-    // client side only
-    // const router = useRouter();
 
+const AppsLayout = ({ children }: {
+    children: React.ReactNode;
+  }) => {
     return (
           <ProtectedSiteLayout>
             {children}
