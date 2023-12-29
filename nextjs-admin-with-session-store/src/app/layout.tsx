@@ -4,7 +4,7 @@ import { Inter, Outfit } from "next/font/google";
 // import 'react-perfect-scrollbar/dist/css/styles.css';
 import '@/styles/scss/nextjs-admin.scss';
 import NextAuthProvider from '@/context/session/NextAuthProvider';
-import * as oracleDBUtil from '@/utils/oracleDBUtil';
+// import * as oracleDBUtil from '@/utils/oracleDBUtil';
 import log4jsInit from '@/Log4js';
 import getNextAuthServerSession from '@/lib/getNextAuthServerSession';
 const inter = Inter({ subsets: ["latin"] });
@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: {
     <html lang="en">
       { /*  <body className={`${inter.variable} ${outfit.variable}`}>*/ }
       <body className={`${inter.className}`}> 
-        <NextAuthProvider>
+        <NextAuthProvider session={session}>
           <GlobalStateProvider>
             {children}
           </GlobalStateProvider>
@@ -47,30 +47,3 @@ export default async function RootLayout({ children }: {
     </html>
   )
 }
-
-/*
-
-import "../styles/styles.css";
-import React, { PropsWithChildren } from "react";
-import { PageLayout } from "@/components/page-layout";
-import { siteMetadata } from "@/components/page-head";
-import { PreloadResources } from "@/app/preload-resources";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-
-export const metadata = siteMetadata;
-
-const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <html lang="en">
-      <PreloadResources />
-      <body>
-        <UserProvider>
-          <PageLayout>{children}</PageLayout>
-        </UserProvider>
-      </body>
-    </html>
-  );
-};
-
-export default RootLayout;
-*/
