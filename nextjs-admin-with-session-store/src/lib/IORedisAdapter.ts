@@ -1,8 +1,12 @@
 import type { Account as AdapterAccount } from "next-auth";
 import type { Adapter, AdapterUser, AdapterSession, VerificationToken } from "next-auth/adapters";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
+import { randomUUID } from 'crypto';
 import type { Redis } from "ioredis";
 
+interface AdapterSessionWithUser extends AdapterSession{
+  user?: string;
+}
 export interface IORedisAdapterOptions {
   baseKeyPrefix?: string;
   userKeyPrefix?: string;
@@ -99,7 +103,7 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
   const setAccount = async (id: string, account: AdapterAccount) => {
     const accountKey = getAccountKey(id);
     await setObjectAsHash(accountKey, account);
-    await client.set(getAccountByUserIdKey(account.userId), accountKey);
+    await client.set(getAccountByUserIdKey(account.userId as string), accountKey);
     return account;
   };
 
@@ -114,7 +118,7 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
     const account = await loadObjectFromHash(key);
     if (!account) return null;
     await client.hdel(key);
-    await client.del(getAccountByUserIdKey(account.userId));
+    await client.del(getAccountByUserIdKey(account.userId as string));
   };
 
   const setSession = async (id: string, session: AdapterSession) => {
@@ -161,8 +165,8 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
 
   return {
     async createUser(user) {
-      const id = uuid();
-      // @ts-expect-error
+      // const id = uuid();
+      const id = randomUUID();
       return await setUser(id, { ...user, id });
     },
     getUser,
@@ -174,7 +178,7 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
     async getUserByAccount({ providerAccountId, provider }) {
       const account = await getAccount(getAccountId(providerAccountId, provider));
       if (!account) return null;
-      return await getUser(account.userId);
+      return await getUser(account.userId as string);
     },
 
     async updateUser(updates) {
@@ -199,16 +203,21 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
     },
     async linkAccount(account) {
       const id = getAccountId(account.providerAccountId, account.provider);
-      return await setAccount(id, { ...account, id });
+      // return await setAccount(id, { ...account, id });
+      await setAccount(id, { ...account, id });
     },
+    
     async unlinkAccount({ providerAccountId, provider }) {
       const id = getAccountId(providerAccountId, provider);
       await deleteAccount(id);
     },
-    async createSession(session) {
-      const id = session.sessionToken;
-      return await setSession(id, { ...session, id });
-    },
+    // async createSession(session) {
+    //   const id = session.sessionToken;
+    //   return await setSession(id, { ...session, id });
+    // },
+    
+    createSession: (session) => setSession(session.sessionToken, session),
+
     // async getSessionAndUser(sessionToken) {
     //   const id = sessionToken;
     //   const session = await getSession(id);
@@ -224,7 +233,7 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
       const userAndSession = await getSession(id);
       console.log("SESSION USER :", sessionToken, userAndSession);
       if (!userAndSession) return null;
-      const { user, ...session } = userAndSession
+      const { user, ...session } = userAndSession as AdapterSessionWithUser;
       console.log("USER", user, userAndSession)
       if (user) {
           console.log("found user >>>",  { user: JSON.parse(user), session : session })
@@ -250,16 +259,16 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
     },
     deleteSession,
     //Added for anon credentials
-    async purgeSession(sessionToken) {
-      console.log(">>>>>>>>>>purgeSession>>>")
-      const session = await getSession(sessionToken);
-      if (!session) return null;
-      const key = getSessionKey(sessionToken);
-      await client.del(key);
-      await client.del(getSessionByUserIdKey(session.userId));
-      console.log(">>>>>>>>> session purged", sessionToken);
+    // async purgeSession(sessionToken) {
+    //   console.log(">>>>>>>>>>purgeSession>>>")
+    //   const session = await getSession(sessionToken);
+    //   if (!session) return null;
+    //   const key = getSessionKey(sessionToken);
+    //   await client.del(key);
+    //   await client.del(getSessionByUserIdKey(session.userId));
+    //   console.log(">>>>>>>>> session purged", sessionToken);
   
-    },
+    // },
     async createVerificationToken(verificationToken) {
       const id = verificationToken.identifier;
       await setVerificationToken(id, verificationToken);
