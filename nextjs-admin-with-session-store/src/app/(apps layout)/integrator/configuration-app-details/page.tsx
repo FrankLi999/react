@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Container, Card, Col, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from 'react-bootstrap-table2-editor';
+// import cellEditFactory from 'react-bootstrap-table2-editor';
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useIntegratorConfigurationDataContext } from "@/context/integrator-configuration/IntegratorConfigurationDataProvider";
 
@@ -15,7 +15,7 @@ function ConfigurationAppDetails() {
   // const navigate = useNavigate(); 
   const router = useRouter();
   const { states, dispatch } = useIntegratorConfigurationDataContext();
-  console.log("Will show details1111", states.currentRow, states.currentRow.props);
+  console.log("Will show details1111", states.currentRow, states.currentRow?.props);
   // const { state } = useLocation();
   const editConfig = () => {
     // navigate("/integrator/configuration-form-edit", {state: {...state}})
@@ -38,7 +38,7 @@ function ConfigurationAppDetails() {
       editable: false
     }
   ];
-  const paginationOptions = states.currentRow.props && states.currentRow.props.length > 0 ? {
+  const paginationOptions = states.currentRow?.props && states.currentRow?.props.length > 0 ? {
     // custom: true,
     sizePerPage: 5,
     paginationSize: 5,
@@ -53,7 +53,7 @@ function ConfigurationAppDetails() {
     lastPageTitle: "Last page",
     showTotal: false,
     // totalSize: 3
-    totalSize: states.currentRow.props.length,
+    totalSize: states.currentRow?.props.length,
     sizePerPageList: [ {
       text: '5', value: 5
     }, {
@@ -61,7 +61,7 @@ function ConfigurationAppDetails() {
     }, {
       text: '30', value: 10
     }, {
-      text: 'All', value: states.currentRow.props.length
+      text: 'All', value: states.currentRow?.props.length
     }]
   } : {
     // custom: true,
@@ -88,7 +88,7 @@ function ConfigurationAppDetails() {
     }]
   };
 
-  console.log("Will show detail222222", states.currentRow.props);
+  console.log("Will show detail222222", states.currentRow?.props);
   return (
     <>
       <Container>
@@ -100,16 +100,16 @@ function ConfigurationAppDetails() {
                   as="h4"
                   className="text-center font-weight-light my-4"
                 >
-                  Application Configuration: {states.currentRow.application}/{states.currentRow.profile} <Button onClick={() => {editConfig();}}>Edit</Button>
+                  Application Configuration: {states.currentRow?.application}/{states.currentRow?.profile} <Button onClick={() => {editConfig();}}>Edit</Button>
                 </Card.Title>
               </Card.Header>
               <Card.Body>
                 <div className="text-center">
-                  { (states.currentRow.props && states.currentRow.props.length > 0) &&
+                  { (states.currentRow?.props && states.currentRow?.props.length > 0) &&
                   <BootstrapTable
                     bootstrap4
                     keyField="propKey"
-                    data={states.currentRow.props}
+                    data={states.currentRow?.props}
                     columns={appConfigColumns}
                     pagination={paginationFactory(paginationOptions)}
                     noDataIndication={"Table is empty"}
