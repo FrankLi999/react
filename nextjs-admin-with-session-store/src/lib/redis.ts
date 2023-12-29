@@ -1,14 +1,14 @@
-import Redis from "ioredis";
+import Redis, { RedisOptions } from "ioredis";
 
 const redis = new Redis({
-    host: process.env['REDIS_HOST'],
-    port:  process.env['REDIS_PORT'],
-    password:  process.env['REDIS_PASSWORD'],
-    db: 2
-});
+    host: process.env['REDIS_HOST'] as string,
+    port: Number(process.env['REDIS_PORT']),
+    // password: process.env['REDIS_PASSWORD']  as string,
+    db: parseInt(process.env['REDIS_DATABASE'] as string)
+} as RedisOptions);
 
-if (process.env.NODE_ENV === "development") {
-    global.redis = redis;
+if (process.env['NODE_ENV'] === "development") {
+    (global as any).redis = redis;
 }
 
 export default redis;
