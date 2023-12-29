@@ -1,17 +1,17 @@
-import apiRequest  from '@/utils/ApiRequest';
-import { maskData, maskString, maskArguments } from 'data-guardian';
+
+import { maskData, IMaskDataOptions }  from '@/lib/data-guard';
 import log4js from 'log4js';
-import { ConfigurationModel } from '../../../../type/ConfigurationModel';
-import * as oracleDBUtil from '@/utils/oracleDBUtil'
+import { ConfigData } from "@/dto/ConfigData";
 import * as configurationRepo from '@/repo/ConfigurationRepo';
 import { logger } from "@/logger";
+import { NextRequest } from 'next/server';
 const contextPath = `/api/configurations`;
 const log = log4js.getLogger("integrator:api:configurations");
 // log.level = "debug";
 export async function GET(request: Request) {
   logger.info(`>>>>windston>>>>>>>>> /api/configurations>>>> get:${request.url}`);
   log.info(`>>>log4js>>>>>>>>>> /api/configurations>>>> get:${request.url}`);
-  // // const apiResponse = 
+  // // const apiResponse =
   // return apiRequest({
   //   method: 'GET',
   //   url: contextPath,
@@ -25,8 +25,8 @@ export async function GET(request: Request) {
   try {
     const result = await configurationRepo.findAll();
     const resultJson = JSON.stringify(result);
-    const customMaskingConfig = {
-      keyCheck: (key) => {
+    const customMaskingConfig: Partial<IMaskDataOptions> = {
+      keyCheck: (key: string) => {
         // add your custom logic here. Return true for keys you want to mask
         return ['propKey', 'propValue'].includes(key);
       },
@@ -39,7 +39,7 @@ export async function GET(request: Request) {
     log.info("log4js api configurations >>>>> ");
     log.info(maskedJsonOutput2);
     return new Response(resultJson, {status: 200});
-  } catch (err) {
+  } catch (err: any) {
     return new Response(err, {status: 500});
   }
 }
@@ -59,22 +59,21 @@ export async function POST(request: Request) {
 
   // return new Response(responseBody, {status: apiResponse.status});
   try {
-    const data = request.body as ConfigData [];
+    const data  = await request.json() as ConfigData[];
     console.log(`import data: `, JSON.stringify(data));
     await configurationRepo.saveAll(data);
     console.log(
       `POST ${contextPath} result is successful `,
     );
-
-    return res.status(201).json({success: true});
-  } catch (err) {
-    return res.status(500).json(err);
+    return new Response(JSON.stringify({success: true}), {status: 201});
+  } catch (err: any) {
+    return new Response(err, {status: 500});
   }
 }
 
 export async function PUT(request: Request) {
   try {
-    const data = request.body as ConfigData [];
+    const data  = await request.json() as ConfigData[];
     console.log(`import data: `, JSON.stringify(data));
     await configurationRepo.deleteProfiles(data);
     await configurationRepo.saveAll(data);
@@ -82,9 +81,9 @@ export async function PUT(request: Request) {
       `POST ${contextPath} result is successful `,
     );
 
-    return res.status(200).json({success: true});
-  } catch (err) {
-    return res.status(500).json(err);
+    return new Response(JSON.stringify({success: true}), {status: 200});
+  } catch (err: any) {
+    return new Response(err, {status: 500});
   }
   // const apiResponse = await apiRequest({
   //   method: 'PUT',
@@ -117,8 +116,8 @@ export async function DELETE(request: Request) {
   // return new Response(responseBody, {status: apiResponse.status});
 
   try {
-    const configData = request.body as ConfigData [];
-    console.log(`import data: `, JSON.stringify(data));
+    const configData  = await request.json() as ConfigData[];
+    console.log(`import data: `, JSON.stringify(configData));
     await configurationRepo.deleteProfiles(configData);
     const responseBody =  await configurationRepo.findAll();
     console.log(
@@ -126,8 +125,8 @@ export async function DELETE(request: Request) {
       responseBody,
     );
 
-    return res.status(200).json(responseBody);
-  } catch (err) {
-    return res.status(500).json(err);
+    return new Response(JSON.stringify(responseBody), {status: 200});
+  } catch (err: any) {
+    return new Response(err, {status: 500});
   }
 }
