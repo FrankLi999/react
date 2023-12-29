@@ -12,41 +12,43 @@ import ImportConfiguration from './ImportConfiguration';
 import { useIntegratorConfigurationDataContext} from '@/context/integrator-configuration/IntegratorConfigurationDataProvider';
 function Configurations() {
     const { states, dispatch } = useIntegratorConfigurationDataContext();
-    console.log(">>>>>>>>> config data:>>>>>>> 0000 " +  states.configurations);
+    console.log(">>>>>>>>> config data:>>>>>>> 0000", states.configurations);
     // const navigate = useNavigate(); 
     const router = useRouter();
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
     const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
     
     const [deleteRow, setDeleteRow] = useState<ConfigurationModel|null>(null);
-   const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
+   const [configurations, setConfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const importConfigurations = async (configFile: File) => {
+    const importConfigurations = async (configIle: File) => {
       // data: ConfigurationModel[]| null
       
-      console.log(">>>>>>>> import configuration:", configFile);
+      console.log(">>>>>>>> import configuration:", configIle);
       const formData = new FormData();
       formData.append('file', configIle);      
       
       try {
           const requestOptions = {
               method: 'POST',
-              headers: {'content-type': 'multipart/form-data', 'accept': 'application/json' },
+              headers: {'accept': 'application/json' },
+              // headers: {'content-type': 'multipart/form-data; boundary=MyBoundary', 'accept': 'application/json' },
               body: formData
           };
-          const apiResponse = await fetch("/api/integrator/imports", requestOptions);
+          const apiResponse: Response = await fetch("/api/integrator/imports", requestOptions);
           // if (!apiResponse.ok()) {
           //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
           // } else {
-            console.log(apiResponse.json());
+            const configurations: ConfigurationModel[] = await apiResponse.json() as ConfigurationModel[];
+            console.log(configurations);
             console.log(states.configurations);
-            setconfigurations(apiResponse.json());
-            dispatch({ type: "set_configurations", configurations: apiResponse.json() });
+            setConfigurations(configurations);
+            dispatch({ type: "set_configurations", configurations: configurations});
             setDisplayImportConfirmationModal(false);
           // }
       } catch (err) {
-          console.error("Error uploading spring config: ", error);
+          console.error("Error uploading spring config: ", err);
           setDisplayImportConfirmationModal(false);
       }
 
@@ -59,26 +61,26 @@ function Configurations() {
     const hideDeleteConfirmationModal = () => {
       setDisplayDeleteConfirmationModal(false);
     };
-    const detailsLink = (cell, row, rowIndex, formatExtraData) => {
+    const detailsLink = (cell: any, row: any, rowIndex: number, formatExtraData: any) => {
       return (
         <>
         <Button
           onClick={() => {
-            editAppConfiurationDetails(row);
+            editAppConfiurationDetails(row as ConfigurationModel) ;
           }}
         >
           Edit
         </Button>
         <Button
           onClick={() => {
-            showAppConfiurationDetails(row);
+            showAppConfiurationDetails(row as ConfigurationModel);
           }}
         >
           Config
         </Button>
         <Button
           onClick={() => {
-            showDeleteModal(row);
+            showDeleteModal(row as ConfigurationModel);
           }}
         >
           Delete
@@ -107,7 +109,8 @@ function Configurations() {
     const editAppConfiurationDetails = (row: ConfigurationModel) => {
       // navigate("/integrator/configuration-form-edit", {state: {...row}})
       dispatch({ type: "set_current_row", currentRow: {...row}});
-      router.push('/integrator/configuration-form-edit', {state: {...row}});
+      // router.push('/integrator/configuration-form-edit', {state: {...row}});
+      router.push('/integrator/configuration-form-edit');
     }
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
       // navigate("/integrator/configuration-app-details", {state: {...row}}) 
@@ -120,34 +123,34 @@ function Configurations() {
       setDisplayImportConfirmationModal(true);
     }
 
-    const showDeleteModal = (row: ConfigurationModel) => {
+    const showDeleteModal = (row: ConfigurationModel|null) => {
       setDeleteRow(() => row);
       setDisplayDeleteConfirmationModal(() => true);
     }
 
-    async function deleteAppConfiurationDetails(row: ConfigurationModel) {
-      console.log('delete app profile ' + row)
+    async function deleteAppConfiurationDetails(row: ConfigurationModel|null) {
+      console.log('delete app profile', row)
       try {
           const requestOptions = {
               method: 'DELETE',
               headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
-              body: JSON.stringify([{application: row.application, profile: row.profile}]),
+              body: JSON.stringify([{application: row?.application, profile: row?.profile}]),
           };
           setLoading(() => true);
           const apiResponse = await fetch("/api/integrator/configurations", requestOptions);
           // if (!apiResponse.ok()) {
           //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
           // } else {
-            const data = response.json() as ConfigurationModel[];
+            const data = await apiResponse.json() as ConfigurationModel[];
             dispatch({ type: "set_configurations", configurations: data });
-            setconfigurations(() => data);
+            setConfigurations(() => data);
             console.log(states.configurations);
             setLoading(() => false);
             setDisplayDeleteConfirmationModal(() => false);
             console.log("deleted");
           // }
       } catch (err) {
-        logger.error(err);
+          console.log(err);
       }
     }
     const configurationTableColumns = [
@@ -229,7 +232,7 @@ function Configurations() {
       } ]
     };
     useEffect(() => {
-      console.log(">>>>>>>>>wii load data:>>>>>>> " + configurations);
+      console.log(">>>>>>>>>wii load data:>>>>>>> ", configurations);
       if (configurations === null || configurations.length === 0) {
         setLoading(() => true);
       }
@@ -242,7 +245,7 @@ function Configurations() {
         .then((data: ConfigurationModel[]) => {
           console.log(">>>>>>>>>>>>>>>> configuration data>>>", data);
           dispatch({ type: "set_configurations", configurations: data });
-          setconfigurations(() => data);          
+          setConfigurations(() => data);          
           console.log(">>>>>>>>> config data:>>>>>>> ", states.configurations);
           setLoading(() => false);
         })
