@@ -1,14 +1,13 @@
 'use client';
-import { Dispatch, createContext, useContext, useMemo, useReducer, useState } from 'react';
-import { initialStates, rootReducer } from './reducer/rootReducer';
-// import { GlobalReducer, initialStates } from './GlobalReducer';
+import { Dispatch, createContext, useContext, useMemo, useReducer} from 'react';
+import { initialStates, rootReducer, RootReducerAction, RootReducerState } from './reducer/rootReducer';
 
 export interface IGlobalContextProps {
-    states?: any;
-    dispatch?: Dispatch<any>;
+    states: RootReducerState;
+    dispatch: Dispatch<RootReducerAction>;
 }
 // Create a new context
-export const GlobalStateContext = createContext<IGlobalContextProps>({});
+export const GlobalStateContext = createContext<IGlobalContextProps>({states: initialStates, dispatch: () => {type: "initial"}});
 
 export const GlobalStateProvider = ({ children }: {
     children: React.ReactNode;
@@ -16,12 +15,12 @@ export const GlobalStateProvider = ({ children }: {
 
     const [states, dispatch] = useReducer(rootReducer, initialStates);
 
-    const ContextValue = useMemo(() => {
+    const contextValue = useMemo(() => {
         return { states, dispatch };
     }, [states, dispatch]);
 
     return (
-        <GlobalStateContext.Provider value={ContextValue}>
+        <GlobalStateContext.Provider value={contextValue}>
             {children}
         </GlobalStateContext.Provider>
     )
