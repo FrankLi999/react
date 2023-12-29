@@ -7,15 +7,16 @@ import AnonymousSessionProvider from "@/context/session/AnonymousSessionProvider
 export default function NextAuthProvider({session,
     children
 }: {
+    session: any;
     children: ReactNode;
 }) {
-    console.log(">>>>>>>>>>>NextAuthProvider>>>>>", session);
+    
     return (
         <>
             <SessionProvider session={session}>
                 <AnonymousSessionProvider>
                     {children}
-                </AnonymousSessionProvider>    
+                </AnonymousSessionProvider>
             </SessionProvider>
         </>
     );
