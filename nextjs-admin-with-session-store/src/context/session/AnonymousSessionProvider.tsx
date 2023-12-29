@@ -11,6 +11,7 @@ export default function AnonymousSessionProvider({
     useEffect(() => {
         
         console.log("<<<<<<<<<<anon provider >>status>", status);
+        console.log("<<<<<<<<<<anon provider >>data>", data);
         
         if (status === "unauthenticated") {
             // login as anonymous            
