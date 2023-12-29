@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import {
     Container,
     Card,
@@ -20,7 +21,7 @@ function RefreshConfiguration() {
                                 <div className="text-center">
                                     <p className="mb-5  text-muted text-18">
                                         Place holder: need to make a post call like: <br />
-                                        curl -H "Content-Type: application/json" -d {} http://my-camel-integrator:8080/actuator/refresh
+                                        {`curl -H "Content-Type: application/json" -d {} http://my-camel-integrator:8080/actuator/refresh`}
                                     </p>
                                 </div>
                             </Card.Body>
