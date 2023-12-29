@@ -1,7 +1,7 @@
 import LoginButton from "@/components/auth/LoginButton";
 
 async function getProviders() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/providers`);
+  const res = await fetch(`${process.env['NEXTAUTH_URL']}/api/auth/providers`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch providers");
