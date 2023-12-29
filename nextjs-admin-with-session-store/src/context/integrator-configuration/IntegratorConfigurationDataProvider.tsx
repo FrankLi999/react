@@ -1,13 +1,13 @@
 'use client';
-import { Dispatch, createContext, useContext, useMemo, useReducer, useState } from 'react';
-import { integratorConfigurationDataReducer, integratorConfigurationDataInitialStates } from './reducer/integratorConfigurationDataReducer';
+import { Dispatch, createContext, useContext, useMemo, useReducer } from 'react';
+import { integratorConfigurationDataReducer, integratorConfigurationDataInitialStates, ConfigurationDataState, ConfigurationDataAction } from './reducer/integratorConfigurationDataReducer';
 
 export interface IIntegratorConfigurationDataContextProps {
-    states?: any;
-    dispatch?: Dispatch<any>;
+    states: ConfigurationDataState;
+    dispatch: Dispatch<ConfigurationDataAction>;
 }
 // Create a new context
-export const IntegratorConfigurationDataContext = createContext<IIntegratorConfigurationDataContextProps>({});
+export const IntegratorConfigurationDataContext = createContext<IIntegratorConfigurationDataContextProps>({states: integratorConfigurationDataInitialStates, dispatch: () => {type: "initial"}});
 
 export const IntegratorConfigurationDataProvider = ({ children }: {
     children: React.ReactNode;
@@ -15,17 +15,17 @@ export const IntegratorConfigurationDataProvider = ({ children }: {
 
     const [states, dispatch] = useReducer(integratorConfigurationDataReducer, integratorConfigurationDataInitialStates);
 
-    const ContextValue = useMemo(() => {
+    const contextValue = useMemo(() => {
         return { states, dispatch };
     }, [states, dispatch]);
 
     return (
-        <IntegratorConfigurationDataContext.Provider value={ContextValue}>
+        <IntegratorConfigurationDataContext.Provider value={contextValue}>
             {children}
         </IntegratorConfigurationDataContext.Provider>
     )
 }
 
-export const useIntegratorConfigurationDataContext = () => {
+export const useIntegratorConfigurationDataContext = (): IIntegratorConfigurationDataContextProps => {
     return useContext(IntegratorConfigurationDataContext)
 }
