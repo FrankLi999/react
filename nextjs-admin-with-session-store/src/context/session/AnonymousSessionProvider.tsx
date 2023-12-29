@@ -22,7 +22,7 @@ export default function AnonymousSessionProvider({
                     // async sign-in returned
             });
         }
-    }, [status]);
+    }, [data, status]);
     return (
         <>
             {children}
