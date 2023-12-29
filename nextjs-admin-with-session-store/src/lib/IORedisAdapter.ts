@@ -242,7 +242,7 @@ export function IORedisAdapter(client: Redis, options: IORedisAdapterOptions = {
         console.log("FIND USER", userAndSession.userId);
         const user = await getUser(userAndSession.userId);
         console.log("FOUND USER", user);
-        if (!user) return null;      
+        if (!user) return null;
         return {
           user: user,
           session: {

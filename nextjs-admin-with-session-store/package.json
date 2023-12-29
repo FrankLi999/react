@@ -19,7 +19,6 @@
     "@rjsf/validator-ajv8": "^5.8.1",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.1",
-    "data-guardian": "^1.1.2",
     "history": "5.3.0",
     "ioredis": "^5.3.2",
     "is-plain-object": "^5.0.0",
