@@ -34,9 +34,13 @@ function ConfigurationDataEditForm() {
             const requestOptions = {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'accept': 'application/json' },
-                body: JSON.stringify([data.formData]),
+                body: JSON.stringify([data.formData])
             };
-            await fetch("/api/integrator/configurations", requestOptions);
+            const apiResponse = await fetch("/api/integrator/configurations", requestOptions);
+            // if (!apiResponse.ok()) {
+            //   router.replace(`/${CURRENT_PAGE}#topOfErrors`);
+            // } else {
+            // }  
         } catch (err) {
             console.log(err);
         }
