@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link";
+// import Link from "next/link";
 import { Button } from "react-bootstrap";
 
 const Error503 = () => {
@@ -14,7 +15,8 @@ const Error503 = () => {
                 Go back to home
             </Link>
             <br/>
-            <Button variant="primary" className="mt-4" as={Link} href="/" >Return to Home</Button>
+            {/* <Button variant="primary" className="mt-4" as={Link} href={"/"} >Return to Home</Button> */}
+            <Link href={"/"}>Return to Home</Link>
         </div>
     );
 };
