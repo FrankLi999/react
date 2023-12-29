@@ -1,11 +1,20 @@
+export interface LayoutStateReducerState {
+    isSidebarCollapsed: boolean;
+    topNavCollapse: boolean;
+    dataHover: boolean;
+}
 
 export const layoutInitialStates = {
     isSidebarCollapsed: false,
     topNavCollapse: false,
     dataHover: false,
 }
-
-const layoutReducer = (state = layoutInitialStates, action) => {
+export interface LayoutStateReducerAction {
+    type: string;
+    topNavCollapse?: boolean;
+    dataHover?: boolean;
+}
+const layoutReducer = (state: LayoutStateReducerState = layoutInitialStates, action: LayoutStateReducerAction): LayoutStateReducerState => {
     switch (action.type) {
         case "sidebar_toggle": {
             return {
@@ -31,7 +40,7 @@ const layoutReducer = (state = layoutInitialStates, action) => {
         case "data_hover":
             return {
                 ...state,
-                dataHover: action.dataHover
+                dataHover: action.dataHover as boolean
             };
         default:
             return state;
