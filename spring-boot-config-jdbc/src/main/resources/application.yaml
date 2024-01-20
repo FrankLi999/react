@@ -48,7 +48,7 @@ management:
         enabled: true
     web:
       # base-path: 
-      exposure.include: health, info,hawtio,jolokia
+      exposure.include: health,info,hawtio,jolokia
   # Information for Spring Boot Info endpoint
   info:
     env.enabled: true

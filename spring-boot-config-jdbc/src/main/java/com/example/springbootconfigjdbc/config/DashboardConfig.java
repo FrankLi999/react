@@ -1,4 +1,4 @@
-package com.example.springbootconfigjdbc.controller;
+package com.example.springbootconfigjdbc.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
