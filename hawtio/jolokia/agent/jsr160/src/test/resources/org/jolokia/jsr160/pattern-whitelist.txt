@@ -1,3 +1,0 @@
- # These are simple test patterns
-service:jmx:test:///jndi/rmi:.*//(localhost|jolokia.org):.*/jmxrmi
-service:jmx:rmi:///jndi/ldap:.*//localhost:.*/jmxrmi

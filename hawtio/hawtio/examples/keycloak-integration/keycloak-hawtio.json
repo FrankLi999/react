@@ -1,6 +1,0 @@
-{
-  "url": "http://localhost:18080/",
-  "realm": "hawtio-demo",
-  "clientId": "hawtio-client",
-  "jaas": false
-}
