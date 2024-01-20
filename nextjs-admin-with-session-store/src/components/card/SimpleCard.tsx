@@ -1,7 +1,12 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const SimpleCard = ({ title, children, className = "", subtitle="" }) => {
+const SimpleCard = ({ title, children, className = "", subtitle="" }: {
+  title?: string;
+  children: React.ReactNode;
+  className: string;
+  subtitle?: string;
+}) => {
   return (
     <Card className={className}>
       <Card.Body>

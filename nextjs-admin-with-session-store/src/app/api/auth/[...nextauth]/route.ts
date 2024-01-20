@@ -116,8 +116,8 @@ export const authOptions = (request: NextRequest, context: RouteHandlerContext):
       async redirect({url, baseUrl }) {
         logger.info('winston redirect ...' + baseUrl);
         log.info('log4js redirect ...' + `${baseUrl}/integrator/configuration-data`);
-        return `${baseUrl}/integrator/configuration-data`;
-        // return `${baseUrl}/home`;
+        // return `${baseUrl}/integrator/configuration-data`;
+        return `${baseUrl}/home`;
         // return baseUrl;
       },
     },
