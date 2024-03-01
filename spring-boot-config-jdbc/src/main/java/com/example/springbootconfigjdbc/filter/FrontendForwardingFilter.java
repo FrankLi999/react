@@ -12,7 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 @Order(9999)
 @Slf4j
 public class FrontendForwardingFilter implements Filter {
-    private static final String API_NAMESPACE_REGEX = "^/(api/.*|api)";
+    // private static final String API_NAMESPACE_REGEX = "^/(spring/admin/api/.*|spring/admin/api)";
+    private static final String DASHBOARD_REGEX = "^/(spring/admin/dashboard/.*|spring/admin/dashboard)";
     private static final String FILENAME_REGEX = "^/.*\\.[^.]+$";
     private ServletContext servletContext;
     @Override
@@ -20,20 +21,25 @@ public class FrontendForwardingFilter implements Filter {
         this.servletContext = filterConfig.getServletContext();
     }
     @Override
-	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        String servletPath = req.getServletPath();
+        // boolean isApiNamespace = servletPath.matches(API_NAMESPACE_REGEX);
+        boolean isDashboard = servletPath.matches(DASHBOARD_REGEX);
+        boolean isFilename = servletPath.matches(FILENAME_REGEX);
         if (log.isDebugEnabled()) {
-		    log.debug("Logging Request  {} : {} : {}", req.getMethod(), req.getRequestURI(),  req.getPathInfo());
+            log.debug("Logging Request  {} : {} : isApiNamespace: {}: isDashboard: {}: statusCode: {}", req.getMethod(),  servletPath, isDashboard, isFilename, res.getStatus());
         }
-        boolean isApiNamespace = req.getPathInfo().matches(API_NAMESPACE_REGEX);
-        boolean isFilename = req.getRequestURI().matches(FILENAME_REGEX);
-        if (!isApiNamespace && !isFilename && res.getStatus() == 404) {
-            this.servletContext.getRequestDispatcher("/").forward(request, response);
+
+
+        // if (!isApiNamespace && !isFilename && res.getStatus() == 404) {
+        if (isDashboard && !isFilename) {
+             this.servletContext.getRequestDispatcher("/spring/admin/dashboard/index.html").forward(request, response);
         } else {
-		   chain.doFilter(request, response);
+            chain.doFilter(request, response);
         }
-		log.info("Logging Response :{}", res.getContentType());
-	}
+        log.info("Logging Response :{}", res.getContentType());
+    }
 }
