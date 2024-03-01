@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dashboard")
+@RequestMapping("/spring/admin")
 public class ConfigDataController {
    @Autowired
    private ConfigDataService configDataService;
