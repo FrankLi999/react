@@ -25,3 +25,12 @@ http://localhost:8888/my/spring/admin/dashboard/integrator/configuration-data
 ## `npm run build`
 set PUBLIC_URL=/my/spring/admin/dashboard
 npm run build
+
+
+## React route:
+
+var routes = createBrowserRouter([
+   ...
+], {
+    basename: "/my/spring/admin/dashboard",
+});
