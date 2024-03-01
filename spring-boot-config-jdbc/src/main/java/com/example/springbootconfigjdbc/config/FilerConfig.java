@@ -9,12 +9,12 @@ import com.example.springbootconfigjdbc.filter.FrontendForwardingFilter;
 @Configuration
 public class FilerConfig {
     @Bean
-    public FilterRegistrationBean<FrontendForwardingFilter> loggingFilter() {
+    public FilterRegistrationBean<FrontendForwardingFilter> filters() {
         FilterRegistrationBean<FrontendForwardingFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new FrontendForwardingFilter());
-
-        registrationBean.addUrlPatterns("/camel/*");
+        // /s2i-integrator/config/spring/admin/api/configurations
+        registrationBean.addUrlPatterns("/spring/admin/*");
         registrationBean.setOrder(999);
         return registrationBean;
     }
