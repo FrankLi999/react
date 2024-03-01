@@ -7,20 +7,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class DashboardConfig implements WebMvcConfigurer {
     @Override
-   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-       // @formatter:off
-       // S2i Integrator React static resources
-       System.out.println(">>>>>>>>>>>>addResourceHandlers >>>>>>>>>>>>");
-       registry
-               .addResourceHandler("/camel/static/**")
-               .addResourceLocations("classpath:/my-camel-static/static/");
-       registry
-               .addResourceHandler("/camel/static/img/**")
-               .addResourceLocations("classpath:/my-camel-static/img/");
-       registry
-               .addResourceHandler("/camel/*")
-               .addResourceLocations("classpath:/my-camel-static/");
-
-       // @formatter:on
-   }
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        // @formatter:off
+        // S2i Integrator React static resources
+        registry
+                .addResourceHandler("/spring/admin/dashboard/static/**")
+                .addResourceLocations("classpath:/s2i-integrator-static/static/");
+        registry
+                .addResourceHandler("/spring/admin/dashboard/img/**")
+                .addResourceLocations("classpath:/s2i-integrator-static/img/");
+//        registry
+//                .addResourceHandler("/admin/console/properties/*")
+//                .addResourceLocations("classpath:/s2i-integrator-static/index.html");
+        registry
+                .addResourceHandler("/spring/admin/dashboard")
+                .addResourceLocations("classpath:/s2i-integrator-static/index.html");
+        registry
+                .addResourceHandler("spring/admin/dashboard/*")
+                .addResourceLocations("classpath:/s2i-integrator-static/");
+        // @formatter:on
+    }
 }
