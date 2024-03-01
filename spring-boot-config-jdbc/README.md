@@ -34,3 +34,8 @@ var routes = createBrowserRouter([
 ], {
     basename: "/my/spring/admin/dashboard",
 });
+
+## API endpoints:
+
+- /my/spring/admin/api/configurations
+- /my/spring/admin/api/import
