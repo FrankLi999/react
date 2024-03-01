@@ -1,3 +1,7 @@
+# refresh the browser
+
+https://marcelkliemannel.com/articles/2022/routes-forwarding-for-javascript-frontends-in-quarkus/
+
 # Postgresql setup
 used with wcm-bpm project
 
