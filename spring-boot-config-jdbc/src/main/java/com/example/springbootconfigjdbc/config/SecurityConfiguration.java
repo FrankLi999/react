@@ -12,17 +12,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class SecurityConfiguration {
  
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("*****************Security config");
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/encrypt/**").ignoringRequestMatchers("/decrypt/**"))
-            .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                .requestMatchers("/actuator/**").permitAll()
-                .requestMatchers("/camel/**").permitAll()         
-                .anyRequest().authenticated()
-            )
-            .formLogin(Customizer.withDefaults())
-            .httpBasic(Customizer.withDefaults());
-
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.csrf().ignoringRequestMatchers("/s2i-integrator/config/encrypt/**").ignoringRequestMatchers("/s2i-integrator/config/decrypt/**").ignoringRequestMatchers("/encrypt/**").ignoringRequestMatchers("/decrypt/**");
+//        http.authorizeHttpRequests().requestMatchers("/actuator/**").permitAll().requestMatchers("/dashboard/**").permitAll().requestMatchers("/s2i-integrator/config/actuator/**").permitAll().requestMatchers("/s2i-integrator/config/dashboard/**").permitAll().anyRequest().authenticated();
+        http.csrf().ignoringRequestMatchers("/encrypt/**").ignoringRequestMatchers("/decrypt/**");
+        http.authorizeHttpRequests().requestMatchers("/actuator/**").permitAll()
+                // .requestMatchers("/ui/home/mmm/nnn/ooo/ppp/**").permitAll()
+                // .requestMatchers("/admin/console/properties/index.html").permitAll()
+                .requestMatchers("/spring/admin/**").permitAll()
+                .requestMatchers("/spring/admin/dashboard/index.html").permitAll()
+                .requestMatchers("/spring/admin/**").permitAll()
+                .anyRequest().authenticated();
+        http.formLogin();
+        http.httpBasic();
         return http.build();
     }
 }
