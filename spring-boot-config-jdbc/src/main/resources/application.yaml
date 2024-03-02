@@ -38,6 +38,9 @@ spring:
     user:
       name: s2i
       password: s2i
+  liquibase.enabled: false
+  liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
+liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml      
 management:
   endpoints:
     health:
