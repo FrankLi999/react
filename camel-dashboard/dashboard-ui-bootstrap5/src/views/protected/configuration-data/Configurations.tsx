@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Container, Card, Col, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import ImportConfiguration from './ImportConfiguration';
 
 function Configurations() {
+    const [cookies] = useCookies(['XSRF-TOKEN']);
     const navigate = useNavigate(); 
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
     const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
@@ -38,7 +40,8 @@ function Configurations() {
       // }
       const config = {
           headers: {
-              'content-type': 'multipart/form-data'
+              'content-type': 'multipart/form-data',
+              'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
       axios.post("/api/import", formData, config).then((response) => {
@@ -123,7 +126,7 @@ function Configurations() {
       try {
           const requestOptions = {
               method: 'DELETE',
-              headers: { 'Content-Type': 'application/json', 'accept': '*/*' },
+              headers: { 'Content-Type': 'application/json', 'accept': '*/*', 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] },
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
           setLoading(() => true);
