@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from 'react-cookie';
 import { Link, useLocation } from "react-router-dom";
 import { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
@@ -16,6 +17,7 @@ import {
 } from "react-bootstrap";
 
 function ConfigurationDataEditForm() {
+    const [cookies] = useCookies(['XSRF-TOKEN']);
     const schema: RJSFSchema = require("./json-files/config-data-schema.json");
     const uiSchema = require("./json-files/config-data-form-uischema-edit.json");
     const { state } = useLocation();
@@ -29,7 +31,7 @@ function ConfigurationDataEditForm() {
         try {
             const requestOptions = {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'accept': 'application/json', 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']  },
                 body: JSON.stringify([data.formData]),
             };
             await fetch("/api/configurations", requestOptions);
