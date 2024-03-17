@@ -1,4 +1,5 @@
 import React from 'react';
+import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <CookiesProvider>
     <Auth>      
       <RouterProvider router={routes} />      
     </Auth>    
+    </CookiesProvider>
   </React.StrictMode>
 );
 
