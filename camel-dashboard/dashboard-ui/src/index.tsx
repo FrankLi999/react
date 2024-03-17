@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { CookiesProvider } from 'react-cookie';
 import { RouterProvider } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/my-camel-dashboard.scss";
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <CookiesProvider>
     <Auth>
       <RouterProvider router={routes} />
     </Auth>
+    </CookiesProvider>
   </React.StrictMode>
 );
 
