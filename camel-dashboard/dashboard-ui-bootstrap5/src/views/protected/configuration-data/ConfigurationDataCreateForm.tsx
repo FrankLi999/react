@@ -1,4 +1,5 @@
 import React from "react";
+import { CookiesProvider } from 'react-cookie';
 import { Link } from "react-router-dom";
 import { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
@@ -12,6 +13,7 @@ import {
 } from "react-bootstrap";
 
 function ConfigurationDataCreateForm() {
+    const [cookies] = useCookies(['XSRF-TOKEN']);
     const schema: RJSFSchema = require("./json-files/config-data-schema.json");
     const uiSchema = require("./json-files/config-data-form-uischema-create.json");
     const log = (type: any) => console.log.bind(console, type);
@@ -23,7 +25,7 @@ function ConfigurationDataCreateForm() {
         try {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'accept': 'application/json', 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] },
                 body: JSON.stringify([data.formData]),
             };
             await fetch("/api/configurations", requestOptions);
