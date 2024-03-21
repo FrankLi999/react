@@ -54,8 +54,8 @@ public class SecurityConfiguration {
              .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
              .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
         
-        http.formLogin();
-        http.httpBasic();
+        http.formLogin(Customizer.withDefaults());
+        http.httpBasic(Customizer.withDefaults());
         http.oauth2Login(oauth2 -> oauth2.userInfoEndpoint(ep ->
                 ep.oidcUserService(customOidcUserService(props))));
         return http.build();

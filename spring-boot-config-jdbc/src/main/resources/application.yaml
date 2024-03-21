@@ -33,29 +33,26 @@ spring:
         jdbc:
           sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
           order: 1
-        prefix: config 
+        # prefix: config
   security:
     user:
       name: config
       password: config
-    oauth2:
-      client:
-        provider:
-          azure:
-            issuer-uri: https://login.microsoftonline.com/2e9fde3a-38ec-44f9-8bcd-c184dc1e8033/v2.0
-            user-name-attribute: name
-        registration:
-          azure-dev:
-            provider: azure
-            ## from https://www.baeldung.com/spring-boot-azuread-authenticate-users
-            client-id: "6035bfd4-22f0-437c-b76f-da729a916cbf"
-            client-secret: "fo28Q~-aLbmQvonnZtzbgtSiqYstmBWEmGPAodmx"
+    oauth2.client:
+      provider.azure:
+        issuer-uri: https://login.microsoftonline.com/2e9fde3a-38ec-44f9-8bcd-c184dc1e8033/v2.0
+        user-name-attribute: name
+      registration.azure-dev:
+        provider: azure
+        ## from https://www.baeldung.com/spring-boot-azuread-authenticate-users
+        client-id: "6035bfd4-22f0-437c-b76f-da729a916cbf"
+        client-secret: "fo28Q~-aLbmQvonnZtzbgtSiqYstmBWEmGPAodmx"
 #            client-id: your-client-id
 #            client-secret: your-secret-id
-            scope:
-              - openid
-              - email
-              - profile
+        scope:
+          - openid
+          - email
+          - profile
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml      

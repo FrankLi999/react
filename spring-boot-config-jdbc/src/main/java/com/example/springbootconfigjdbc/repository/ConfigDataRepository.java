@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, Long> {
-   @Query(value="SELECT * FROM S2I_INTEGRATOR_PROPERTIES p ORDER BY p.APPLICATION asc, p.PROFILE asc, p.LABEL asc, p.PROP_KEY asc", nativeQuery = true)
+   @Query(value="SELECT * FROM APP_PROPERTIES p ORDER BY p.APPLICATION asc, p.PROFILE asc, p.LABEL asc, p.PROP_KEY asc", nativeQuery = true)
    List<ConfigDataEntity> findAll();
 
    @Query("SELECT c FROM ConfigDataEntity c WHERE c.application = :application ")
