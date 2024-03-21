@@ -39,3 +39,20 @@ var routes = createBrowserRouter([
 
 - /my/spring/admin/api/configurations
 - /my/spring/admin/api/import
+## Azure Oauth2 - Microsoft Entra ID
+### create a new group
+
+
+###. App registration
+
+register the app 
+redirect url: web
+    https://www.baeldung.com/spring-boot-azuread-authenticate-users
+    redirect url: /login/oauth2/code/azure-dev
+client secret
+token configuration: add group claim
+
+### Enterprise application -> bind/assign user/group
+    search registered app
+    assign user/group
+### Azure logout

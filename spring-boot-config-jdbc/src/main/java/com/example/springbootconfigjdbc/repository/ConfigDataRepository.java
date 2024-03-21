@@ -2,7 +2,6 @@ package com.example.springbootconfigjdbc.repository;
 
 import java.util.List;
 
-import net.bytebuddy.TypeCache;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,6 +26,6 @@ public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, L
    void deleteApplicationProfile(@Param("application") String application, @Param("profile") String profile);
 
     @Modifying
-    @Query("UPDATE APP_PROPERTIES SET PROP_VALUE = :propValue WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey")
+    @Query(value="UPDATE APP_PROPERTIES SET PROP_VALUE = :propValue WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey", nativeQuery = true)
     void updatePropertyValue(String application, String profile, String label, String propKey, String propValue);
 }

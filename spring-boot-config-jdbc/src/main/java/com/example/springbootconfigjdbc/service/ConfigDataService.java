@@ -1,4 +1,6 @@
 package com.example.springbootconfigjdbc.service;
+import java.io.StringReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +8,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.example.springbootconfigjdbc.entity.ConfigDataEntityKey;
+import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +20,13 @@ import com.example.springbootconfigjdbc.dto.ConfigurationProperty;
 import com.example.springbootconfigjdbc.entity.ConfigDataEntity;
 import com.example.springbootconfigjdbc.repository.ConfigDataRepository;
 
-@Service
-public class ConfigDataService {
-   private ConfigDataRepository configDataRepository;
-   @Autowired
-   public ConfigDataService(ConfigDataRepository configDataRepository) {
-       this.configDataRepository = configDataRepository;
-   }
+import javax.sql.DataSource;
 
+@Service
+@RequiredArgsConstructor
+public class ConfigDataService {
+   private final ConfigDataRepository configDataRepository;
+    private final DataSource dataSource;
    @Transactional
    public void createAll(final List<ConfigData> configData) {
        this.saveAll(configData);
@@ -53,6 +56,14 @@ public class ConfigDataService {
        return configDataList;
 
    }
+
+    public List<ConfigData> loadSql(final String sql) throws SQLException {
+        ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+        scriptRunner.setSendFullScript(false);
+        scriptRunner.setStopOnError(true);
+        scriptRunner.runScript(new StringReader((sql)));
+        return this.findAll();
+    }
 
    @Transactional
    public List<ConfigData> deleteApplicationProfiles(final List<ApplicationProfile> applicationProfiles) {
