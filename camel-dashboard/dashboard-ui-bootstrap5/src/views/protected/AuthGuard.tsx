@@ -1,18 +1,15 @@
-import { Suspense, Fragment } from "react";
 import ProtectedSiteLayout from "../../layouts/ProtectedSiteLayout";
 import { Outlet, Navigate } from "react-router-dom";
-function AuthGuard() {
-    let authenticated = true;
-    return authenticated ? (
-        <Fragment>
-            <ProtectedSiteLayout>
-                <Outlet />
-            </ProtectedSiteLayout>
-        </Fragment>
+import { isLoggedIn } from '../../service/auth.service';
+const AuthGuard = () => {
+    const authenticated = isLoggedIn();
 
+    return authenticated ? (
+        <ProtectedSiteLayout>
+            <Outlet />
+        </ProtectedSiteLayout>
     ) : (
         <Navigate to="/public/login" />
     );
-
 }
 export default AuthGuard;

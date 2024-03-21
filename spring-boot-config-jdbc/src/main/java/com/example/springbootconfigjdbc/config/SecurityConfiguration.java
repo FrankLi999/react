@@ -2,6 +2,8 @@ package com.example.springbootconfigjdbc.config;
 
 import com.example.springbootconfigjdbc.config.support.GroupsClaimMapper;
 import com.example.springbootconfigjdbc.config.support.NamedOidcUser;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import com.example.springbootconfigjdbc.filter.*;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SimpleSavedRequest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +57,17 @@ public class SecurityConfiguration {
         http.oauth2Login(oauth2 -> oauth2.userInfoEndpoint(ep ->
                         ep.oidcUserService(customOidcUserService(props))));
         return http.build();
+    }
+
+    @Bean
+    public RequestCache refererRequestCache() {
+        return (HttpSessionRequestCache) saveRequest(request, response) -> {
+            String referer = request.getHeader("referer");
+            if (referer == null) {
+                referer = request.getRequestURL().toString();
+            }
+            request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST", new SimpleSavedRequest(referer));
+        };
     }
 
     private OAuth2UserService<OidcUserRequest, OidcUser> customOidcUserService(JwtAuthorizationProperties props) {
