@@ -11,6 +11,31 @@ export interface UserProfile {
     tokenType: string;
 }
 
+export interface Login {
+    userName: String;
+    password: String;
+}
+
+export const login = (login: Login) => {
+    // this._authService.login(login).pipe(
+    //   filter((userProfile) => !!userProfile),
+    //   tap((userProfile) => {
+    //     this._uiService.saveUserProfile(userProfile);
+    //     this.loginSuccessful(userProfile);
+    //   }),
+    //   // map((userProfile: UserProfile) => {
+    //   //   return loginSucceedAction({payload: userProfile as UserProfile});
+    //   // }),
+    //   catchError((err) => {
+    //     this.loginFailed(err);
+    //     return of(err);
+    //   })).subscribe();
+}
+
+export const loginSuccessful = (userProfile: UserProfile) => {
+    
+}
+
 export const getUserProfile = () => {
     let userProfile: UserProfile | null= null;
     if (sessionStorage.getItem("bpw_accessToken")) {

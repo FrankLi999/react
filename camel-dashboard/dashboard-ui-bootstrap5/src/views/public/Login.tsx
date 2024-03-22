@@ -18,6 +18,9 @@ const Login = () => {
         "userName": "config",
         "password": "config"
     });
+    const APP_OAUTH2_REDIRECT_URI = "/oauth2/redirect";
+    const githubLogin = `/oauth2/authorization/github?redirect_uri=${APP_OAUTH2_REDIRECT_URI}`;
+    const azureLogin = `/oauth2/authorization/azure?redirect_uri=${APP_OAUTH2_REDIRECT_URI}`;
     const { userName, password } = data;
     const changeHandler = (e: any) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -29,7 +32,7 @@ const Login = () => {
         navigate(path);
     };
     const Login = () => {
-
+        // authStateService.login(...data)
         if (data.userName === "config" && data.password === "config") {
             routeChange();
         }
@@ -96,13 +99,13 @@ const Login = () => {
                                     </Col>
                                 </Row>
                                 <Row className="justify-content-center">
-                                    <Col lg="5" md="8">
-                                        <Button variant='light' className="btn btn-icon" title="Github">
+                                    <Col lg="5" md="8" >
+                                        <a href={githubLogin}  title="Login with Github">
                                             <i className="i-github"></i>
-                                        </Button>
-                                        <Button variant='light' className="btn btn-icon" title="Azure">
+                                        </a>
+                                        <a href={azureLogin}  title="Login with Azure">
                                             <i className="i-azure"></i>
-                                        </Button>
+                                        </a>
                                     </Col>
                                 </Row>
                             </Card.Footer>

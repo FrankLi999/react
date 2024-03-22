@@ -5,6 +5,7 @@ import AuthGuard from "./views/protected/AuthGuard";
 import Error404 from "./views/error/Error404";
 import { lazy } from "react";
 import { ConfigurationModel } from "./views/protected/configuration-data/ConfigurationModel";
+import Oauth2LoginRedirect from "./views/public/Oauth2LoginRedirect";
 const ConfigurationDataEditForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataEditForm"));
 const ConfigurationDataCreateForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataCreateForm"));
 const Configurations = lazy(() => import("./views/protected/configuration-data/Configurations"));
@@ -45,6 +46,10 @@ var routes = createHashRouter([
         children: [{
             path: "/public/login",
             element: <Login/>
+        },
+        {
+            path: "/public/redirect",
+            element: <Oauth2LoginRedirect/>
         },
         {
             path: "/public/lock-screen",
