@@ -1,13 +1,47 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import {useState } from "react";
+import {useNavigate} from "react-router-dom";
 import {
+    Alert,
+    Button,
     Container,
     Card,
     Col,
     Form,
+    InputGroup,
     Row
 } from "react-bootstrap";
 const Login = () => {
+    const navigate = useNavigate();
+    const [passwordshow, setpasswordshow] = useState(false);
+    const [err, setError] = useState("");
+    const [data, setData] = useState({
+        "userName": "config",
+        "password": "config"
+    });
+    const { userName, password } = data;
+    const changeHandler = (e: any) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+        setError("");
+    };
+    const routeChange = () => {
+        // const path = `${import.meta.env.BASE_URL}/integrator/configuration-data`;
+        const path = `/integrator/configuration-data`;
+        navigate(path);
+    };
+    const Login = () => {
+
+        if (data.userName === "config" && data.password === "config") {
+            routeChange();
+        }
+        else {
+            setError("The Auction details did not Match");
+            setData({
+                "userName": "config",
+                "password": "config"
+            });
+        }
+    };
+
     return (
         <>
             <Container>
@@ -19,46 +53,64 @@ const Login = () => {
                                 <p className="card-category">Login to Camel Integrator</p>
                             </Card.Header>
                             <Card.Body>
-                                <Form action="" className="form" method="">
+                                {err && <Alert variant="danger">{err}</Alert>}
+                                <Form>
                                     <Form.Group>
-                                        <label className="small mb-1" htmlFor="inputEmailAddress">Email address</label>
-                                        <Form.Control className="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address"
+                                        <Form.Label className="small mb-1" htmlFor="inputUserName">User Name</Form.Label>
+                                        <Form.Control className="form-control py-4" id="inputUserName" type="text" value={userName} onChange={changeHandler}
+                                                        required placeholder="Enter user name"
                                         ></Form.Control>
                                     </Form.Group>
                                     <Form.Group>
-                                        <label className="small mb-1" htmlFor="inputPassword">Password</label>
-                                        <Form.Control className="form-control py-4" id="inputPassword" type="password" placeholder="Enter password"
-                                        ></Form.Control>
+                                        <Form.Label className="small mb-1" htmlFor="inputPassword">Password</Form.Label>
+                                        <InputGroup>
+                                            <Form.Control className="form-control py-4" id="inputPassword"
+                                                                value={password}
+                                                                type={(passwordshow) ? 'text' : "password"} 
+                                                                onChange={changeHandler}
+                                                                required placeholder="Enter password"
+                                            ></Form.Control>
+                                            <Button variant='light' className="btn btn-light" type="button" onClick={()=>setpasswordshow(!passwordshow)}
+                                                            id="button-addon2"><i className={`${passwordshow ? 'i-eye-line' : 'i-eye-off-line'} align-middle`} aria-hidden="true"></i></Button>
+                                        </InputGroup>
                                     </Form.Group>
                                     <Form.Check className="form-group">
-                                        <Form.Check.Label>
-                                        <Form.Check.Input
-                                            defaultChecked
-                                            type="checkbox"
-                                        ></Form.Check.Input>
-                                        <span className="form-check-sign"></span>
-                                        Remember password
-                                        </Form.Check.Label>
+                                        <Form.Check.Input defaultChecked type="checkbox"></Form.Check.Input>
+                                        <Form.Label className="text-muted fw-normal" htmlFor="defaultCheck1">
+                                            <span className="ms-2 form-check-sign">Remember password ?</span>
+                                        </Form.Label>
                                     </Form.Check>
-                                        
-                                    </Form>
+                                </Form>
                             </Card.Body>
                             <Card.Footer className="card-footer text-center">
-                                <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <Link to="/">
-                                    Go to home page
-                                    </Link>
-                                    <Link to="/" className="btn btn-primary">
-                                    Login
-                                    </Link>
-                            </div>
-                                
+                                <Row className="justify-content-center">
+                                    <Col lg="5" md="8">
+                                        <Button variant='primary' onClick={Login} size='lg' className="btn btn-primary">Sign In</Button>
+                                    </Col>
+                                </Row>
+                                <Row className="justify-content-center">
+                                    <Col lg="5" md="8">
+                                        <div className="text-center my-3 authentication-barrier">
+                                            <span>OR</span>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row className="justify-content-center">
+                                    <Col lg="5" md="8">
+                                        <Button variant='light' className="btn btn-icon" title="Github">
+                                            <i className="i-github"></i>
+                                        </Button>
+                                        <Button variant='light' className="btn btn-icon" title="Azure">
+                                            <i className="i-azure"></i>
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Card.Footer>
                         </Card>
 
                     </Col>
                 </Row>
-            </Container>            
+            </Container>
         </>
     );
 }

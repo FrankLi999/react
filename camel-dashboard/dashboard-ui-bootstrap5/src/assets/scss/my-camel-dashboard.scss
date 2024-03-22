@@ -26,3 +26,20 @@
 
 // Plugins
 @import "plugins/simple-datatables.scss";
+
+.i-github:before {
+    content: "Gitgub";
+    margin-right: 6px;
+}
+
+.i-azure:before {
+    content: "Azure";
+    margin-right: 6px;
+}
+
+.i-eye-close-fill:before { content: "\ecb2"; }
+.i-eye-close-line:before { content: "\ecb3"; width:20px;margin-right:6px;}
+.i-eye-fill:before { content: "\ecb4"; }
+.i-eye-line:before { content: "\ecb5"; width:20px;margin-right:6px;}
+.i-eye-off-fill:before { content: "\ecb6"; }
+.i-eye-off-line:before { content: "\ecb7"; }

@@ -56,3 +56,16 @@ token configuration: add group claim
     search registered app
     assign user/group
 ### Azure logout
+
+
+## Github
+https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app
+
+github.client.clientId=[CLIENT_ID]
+github.client.clientSecret=[CLIENT_SECRET]
+github.client.userAuthorizationUri=https://github.com/login/oauth/authorize
+github.client.accessTokenUri=https://github.com/login/oauth/access_token
+github.client.clientAuthenticationScheme=form
+
+github.resource.userInfoUri=https://api.github.com/user
+github.resource.repoUri=https://api.github.com/user/repos

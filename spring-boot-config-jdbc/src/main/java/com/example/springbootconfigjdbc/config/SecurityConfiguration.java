@@ -43,21 +43,23 @@ public class SecurityConfiguration {
                 // https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa-configuration
                 .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
             ). //.ignoringRequestMatchers("/encrypt/**").ignoringRequestMatchers("/decrypt/**")
-             authorizeHttpRequests((authz -> authz.requestMatchers("/actuator/**").permitAll()
+             authorizeHttpRequests(authz -> authz.requestMatchers("/actuator/**").permitAll()
                 // .requestMatchers("/ui/home/mmm/nnn/ooo/ppp/**").permitAll()
                 // .requestMatchers("/admin/console/properties/index.html").permitAll()
+                .requestMatchers("/spring/admin/auth/login", "/error").permitAll()
                 .requestMatchers("/spring/admin/dashboard", "/spring/admin/dashboard/index.html", "/spring/admin/dashboard/static/**",
                         "/spring/admin/dashboard/*.ico", "/spring/admin/dashboard/*.json", "/spring/admin/dashboard/*.png").permitAll()
                 .requestMatchers("/spring/admin/api/**").permitAll()
-                .anyRequest().authenticated()))
+                .anyRequest().authenticated())
+             .logout(logout -> logout.logoutUrl("/spring/admin/auth/logout").logoutSuccessUrl("/"))
+             .formLogin(Customizer.withDefaults())
+             .httpBasic(Customizer.withDefaults())
+             .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(ep ->
+                             ep.oidcUserService(customOidcUserService(props))))
              // Configure a custom Filter to load the CsrfToken on every request, which will return a new cookie if needed.
              .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
              .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class);
-        
-        http.formLogin(Customizer.withDefaults());
-        http.httpBasic(Customizer.withDefaults());
-        http.oauth2Login(oauth2 -> oauth2.userInfoEndpoint(ep ->
-                ep.oidcUserService(customOidcUserService(props))));
+
         return http.build();
     }
 
