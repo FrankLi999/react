@@ -36,23 +36,45 @@ spring:
         # prefix: config
   security:
     user:
-      name: config
+      name: config@admin.com
       password: config
     oauth2.client:
       provider.azure:
         issuer-uri: https://login.microsoftonline.com/2e9fde3a-38ec-44f9-8bcd-c184dc1e8033/v2.0
         user-name-attribute: name
-      registration.azure-dev:
-        provider: azure
-        ## from https://www.baeldung.com/spring-boot-azuread-authenticate-users
-        client-id: "6035bfd4-22f0-437c-b76f-da729a916cbf"
-        client-secret: "fo28Q~-aLbmQvonnZtzbgtSiqYstmBWEmGPAodmx"
-#            client-id: your-client-id
-#            client-secret: your-secret-id
-        scope:
-          - openid
-          - email
-          - profile
+      registration:
+        azure-dev:
+          provider: azure
+          ## from https://www.baeldung.com/spring-boot-azuread-authenticate-users
+          client-id: "6035bfd4-22f0-437c-b76f-da729a916cbf"
+          client-secret: "fo28Q~-aLbmQvonnZtzbgtSiqYstmBWEmGPAodmx"
+  #            client-id: your-client-id
+  #            client-secret: your-secret-id
+          scope:
+            - openid
+            - email
+            - profile
+        google:
+          clientId: 261631246788-24j092i1c5o1h557cdmcqn9ir3un5liv.apps.googleusercontent.com
+          clientSecret: WKhGpSSMc0L_6-_SQhQU32oa
+          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+          scope:
+            - email
+            - profile
+        facebook:
+          clientId: 121189305185277
+          clientSecret: 42ffe5aa7379e8326387e0fe16f34132
+          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+          scope:
+            - email
+            - public_profile
+        github:
+          clientId: 1f9824d889fc63e9e97a
+          clientSecret: 78c73961f61eb28a22f41ff5b5313324415ee4c4
+          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+          scope:
+            - user:email
+            - read:user
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml      
@@ -95,7 +117,12 @@ hawtio:
 
 # Group mapping
 my:
+  api-key: my-api-key
   jwt:
+    secret: 841D8A6C80CBA4FCAD32D5367C18C53B
+    # expiration-millis: 864000000 # 10 days
+    # short-lived-millis: 120000   # two minutes
+    short-lived-millis: 864000000 # 10 days
     authorization:
       group-to-authorities:
         "ceef656a-fca9-49b6-821b-f7543b7065cb": BAELDUNG_RW

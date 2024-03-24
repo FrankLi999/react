@@ -1,4 +1,4 @@
-package com.example.springbootconfigjdbc;
+package com.bpwizard.configjdbc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
