@@ -97,5 +97,10 @@ okta:
     scope=offline_access%20openid \
     refresh_token=MIOf-U1zQbyfa3MUfJHhvnUqIut9ClH0xjlDXGJAyqo
 ## OCP Session affinity
-for route and servuce:
+for OCP Route static session:
 route.openshift.io/cookie_name: JESSIONID
+
+oc annotate route <route-name> route.openshift.io/cookie_name="<cookie_name>"
+
+or for stateful Service - route to same pod from the 
+spec.sessionAffinity: ClientIP
