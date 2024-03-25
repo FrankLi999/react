@@ -213,7 +213,7 @@ github.resource.repoUri=https://api.github.com/user/repos
 
 Authorization Grant support
     Authorization Code    
-    Refresh Token    
+
     Client Credentials    
     Resource Owner Password Credentials    
     JWT Bearer
@@ -245,17 +245,83 @@ public class OAuth2ClientSecurityConfig {
 
 ## TODO
 
-remember me
-    https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html
+### remember me
+
+        https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html
+        
+        Remember-me or persistent-login authentication refers to web sites being able to remember the identity of a principal between sessions
+        
+         This is typically accomplished by sending a cookie to the browser, with the cookie being detected during future sessions and causing automated login to take place. 
+
+### SessionAuthenticationStrategy  
+### jwt token mechanism/refresh token
+https://www.bezkoder.com/spring-security-refresh-token/
+https://github.com/bezkoder/spring-security-refresh-token-jwt
+sign: – access Token & refresh Token are stored in the HttpOnly Cookies:
+– Access resource successfully with access Token (in HttpOnly Cookie).
+– When the access Token is expired, user get 401 response
+– Send /refreshtoken request, Server returns response with new access Token in HttpOnly Cookie
+
+    https://medium.com/spring-boot/jwt-refresh-token-spring-security-c5b4646cdbd9
+
+    Keep token in the cookie exprires itself:
+        var expireDate = new Date().getTime() + (1000 * token.expires_in);
+        Cookie.set("access_token", token.access_token, expireDate);
     
-    Remember-me or persistent-login authentication refers to web sites being able to remember the identity of a principal between sessions
-    
-     This is typically accomplished by sending a cookie to the browser, with the cookie being detected during future sessions and causing automated login to take place. 
+    retrieveToken(code) {
+        let params = new URLSearchParams();
+        params.append('grant_type','authorization_code');
+        params.append('client_id', this.clientId);
+        params.append('client_secret', 'newClientSecret');
+        params.append('redirect_uri', this.redirectUri);
+        params.append('code',code);
+        
+        let headers =
+        new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
+        
+        this._http.post('http://localhost:8083/auth/realms/myapp/protocol/openid-connect/token',
+        params.toString(), { headers: headers })
+        .subscribe(
+        data => this.saveToken(data),
+        err => alert('Invalid Credentials'));
+    }
 
-SessionAuthenticationStrategy  
-jwt token mechanism/refresh token
-session management:
-    https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html
-logout
+    at spring side:
+     The browser will never automatically send out the cookie to the server with requests
+        
 
+        https://www.baeldung.com/spring-security-oauth2-refresh-token-angular
+### session management:
+        https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html
+### logout
+        azure/okta -> SpringUser
+### Socal login token
 
+### Core configurations
+
+1. Exception handler
+2. common: jwe, jsw, mail sender
+3. web - auditaware, security config, DefaultExceptionHandlerControllerAdvice, cors, valid json
+4. service: id converter
+
+## Oauth2 security best practise
+JWTs were meant to be used within private networks, to reduce the number of requests to issuers.
+They were supposed to be short lived (minutes) to execute one shot requests. They where never 
+meant to replace sessions.
+https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics
+
+https://medium.com/@annaparissi_89713/creating-a-secure-spring-boot-react-app-using-okta-3f80ffc5fa6b
+
+okta: 
+   client id: 0oag0cd6kumjXO3Ws5d7
+
+    okta refresh access token sample:
+    http --form POST https://${yourOktaDomain}/oauth2/v1/token \
+    accept:application/json \
+    authorization:'Basic MG9hYmg3M...' \
+    cache-control:no-cache \
+    content-type:application/x-www-form-urlencoded \
+    grant_type=refresh_token \
+    redirect_uri=http://localhost:8080 \
+    scope=offline_access%20openid \
+    refresh_token=MIOf-U1zQbyfa3MUfJHhvnUqIut9ClH0xjlDXGJAyqo

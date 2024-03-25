@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - property: 
+      name: db.name
+      value: cockroachdb
+      dbms: cockroachdb
+  ## resolve property db.name based on the dbms type    
+  - property: 
+      name: db.name
+      value: db2
+      dbms: db2
+  - property: 
+      name: db.name
+      value: h2
+      dbms: h2      
+  - property: 
+      name: db.name
+      value: mariadb
+      dbms: mariadb      
+  - property: 
+      name: db.name
+      value: mssql
+      dbms: mssql
+  - property: 
+      name: db.name
+      value: mysql
+      dbms: mysql       
+  - property: 
+      name: db.name
+      value: oracle
+      dbms: oracle    
+  - property: 
+      name: db.name
+      value: postgres
+      dbms: postgresql                             
+  - changeSet:
+      id: bpw-account
+      author: BPWizard
+      changes:
+        - sqlFile:
+            path: ${db.name}/account.sql
+            encoding: UTF-8
+            endDelimiter: \r\n/\s*\r\n|\n/\s*\n|//|\n/\s*$|\r\n/\s*$
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+            
