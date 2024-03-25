@@ -2,7 +2,9 @@
 server:
   port: 8080
   shutdown: graceful
-  servlet.context-path: /bpw
+  servlet:
+    context-path: /bpw
+    session.temout: 30m
 spring:
   profiles:
     active:
