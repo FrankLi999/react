@@ -96,3 +96,6 @@ okta:
     redirect_uri=http://localhost:8080 \
     scope=offline_access%20openid \
     refresh_token=MIOf-U1zQbyfa3MUfJHhvnUqIut9ClH0xjlDXGJAyqo
+## OCP Session affinity
+for route and servuce:
+route.openshift.io/cookie_name: JESSIONID
