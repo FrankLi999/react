@@ -40,6 +40,42 @@ spring:
     user:
       name: config@admin.com
       password: config
+    oauth2:
+      # For SPA
+      client:
+        provider:
+          azure:
+            issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
+            # When using JWT-based authentication, Spring Security will use, by default, the standard sub claim value as the Principal‘s name.
+            # Looking at the claims, AzureAD populates this field with an internal identifier, which is unfit for display purposes.
+            # so choose one of the available attributes available and put its name on the provider’s user-name-attribute property:
+            user-name-attribute: name
+          auth0:
+            issuer-uri: https://frank9999.auth0.com/
+        registration:
+          azure-dev:
+            provider: azure
+            client-id: 0eaeb2b9-cc0a-4109-a52f-d9e31e113fe8
+            client-secret: cPG8Q~te-GBkDP754Va5lN8TAJ-9fcVdZPhk1c6z
+            scope:
+              - openid
+              - email
+          auth0-confidential-user:
+            authorization-grant-type: authorization_code
+            client-name: Auth0
+            client-id: ntVipYjpgrkaiij1DJvEHxxZjfsd8v8L
+            client-secret: K8hfbyQpVTVddA0nf570VSNLsTsGdo1MVsqd7_23PzJuohdsI83F7oaIe9Uc_QEP
+            provider: auth0
+            scope: openid,profile,email,offline_access
+
+      # multitenancy: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/multitenancy.html
+      # For API single tenant
+      resourceserve:
+        jwt:
+          # https://login.microsoftonline.com/{tenant-id}/v2.0
+          # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
+          issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
+          
     oauth2.client:
       provider.azure:
         issuer-uri: https://login.microsoftonline.com/2e9fde3a-38ec-44f9-8bcd-c184dc1e8033/v2.0
@@ -116,9 +152,17 @@ hawtio:
   http:
     enableCORS: true
     proxyAllowlist: "*"      
-
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 15000
+        readTimeout: 15000
+        loggerLevel: basic
+        # requestInterceptors: ClientBearerRequestInterceptor
 # Group mapping
 bpw:
+  openfeign:.client.api.url: http://localhost:8888//my/spring/admin/resource
   account:
     datasource:
       # url: jdbc:mysql://mysql:3306/wcm_bpm?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&nullNamePatternMatchesAll=true
