@@ -27,6 +27,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OAuth2ClientSecurityConfig extends BaseSecurityConfig {
     private final JwtAuthorizationProperties props;
+    protected BaseSecurityConfig securityMatcher(HttpSecurity http) throws Exception {
+        // No session
+        http.securityMatcher("/spring/admin/dashboard", "/spring/admin/dashboard/**", "/spring/admin/api/**", "/spring/admin/auth/**", "/error", "/actuator/**");
+        return this;
+    }
     protected BaseSecurityConfig authorizeRequests(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz -> authz.requestMatchers("/actuator/**").permitAll()
                 // .requestMatchers("/ui/home/mmm/nnn/ooo/ppp/**").permitAll()

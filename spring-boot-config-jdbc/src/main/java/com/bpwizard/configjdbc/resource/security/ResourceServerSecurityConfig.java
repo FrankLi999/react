@@ -19,7 +19,11 @@ public class ResourceServerSecurityConfig extends BaseSecurityConfig {
                 .authenticated());
         return this;
     }
-
+    protected BaseSecurityConfig securityMatcher(HttpSecurity http) throws Exception {
+        // No session
+        http.securityMatcher("/spring/admin/resource/**");
+        return this;
+    }
     protected BaseSecurityConfig sessionCreationPolicy(HttpSecurity http) throws Exception {
         // No session
         http.sessionManagement(oauth2 -> oauth2.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

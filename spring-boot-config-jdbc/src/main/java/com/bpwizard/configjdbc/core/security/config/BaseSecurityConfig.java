@@ -7,7 +7,8 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 
 public abstract class BaseSecurityConfig {
     public SecurityFilterChain filterChainWebApp(HttpSecurity http) throws Exception {
-       this.sessionCreationPolicy(http)
+       this.securityMatcher(http)
+               .sessionCreationPolicy(http)
                .logout(http)
                .exceptionHandling(http)
                .tokenAuthentication(http)
@@ -21,7 +22,11 @@ public abstract class BaseSecurityConfig {
         return http.build();
     }
 
-        /**
+    protected BaseSecurityConfig securityMatcher(HttpSecurity http) throws Exception {
+        return this;
+    }
+
+    /**
      * Configuring session creation policy
      */
     protected BaseSecurityConfig sessionCreationPolicy(HttpSecurity http) throws Exception {
