@@ -159,7 +159,7 @@ feign:
         connectTimeout: 15000
         readTimeout: 15000
         loggerLevel: basic
-        # requestInterceptors: ClientBearerRequestInterceptor
+        # requestInterceptors: ClientBearerRequestInterceptor.java
 # Group mapping
 bpw:
   openfeign:.client.api.url: http://localhost:8888//my/spring/admin/resource

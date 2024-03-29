@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * Configure a custom CsrfTokenRequestHandler that resolves the CSRF token based on whether it is an HTTP
  * request header (X-XSRF-TOKEN) or request parameter (_csrf).
  */
-final class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler {
+final public class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler {
     private final CsrfTokenRequestHandler delegate = new XorCsrfTokenRequestAttributeHandler();
 
     @Override
