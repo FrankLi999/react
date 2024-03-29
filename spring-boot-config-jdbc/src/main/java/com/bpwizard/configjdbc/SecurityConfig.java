@@ -30,16 +30,19 @@ import org.springframework.security.web.savedrequest.SimpleSavedRequest;
 public class SecurityConfig {
     @Autowired
     private JwtAuthorizationProperties props;
+
+    @Bean
+    @Order(1)
+    public SecurityFilterChain filterChainResourceServer(HttpSecurity http) throws Exception {
+        return new ResourceServerSecurityConfig().filterChainWebApp(http);
+    }
+
     @Bean
     @Order(2)
     public SecurityFilterChain filterChainOAuth2Client(HttpSecurity http) throws Exception {
         return new OAuth2ClientSecurityConfig(props).filterChainWebApp(http);
     }
-    @Bean
-    @Order(2)
-    public SecurityFilterChain filterChainResourceServer(HttpSecurity http) throws Exception {
-        return new ResourceServerSecurityConfig().filterChainWebApp(http);
-    }
+
     @Bean
     @Order(3)
     public SecurityFilterChain filterChainConfigServer(HttpSecurity http) throws Exception {
