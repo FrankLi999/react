@@ -55,16 +55,16 @@ spring:
         registration:
           azure-dev:
             provider: azure
-            client-id: 0eaeb2b9-cc0a-4109-a52f-d9e31e113fe8
-            client-secret: cPG8Q~te-GBkDP754Va5lN8TAJ-9fcVdZPhk1c6z
+            client-id: your-client-id
+            client-secret: your-secret-id
             scope:
               - openid
               - email
           auth0-confidential-user:
             authorization-grant-type: authorization_code
             client-name: Auth0
-            client-id: ntVipYjpgrkaiij1DJvEHxxZjfsd8v8L
-            client-secret: K8hfbyQpVTVddA0nf570VSNLsTsGdo1MVsqd7_23PzJuohdsI83F7oaIe9Uc_QEP
+            client-id: your-client-id
+            client-secret: your-secret-id
             provider: auth0
             scope: openid,profile,email,offline_access
 
