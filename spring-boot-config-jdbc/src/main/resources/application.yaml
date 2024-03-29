@@ -52,46 +52,6 @@ spring:
             user-name-attribute: name
           auth0:
             issuer-uri: https://frank9999.auth0.com/
-        registration:
-          azure-dev:
-            provider: azure
-            client-id: your-client-id
-            client-secret: your-secret-id
-            scope:
-              - openid
-              - email
-          auth0-confidential-user:
-            authorization-grant-type: authorization_code
-            client-name: Auth0
-            client-id: your-client-id
-            client-secret: your-secret-id
-            provider: auth0
-            scope: openid,profile,email,offline_access
-
-      # multitenancy: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/multitenancy.html
-      # For API single tenant
-      resourceserve:
-        jwt:
-          # https://login.microsoftonline.com/{tenant-id}/v2.0
-          # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
-          issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
-          
-    oauth2.client:
-      provider.azure:
-        issuer-uri: https://login.microsoftonline.com/2e9fde3a-38ec-44f9-8bcd-c184dc1e8033/v2.0
-        user-name-attribute: name
-      registration:
-        azure-dev:
-          provider: azure
-          ## from https://www.baeldung.com/spring-boot-azuread-authenticate-users
-          client-id: "6035bfd4-22f0-437c-b76f-da729a916cbf"
-          client-secret: "fo28Q~-aLbmQvonnZtzbgtSiqYstmBWEmGPAodmx"
-  #            client-id: your-client-id
-  #            client-secret: your-secret-id
-          scope:
-            - openid
-            - email
-            - profile
         google:
           clientId: 261631246788-24j092i1c5o1h557cdmcqn9ir3un5liv.apps.googleusercontent.com
           clientSecret: WKhGpSSMc0L_6-_SQhQU32oa
@@ -113,6 +73,30 @@ spring:
           scope:
             - user:email
             - read:user
+        registration:
+          azure-dev:
+            provider: azure
+            client-id: your-client-id
+            client-secret: your-secret-id
+            scope:
+              - openid
+              - email
+              - profile
+          auth0-confidential-user:
+            authorization-grant-type: authorization_code
+            client-name: Auth0
+            client-id: your-client-id
+            client-secret: your-secret-id
+            provider: auth0
+            scope: openid,profile,email,offline_access
+
+      # multitenancy: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/multitenancy.html
+      # For API single tenant
+      resourceserve:
+        jwt:
+          # https://login.microsoftonline.com/{tenant-id}/v2.0
+          # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
+          issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml      
