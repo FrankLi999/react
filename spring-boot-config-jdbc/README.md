@@ -55,6 +55,16 @@ token configuration: add group claim
 ### Enterprise application -> bind/assign user/group
     search registered app
     assign user/group
+
+### token validation set up
+https://learn.microsoft.com/en-us/answers/questions/1306114/microsoft-public-keys-only-validate-id-token-and-n
+
+add custom scope: api://{app-id}/config
+at app registrition -> manifest:
+    line 4: "accessTokenAcceptedVersion": 2,
+this way the issuer of the token will be: https://login.microsoftonline.com/{tenantid}/v2.0 other wise it will be
+https://sts.windows.net/{tenantid}/, and not there is no signature validation error
+
 ### Azure logout
 
 
