@@ -37,13 +37,18 @@ import java.util.Set;
 public class SecurityConfig {
     @Autowired
     private JwtAuthorizationProperties props;
+    @Value("${my.azure.tenantId}")
+    String azureTenatId;
 
+    @Value("${my.auth0.tenantId}")
+    String auth0TenatId;
+    
     @Bean
     @Order(1)
     @ConditionalOnProperty(prefix = "my.enable", name = "dashboard", havingValue = "true")
     public SecurityFilterChain filterChainResourceServer(HttpSecurity http) throws Exception {
         JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = JwtIssuerAuthenticationManagerResolver
-                .fromTrustedIssuers("https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0", "https://frank9999.auth0.com/");
+                .fromTrustedIssuers(String.format("https://login.microsoftonline.com/%s/v2.0", azureTenatId), String.format("https://%s.auth0.com/", auth0TenatId));
 
         return  http.securityMatcher("/spring/admin/resource/**")
                 .sessionManagement(oauth2 -> oauth2.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
