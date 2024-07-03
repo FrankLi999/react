@@ -26,7 +26,7 @@ function ProtectedSiteNavbar() {
                 <Button className="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" onClick={() => document.body.classList.toggle("sb-sidenav-toggled")}>
                     <i className="fas fa-bars"></i>
                 </Button>
-                <Navbar.Collapse className="justify-content-end" in={collapseOpen}>
+                <Navbar.Collapse className="justify-content-end">
                     <Nav navbar>
                         <Dropdown as={Nav.Item}>
                             <Dropdown.Toggle
