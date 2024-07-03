@@ -13,9 +13,59 @@ const ConfigurationAppDetails = lazy(() => import("./views/protected/configurati
 const RefreshConfiguration = lazy(() => import("./views/protected/configuration-data/RefreshConfiguration"));
 const Login = lazy(() => import("./views/public/Login"));
 const LockScreen = lazy(() => import("./views/public/LockScreen"));
-var routes = createBrowserRouter([
-// var routes = createHashRouter([    
-    
+// var routes = createBrowserRouter([
+// // var routes = createHashRouter([    
+//     {
+//         path: "/integrator",
+//         element: <AuthGuard />,
+//         children: [{
+//             path: "/integrator/configuration-data",
+//             element: <Configurations/>
+//         },
+//         {
+//             path: "/integrator/configuration-app-details",
+//             element:<ConfigurationAppDetails/>
+//         },
+//         {
+//             path: "/integrator/configuration-form-edit",
+//             element: <ConfigurationDataEditForm/>
+//         },
+//         {
+//             path: "/integrator/configuration-form-create",
+//             element: <ConfigurationDataCreateForm/>
+//         },
+//         {
+//             path: "/integrator/refresh-configuration",
+//             element: <RefreshConfiguration/>
+//         }]
+//     },
+//     {
+//         path: "/public",
+//         element: <PublicSite />,
+//         children: [{
+//             path: "/public/login",
+//             element: <Login/>
+//         },
+//         {
+//             path: "/public/redirect",
+//             element: <Oauth2LoginRedirect/>
+//         },
+//         {
+//             path: "/public/lock-screen",
+//             element: <LockScreen/>
+//         }]
+//     },
+//     {
+//         path: "/",
+//         loader: () => redirect("/integrator/configuration-data"),
+//     },
+//     {
+//         path: "*",
+//         element: <Error404 />,
+//     }
+// ]);
+
+var routes = [
     {
         path: "/integrator",
         element: <AuthGuard />,
@@ -58,12 +108,12 @@ var routes = createBrowserRouter([
     },
     {
         path: "/",
-        loader: () => redirect("/integrator/configuration-data"),
+        loader: async () => redirect("/integrator/configuration-data"),
     },
     {
         path: "*",
         element: <Error404 />,
     }
-]);
+];
 
 export default routes;
