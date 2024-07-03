@@ -2,7 +2,7 @@ import ProtectedSiteLayout from "../../layouts/ProtectedSiteLayout";
 import { Outlet, Navigate } from "react-router-dom";
 import { isLoggedIn } from '../../service/auth.service';
 const AuthGuard = () => {
-    const authenticated = isLoggedIn();
+    const authenticated = true; //isLoggedIn();
 
     return authenticated ? (
         <ProtectedSiteLayout>

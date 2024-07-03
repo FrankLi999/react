@@ -1,5 +1,5 @@
 
-import { createHashRouter, redirect } from "react-router-dom";
+import { createHashRouter, createBrowserRouter, redirect } from "react-router-dom";
 import PublicSite from "./views/public/PublicSite";
 import AuthGuard from "./views/protected/AuthGuard";
 import Error404 from "./views/error/Error404";
@@ -13,8 +13,8 @@ const ConfigurationAppDetails = lazy(() => import("./views/protected/configurati
 const RefreshConfiguration = lazy(() => import("./views/protected/configuration-data/RefreshConfiguration"));
 const Login = lazy(() => import("./views/public/Login"));
 const LockScreen = lazy(() => import("./views/public/LockScreen"));
-// var routes = createBrowserRouter([
-var routes = createHashRouter([    
+var routes = createBrowserRouter([
+// var routes = createHashRouter([    
     
     {
         path: "/integrator",
