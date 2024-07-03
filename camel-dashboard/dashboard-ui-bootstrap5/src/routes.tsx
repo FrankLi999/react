@@ -69,9 +69,15 @@ var routes = [
     {
         path: "/integrator",
         element: <AuthGuard />,
+        protected: true,
+        icon: 'fas fa-book-open',
+        state: "openIntegrators",
+        collapse: true,
+        name: "Integrator",
         children: [{
             path: "/integrator/configuration-data",
-            element: <Configurations/>
+            element: <Configurations/>,
+            name: "Configuration Data"
         },
         {
             path: "/integrator/configuration-app-details",
@@ -87,14 +93,21 @@ var routes = [
         },
         {
             path: "/integrator/refresh-configuration",
-            element: <RefreshConfiguration/>
+            element: <RefreshConfiguration/>,
+            name: "Refresh Config"
         }]
     },
     {
         path: "/public",
         element: <PublicSite />,
+        collapse: true,
+        protected: false,
+        name: "Public",
+        icon: 'fas fa-book-open',
+        state: "openPublic",
         children: [{
             path: "/public/login",
+            name: "Login",
             element: <Login/>
         },
         {
@@ -103,11 +116,13 @@ var routes = [
         },
         {
             path: "/public/lock-screen",
-            element: <LockScreen/>
+            element: <LockScreen/>,
+            name: "Lock Screen",
         }]
     },
     {
         path: "/",
+        redirect: "/integrator/configuration-data",
         loader: async () => redirect("/integrator/configuration-data"),
     },
     {
