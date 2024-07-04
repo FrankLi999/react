@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap";
 
 function ProtectedSiteNavbar() {
-    const [collapseOpen, setCollapseOpen] = React.useState(false);
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng) => {
@@ -36,7 +35,6 @@ function ProtectedSiteNavbar() {
                             <Dropdown.Menu                                
                                 aria-labelledby="navbarDropdownMenuLink"
                             ><Dropdown.Item
-                                    href="/"
                                     onClick={() => changeLanguage('en')}
                                 >
                                     <i className="fas fa-flag"></i>
@@ -44,7 +42,6 @@ function ProtectedSiteNavbar() {
                                 </Dropdown.Item>
                                 <div className="divider"></div>
                                 <Dropdown.Item
-                                    href="/"
                                     onClick={() => changeLanguage('fr')}
                                 >
                                     <i className="fas fa-language"></i>

@@ -107,7 +107,7 @@ var routes = [
         state: "openPublic",
         children: [{
             path: "/public/login",
-            name: "Login",
+            name: "nav.login",
             element: <Login/>
         },
         {
@@ -117,7 +117,7 @@ var routes = [
         {
             path: "/public/lock-screen",
             element: <LockScreen/>,
-            name: "Lock Screen",
+            name: "nav.lockScreen",
         }]
     },
     {
