@@ -1,24 +1,21 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import {
-    Badge,
     Button,
-    ButtonGroup,
-    Card,
     Dropdown,
-    Form,
-    InputGroup,
     Navbar,
     Nav,
-    Pagination,
-    Container,
-    Row,
-    Col,
-    Collapse,
 } from "react-bootstrap";
 
 function ProtectedSiteNavbar() {
     const [collapseOpen, setCollapseOpen] = React.useState(false);
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng) => {
+      i18n.changeLanguage(lng);
+    };
+    
     return (
         <>
             <Navbar className="sb-topnav navbar navbar-expand navbar-dark bg-dark" style={{ paddingRight: '5em' }} variant="dark" expand="lg">
@@ -28,6 +25,33 @@ function ProtectedSiteNavbar() {
                 </Button>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav navbar>
+                        <Dropdown as={Nav.Item}>
+                            <Dropdown.Toggle
+                                as={Nav.Link}
+                                id="dropdown-41471887334"
+                                variant="default"
+                            >
+                                <i className="fas fa-globe"></i>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu                                
+                                aria-labelledby="navbarDropdownMenuLink"
+                            ><Dropdown.Item
+                                    href="/"
+                                    onClick={() => changeLanguage('en')}
+                                >
+                                    <i className="fas fa-flag"></i>
+                                    <span className="ml-1">English</span>
+                                </Dropdown.Item>
+                                <div className="divider"></div>
+                                <Dropdown.Item
+                                    href="/"
+                                    onClick={() => changeLanguage('fr')}
+                                >
+                                    <i className="fas fa-language"></i>
+                                    <span className="ml-1">French</span>
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Dropdown as={Nav.Item}>
                             <Dropdown.Toggle
                                 as={Nav.Link}
@@ -56,6 +80,7 @@ function ProtectedSiteNavbar() {
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
+                        
                     </Nav>
                 </Navbar.Collapse>
                 
