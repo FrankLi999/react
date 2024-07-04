@@ -12,18 +12,17 @@ const ProtectedSiteLayout = ({ children }) => {
                 
                 
                 <ProtectedSiteNavbar />
-                
                 <div id="layoutSidenav">
                    
                     <div id="layoutSidenav_nav">
                         <Sidebar />                    
                     </div>
                     <div id="layoutSidenav_content">
-                        <TopNav />
-                        <main>
+                      <TopNav />
+                      <main>
                         { children }
-                        </main>
-                        <ProtectedSiteFooter />
+                      </main>
+                      <ProtectedSiteFooter />
                     </div>
                 </div>
             </div>

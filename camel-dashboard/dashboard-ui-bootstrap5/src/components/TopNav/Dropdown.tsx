@@ -10,7 +10,7 @@ const Dropdown = ({ routes, dropdown, depthLevel }) => {
       }`}
     >
       {routes.map((route, index) => (
-        route.name ? (<MenuItems
+        route.name && route.protected !== false ? (<MenuItems
           route={route}
           key={index}
           depthLevel={depthLevel}

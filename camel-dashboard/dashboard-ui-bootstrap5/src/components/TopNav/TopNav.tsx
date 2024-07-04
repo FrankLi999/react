@@ -1,22 +1,33 @@
 import MenuItems from './MenuItems';
 import routes from "../../routes";
+import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './TopNav.css';
 const TopNav = () => {
   return (
-    <nav>
-      <ul className="menus">
-        {routes.map((route, index) => {
-          const depthLevel = 0;
-          
-          return route.name ? (
-            <MenuItems
-              route={route}
-              key={index}
-              depthLevel={depthLevel}
-            />
-          ) : null;
-        })}
-      </ul>
-    </nav>
+    <div className="sb-topmenu-area">
+      <div className="sb-topmenu">
+          <Link to="/" className="logo">
+            Logo
+          </Link>
+        <nav>
+          <Nav as="ul" className="menus">
+            {routes.map((route, index) => {
+              const depthLevel = 0;
+              
+              return route.name && route.protected ? (
+                <MenuItems
+                  route={route}
+
+                  key={index}
+                  depthLevel={depthLevel}
+                />
+              ) : null;
+            })}
+          </Nav>
+        </nav>
+      </div>
+    </div>
   );
 };
 

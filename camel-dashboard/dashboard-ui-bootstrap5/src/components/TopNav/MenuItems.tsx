@@ -40,7 +40,7 @@ const MenuItems = ({ route, depthLevel }) => {
     dropdown && setDropdown(false);
   };
 
-  return (
+  return route.protectect === false ? null : (
     <Nav.Item as ="li"
       className="menu-items"
       ref={ref}
