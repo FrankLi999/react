@@ -1,28 +1,16 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import ProtectedSiteNavbar from "../Navbars/ProtectedSiteNavbar";
-import ProtectedSiteFooter from "../Footers/ProtectedSiteFooter";
+import { useTranslation, Trans } from 'react-i18next';
 import {
-    Badge,
-    Button,
-    ButtonGroup,
-    Card,
     Collapse,
-    Form,
-    InputGroup,
-    Navbar,
-    Nav,
-    Pagination,
-    Container,
-    Row,
-    Col
+    Nav
 } from "react-bootstrap";
 import routes from "../../routes";
-
-const Sidebar = () => {
+const ProtectedSiteSidebar = () => {
     // to check for active links and opened collapses
     let location = useLocation();
+    const { t, i18n } = useTranslation();
     // this is for the user collapse
     const [state, setState] = React.useState({});
     React.useEffect(() => {
@@ -79,7 +67,7 @@ const Sidebar = () => {
                 aria-expanded={state[prop.state]}
               >
                 <div className="sb-nav-link-icon"><i className={prop.icon}></i></div>
-                {prop.name}
+                {t(prop.name)}
                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
               </Nav.Link>
               <Collapse in={state[prop.state]}>
@@ -102,11 +90,11 @@ const Sidebar = () => {
               {prop.icon ? (
                 <>
                   <i className={prop.icon} />
-                  <p>{prop.name}</p>
+                  <p>{t(prop.name)}</p>
                 </>
               ) : (
                 <>
-                  <p>{prop.name}</p>
+                  <p>{t(prop.name)}</p>
                 </>
               )}
             </Nav.Link>
@@ -119,7 +107,7 @@ const Sidebar = () => {
     const activeRoute = (path: any) => {
         return location.pathname === path ? "active" : "";
     };
-
+  
     return (
         <>
             <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -137,4 +125,4 @@ const Sidebar = () => {
         </>
     );
 }
-export default Sidebar;
+export default ProtectedSiteSidebar;

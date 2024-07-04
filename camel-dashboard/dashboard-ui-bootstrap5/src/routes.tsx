@@ -73,11 +73,11 @@ var routes = [
         icon: 'fas fa-book-open',
         state: "openIntegrators",
         collapse: true,
-        name: "Integrator",
+        name: "nav.springConfig",
         children: [{
             path: "/integrator/configuration-data",
             element: <Configurations/>,
-            name: "Configuration Data"
+            name: "nav.configData"
         },
         {
             path: "/integrator/configuration-app-details",
@@ -94,7 +94,7 @@ var routes = [
         {
             path: "/integrator/refresh-configuration",
             element: <RefreshConfiguration/>,
-            name: "Refresh Config"
+            name: "nav.reloadConfig"
         }]
     },
     {
@@ -102,7 +102,7 @@ var routes = [
         element: <PublicSite />,
         collapse: true,
         protected: false,
-        name: "Public",
+        name: "nav.public",
         icon: 'fas fa-book-open',
         state: "openPublic",
         children: [{

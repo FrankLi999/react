@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ProtectedSiteNavbar from "../components/Navbars/ProtectedSiteNavbar";
 import ProtectedSiteFooter from "../components/Footers/ProtectedSiteFooter";
-import Sidebar from "../components/Sidebar/Sidebar";
+import ProtectedSiteSidebar from "../components/Sidebar/ProtectedSiteSidebar";
 import TopNav from "../components/TopNav/TopNav";
 // @ts-ignore
 const ProtectedSiteLayout = ({ children }) => {
@@ -15,7 +15,7 @@ const ProtectedSiteLayout = ({ children }) => {
                 <div id="layoutSidenav">
                    
                     <div id="layoutSidenav_nav">
-                        <Sidebar />                    
+                        <ProtectedSiteSidebar />                    
                     </div>
                     <div id="layoutSidenav_content">                 
                       <main>

@@ -7,7 +7,7 @@ import "./assets/scss/my-camel-dashboard.scss";
 import routes from "./routes";
 import reportWebVitals from './reportWebVitals';
 import Loader from './components/loader/Loader';
-
+import './i18n';
 const getReactRoutes = (routes) => {
   let reactRoutes: any = [];
   routes.map((prop, index) => {

@@ -21,7 +21,7 @@ function ProtectedSiteNavbar() {
     const [collapseOpen, setCollapseOpen] = React.useState(false);
     return (
         <>
-            <Navbar className="sb-topnav navbar navbar-expand navbar-dark bg-dark" variant="dark" expand="lg">
+            <Navbar className="sb-topnav navbar navbar-expand navbar-dark bg-dark" style={{ paddingRight: '5em' }} variant="dark" expand="lg">
                 <Link to="/" className="navbar-brand">Camel Dashboard</Link>
                 <Button className="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" onClick={() => document.body.classList.toggle("sb-sidenav-toggled")}>
                     <i className="fas fa-bars"></i>
