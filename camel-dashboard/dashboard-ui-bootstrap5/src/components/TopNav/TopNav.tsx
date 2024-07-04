@@ -11,14 +11,13 @@ const TopNav = () => {
             Logo
           </Link>
         <nav>
-          <Nav as="ul" className="menus">
+          <Nav as="ul" className="sb-menus">
             {routes.map((route, index) => {
               const depthLevel = 0;
               
               return route.name && route.protected ? (
                 <MenuItems
                   route={route}
-
                   key={index}
                   depthLevel={depthLevel}
                 />

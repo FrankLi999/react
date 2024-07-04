@@ -42,7 +42,7 @@ const MenuItems = ({ route, depthLevel }) => {
 
   return route.protectect === false ? null : (
     <Nav.Item as ="li"
-      className="menu-items"
+      className="sb-menu-items"
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

@@ -17,9 +17,9 @@ const ProtectedSiteLayout = ({ children }) => {
                     <div id="layoutSidenav_nav">
                         <Sidebar />                    
                     </div>
-                    <div id="layoutSidenav_content">
-                      <TopNav />
+                    <div id="layoutSidenav_content">                 
                       <main>
+                        <TopNav />     
                         { children }
                       </main>
                       <ProtectedSiteFooter />
