@@ -3,8 +3,10 @@ import ProtectedSiteNavbar from "../components/Navbars/ProtectedSiteNavbar";
 import ProtectedSiteFooter from "../components/Footers/ProtectedSiteFooter";
 import ProtectedSiteSidebar from "../components/Sidebar/ProtectedSiteSidebar";
 import TopNav from "../components/TopNav/TopNav";
+import { logger } from "../logging/Logger";
 // @ts-ignore
 const ProtectedSiteLayout = ({ children }) => {
+    logger.log("generated ProtectedSiteLayout.", "log level");
     return (
         <Suspense>
         <>
