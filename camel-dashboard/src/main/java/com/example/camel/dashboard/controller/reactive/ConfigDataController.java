@@ -63,6 +63,12 @@ public class ConfigDataController {
                 .flatMapMany(configData -> configDataService.recreateAllAndFindAll(configData));
     }
 
+    @PostMapping(path = "sql", consumes = MediaType.TEXT_HTML_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<ConfigData> losqSql(@RequestBody String sql) throws IOException, SQLException {
+        return configDataService.loadSql(sql);
+    }
+    
     @PutMapping(path="/configurations", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Mono<Void> put(@RequestBody List<ConfigData> configData) {
