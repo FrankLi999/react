@@ -18,7 +18,7 @@ function Configurations() {
     const navigate = useNavigate(); 
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
     const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
-    
+    const [displayImportSqlConfirmationModal, setDisplayImportSqlConfirmationModal] = useState(false);
     const [deleteRow, setDeleteRow] = useState<ConfigurationModel|null>(null);
     const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
@@ -59,10 +59,49 @@ function Configurations() {
       });      
     }
 
+    
+    const importSqlConfigurations = (configIle: File) => {
+      // data: ConfigurationModel[]| null
+      
+      console.log(">>>>>>>> import configuration:", configIle);
+      const formData = new FormData();
+      formData.append('file', configIle);
+      // try {
+      //     const requestOptions = {
+      //         method: 'POST',
+      //         headers: {
+      //             'content-type': 'multipart/form-data'
+      //         },
+      //         body: formData,
+      //     };
+      //     await fetch("/s2i-integrator/config/spring/admin/api/configurations/json", requestOptions);
+      // } catch (err) {
+      //     console.log(err);
+      // }
+      const config = {
+          headers: {
+              'content-type': 'multipart/form-data',
+              'accept': '*/*',
+              'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
+          },
+      };
+      axios.post("/s2i-integrator/config/spring/admin/api/configurations/sql", formData, config).then((response) => {
+          console.log(response.data);
+          setconfigurations(response.data);
+          setDisplayImportSqlConfirmationModal(false);
+      }).catch((error) => {
+          console.error("Error uploading spring config: ", error);
+          showBoundary(error);
+          setDisplayImportSqlConfirmationModal(false);
+      });      
+    }
     const hideImportConfigurationModal = () => {
       setDisplayImportConfirmationModal(false);
     };
-
+    
+    const hideImportSqlConfigurationModal = () => {
+      setDisplayImportSqlConfirmationModal(false);
+    };
     const hideDeleteConfirmationModal = () => {
       setDisplayDeleteConfirmationModal(false);
     };
@@ -121,6 +160,9 @@ function Configurations() {
       setDisplayImportConfirmationModal(true);
     }
 
+    const showImportSqlConfigurationModal = () => {
+      setDisplayImportSqlConfirmationModal(true);
+    }
     const showDeleteModal = (row: ConfigurationModel) => {
       setDeleteRow(() => row);
       setDisplayDeleteConfirmationModal(() => true);
@@ -238,6 +280,7 @@ function Configurations() {
                               </Button>
                               <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
                               <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
+                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
                             </div>
                         </Card.Header>
                         <Card.Body>
@@ -259,7 +302,8 @@ function Configurations() {
             </Row>
             <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal} 
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
-            <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />  
+            <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
+            <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />  
         </Container>
         </>
       );
