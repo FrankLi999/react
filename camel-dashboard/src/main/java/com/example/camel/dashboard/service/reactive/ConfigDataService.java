@@ -9,7 +9,9 @@ import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.apache.ibatis.jdbc.ScriptRunner;
 
+import javax.sql.DataSource;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 import com.example.camel.dashboard.dto.ApplicationProfile;
@@ -23,6 +25,7 @@ public class ConfigDataService {
     
     @Autowired ConfigDataRepository configDataRepository;
     @Autowired DatabaseClient databaseClient;
+    @Autowired private final DataSource dataSource;
     
     @Transactional
     public Mono<Void> createAll(final List<ConfigData> configData) {
@@ -66,6 +69,13 @@ public class ConfigDataService {
     //     return this.configDataRepository.deleteAllById(ids);
     // }
 
+    public Flux<ConfigData> loadSql(final String sql) throws SQLException {
+        ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+        scriptRunner.setSendFullScript(false);
+        scriptRunner.setStopOnError(true);
+        scriptRunner.runScript(new StringReader(sql));
+        return findAll();
+    }
     private Mono<Void> deleteProfiles(final List<ConfigData> configData) {
         List<ApplicationProfile> applicationProfiles = configData.stream().map(config -> createApplicationProfile(config)).collect(Collectors.toUnmodifiableList());
         return Flux.fromIterable(applicationProfiles).flatMap(a -> this.configDataRepository.deleteApplicationProfile(a.getApplication(), a.getProfile())).then();
