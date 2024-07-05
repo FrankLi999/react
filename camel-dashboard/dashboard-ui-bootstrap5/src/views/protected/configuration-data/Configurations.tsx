@@ -85,7 +85,7 @@ function Configurations() {
               'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
-      axios.post("/s2i-integrator/config/spring/admin/api/configurations/sql", formData, config).then((response) => {
+      axios.post("/api/sql", formData, config).then((response) => {
           console.log(response.data);
           setconfigurations(response.data);
           setDisplayImportSqlConfirmationModal(false);
