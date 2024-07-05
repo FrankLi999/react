@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import ProtectedSiteNavbar from "../components/Navbars/ProtectedSiteNavbar";
-import ProtectedSiteFooter from "../components/Footers/ProtectedSiteFooter";
-import ProtectedSiteSidebar from "../components/Sidebar/ProtectedSiteSidebar";
-import TopNav from "../components/TopNav/TopNav";
-import { logger } from "../logging/Logger";
+import ProtectedSiteNavbar from "../Navbars/ProtectedSiteNavbar";
+import ProtectedSiteFooter from "../Footers/ProtectedSiteFooter";
+import ProtectedSiteSidebar from "../Sidebar/ProtectedSiteSidebar";
+import TopNav from "../TopNav/TopNav";
+import { logger } from "../../utils/logging/Logger";
 // @ts-ignore
 const ProtectedSiteLayout = ({ children }) => {
     logger.log("generated ProtectedSiteLayout.", "log level");

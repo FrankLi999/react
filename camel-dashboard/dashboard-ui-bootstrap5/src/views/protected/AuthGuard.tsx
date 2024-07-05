@@ -1,4 +1,4 @@
-import ProtectedSiteLayout from "../../layouts/ProtectedSiteLayout";
+import ProtectedSiteLayout from "../../components/layouts/ProtectedSiteLayout";
 import { Outlet, Navigate } from "react-router-dom";
 import { isLoggedIn } from '../../service/auth.service';
 const AuthGuard = () => {
