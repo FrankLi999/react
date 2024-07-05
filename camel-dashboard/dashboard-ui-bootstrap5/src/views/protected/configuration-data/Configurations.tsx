@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import { Container, Card, Col, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useErrorBoundary } from 'react-error-boundary'
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import axios from 'axios';
@@ -12,6 +13,8 @@ import ImportConfiguration from './ImportConfiguration';
 
 function Configurations() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
+    const { showBoundary } = useErrorBoundary();
+
     const navigate = useNavigate(); 
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
     const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
@@ -49,7 +52,9 @@ function Configurations() {
           setconfigurations(response.data);
           setDisplayImportConfirmationModal(false);
       }).catch((error) => {
+          
           console.error("Error uploading spring config: ", error);
+          showBoundary(error);
           setDisplayImportConfirmationModal(false);
       });      
     }
@@ -140,6 +145,7 @@ function Configurations() {
           console.log("deleted");
       } catch (err) {
           console.log(err);
+          showBoundary(err);
       }
     }
     const configurationTableColumns = [
@@ -207,7 +213,9 @@ function Configurations() {
         .then((data: ConfigurationModel[]) => {
           setconfigurations(() => data);
           setLoading(() => false);
-        })
+        }).catch(error => {
+          showBoundary(error);
+        });
     }, []);
     
     if (loading) {
