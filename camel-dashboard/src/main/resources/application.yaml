@@ -6,15 +6,19 @@ server:
 spring:
   application:
     name: camel-dashboard
-  profiles.active: 
-    - jdbc
-    - ${SPRING_PROFILES_ACTIVE:local}
+  profiles.active: ${SPRING_PROFILES_ACTIVE:local}
+    # - jdbc
+    # - ${SPRING_PROFILES_ACTIVE:local}
   jmx.enabled: true
   # sql.init.platform: h2    
   sql.init.platform: oracle    
   # sql.init.platform: postgresql   
-#  datasource:
-#    # platform: oracle
+  datasource:
+    platform: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin://localhost:1521/FREE
+    username: C##Camel
+    password: Passw0rd
 #    # url: jdbc:h2:mem:configdb
 #    # driver-class-name: org.h2.Driver
 #    # username: sa
@@ -24,13 +28,9 @@ spring:
 ##    url: jdbc:postgresql://localhost:5432/postgres
 ##    username: postgres
 ##    password: 123456
-#    driver-class-name: oracle.jdbc.OracleDriver
-#    url: jdbc:oracle:thin://localhost:1521/FREE
-#    username: C##Camel
-#    password: Passw0rd
-#    hikari:
-#      connection-timeout: 5000
-#      maximum-pool-size: 10
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
 #  cloud:
 #    config:
 #      server:

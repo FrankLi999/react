@@ -1,6 +1,8 @@
 package com.example.camel.dashboard.controller.reactive;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,7 @@ public class ConfigDataController {
 
     @PostMapping(path = "sql", consumes = MediaType.TEXT_HTML_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<ConfigData> losqSql(@RequestBody String sql) throws IOException, SQLException {
+    public Flux<ConfigData> losqSql(@RequestBody String sql) throws IOException, SQLException {
         return configDataService.loadSql(sql);
     }
     

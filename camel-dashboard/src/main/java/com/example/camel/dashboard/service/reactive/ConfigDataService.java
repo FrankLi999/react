@@ -1,5 +1,7 @@
 package com.example.camel.dashboard.service.reactive;
 
+import java.io.StringReader;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +27,7 @@ public class ConfigDataService {
     
     @Autowired ConfigDataRepository configDataRepository;
     @Autowired DatabaseClient databaseClient;
-    @Autowired private final DataSource dataSource;
+    // @Autowired DataSource dataSource;
     
     @Transactional
     public Mono<Void> createAll(final List<ConfigData> configData) {
@@ -70,11 +72,15 @@ public class ConfigDataService {
     // }
 
     public Flux<ConfigData> loadSql(final String sql) throws SQLException {
-        ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
-        scriptRunner.setSendFullScript(false);
-        scriptRunner.setStopOnError(true);
-        scriptRunner.runScript(new StringReader(sql));
-        return findAll();
+        // To do
+        
+        // ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+        // scriptRunner.setSendFullScript(false);
+        // scriptRunner.setStopOnError(true);
+        // scriptRunner.runScript(new StringReader(sql));
+        // // return findAll();
+        // return Mono.fromCallable(null).thenMany(findAll());
+        throw new RuntimeException("No Impl");
     }
     private Mono<Void> deleteProfiles(final List<ConfigData> configData) {
         List<ApplicationProfile> applicationProfiles = configData.stream().map(config -> createApplicationProfile(config)).collect(Collectors.toUnmodifiableList());

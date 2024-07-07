@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { Container, Card, Col, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useErrorBoundary } from 'react-error-boundary'
+import { useErrorBoundary } from '../../../utils/error-boundary/useErrorBoundary';
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import axios from 'axios';
