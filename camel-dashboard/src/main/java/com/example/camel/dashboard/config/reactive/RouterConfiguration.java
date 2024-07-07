@@ -50,6 +50,9 @@ public class RouterConfiguration implements WebFluxConfigurer {
             .addResourceHandler("/my/camel/img/**")
             .addResourceLocations("classpath:/my-camel-static/img/");
         registry
+            .addResourceHandler("/my/camel/i18n/**")
+            .addResourceLocations("classpath:/static/i18n/");            
+        registry
             .addResourceHandler("/my/camel/**")
             .addResourceLocations("classpath:/my-camel-static/");    
             

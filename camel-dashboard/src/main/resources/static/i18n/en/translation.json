@@ -1,0 +1,10 @@
+{
+    "nav": {
+        "springConfig": "Spring Configurations",
+        "configData": "Configuration Data",
+        "reloadConfig": "Reload Configurations",
+        "public": "Public",
+        "login": "Login",
+        "lockScreen": "Lock Screen"
+    }
+}
