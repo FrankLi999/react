@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import HttpApi from 'i18next-http-backend';
+import HttpApi, { HttpBackendOptions } from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 //Import all translation files
 // import English from "./utils/i18n/English.json";
@@ -23,7 +23,7 @@ i18n
    // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
   .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
+  .init<HttpBackendOptions>({
     // resources,
     backend: {
       loadPath: '/my/camel/i18n/{{lng}}/{{ns}}.json',
