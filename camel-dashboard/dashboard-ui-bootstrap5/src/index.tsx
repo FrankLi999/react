@@ -7,7 +7,9 @@ import "./assets/scss/my-camel-dashboard.scss";
 import routes from "./routes";
 import reportWebVitals from './reportWebVitals';
 import Loader from './components/loader/Loader';
+import MyConfigProvider from './utils/config/MyConfigProvider';
 import './i18n';
+
 const getReactRoutes = (routes) => {
   let reactRoutes: any = [];
   routes.map((prop, index) => {
@@ -59,14 +61,16 @@ const basename = ''; // '/my/camel/spring/admin/dashboard'
 root.render(
   <React.StrictMode>
     <CookiesProvider>    
-      <RouterProvider router={createBrowserRouter(getReactRoutes(routes))} />
-      {/* <BrowserRouter basename={basename}>
-        <React.Suspense fallback={<Loader/>}>
-          <Routes>
-            {getRoutes(routes)} 
-          </Routes>
-        </React.Suspense>
-      </BrowserRouter> */}
+      <MyConfigProvider>
+        <RouterProvider router={createBrowserRouter(getReactRoutes(routes))} />
+        {/* <BrowserRouter basename={basename}>
+          <React.Suspense fallback={<Loader/>}>
+            <Routes>
+              {getRoutes(routes)} 
+            </Routes>
+          </React.Suspense>
+          </BrowserRouter> */}
+      </MyConfigProvider>
     </CookiesProvider>
   </React.StrictMode>
 );

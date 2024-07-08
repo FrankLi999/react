@@ -45,7 +45,6 @@ const ProtectedSiteSidebar = () => {
 
     const createNavLinks = (routes, protectedLink) => {
       return routes.map((prop, index) => {
-        console.log("createNavLinks>>> ", prop.redirect && (!prop.name) && (!protectedLink) && !(prop.protected), protectedLink, prop);
         if (prop.redirect || (!prop.name) || (!protectedLink) && (!prop.protected)) {
           return null;
         } else if (prop.collapse) {

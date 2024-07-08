@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.example.camel.dashboard.dto.ConfigData;
+import com.example.camel.dashboard.dto.MyConfig;
 import com.example.camel.dashboard.dto.ApplicationProfile;
 import com.example.camel.dashboard.service.reactive.ConfigDataService;
 
@@ -39,6 +43,16 @@ public class ConfigDataController {
     @ResponseStatus(HttpStatus.OK)
     public Flux<ConfigData> findAll() {
         return configDataService.findAll();
+    }
+
+    @GetMapping(path="/myconfig", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<MyConfig> myConfig() {
+        Map config = new HashMap();
+        config.put("a", "b");
+        config.put("c", "d");
+        MyConfig myConfig = new MyConfig().config(config);
+        return Mono.just(myConfig);
     }
 
     @PostMapping(path="/configurations", consumes = MediaType.APPLICATION_JSON_VALUE)
