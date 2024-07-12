@@ -72,14 +72,13 @@ public class ConfigDataService {
     // }
 
     public Flux<ConfigData> loadSql(final String sql) throws SQLException {
-        // To do
-        
-        // ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
-        // scriptRunner.setSendFullScript(false);
-        // scriptRunner.setStopOnError(true);
-        // scriptRunner.runScript(new StringReader(sql));
-        // // return findAll();
-        // return Mono.fromCallable(null).thenMany(findAll());
+        // return Mono.fromCallable(() -> {
+        //     ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+        //     scriptRunner.setSendFullScript(false);
+        //     scriptRunner.setStopOnError(true);
+        //     scriptRunner.runScript(new StringReader(sql));
+        //     return Boolean.TRUE;
+        // }).thenMany(findAll());
         throw new RuntimeException("No Impl");
     }
     private Mono<Void> deleteProfiles(final List<ConfigData> configData) {

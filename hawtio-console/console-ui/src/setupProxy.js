@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/',
     createProxyMiddleware({
-      target: 'http://localhost:10001/actuator/hawtio',
+      target: 'http://localhost:10001/my-camel/console/actuator/hawtio',
       changeOrigin: true,
       pathFilter: (path) => !(path.startsWith('/actuator/hawtio/static/') || path.startsWith('/static/') || path === '/favicon.ico' || path === '/' || path === ''),
       pathRewrite: (path) => path.includes('\/jolokia\/') ? '/jolokia': path

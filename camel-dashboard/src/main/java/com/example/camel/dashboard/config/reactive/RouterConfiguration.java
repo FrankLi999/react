@@ -1,6 +1,14 @@
 package com.example.camel.dashboard.config.reactive;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
+// import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
@@ -11,9 +19,24 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-import java.net.URI;   
+import java.net.URI;
+
+import javax.sql.DataSource;   
 @Configuration
-public class RouterConfiguration implements WebFluxConfigurer {
+// @Import(DataSourceAutoConfiguration.class)
+// @EnableTransactionManagement
+// @EnableJdbcRepositories(basePackages="{a.b.c}")
+// @EnableJpaRepositories(basePackages="{a.b.c}")
+// @EnableR2dbcRepositories(basePackages="{com.example.camel.dashboard.repository.r2dbc}")
+
+public class RouterConfiguration implements WebFluxConfigurer, EnvironmentAware {
+
+    private Environment env;
+
+    @Override
+    public void setEnvironment(Environment env) {
+        this.env = env;
+    }
     // @Bean
     // RouterFunction<ServerResponse> reactProtectedSiteRedirection() {
     //     return  route(GET("/integrator/**"), req -> {
@@ -32,6 +55,15 @@ public class RouterConfiguration implements WebFluxConfigurer {
     //                     .build();
     //         });
         
+    // }
+
+    // @Bean
+    // public DataSource dataSource() {
+    //     return new DriverManagerDataSource(
+    //         env.getProperty("spring.datasource.url"),
+    //         env.getProperty("spring.datasource.username"),
+    //         env.getProperty("spring.datasource.password")
+    //     );
     // }
     
     @Bean
