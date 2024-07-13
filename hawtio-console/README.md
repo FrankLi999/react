@@ -1,3 +1,8 @@
+# reload spring boot config
+ref:  
+  https://www.baeldung.com/spring-reloading-properties
+  https://medium.com/@javadzone/reload-application-properties-in-spring-boot-f2b8ca955caf
+  https://javadzone.com/reload-application-properties/
 # Hawtio Spring Boot 3 Example
 
 This sample application shows how to run Hawtio with Spring Boot 3.

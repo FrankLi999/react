@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class SampleSpringBootService {
+public class HawtioConsoleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SampleSpringBootService.class, args);
+        SpringApplication.run(HawtioConsoleApplication.class, args);
     }
 
     /**

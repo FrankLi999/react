@@ -81,3 +81,8 @@ hawtio:
 #
 # You can customise the header by setting the following property.
 #    referrerPolicy: no-referrer
+my.camel:
+  refresh-url:
+    - http://app1/actuator/refresh
+    - http://app2/actuator/refresh
+    - http://app3/actuator/refresh
