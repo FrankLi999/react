@@ -4,6 +4,10 @@ import java.awt.*;
 import java.util.Map;
 import java.util.Set;
 
+import io.hawt.example.spring.boot.camel.dto.CamelRequest;
+import io.hawt.example.spring.boot.camel.dto.RefreshConfigRequest;
+import io.hawt.example.spring.boot.camel.support.CamelUtils;
+import io.hawt.example.spring.boot.camel.support.ValidCamelRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,13 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class RefreshConfigController {
-
-	private final ProducerTemplate producerTemplate;
-
+	private final CamelUtils camelUtils;
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<Map<String, Set<String>>> refreshConfig() {
-		return null;
+	public ResponseEntity<String> refreshConfig(@ValidCamelRequest(endpoint="RefreshConfig", type= RefreshConfigRequest.class,
+			logSubject = "MyCamel:API_REQUEST:RefreshConfig (Enter)")CamelRequest<RefreshConfigRequest> camelRequest) {
+	// public ResponseEntity<Map<String, Set<String>>> refreshConfig(@ValidCamelRequest(endpoint="RefreshConfig", type= RefreshConfigRequest.class, logSubject = "RefreshConfig:API_REQUEST (Enter)")CamelRequest<RefreshConfigRequest> camelRequest) {
+        return camelUtils.processCamelRequest(camelRequest, "direct:refresh-config");
 	}
-
 }

@@ -37,7 +37,7 @@ public class CamelRequestArgumentResolverService {
 	private final ObjectMapper objectMapper;
 
 	private final Validator validator;
-
+	private final CamelUtils camelUtils;
 	private final Map<String, Method> methodCache = new ConcurrentHashMap<>();
 
 	public Object resolveArgument(String jsonPayload, String endpointId, String logSubject, Class<?> type,
@@ -59,6 +59,7 @@ public class CamelRequestArgumentResolverService {
 			.authToken(authToken)
 			.build();
 		setupRequestContext(requestHeader, authToken);
+		camelUtils.logApiRequestPayload(log, logSubject, requestContext.getRequestHeader().getTraceId(), jsonPayload);
 		// validate token
 
 		if (validateApiRequest) {

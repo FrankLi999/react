@@ -1,3 +1,5 @@
+# TODO
+  log masking  
 # reload spring boot config
 ref:  
   https://www.baeldung.com/spring-reloading-properties
