@@ -2,47 +2,52 @@ package io.hawt.example.spring.boot.camel.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
+@Accessors(chain = true)
 @Builder
 public class ResponseMessage {
-    public enum Severity {
-        I("I"),
-        E ("E"),
-        W("W");
 
-        private String level;
+	public enum Severity {
 
-        Severity(String level) {
-            this.level = level;
-        }
+		I("I"), E("E"), W("W");
 
-        @JsonValue
-        public String getLevel() {
-            return this.level;
-        }
-        @Override
-        public String toString() {
-            return String.valueOf(this.level);
-        }
+		private String level;
 
-        @JsonCreator
-        public static Severity fromValue(String level) {
-            for (Severity s: Severity.values()) {
-                if (s.level.equals(level)) {
-                    return s;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected Severity level " + level);
-        }
+		Severity(String level) {
+			this.level = level;
+		}
 
+		@JsonValue
+		public String getLevel() {
+			return this.level;
+		}
 
-    }
-    private String message;
-    private String logMessage;
-    private Severity severity;
+		@Override
+		public String toString() {
+			return String.valueOf(this.level);
+		}
+
+		@JsonCreator
+		public static Severity fromValue(String level) {
+			for (Severity s : Severity.values()) {
+				if (s.level.equals(level)) {
+					return s;
+				}
+			}
+			throw new IllegalArgumentException("Unexpected Severity level " + level);
+		}
+
+	}
+
+	private String messageCode;
+
+	private String logMessage;
+
+	private Severity severity;
+
 }

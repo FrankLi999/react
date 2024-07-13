@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
+@Accessors(chain = true)
 @Builder
 public class CamelResponse<T> {
-    RequestContext requestContext;
-    private T responseBody;
+
+	RequestContext requestContext;
+
+	private T responseBody;
+
 }

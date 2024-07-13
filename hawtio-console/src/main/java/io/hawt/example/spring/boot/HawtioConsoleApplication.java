@@ -9,15 +9,16 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class HawtioConsoleApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(HawtioConsoleApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(HawtioConsoleApplication.class, args);
+	}
 
-    /**
-     * Enable HTTP tracing for Spring Boot
-     */
-    @Bean
-    public HttpExchangeRepository httpTraceRepository() {
-        return new InMemoryHttpExchangeRepository();
-    }
+	/**
+	 * Enable HTTP tracing for Spring Boot
+	 */
+	@Bean
+	public HttpExchangeRepository httpTraceRepository() {
+		return new InMemoryHttpExchangeRepository();
+	}
+
 }

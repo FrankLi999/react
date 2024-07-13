@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
+@Accessors(chain = true)
 @Builder
 public class ApiError {
-    private ResponseHeader responseHeader;
-    private String traceId;
+
+	private ResponseHeader responseHeader;
+
+	private String traceId;
+
 }

@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
+@Accessors(chain = true)
 @Builder
 public class ApiRequestClientRequestContext {
-    private String traceId;
-    private String authToken;
+
+	private String traceId;
+
+	private String authToken;
+
 }
