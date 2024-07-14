@@ -29,7 +29,7 @@ logging:
 
 camel:
   springboot:
-    name: CamelAdminConsole
+    name: MyCamelAdminConsole
 
     # Uncomment these properties to enable the Camel plugin Trace tab
     # tracing: true
@@ -82,6 +82,12 @@ hawtio:
 # You can customise the header by setting the following property.
 #    referrerPolicy: no-referrer
 my-camel:
+  feign.logger.level: FULL
+  validate.api.request: false
+  webclient:
+    connection-timeout-mills: 20000
+    read-timeout-mills: 20000
+    mac-connection: 300
   refresh-url:
     - applicationName: app1
       refreshUrl: http://app1/actuator/refresh
@@ -97,6 +103,6 @@ my-camel:
       failureRateThreshold: 50
       slowCallRateThreshold: 50
       slowCallDurationThreshold: 5
-      minimumNumberOfCalls: 20,
+      minimumNumberOfCalls: 20
       permittedNumberOfCallsinHalfOpenState: 10
       waitDurationInOpenState: 60

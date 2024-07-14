@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequiredArgsConstructor
 public class RestExceptionHandler {
 
-	@Value("${my-camel.application.name}")
+	@Value("${camel.springboot.name}")
 	private String endpointId;
 
 	private final ExceptionUtils exceptionUtils;

@@ -20,8 +20,8 @@ import java.util.*;
 @RequiredArgsConstructor
 @Slf4j
 public class RefreshConfigProcessor {
-    @Value("${my-camel.refresh-url}")
-    private Set<RefreshConfig> defaultConfifurations;
+    // @Value("${my-camel.refresh-url}")
+    private Set<RefreshConfig> defaultConfifurations = new HashSet<>();
 
     private final CamelUtils camelUtils;
     private final RefreshConfigService refreshConfigService;

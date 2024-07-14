@@ -6,4 +6,5 @@ public class MyCamelConstants {
     public static final String PROPERTY_MY_CAMEL_CONTEXT_MAP = "MY_CAMEL_CONTEXT";
 
     public static final String HEADER_MY_CAMEL_AUTH_TOKEN = "HEADER_MY_CAMEL_AUTH_TOKEN";
+    public static final String HEADER_MY_CAMEL_TRACE_ID = "HEADER_MY_CAMEL_TRACE_ID";
 }

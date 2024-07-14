@@ -25,8 +25,8 @@ public class CamelUtils {
     private final ObjectMapper objectMapper;
     public ResponseEntity<String> processCamelRequest(CamelRequest camelRequest, String camelRoute) {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("MY_CAMEL_AUTH_TOKEN", camelRequest.getRequestContext().getAuthToken());
-        headers.put("MY_CAMEL_TRACE_ID", camelRequest.getRequestContext().getRequestHeader().getTraceId());
+        headers.put(MyCamelConstants.HEADER_MY_CAMEL_AUTH_TOKEN, camelRequest.getRequestContext().getAuthToken());
+        headers.put(MyCamelConstants.HEADER_MY_CAMEL_TRACE_ID, camelRequest.getRequestContext().getRequestHeader().getTraceId());
         CamelResponse<String> camelResponse = producerTemplate.requestBodyAndHeaders(camelRoute, camelRequest, headers, CamelResponse.class);
         return ResponseEntity.status(camelResponse.getRequestContext().getStatus()).body(camelResponse.getResponseBody());
     }
