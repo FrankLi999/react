@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
+
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -26,8 +28,9 @@ public class RestExceptionHandler {
 	protected ResponseEntity<ApiError> handleGenericError(Throwable t) {
 		int httpStatusCode = exceptionUtils.httpStatus(t);
 		ApiError apiError = ApiError.builder()
-			.responseHeader(ResponseHeader.builder().responseCode(Boolean.FALSE).build())
+			.responseHeader(ResponseHeader.builder().responseCode(Boolean.FALSE).responseMessages(new ArrayList<>()).build())
 			.build();
+
 		apiError.getResponseHeader().getResponseMessages().add(exceptionUtils.apiError(endpointId, t, httpStatusCode));
 		return ResponseEntity.status(httpStatusCode).body(apiError);
 	}

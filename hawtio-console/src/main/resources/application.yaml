@@ -89,11 +89,11 @@ my-camel:
     read-timeout-mills: 20000
     mac-connection: 300
   refresh-url:
-    - applicationName: app1
+    - pod: app1
       refreshUrl: http://app1/actuator/refresh
-    - applicationName: app2
+    - pod: app2
       refreshUrl: http://app2/actuator/refresh
-    - applicationName: app3
+    - pod: app3
       refreshUrl: http://app3/actuator/refresh
   circuitbreaker:
     api-client:

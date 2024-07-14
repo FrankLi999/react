@@ -1,23 +1,24 @@
 import { configManager, hawtio, Hawtio, Logger, registerPlugins } from '@hawtio/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { registerMyPlugins } from './plugins'
+const hawtioVersion = '4.1.0'
 
-const hawtioVersion = '__HAWTIO_VERSION_PLACEHOLDER__'
-
-const log = Logger.get('hawtio-console')
-log.info('Hawtio console:', hawtioVersion)
+const log = Logger.get('hawtio-console');
+log.info('Hawtio console:', hawtioVersion);
 
 // Register builtin plugins
-registerPlugins()
+registerPlugins();
+registerMyPlugins();
 
 hawtio
   // Set up plugin location
   .addUrl('plugin')
   // Bootstrap Hawtio
-  .bootstrap()
+  .bootstrap();
 
 // Configure the console version
-configManager.addProductInfo('Hawtio', hawtioVersion)
+configManager.addProductInfo('Hawtio', hawtioVersion);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

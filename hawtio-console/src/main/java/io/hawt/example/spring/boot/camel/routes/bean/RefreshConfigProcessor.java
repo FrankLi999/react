@@ -6,9 +6,9 @@ import io.hawt.example.spring.boot.camel.routes.config.RefreshConfigService;
 import io.hawt.example.spring.boot.camel.support.CamelUtils;
 import io.hawt.example.spring.boot.camel.support.MyCamelConstants;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -21,7 +21,7 @@ import java.util.*;
 @Slf4j
 public class RefreshConfigProcessor {
     // @Value("${my-camel.refresh-url}")
-    private Set<RefreshConfig> defaultConfifurations = new HashSet<>();
+    // private List<RefreshConfig> defaultConfifurations = new ArrayList<>();
 
     private final CamelUtils camelUtils;
     private final RefreshConfigService refreshConfigService;
@@ -31,9 +31,9 @@ public class RefreshConfigProcessor {
 
         RefreshConfigRequest configRequest = camelRequest.getRequestBody();
         RequestContext requestContext = camelRequest.getRequestContext();
-        if (CollectionUtils.isEmpty(configRequest.getRefreshConfigurations())) {
-            configRequest.setRefreshConfigurations(defaultConfifurations);
-        }
+//        if (CollectionUtils.isEmpty(configRequest.getRefreshConfigurations())) {
+//            configRequest.setRefreshConfigurations(defaultConfifurations);
+//        }
         exchange.getMessage().setBody(configRequest);
     }
 
@@ -63,7 +63,7 @@ public class RefreshConfigProcessor {
         RefreshConfig refreshConfig = exchange.getMessage().getBody(RefreshConfig.class);
         Set<String> propertiesUpdates = refreshConfigService.refresh(refreshConfig.getRefreshUrl());
         Map<String, Set<String>> resp = new LinkedHashMap<>();
-        resp.put(StringUtils.hasText(refreshConfig.getApplicationName()) ? refreshConfig.getApplicationName() : refreshConfig.getRefreshUrl(), propertiesUpdates);
+        resp.put(StringUtils.hasText(refreshConfig.getPod()) ? refreshConfig.getPod() : refreshConfig.getRefreshUrl(), propertiesUpdates);
         exchange.getMessage().setBody(resp);
     }
 
