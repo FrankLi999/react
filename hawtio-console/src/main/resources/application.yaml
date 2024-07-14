@@ -9,7 +9,8 @@ management:
     port: 10001
     base-path: /my-camel/console
   endpoints:
-    web.exposure.include: hawtio,jolokia
+    refresh.enable: true
+    web.exposure.include: hawtio,jolokia,refresh
     #  Actuator Enpoints exposure for the spring-boot plugin
     jmx.exposure.include: health,info,loggers,httpexchanges
 
@@ -83,6 +84,10 @@ hawtio:
 #    referrerPolicy: no-referrer
 my-camel:
   feign.logger.level: FULL
+  # Monthly
+  refresh.schedule: 0 0 0 1 * *
+  # weekly
+  # refresh.schedule: 0 0 0 * * 0
   validate.api.request: false
   webclient:
     connection-timeout-mills: 20000
