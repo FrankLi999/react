@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css",
+    "main.js": "/my-camel/admin/actuator/hawtio/static/js/main.9d9237c9.js",
+    "static/js/118.c29a7214.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/118.c29a7214.chunk.js",
+    "static/js/567.7f5c6022.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/567.7f5c6022.chunk.js",
+    "static/js/3.44808114.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/3.44808114.chunk.js",
+    "static/js/518.b237564b.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/518.b237564b.chunk.js",
+    "static/js/546.4e4e65fe.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/546.4e4e65fe.chunk.js",
+    "static/css/823.52b920c0.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/823.52b920c0.chunk.css",
+    "static/js/823.383cabac.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/823.383cabac.chunk.js",
+    "static/media/RedHatDisplayVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF-Italic.813182e673c38ef5ee4b.woff2",
+    "static/media/RedHatTextVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatTextVF-Italic.078865af129336cde269.woff2",
+    "static/media/RedHatDisplayVF.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF.18ca482120faaa701d8b.woff2",
+    "static/media/RedHatTextVF.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatTextVF.c33624692c8b41e36780.woff2",
+    "static/media/RedHatMono-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMono-Italic.841cdd0ebb3d9038a7e7.woff2",
+    "static/media/RedHatMonoVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMonoVF-Italic.6e3027616d8de472723c.woff2",
+    "static/media/RedHatMonoVF.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMonoVF.e4faf134e53e0f37296b.woff2",
+    "static/media/RedHatText-MediumItalic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatText-MediumItalic.e0f30d27bec7c8dbb6fc.woff2",
+    "static/media/RedHatDisplay-BoldItalic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplay-BoldItalic.b01a8365f7214919a9c3.woff2",
+    "static/media/RedHatDisplay-MediumItalic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplay-MediumItalic.ed292ec87cce0d76fd3c.woff2",
+    "static/media/RedHatText-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatText-Italic.aa07940756a803076b34.woff2",
+    "static/media/RedHatText-Medium.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatText-Medium.9c02e9a1e10fbc86466d.woff2",
+    "static/media/RedHatDisplay-Medium.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplay-Medium.66ac08a9a7d29ae51581.woff2",
+    "static/media/RedHatDisplay-Bold.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplay-Bold.d8d66dd2281610675aca.woff2",
+    "static/media/RedHatText-Regular.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatText-Regular.b36d694117bf12672d49.woff2",
+    "static/media/RedHatMono-Regular.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMono-Regular.57234ce675330fa60781.woff2",
+    "static/media/pf-v5-pficon.woff2": "/my-camel/admin/actuator/hawtio/static/media/pf-v5-pficon.c06f4d6490c387fd1d92.woff2",
+    "index.html": "/my-camel/admin/actuator/hawtio/index.html",
+    "main.3cc5694f.css.map": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css.map",
+    "main.9d9237c9.js.map": "/my-camel/admin/actuator/hawtio/static/js/main.9d9237c9.js.map",
+    "118.c29a7214.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/118.c29a7214.chunk.js.map",
+    "518.b237564b.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/518.b237564b.chunk.js.map",
+    "546.4e4e65fe.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/546.4e4e65fe.chunk.js.map",
+    "823.52b920c0.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/823.52b920c0.chunk.css.map",
+    "823.383cabac.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/823.383cabac.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3cc5694f.css",
+    "static/js/main.9d9237c9.js"
+  ]
+}

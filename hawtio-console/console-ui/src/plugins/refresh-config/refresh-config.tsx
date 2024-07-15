@@ -64,7 +64,7 @@ export const RefreshConfig: React.FunctionComponent = () => {
             }),
         };
         setIsRefreshing(() => true);
-        await fetch("http://localhost:10000/my-camel/console/api/refreshConfig", requestOptions)
+        await fetch("/my-camel/admin/api/refreshConfig", requestOptions)
         // await fetch("/api/refreshConfig", requestOptions)
                     .then(response => response.json())
                     .then((data: any) => {

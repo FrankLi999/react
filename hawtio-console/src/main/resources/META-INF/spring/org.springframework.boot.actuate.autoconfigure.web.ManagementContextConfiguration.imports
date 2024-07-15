@@ -1,0 +1,3 @@
+mycamel.spring.boot.actuator.HawtioEndpointAutoConfiguration
+mycamel.spring.boot.actuator.HawtioLogAutoConfiguration
+mycamel.spring.boot.actuator.HawtioManagementConfiguration
