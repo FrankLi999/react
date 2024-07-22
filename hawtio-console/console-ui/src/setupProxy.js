@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/my-camel/admin/console',
     createProxyMiddleware({
-      target: 'http://localhost:10001/my-camel/admin/actuator/hawtio',
+      target: 'http://localhost:8080/my-camel/admin/actuator/hawtio',
       changeOrigin: true,
       pathFilter: (path) => !(
         path.startsWith('/actuator/hawtio/static/') || 
@@ -21,7 +21,7 @@ module.exports = function(app) {
   app.use(
     '/my-camel/admin/api',
     createProxyMiddleware({
-      target: 'http://localhost:10000/my-camel/admin/api/refreshConfig',
+      target: 'http://localhost:8080/my-camel/admin/api/refreshConfig',
       changeOrigin: true
     })
   );  
