@@ -40,15 +40,15 @@ export const RefreshConfig: React.FunctionComponent = () => {
     let refreshConfigUrls: RefreshConfigModel[] = [];
     mpgPods.length > 0 && mpgPods.split(",").forEach((pod) =>  refreshConfigUrls.push({
         pod: pod,
-        refreshUrl: `http://${pod}:8080/actuator/refresh`
+        refreshUrl: pod.startsWith('http://') || pod.startsWith('https://') ? pod : `http://${pod}:8080/actuator/refresh`
         }));
     ccpayPods.length > 0 && ccpayPods.split(",").forEach((pod) =>  refreshConfigUrls.push({
         pod: pod,
-        refreshUrl: `http://${pod}:8080/actuator/refresh`
+        refreshUrl: pod.startsWith('http://') || pod.startsWith('https://') ? pod : `http://${pod}:8080/actuator/refresh`
         }));
     servicePods.length > 0 && servicePods.split(",").forEach((pod) =>  refreshConfigUrls.push({
         pod: pod,
-        refreshUrl: `http://${pod}:8080/actuator/refresh`
+        refreshUrl: pod.startsWith('http://') || pod.startsWith('https://') ? pod : `http://${pod}:8080/actuator/refresh`
         }));
     console.log('Refresh config for ', refreshConfigUrls)
     try {
