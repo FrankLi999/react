@@ -17,49 +17,55 @@ package mycamel.spring.boot.actuator.security;
 
 import java.util.Collections;
 import java.util.Map;
+
 import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.Configuration;
 
 import io.hawt.web.auth.AuthenticationConfiguration;
 
 /**
- * <p>JAAS {@link Configuration} that integrates with Spring Security. It includes two
- * {@link javax.security.auth.spi.LoginModule login modules} with particular responsibilities:<ol>
- *     <li>Spring Security {@code SecurityContextLoginModule} which turns existing (required)
- *     {@code org.springframework.security.core.Authentication} object into JAAS {@link java.security.Principal}
- *     and sets it as the only principal of JAAS {@link javax.security.auth.Subject}</li>
- *     <li>Hawtio {@code HawtioSpringSecurityLoginModule} which examines already authenticated
- *     {@link javax.security.auth.Subject} and extracts granted roles in Spring Security {@code Authentication}
- *     and sets them as additional principals of the subject. The role class is taken from first available
- *     class of {@code rolePrincipalClasses} Hawtio property.</li>
- * </ol></p>
+ * <p>
+ * JAAS {@link Configuration} that integrates with Spring Security. It includes two
+ * {@link javax.security.auth.spi.LoginModule login modules} with particular
+ * responsibilities:
+ * <ol>
+ * <li>Spring Security {@code SecurityContextLoginModule} which turns existing (required)
+ * {@code org.springframework.security.core.Authentication} object into JAAS
+ * {@link java.security.Principal} and sets it as the only principal of JAAS
+ * {@link javax.security.auth.Subject}</li>
+ * <li>Hawtio {@code HawtioSpringSecurityLoginModule} which examines already authenticated
+ * {@link javax.security.auth.Subject} and extracts granted roles in Spring Security
+ * {@code Authentication} and sets them as additional principals of the subject. The role
+ * class is taken from first available class of {@code rolePrincipalClasses} Hawtio
+ * property.</li>
+ * </ol>
+ * </p>
  *
- * <p>This configuration will only be used if Spring Security is properly configured and
- * {@code hawtio-springboot-security} is available on the classpath.</p>
+ * <p>
+ * This configuration will only be used if Spring Security is properly configured and
+ * {@code hawtio-springboot-security} is available on the classpath.
+ * </p>
  */
 public class SpringSecurityJAASConfiguration extends Configuration {
 
-    private static final String SPRING_SECURITY_LOGIN_MODULE
-            = "org.springframework.security.authentication.jaas.SecurityContextLoginModule";
-    private static final String HAWTIO_SPRING_SECURITY_LOGIN_MODULE
-            = "HawtioSpringSecurityLoginModule.HawtioSpringSecurityLoginModule";
+	private static final String SPRING_SECURITY_LOGIN_MODULE = "org.springframework.security.authentication.jaas.SecurityContextLoginModule";
 
-    private final AuthenticationConfiguration authConfig;
+	private static final String HAWTIO_SPRING_SECURITY_LOGIN_MODULE = "HawtioSpringSecurityLoginModule.HawtioSpringSecurityLoginModule";
 
-    public SpringSecurityJAASConfiguration(AuthenticationConfiguration authConfig) {
-        this.authConfig = authConfig;
-    }
+	private final AuthenticationConfiguration authConfig;
 
-    @Override
-    public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-        return new AppConfigurationEntry[] {
-                new AppConfigurationEntry(SPRING_SECURITY_LOGIN_MODULE,
-                        AppConfigurationEntry.LoginModuleControlFlag.REQUIRED,
-                        Collections.emptyMap()),
-                new AppConfigurationEntry(HAWTIO_SPRING_SECURITY_LOGIN_MODULE,
-                        AppConfigurationEntry.LoginModuleControlFlag.OPTIONAL,
-                        Map.of(AuthenticationConfiguration.class.getName(), authConfig))
-        };
-    }
+	public SpringSecurityJAASConfiguration(AuthenticationConfiguration authConfig) {
+		this.authConfig = authConfig;
+	}
+
+	@Override
+	public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
+		return new AppConfigurationEntry[] {
+				new AppConfigurationEntry(SPRING_SECURITY_LOGIN_MODULE,
+						AppConfigurationEntry.LoginModuleControlFlag.REQUIRED, Collections.emptyMap()),
+				new AppConfigurationEntry(HAWTIO_SPRING_SECURITY_LOGIN_MODULE,
+						AppConfigurationEntry.LoginModuleControlFlag.OPTIONAL,
+						Map.of(AuthenticationConfiguration.class.getName(), authConfig)) };
+	}
 
 }

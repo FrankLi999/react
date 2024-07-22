@@ -1,12 +1,19 @@
 package com.bpwizard.configjdbc;
 
 import com.bpwizard.configjdbc.configserver.security.ConfigServerSecurityConfig;
+import com.bpwizard.configjdbc.core.security.csrf.SpaCsrfTokenRequestHandler;
+import com.bpwizard.configjdbc.core.security.filter.CheckOauth2TokenFilter;
+import com.bpwizard.configjdbc.core.security.filter.CookieCsrfFilter;
+import com.bpwizard.configjdbc.core.security.filter.SpaWebFilter;
 import com.bpwizard.configjdbc.core.security.jwt.JwtAuthorizationProperties;
+import com.bpwizard.configjdbc.core.security.support.GroupsClaimMapper;
+import com.bpwizard.configjdbc.core.security.support.NamedOidcUser;
 import com.bpwizard.configjdbc.oauth2client.security.OAuth2ClientSecurityConfig;
 import com.bpwizard.configjdbc.resource.security.ResourceServerSecurityConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

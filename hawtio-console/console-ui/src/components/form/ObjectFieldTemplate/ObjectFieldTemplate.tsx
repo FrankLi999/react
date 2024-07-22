@@ -1,6 +1,5 @@
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
+import { Grid, GridItem } from '@patternfly/react-core';
+import { Card, Panel } from '@patternfly/react-core';
 
 import {
   canExpand,
@@ -64,15 +63,15 @@ export default function ObjectFieldTemplate<
           registry={registry}
         />
       )}
-      <Container fluid className='p-0'>
+      <Panel className='pf-v5-u-p-0'>
         {properties.map((element: any, index: number) => (
-          <Row key={index} style={{ marginBottom: '10px' }} className={element.hidden ? 'd-none' : undefined}>
-            <Col xs={12}> {element.content}</Col>
-          </Row>
+          <Grid key={index} style={{ marginBottom: '10px' }} className={element.hidden ? 'pf-v5-u-display-none' : undefined}>
+            <GridItem sm={12}> {element.content}</GridItem>
+          </Grid>
         ))}
         {canExpand(schema, uiSchema, formData) ? (
-          <Row>
-            <Col xs={{ offset: 9, span: 3 }} className='py-4'>
+          <Grid>
+            <GridItem sm={3} smOffset={9} className='pf-v5-u-py-sm'>
               <AddButton
                 onClick={onAddClick(schema)}
                 disabled={disabled || readonly}
@@ -80,10 +79,10 @@ export default function ObjectFieldTemplate<
                 uiSchema={uiSchema}
                 registry={registry}
               />
-            </Col>
-          </Row>
+            </GridItem>
+          </Grid>
         ) : null}
-      </Container>
+      </Panel>
     </>
   );
 }

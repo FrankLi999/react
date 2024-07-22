@@ -1,5 +1,5 @@
 import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
-import Button, { ButtonProps } from 'react-bootstrap/Button';
+import { Button, ButtonProps } from '@patternfly/react-core';
 
 import { IoIosCopy } from 'react-icons/io';
 import { IoIosRemove } from 'react-icons/io';
@@ -11,7 +11,7 @@ export default function IconButton<T = any, S extends StrictRJSFSchema = RJSFSch
 ) {
   const { icon, iconType, className, uiSchema, registry, ...otherProps } = props;
   return (
-    <Button block={iconType === 'block'} {...otherProps} variant={props.variant || 'light'} size='sm'>
+    <Button isBlock={iconType === 'block'} {...otherProps} variant={props.variant || 'plain'} size='sm'>
       {icon}
     </Button>
   );

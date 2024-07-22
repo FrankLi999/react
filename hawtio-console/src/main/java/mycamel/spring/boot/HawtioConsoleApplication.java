@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+// @EnableConfigServer
 public class HawtioConsoleApplication {
 
 	public static void main(String[] args) {

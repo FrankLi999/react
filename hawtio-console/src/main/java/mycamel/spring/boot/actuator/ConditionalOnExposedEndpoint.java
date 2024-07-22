@@ -11,5 +11,7 @@ import org.springframework.context.annotation.Conditional;
 @Retention(RetentionPolicy.RUNTIME)
 @Conditional(ExposedEndpoint.class)
 public @interface ConditionalOnExposedEndpoint {
-    String name();
+
+	String name();
+
 }

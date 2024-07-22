@@ -27,42 +27,44 @@ import org.springframework.context.annotation.PropertySource;
 @EnableConfigurationProperties
 public class HawtioEndpointAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnAvailableEndpoint
-    public HawtioEndpoint hawtioEndpoint(final EndpointPathResolver endpointPathResolver) {
-        return new HawtioEndpoint(endpointPathResolver);
-    }
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnAvailableEndpoint
+	public HawtioEndpoint hawtioEndpoint(final EndpointPathResolver endpointPathResolver) {
+		return new HawtioEndpoint(endpointPathResolver);
+	}
 
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(HawtioEndpoint.class)
-    public EndpointPathResolver hawtioEndpointPathResolver(
-        WebEndpointProperties webEndpointProperties,
-        ServerProperties serverProperties,
-        ManagementServerProperties managementServerProperties,
-        DispatcherServletPath dispatcherServletPath) {
-        return new EndpointPathResolver(webEndpointProperties, serverProperties, managementServerProperties, dispatcherServletPath);
-    }
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnBean(HawtioEndpoint.class)
+	public EndpointPathResolver hawtioEndpointPathResolver(WebEndpointProperties webEndpointProperties,
+			ServerProperties serverProperties, ManagementServerProperties managementServerProperties,
+			DispatcherServletPath dispatcherServletPath) {
+		return new EndpointPathResolver(webEndpointProperties, serverProperties, managementServerProperties,
+				dispatcherServletPath);
+	}
 
-    @Bean
-    @ConditionalOnBean(HawtioEndpoint.class)
-    @ConfigurationProperties
-    protected HawtioConfigurationProperties hawtioConfigurationProperties() {
-        return new HawtioConfigurationProperties();
-    }
+	@Bean
+	@ConditionalOnBean(HawtioEndpoint.class)
+	@ConfigurationProperties
+	protected HawtioConfigurationProperties hawtioConfigurationProperties() {
+		return new HawtioConfigurationProperties();
+	}
 
-    @Bean
-    @ConditionalOnBean(HawtioConfigurationProperties.class)
-    public HawtioProperties hawtioProperties(HawtioConfigurationProperties hawtioConfigurationProperties) {
-        return new HawtioProperties(hawtioConfigurationProperties.getHawtio());
-    }
+	@Bean
+	@ConditionalOnBean(HawtioConfigurationProperties.class)
+	public HawtioProperties hawtioProperties(HawtioConfigurationProperties hawtioConfigurationProperties) {
+		return new HawtioProperties(hawtioConfigurationProperties.getHawtio());
+	}
 
-    private static class HawtioConfigurationProperties {
-        private final Map<String, String> hawtio = new HashMap<>();
+	private static class HawtioConfigurationProperties {
 
-        public Map<String, String> getHawtio() {
-            return hawtio;
-        }
-    }
+		private final Map<String, String> hawtio = new HashMap<>();
+
+		public Map<String, String> getHawtio() {
+			return hawtio;
+		}
+
+	}
+
 }

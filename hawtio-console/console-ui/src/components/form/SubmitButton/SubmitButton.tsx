@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+import { Button } from '@patternfly/react-core';
 import { FormContextType, getSubmitButtonOptions, RJSFSchema, StrictRJSFSchema, SubmitButtonProps } from '@rjsf/utils';
 
 export default function SubmitButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(

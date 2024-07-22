@@ -1,7 +1,7 @@
 package com.bpwizard.configjdbc.oauth2client.controller;
 
-import com.bpwizard.configjdbc.oauth2client.dto.ApplicationProfile;
-import com.bpwizard.configjdbc.oauth2client.dto.ConfigData;
+import com.bpwizard.configjdbc.resource.dto.ApplicationProfile;
+import com.bpwizard.configjdbc.resource.dto.ConfigData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

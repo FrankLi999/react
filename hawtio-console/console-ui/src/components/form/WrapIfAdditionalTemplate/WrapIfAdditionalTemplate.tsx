@@ -7,10 +7,8 @@ import {
   TranslatableString,
   WrapIfAdditionalTemplateProps,
 } from '@rjsf/utils';
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import { Grid, GridItem } from '@patternfly/react-core';
+import { FormGroup, TextInput } from '@patternfly/react-core';
 
 export default function WrapIfAdditionalTemplate<
   T = any,
@@ -49,23 +47,21 @@ export default function WrapIfAdditionalTemplate<
   const keyId = `${id}-key`;
 
   return (
-    <Row className={classNames} style={style} key={keyId}>
-      <Col xs={5}>
-        <Form.Group>
-          <Form.Label htmlFor={keyId}>{keyLabel}</Form.Label>
-          <Form.Control
-            required={required}
+    <Grid className={classNames} style={style} key={keyId}>
+      <GridItem sm={5}>
+        <FormGroup label={keyLabel} fieldId={keyId}>
+          <TextInput
+            isRequired={required}
             defaultValue={label}
-            disabled={disabled || readonly}
+            isDisabled={disabled || readonly}
             id={keyId}
             name={keyId}
             onBlur={!readonly ? handleBlur : undefined}
-            type='text'
           />
-        </Form.Group>
-      </Col>
-      <Col xs={5}>{children}</Col>
-      <Col xs={2} className='py-4'>
+        </FormGroup>
+      </GridItem>
+      <GridItem sm={5}>{children}</GridItem>
+      <GridItem sm={2} className='py-4'>
         <RemoveButton
           iconType='block'
           className='w-100'
@@ -74,7 +70,7 @@ export default function WrapIfAdditionalTemplate<
           uiSchema={uiSchema}
           registry={registry}
         />
-      </Col>
-    </Row>
+      </GridItem>
+    </Grid>
   );
 }

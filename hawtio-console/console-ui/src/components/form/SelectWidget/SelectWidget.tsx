@@ -1,5 +1,7 @@
-import { ChangeEvent, FocusEvent } from 'react';
-import Form from 'react-bootstrap/Form';
+import {
+  FormSelect,
+  FormSelectOption,
+} from '@patternfly/react-core';
 import {
   ariaDescribedByIds,
   FormContextType,
@@ -34,7 +36,7 @@ export default function SelectWidget<
 
   const emptyValue = multiple ? [] : '';
 
-  function getValue(event: FocusEvent | ChangeEvent | any, multiple?: boolean) {
+  function getValue(event: any, multiple?: boolean) {
     if (multiple) {
       return [].slice
         .call(event.target.options as any)
@@ -48,46 +50,44 @@ export default function SelectWidget<
   const showPlaceholderOption = !multiple && schema.default === undefined;
 
   return (
-    <Form.Control
+    <FormSelect
       as='select'
-      bsPrefix='custom-select'
       id={id}
       name={id}
       value={typeof selectedIndexes === 'undefined' ? emptyValue : selectedIndexes}
-      required={required}
+      isRequired={required}
       multiple={multiple}
-      disabled={disabled || readonly}
+      isDisabled={disabled || readonly}
       autoFocus={autofocus}
       className={rawErrors.length > 0 ? 'is-invalid' : ''}
       onBlur={
         onBlur &&
-        ((event: FocusEvent) => {
+        ((event) => {
           const newValue = getValue(event, multiple);
           onBlur(id, enumOptionsValueForIndex<S>(newValue, enumOptions, optEmptyValue));
         })
       }
       onFocus={
         onFocus &&
-        ((event: FocusEvent) => {
+        ((event) => {
           const newValue = getValue(event, multiple);
           onFocus(id, enumOptionsValueForIndex<S>(newValue, enumOptions, optEmptyValue));
         })
       }
-      onChange={(event: ChangeEvent) => {
+      onChange={(event) => {
         const newValue = getValue(event, multiple);
         onChange(enumOptionsValueForIndex<S>(newValue, enumOptions, optEmptyValue));
       }}
       aria-describedby={ariaDescribedByIds<T>(id)}
     >
-      {showPlaceholderOption && <option value=''>{placeholder}</option>}
+      {showPlaceholderOption && <FormSelectOption label={placeholder ? placeholder: ''} value=''/>}
       {(enumOptions as any).map(({ value, label }: any, i: number) => {
         const disabled: any = Array.isArray(enumDisabled) && (enumDisabled as any).indexOf(value) != -1;
         return (
-          <option key={i} id={label} value={String(i)} disabled={disabled}>
-            {label}
-          </option>
+          <FormSelectOption key={i} id={label} label={label} value={String(i)} isDisabled={disabled}/>
         );
       })}
-    </Form.Control>
+    </FormSelect>
+    
   );
 }

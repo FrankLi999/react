@@ -12,6 +12,9 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefreshConfig {
-    private String pod;
-    private String refreshUrl;
+
+	private String pod;
+
+	private String refreshUrl;
+
 }

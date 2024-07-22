@@ -26,5 +26,7 @@ public class RequestContext {
 	private OffsetDateTime requestTime;
 
 	private String authToken;
+
 	private List<ResponseMessage> responseMessages = new ArrayList<>();
+
 }

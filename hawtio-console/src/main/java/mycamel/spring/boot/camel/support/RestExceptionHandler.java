@@ -1,8 +1,6 @@
 package mycamel.spring.boot.camel.support;
 
-import mycamel.spring.boot.camel.dto.ApiError;
-import mycamel.spring.boot.camel.dto.ResponseHeader;
-import mycamel.spring.boot.camel.exception.InvalidteRequestException;
+import java.util.ArrayList;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
+import mycamel.spring.boot.camel.dto.ApiError;
+import mycamel.spring.boot.camel.dto.ResponseHeader;
+import mycamel.spring.boot.camel.exception.InvalidteRequestException;
 
 @Slf4j
 @RestControllerAdvice
@@ -28,7 +28,8 @@ public class RestExceptionHandler {
 	protected ResponseEntity<ApiError> handleGenericError(Throwable t) {
 		int httpStatusCode = exceptionUtils.httpStatus(t);
 		ApiError apiError = ApiError.builder()
-			.responseHeader(ResponseHeader.builder().responseCode(Boolean.FALSE).responseMessages(new ArrayList<>()).build())
+			.responseHeader(
+					ResponseHeader.builder().responseCode(Boolean.FALSE).responseMessages(new ArrayList<>()).build())
 			.build();
 
 		apiError.getResponseHeader().getResponseMessages().add(exceptionUtils.apiError(endpointId, t, httpStatusCode));

@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent } from 'react';
-import Form from 'react-bootstrap/Form';
+import { FormGroup, Radio } from '@patternfly/react-core';
 import {
   ariaDescribedByIds,
   enumOptionsIsSelected,
@@ -34,25 +34,22 @@ export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSc
   const inline = Boolean(options && options.inline);
 
   return (
-    <Form.Group className='mb-0'>
+    <FormGroup className='pf-v5-u-mb-sm' role="radiogroup" isInline={inline} isStack={!inline}>
       {Array.isArray(enumOptions) &&
         enumOptions.map((option, index) => {
           const itemDisabled = Array.isArray(enumDisabled) && enumDisabled.indexOf(option.value) !== -1;
           const checked = enumOptionsIsSelected<S>(option.value, value);
 
           const radio = (
-            <Form.Check
-              inline={inline}
+            <Radio
               label={option.label}
               id={optionId(id, index)}
               key={index}
               name={id}
-              type='radio'
-              disabled={disabled || itemDisabled || readonly}
+              isDisabled={disabled || itemDisabled || readonly}
               checked={checked}
-              required={required}
               value={String(index)}
-              onChange={_onChange}
+              onChange={() => _onChange}
               onBlur={_onBlur}
               onFocus={_onFocus}
               aria-describedby={ariaDescribedByIds<T>(id)}
@@ -60,6 +57,6 @@ export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSc
           );
           return radio;
         })}
-    </Form.Group>
+    </FormGroup>
   );
 }

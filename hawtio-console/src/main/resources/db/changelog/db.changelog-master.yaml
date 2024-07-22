@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: oracle
+  - changeSet:
+      id: s2i-integrator-properties-dev
+      author: S2I
+      context:
+        - dev
+        - local
+        - sandbox
+      changes:
+        - sqlFile:
+            path: dev/data-oracle.sql
+            encoding: UTF-8
+            # endDelimiter: \r\n/\s*\r\n|\n/\s*\n|//|\n/\s*$|\r\n/\s*$
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: s2i-integrator-properties-stage
+      author: S2I
+      context:
+        - stage
+      changes:
+        - sqlFile:
+            path: stage/data-oracle.sql
+            encoding: UTF-8
+            endDelimiter: \r\n/\s*\r\n|\n/\s*\n|//|\n/\s*$|\r\n/\s*$
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

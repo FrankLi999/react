@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import com.bpwizard.configjdbc.core.security.SpaCsrfTokenRequestHandler;
+import com.bpwizard.configjdbc.core.security.csrf.SpaCsrfTokenRequestHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.HashSet;

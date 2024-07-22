@@ -1,8 +1,8 @@
 package com.bpwizard.configjdbc.resource.controller;
 
-import com.bpwizard.configjdbc.oauth2client.dto.ApplicationProfile;
-import com.bpwizard.configjdbc.oauth2client.dto.ConfigData;
-import com.bpwizard.configjdbc.oauth2client.service.ConfigDataService;
+import com.bpwizard.configjdbc.resource.dto.ApplicationProfile;
+import com.bpwizard.configjdbc.resource.dto.ConfigData;
+import com.bpwizard.configjdbc.resource.service.ConfigDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

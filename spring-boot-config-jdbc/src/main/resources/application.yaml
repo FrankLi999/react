@@ -1,4 +1,3 @@
-
 server:
   port: 8080
   shutdown: graceful
@@ -12,7 +11,7 @@ spring:
       - ${SPRING_PROFILES_ACTIVE:local}  
   application:.name: bpw-camel-config-server
   datasource:
-   platform: oracle
+    platform: oracle
    # url: jdbc:h2:mem:configdb
    # driver-class-name: org.h2.Driver
    # username: sa
@@ -22,13 +21,13 @@ spring:
 #    url: jdbc:postgresql://localhost:5432/postgres
 #    username: postgres
 #    password: 123456
-   driver-class-name: oracle.jdbc.OracleDriver
-   url: jdbc:oracle:thin:@localhost:1521/FREE
-   username: C##CAMEL
-   password: Passw0rd
-   hikari:
-     connection-timeout: 5000
-     maximum-pool-size: 10
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/FREE
+    username: C##CAMEL
+    password: Passw0rd
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
   cloud:
     config:
       server:

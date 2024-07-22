@@ -1,6 +1,6 @@
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Panel, PanelMain, PanelMainBody } from '@patternfly/react-core';
-import { Card, CardTitle, CardBody, CardFooter } from '@patternfly/react-core';
+import { Card, Panel, PanelMain, PanelMainBody } from '@patternfly/react-core';
+
 import {
   ArrayFieldTemplateItemType,
   ArrayFieldTemplateProps,

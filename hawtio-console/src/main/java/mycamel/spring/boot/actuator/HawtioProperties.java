@@ -8,13 +8,14 @@ import java.util.Objects;
  */
 public class HawtioProperties {
 
-    private final Map<String, String> properties;
+	private final Map<String, String> properties;
 
-    public HawtioProperties(final Map<String, String> properties) {
-        this.properties = Objects.requireNonNull(properties);
-    }
+	public HawtioProperties(final Map<String, String> properties) {
+		this.properties = Objects.requireNonNull(properties);
+	}
 
-    public Map<String, String> get() {
-        return properties;
-    }
+	public Map<String, String> get() {
+		return properties;
+	}
+
 }
