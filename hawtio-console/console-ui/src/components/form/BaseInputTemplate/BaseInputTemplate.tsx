@@ -50,8 +50,8 @@ export default function BaseInputTemplate<
         name={id}
         placeholder={placeholder}
         autoFocus={autofocus}
-        required={required}
-        disabled={disabled}
+        isRequired={required}
+        isDisabled={disabled}
         readOnly={readonly}
         className={rawErrors.length > 0 ? 'is-invalid' : ''}
         list={schema.examples ? examplesId<T>(id) : undefined}
