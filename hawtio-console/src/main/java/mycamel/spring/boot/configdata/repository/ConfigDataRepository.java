@@ -1,14 +1,13 @@
-package mycamel.spring.boot.resource.repository;
+package mycamel.spring.boot.configdata.repository;
 
-import java.util.List;
-
+import mycamel.spring.boot.configdata.entity.ConfigDataEntity;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import mycamel.spring.boot.resource.entity.ConfigDataEntity;
+import java.util.List;
 
 @Repository
 public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, Long> {

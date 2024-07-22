@@ -1,26 +1,23 @@
-package mycamel.spring.boot.resource.service;
+package mycamel.spring.boot.configdata.service;
 
+import lombok.RequiredArgsConstructor;
+import mycamel.spring.boot.configdata.dto.ApplicationProfile;
+import mycamel.spring.boot.configdata.dto.ConfigData;
+import mycamel.spring.boot.configdata.dto.ConfigurationProperty;
+import mycamel.spring.boot.configdata.entity.ConfigDataEntity;
+import mycamel.spring.boot.configdata.entity.ConfigDataEntityKey;
+import mycamel.spring.boot.configdata.repository.ConfigDataRepository;
+import org.apache.ibatis.jdbc.ScriptRunner;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.sql.DataSource;
 import java.io.StringReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
-
-import lombok.RequiredArgsConstructor;
-
-import org.apache.ibatis.jdbc.ScriptRunner;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import mycamel.spring.boot.resource.dto.ApplicationProfile;
-import mycamel.spring.boot.resource.dto.ConfigData;
-import mycamel.spring.boot.resource.dto.ConfigurationProperty;
-import mycamel.spring.boot.resource.entity.ConfigDataEntity;
-import mycamel.spring.boot.resource.entity.ConfigDataEntityKey;
-import mycamel.spring.boot.resource.repository.ConfigDataRepository;
 
 @Service
 @RequiredArgsConstructor

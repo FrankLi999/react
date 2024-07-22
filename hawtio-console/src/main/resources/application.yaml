@@ -60,68 +60,68 @@ spring:
           sql: SELECT PROP_KEY, PROP_VALUE from APP_PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
           order: 1
         # prefix: config
-  security:
-    user:
-      name: admin
-      password: admin
-    oauth2:
-      # For SPA
-      client:
-        provider:
-          azure:
-            issuer-uri: https://login.microsoftonline.com/xxxxx/v2.0
-            # When using JWT-based authentication, Spring Security will use, by default, the standard sub claim value as the Principal‘s name.
-            # Looking at the claims, AzureAD populates this field with an internal identifier, which is unfit for display purposes.
-            # so choose one of the available attributes available and put its name on the provider’s user-name-attribute property:
-            user-name-attribute: name
-          auth0:
-            issuer-uri: https://xxxx.auth0.com/
-        google:
-          clientId: your_client_id
-          clientSecret: your_client_secret
-          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
-          scope:
-            - email
-            - profile
-        facebook:
-          clientId: your_client_id
-          clientSecret: your_client_secret
-          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
-          scope:
-            - email
-            - public_profile
-        github:
-          clientId: your_client_id
-          clientSecret: your_client_secret
-          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
-          scope:
-            - user:email
-            - read:user
-        registration:
-          azure-dev:
-            provider: azure
-            authorization-grant-type: authorization-code
-            client-id: xxxxx
-            client-secret: xxxxx
-            scope:
-              - openid
-              - email
-              - profile
-          auth0-confidential-user:
-            authorization-grant-type: authorization_code
-            client-name: Auth0
-            client-id: your_client_id
-            client-secret: your_client_secret
-            provider: auth0
-            scope: openid,profile,email,offline_access
-
-      # multitenancy: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/multitenancy.html
-      # For API single tenant
-      resourceserve:
-        jwt:
-          # https://login.microsoftonline.com/{tenant-id}/v2.0
-          # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
-          issuer-uri: https://login.microsoftonline.com/xxxxxxxxxxxx/v2.0
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+#    oauth2:
+#      # For SPA
+#      client:
+#        provider:
+#          azure:
+#            issuer-uri: https://login.microsoftonline.com/xxxxx/v2.0
+#            # When using JWT-based authentication, Spring Security will use, by default, the standard sub claim value as the Principal‘s name.
+#            # Looking at the claims, AzureAD populates this field with an internal identifier, which is unfit for display purposes.
+#            # so choose one of the available attributes available and put its name on the provider’s user-name-attribute property:
+#            user-name-attribute: name
+#          auth0:
+#            issuer-uri: https://xxxx.auth0.com/
+#        google:
+#          clientId: your_client_id
+#          clientSecret: your_client_secret
+#          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+#          scope:
+#            - email
+#            - profile
+#        facebook:
+#          clientId: your_client_id
+#          clientSecret: your_client_secret
+#          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+#          scope:
+#            - email
+#            - public_profile
+#        github:
+#          clientId: your_client_id
+#          clientSecret: your_client_secret
+#          redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+#          scope:
+#            - user:email
+#            - read:user
+#        registration:
+#          azure-dev:
+#            provider: azure
+#            authorization-grant-type: authorization-code
+#            client-id: xxxxx
+#            client-secret: xxxxx
+#            scope:
+#              - openid
+#              - email
+#              - profile
+#          auth0-confidential-user:
+#            authorization-grant-type: authorization_code
+#            client-name: Auth0
+#            client-id: your_client_id
+#            client-secret: your_client_secret
+#            provider: auth0
+#            scope: openid,profile,email,offline_access
+#
+#      # multitenancy: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/multitenancy.html
+#      # For API single tenant
+#      resourceserve:
+#        jwt:
+#          # https://login.microsoftonline.com/{tenant-id}/v2.0
+#          # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
+#          issuer-uri: https://login.microsoftonline.com/xxxxxxxxxxxx/v2.0
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml

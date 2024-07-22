@@ -1,4 +1,4 @@
-package mycamel.spring.boot.resource.entity;
+package mycamel.spring.boot.configdata.entity;
 
 import lombok.Builder;
 import lombok.Data;

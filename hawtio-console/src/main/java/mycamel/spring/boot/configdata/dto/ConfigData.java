@@ -1,11 +1,11 @@
-package mycamel.spring.boot.resource.dto;
-
-import java.util.List;
+package mycamel.spring.boot.configdata.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 // import lombok.extern.jackson.Jacksonized;
 

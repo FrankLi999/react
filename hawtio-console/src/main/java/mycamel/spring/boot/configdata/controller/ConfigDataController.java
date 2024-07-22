@@ -1,22 +1,20 @@
-package mycamel.spring.boot.resource.controller;
+package mycamel.spring.boot.configdata.controller;
+
+import lombok.RequiredArgsConstructor;
+import mycamel.spring.boot.configdata.dto.ApplicationProfile;
+import mycamel.spring.boot.configdata.dto.ConfigData;
+import mycamel.spring.boot.configdata.service.ConfigDataService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+// import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.web.bind.annotation.*;
-
-import mycamel.spring.boot.resource.dto.ApplicationProfile;
-import mycamel.spring.boot.resource.dto.ConfigData;
-import mycamel.spring.boot.resource.service.ConfigDataService;
-
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/spring/admin/resource")
+@RequestMapping("/spring/config")
 public class ConfigDataController {
 
 	private final ConfigDataService configDataService;
@@ -72,9 +70,9 @@ public class ConfigDataController {
 	 * config = { headers: { 'X-CSRF-TOKEN': tokenResp.data.token, } } return
 	 * axios.post(path, data, config); }) .then(res => res.data) }
 	 */
-	@PostMapping("csrf")
-	public CsrfToken csrf(CsrfToken token) {
-		return token;
-	}
+//	@PostMapping("csrf")
+//	public CsrfToken csrf(CsrfToken token) {
+//		return token;
+//	}
 
 }
