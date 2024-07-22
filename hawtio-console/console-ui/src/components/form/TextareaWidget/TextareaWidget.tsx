@@ -1,6 +1,6 @@
 import { ChangeEvent, FocusEvent } from 'react';
 import { ariaDescribedByIds, FormContextType, RJSFSchema, StrictRJSFSchema, WidgetProps } from '@rjsf/utils';
-import { Form, FormGroup, FormHelperText, HelperText, HelperTextItem, TextArea } from '@patternfly/react-core';
+import { FormGroup, TextArea } from '@patternfly/react-core';
 type CustomWidgetProps<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any> = WidgetProps<
   T,
   S,

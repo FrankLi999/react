@@ -10,6 +10,14 @@ spring:
       - jdbc
       - ${SPRING_PROFILES_ACTIVE:local}  
   application:.name: bpw-camel-config-server
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: true
+    properties.hibernate.jdbc.time-zone: EST
   datasource:
     platform: oracle
    # url: jdbc:h2:mem:configdb

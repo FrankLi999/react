@@ -32,9 +32,27 @@ spring:
   jmx.enabled: true
   profiles:
     active:
-      - jdbc
+#      - jdbc
       - ${SPRING_PROFILES_ACTIVE:local}
   application:.name: Hawtio Camel Admin Console
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: true
+    properties.hibernate.jdbc.time-zone: EST
+
+  datasource:
+    platform: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/FREE
+    username: C##CAMEL
+    password: Passw0rd
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
   cloud:
     config:
       server:

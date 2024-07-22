@@ -39,8 +39,8 @@ spring:
 #          order: 1
   security:
     user:
-      name: s2i
-      password: s2i  
+      name: admin
+      password: admin
 
   webflux:
     multipart:
