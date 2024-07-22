@@ -1,5 +1,6 @@
 import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
 import Button, { ButtonProps } from 'react-bootstrap/Button';
+
 import { IoIosCopy } from 'react-icons/io';
 import { IoIosRemove } from 'react-icons/io';
 import { AiOutlineArrowUp } from 'react-icons/ai';
@@ -10,8 +11,7 @@ export default function IconButton<T = any, S extends StrictRJSFSchema = RJSFSch
 ) {
   const { icon, iconType, className, uiSchema, registry, ...otherProps } = props;
   return (
-    // TODO:  block={iconType === 'block'}    Property 'block' does not exist on type 'IntrinsicAttributes 
-    <Button {...otherProps} variant={props.variant || 'light'} size='sm'>
+    <Button block={iconType === 'block'} {...otherProps} variant={props.variant || 'light'} size='sm'>
       {icon}
     </Button>
   );

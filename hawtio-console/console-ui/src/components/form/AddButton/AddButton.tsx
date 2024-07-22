@@ -1,5 +1,5 @@
 import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
-import Button from 'react-bootstrap/Button';
+import { Button } from '@patternfly/react-core';
 import { BsPlus } from 'react-icons/bs';
 
 export default function AddButton<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>({
