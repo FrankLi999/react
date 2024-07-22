@@ -69,7 +69,7 @@ spring:
       client:
         provider:
           azure:
-            issuer-uri: https://login.microsoftonline.com/xxxx/v2.0
+            issuer-uri: https://login.microsoftonline.com/xxxxx/v2.0
             # When using JWT-based authentication, Spring Security will use, by default, the standard sub claim value as the Principal‘s name.
             # Looking at the claims, AzureAD populates this field with an internal identifier, which is unfit for display purposes.
             # so choose one of the available attributes available and put its name on the provider’s user-name-attribute property:
@@ -100,8 +100,9 @@ spring:
         registration:
           azure-dev:
             provider: azure
-            client-id: your_client_id
-            client-secret: your_client_secret
+            authorization-grant-type: authorization-code
+            client-id: xxxxx
+            client-secret: xxxxx
             scope:
               - openid
               - email
@@ -120,7 +121,7 @@ spring:
         jwt:
           # https://login.microsoftonline.com/{tenant-id}/v2.0
           # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
-          issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
+          issuer-uri: https://login.microsoftonline.com/xxxxxxxxxxxx/v2.0
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml
@@ -191,6 +192,7 @@ hawtio:
 #    referrerPolicy: no-referrer
 my-camel:
   feign.logger.level: FULL
+  openfeign:.client.api.url: http://localhost:8080/my-camel/admin/spring/admin/resource
   # Monthly
   refresh.schedule: 0 0 0 1 * *
   # weekly

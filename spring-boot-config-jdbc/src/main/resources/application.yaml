@@ -103,7 +103,7 @@ spring:
         jwt:
           # https://login.microsoftonline.com/{tenant-id}/v2.0
           # https://login.microsoftonline.com/common/discovery/keys https://login.microsoftonline.com/{tenant_id}/discovery/keys?appid={client_id}
-          issuer-uri: https://login.microsoftonline.com/cddc1229-ac2a-4b97-b78a-0e5cacb5865c/v2.0
+          issuer-uri: https://login.microsoftonline.com/xxx/v2.0
   liquibase.enabled: false
   liquibase.contexts: ${SPRING_PROFILES_ACTIVE:local}
 liquibase.change-log: classpath:/db/changelog/db.changelog-master.yaml      
