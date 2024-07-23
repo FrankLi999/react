@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import { Button, GridItem } from '@patternfly/react-core';
+// import { useCookies } from 'react-cookie';
+import { Button, Card, CardHeader, CardTitle, CardBody, CardFooter, Grid, GridItem, PageSection,  PageSectionVariants, Text, TextContent, Toolbar, ToolbarContent } from '@patternfly/react-core';
 import { useNavigate } from "react-router-dom";
-import { Grid, GridItem } from '@patternfly/react-core';
 import { useErrorBoundary } from '../../utils/error-boundary/useErrorBoundary';
 import axios from 'axios';
 import { ConfigurationModel } from "./ConfigurationModel";
@@ -11,7 +10,7 @@ import ImportConfiguration from './ImportConfiguration';
 import ErrorBoundaryContextProvider from '../../utils/error-boundary/ErrorBoundaryContextProvider';
 import ErrorBoundary from '../../utils/error-boundary/ErrorBoundary';
 export const SpringConfig: React.FunctionComponent = () => {
-    const [cookies] = useCookies(['XSRF-TOKEN']);
+    // const [cookies] = useCookies(['XSRF-TOKEN']);
     const { showBoundary } = useErrorBoundary();
 
     const navigate = useNavigate(); 
@@ -43,7 +42,7 @@ export const SpringConfig: React.FunctionComponent = () => {
       const config = {
           headers: {
               'content-type': 'multipart/form-data',
-              'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
+              // 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
       axios.post("/api/import", formData, config).then((response) => {
@@ -81,7 +80,7 @@ export const SpringConfig: React.FunctionComponent = () => {
           headers: {
               'content-type': 'multipart/form-data',
               'accept': '*/*',
-              'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
+              // 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
       axios.post("/api/sql", formData, config).then((response) => {
@@ -104,7 +103,7 @@ export const SpringConfig: React.FunctionComponent = () => {
     const hideDeleteConfirmationModal = () => {
       setDisplayDeleteConfirmationModal(false);
     };
-    const detailsLink = (cell, row, rowIndex, formatExtraData) => {
+    const detailsLink = (cell: any, row: any, rowIndex: number, formatExtraData: any) => {
       return (
         <>
         <Button
@@ -172,7 +171,11 @@ export const SpringConfig: React.FunctionComponent = () => {
       try {
           const requestOptions = {
               method: 'DELETE',
-              headers: { 'Content-Type': 'application/json', 'accept': '*/*', 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] },
+              headers: { 
+                'Content-Type': 'application/json', 
+                'accept': '*/*', 
+                // 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] 
+              },
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
           setLoading(() => true);
@@ -263,53 +266,44 @@ export const SpringConfig: React.FunctionComponent = () => {
       return <p>Loading...</p>;
     } else {
       return (
-        <>
-          <Container fluid>
+        
+        
             <ErrorBoundaryContextProvider>
             <ErrorBoundary>
-            <Grid>
-                <GridItem md={12}>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title as="h4">Camel Integrator Configurations</Card.Title>
-                            <p className="card-category">Application profiles</p>
-                            <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
-                              <Button className="ml-1" onClick={() => {
-                                  addAppConfiurationDetails();
-                                }}>
-                                Add Application Profile
-                              </Button>
-                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
-                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
-                              <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
-                            </div>
-                        </Card.Header>
-                        <Card.Body>
-                            <Row>
-                                <Col md="12">
-                                  <BootstrapTable
-                                    bootstrap4
-                                    keyField="key"
-                                    data={configurations}
-                                    columns={configurationTableColumns}
-                                    pagination={paginationFactory(paginationOptions)}
-                                    noDataIndication={"Table is empty"}
-                                  />
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </GridItem>
-            </Grid>
-            </ErrorBoundary>
-            </ErrorBoundaryContextProvider>
+            <PageSection variant={PageSectionVariants.light}>
+              <TextContent>
+                <Text component="h1">Camel Integrator Configurations</Text>
+                <Text component="p">Spring Application profiles</Text>
+              </TextContent>
+              <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
+                  <Button className="ml-1" onClick={() => {
+                      addAppConfiurationDetails();
+                    }}>
+                    Add Application Profile
+                  </Button>
+                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
+                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
+                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
+                </div>
+            </PageSection>  
+
+            <PageSection isFilled>
+              <BootstrapTable
+                bootstrap4
+                keyField="key"
+                data={configurations}
+                columns={configurationTableColumns}
+                pagination={paginationFactory(paginationOptions)}
+                noDataIndication={"Table is empty"}
+              />
+            </PageSection>                      
             <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal} 
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
             <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
             <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />  
 
-        </Container>
-        </>
+        </ErrorBoundary>
+        </ErrorBoundaryContextProvider>
       );
     }
 }
