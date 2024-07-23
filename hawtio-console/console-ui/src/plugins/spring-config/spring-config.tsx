@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react';
 // import { useCookies } from 'react-cookie';
-import { 
-  Button, 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardBody, 
-  CardFooter, 
-  Grid, 
-  GridItem, 
-  Pagination, 
+import {
+  Button,
+  Card,
+  Pagination,
   PaginationVariant,
-  PageSection,  
-  PageSectionVariants, 
-  Text, 
-  TextContent,  
-  Toolbar, 
-  ToolbarContent 
+  PageSection,
+  PageSectionVariants,
+  Text,
+  TextContent
 } from '@patternfly/react-core';
 import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-table';
 import { useNavigate } from "react-router-dom";
@@ -46,7 +38,6 @@ export const SpringConfig: React.FunctionComponent = () => {
 
     const importConfigurations = (configIle: File) => {
       // data: ConfigurationModel[]| null
-      
       console.log(">>>>>>>> import configuration:", configIle);
       const formData = new FormData();
       formData.append('file', configIle);
@@ -74,17 +65,14 @@ export const SpringConfig: React.FunctionComponent = () => {
           setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setDisplayImportConfirmationModal(() => false);
       }).catch((error) => {
-          
           console.error("Error uploading spring config: ", error);
           showBoundary(error);
           setDisplayImportConfirmationModal(false);
-      });      
+      });
     }
 
-    
     const importSqlConfigurations = (configIle: File) => {
       // data: ConfigurationModel[]| null
-      
       console.log(">>>>>>>> import configuration:", configIle);
       const formData = new FormData();
       formData.append('file', configIle);
@@ -116,12 +104,11 @@ export const SpringConfig: React.FunctionComponent = () => {
           console.error("Error uploading spring config: ", error);
           showBoundary(error);
           setDisplayImportSqlConfirmationModal(false);
-      });      
+      });
     }
     const hideImportConfigurationModal = () => {
       setDisplayImportConfirmationModal(false);
     };
-    
     const hideImportSqlConfigurationModal = () => {
       setDisplayImportSqlConfirmationModal(false);
     };
@@ -154,7 +141,6 @@ export const SpringConfig: React.FunctionComponent = () => {
         </Button>
         </>
       );
-      
     };
     const exportConfig = () => {
       // const jsonURL = `data:text/json;chatset=utf-8,${encodeURIComponent(
@@ -178,7 +164,6 @@ export const SpringConfig: React.FunctionComponent = () => {
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
       navigate("/integrator/configuration-app-details", {state: {...row}}) 
     }
-    
     const showImportConfigurationModal = () => {
       setDisplayImportConfirmationModal(true);
     }
@@ -264,7 +249,6 @@ export const SpringConfig: React.FunctionComponent = () => {
       setPaginatedRows(configurations.slice(startIdx, endIdx));
       setPage(newPage);
     };
-  
     const handlePerPageSelect = (
       _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
       newPerPage: number,
@@ -275,7 +259,6 @@ export const SpringConfig: React.FunctionComponent = () => {
       setPaginatedRows(configurations.slice(startIdx, endIdx));
       setPerPage(newPerPage);
     };
-    
     const renderPagination = (variant: PaginationVariant) => {
       return (
         <Pagination
@@ -288,15 +271,13 @@ export const SpringConfig: React.FunctionComponent = () => {
         />
       );
     };
-
     const renderColum = (column: any, row: any) => {
       if (column.formatter) {
         return <>{row[column['dataField']]}</>
       } else {
         return <>{column['formatter'](row)}</>
-      }      
+      }
     }
-    
     const getSortParams = (columnIndex: number): ThProps['sort'] => ({
       sortBy: {
         index: activeSortIndex,
@@ -312,7 +293,6 @@ export const SpringConfig: React.FunctionComponent = () => {
 
     useEffect(() => {
       setLoading(() => true);
-  
       fetch('api/configurations')
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
@@ -323,36 +303,31 @@ export const SpringConfig: React.FunctionComponent = () => {
           showBoundary(error);
         });
     }, []);
-    
     if (loading) {
       return <p>Loading...</p>;
     } else {
       return (
-        
-        
-            <ErrorBoundaryContextProvider>
-            <ErrorBoundary>
-            <PageSection variant={PageSectionVariants.light}>
-              <TextContent>
-                <Text component="h1">Camel Integrator Configurations</Text>
-                <Text component="p">Spring Application profiles</Text>
-              </TextContent>
-              <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
-                  <Button className="ml-1" onClick={() => {
-                      addAppConfiurationDetails();
-                    }}>
-                    Add Application Profile
-                  </Button>
-                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
-                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
-                  <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
-                </div>
-            </PageSection>  
-
-            <PageSection>
+        <ErrorBoundaryContextProvider>
+        <ErrorBoundary>
+          <PageSection variant={PageSectionVariants.light}>
+            <TextContent>
+              <Text component="h1">Camel Integrator Configurations</Text>
+              <Text component="p">Spring Application profiles</Text>
+            </TextContent>
+            <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
+                <Button className="ml-1" onClick={() => {
+                    addAppConfiurationDetails();
+                  }}>
+                  Add Application Profile
+                </Button>
+                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
+                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
+                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
+              </div>
+          </PageSection>
+          <PageSection>
             <Card>
             <Table variant="compact" aria-label="Spring configurations">
-            </Table>
               <Thead>
                 <Tr>
                   {configurationTableColumns.map((column, columnIndex) => (
@@ -361,24 +336,24 @@ export const SpringConfig: React.FunctionComponent = () => {
                 </Tr>
               </Thead>
               <Tbody>
-              {paginatedRows.map((row: any, rowIndex: number) => (  
+              {paginatedRows.map((row: any, rowIndex: number) => (
                 <Tr key={rowIndex}>
                   {configurationTableColumns.map((column, columnIndex) => (
                     <Td key={column.dataField}>
-                        {renderColum(column, row)}                      
+                        {renderColum(column, row)}
                     </Td>
                   ))}
                 </Tr>
               ))}
               </Tbody>
+            </Table>
               {renderPagination(PaginationVariant.bottom)}
             </Card>
-            </PageSection>                      
-            <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal} 
+            </PageSection>
+            <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal}
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
             <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
-            <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />  
-
+            <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />
         </ErrorBoundary>
         </ErrorBoundaryContextProvider>
       );

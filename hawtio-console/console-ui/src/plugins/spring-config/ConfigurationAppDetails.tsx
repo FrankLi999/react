@@ -1,18 +1,29 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Container, Card, Col, Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from 'react-bootstrap-table2-editor';
-import paginationFactory from "react-bootstrap-table2-paginator";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Pagination,
+  PaginationVariant,
+  PageSection,
+  PageSectionVariants,
+  Text,
+  TextContent
+} from '@patternfly/react-core';
+
+import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-table';
+import ErrorBoundaryContextProvider from "../../utils/error-boundary/ErrorBoundaryContextProvider";
+import ErrorBoundary from "../../utils/error-boundary/ErrorBoundary";
+import { ConfigurationProperty } from "./ConfigurationModel";
 
 function ConfigurationAppDetails() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { state } = useLocation();
   const editConfig = () => {
     navigate("/integrator/configuration-form-edit", {state: {...state}})
   }
-  
   const appConfigColumns = [
     {
       dataField: "propKey",
@@ -27,71 +38,111 @@ function ConfigurationAppDetails() {
       editable: false
     }
   ];
-  const paginationOptions = {
-    // custom: true,
-    sizePerPage: 5,
-    paginationSize: 5,
-    pageStartIndex: 1,
-    firstPageText: "First",
-    prePageText: "Back",
-    nextPageText: "Next",
-    lastPageText: "Last",
-    nextPageTitle: "First page",
-    prePageTitle: "Pre page",
-    firstPageTitle: "Next page",
-    lastPageTitle: "Last page",
-    showTotal: false,
-    // totalSize: 3
-    totalSize: state.props.length,
-    sizePerPageList: [ {
-      text: '5', value: 5
-    }, {
-      text: '10', value: 10
-    }, {
-      text: '30', value: 10
-    },{
-      text: 'All', value: state.props.length
-    } ]
+  const [page, setPage] = React.useState(1);
+  const [perPage, setPerPage] = React.useState(5);
+  const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationProperty[]>(state.props.slice((page - 1) * perPage, page * perPage));
+  const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
+  // Sort direction of the currently sorted column
+  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
+
+  const handleSetPage = (
+    _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+    newPage: number,
+    _perPage: number | undefined,
+    startIdx: number | undefined,
+    endIdx: number | undefined
+  ) => {
+    setPaginatedRows(state.props.slice(startIdx, endIdx));
+    setPage(newPage);
   };
+
+  const handlePerPageSelect = (
+    _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+    newPerPage: number,
+    _newPage: number,
+    startIdx: number | undefined,
+    endIdx: number | undefined
+  ) => {
+    setPaginatedRows(state.props.slice(startIdx, endIdx));
+    setPerPage(newPerPage);
+  };
+
+  const renderPagination = (variant: PaginationVariant) => {
+    return (
+      <Pagination
+        itemCount={state.props.length}
+        page={page}
+        perPage={perPage}
+        onSetPage={handleSetPage}
+        onPerPageSelect={handlePerPageSelect}
+        variant={variant}
+      />
+    );
+  };
+
+  const getSortParams = (columnIndex: number): ThProps['sort'] => ({
+    sortBy: {
+      index: activeSortIndex,
+      direction: activeSortDirection,
+      defaultDirection: 'asc' // starting sort direction when first sorting a column. Defaults to 'asc'
+    },
+    onSort: (_event, index, direction) => {
+      setActiveSortIndex(index);
+      setActiveSortDirection(direction);
+    },
+    columnIndex
+  });
+
+
+  const renderColum = (column: any, row: any) => {
+    return <>{row[column['dataField']]}</>
+  }
+
   return (
-    <>
-      <Container>
-        <Row className="justify-content-center">
-          <Col lg="10" md="8">
-            <Card>
-              <Card.Header>
-                <Card.Title
-                  as="h4"
-                  className="text-center font-weight-light my-4"
-                >
-                  Application Configuration: {state.application}/{state.profile} <Button onClick={() => {editConfig();}}>Edit</Button>
-                </Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <div className="text-center">
-                  <BootstrapTable
-                    bootstrap4
-                    keyField="propKey"
-                    data={state.props}
-                    columns={appConfigColumns}
-                    pagination={paginationFactory(paginationOptions)}
-                    noDataIndication={"Table is empty"}
-                    cellEdit={ cellEditFactory({ mode: 'dbclick' }) }
-                  />
-                </div>
-              </Card.Body>
-              <Card.Footer className="card-footer text-center">
-                <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                  <Link to="/integrator/configuration-data">                    
-                    Go to configurations page
-                  </Link>
-                </div>
-              </Card.Footer>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <ErrorBoundaryContextProvider>
+    <ErrorBoundary>
+      <PageSection variant={PageSectionVariants.light}>
+        <TextContent>
+          <Text component="h4">Application Configuration: {state.application}/{state.profile} </Text><Button onClick={() => {editConfig();}}>Edit</Button>
+        </TextContent>
+      </PageSection>
+      <PageSection>
+        <Card>
+          <CardBody>
+
+            <Table variant="compact" aria-label="Spring configurations">
+              <Thead>
+                <Tr>
+                  {appConfigColumns.map((column, columnIndex) => (
+                  <Th key={columnIndex} sort={column.sort ? getSortParams(columnIndex) : undefined}>{column.text}</Th>
+                  ))}
+                </Tr>
+              </Thead>
+              <Tbody>
+                {paginatedRows.map((row: any, rowIndex: number) => (
+                <Tr key={rowIndex}>
+                  {appConfigColumns.map((column, columnIndex) => (
+                  <Td key={column.dataField}>
+                  {renderColum(column, row)}
+                  </Td>
+                  ))}
+                </Tr>
+                ))}
+              </Tbody>
+            </Table>
+            {renderPagination(PaginationVariant.bottom)}
+          </CardBody>
+          <CardFooter>
+            <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+              <Link to="/integrator/configuration-data">
+                Go to configurations page
+              </Link>
+            </div>
+          </CardFooter>
+        </Card>
+      </PageSection>
+    </ErrorBoundary>
+    </ErrorBoundaryContextProvider>
   );
 }
 
