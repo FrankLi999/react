@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/spring/config")
+@RequestMapping("/api/spring-config")
 public class ConfigDataController {
 
 	private final ConfigDataService configDataService;

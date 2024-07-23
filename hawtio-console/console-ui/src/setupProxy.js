@@ -21,8 +21,8 @@ module.exports = function(app) {
   app.use(
     '/my-camel/admin/api',
     createProxyMiddleware({
-      target: 'http://localhost:8080/my-camel/admin/api/refreshConfig',
+      target: 'http://localhost:8080/my-camel/admin/api',
       changeOrigin: true
     })
-  );  
+  );
 };

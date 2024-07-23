@@ -13,8 +13,6 @@ import {
   } from '@patternfly/react-core';
 import validator from '@rjsf/validator-ajv8';
 import Form from "../../components/form/Form";
-import ErrorBoundaryContextProvider from "../../utils/error-boundary/ErrorBoundaryContextProvider";
-import ErrorBoundary from "../../utils/error-boundary/ErrorBoundary";
 
 function ConfigurationDataEditForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
@@ -34,21 +32,20 @@ function ConfigurationDataEditForm() {
                 headers: { 'Content-Type': 'application/json', 'accept': 'application/json', 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']  },
                 body: JSON.stringify([data.formData]),
             };
-            await fetch("/api/configurations", requestOptions);
+            await fetch("/my-camel/admin/api/spring-config/configurations", requestOptions);
         } catch (err) {
             console.log(err);
         }
     }
     return (
-        <ErrorBoundaryContextProvider>
-        <ErrorBoundary>
+        <>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
               <Text component="h4">Camel Integrator Configurations: {state.application}/{state.profile} </Text>
               <Text component="p">Edit configurations for an application profile</Text>
             </TextContent>
             <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-              <Link to="/integrator/configuration-data">
+              <Link to="/spring-config">
                 Go to configurations page
               </Link>
             </div>
@@ -60,15 +57,14 @@ function ConfigurationDataEditForm() {
               </CardBody>
               <CardFooter>
                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                  <Link to="/integrator/configuration-data">
+                  <Link to="/spring-config">
                     Go to configurations page
                   </Link>
                 </div>
               </CardFooter>
             </Card>
           </PageSection>
-        </ErrorBoundary>
-        </ErrorBoundaryContextProvider>
+        </>
     )
 }
 

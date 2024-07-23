@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 // import { useCookies } from 'react-cookie';
 import {
   Button,
   Card,
+  Divider,
   Pagination,
   PaginationVariant,
   PageSection,
   PageSectionVariants,
   Text,
-  TextContent
+  TextContent,
+  PageGroup
 } from '@patternfly/react-core';
+
 import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-table';
 import { useNavigate } from "react-router-dom";
-import { useErrorBoundary } from '../../utils/error-boundary/useErrorBoundary';
+// import { useErrorBoundary } from '../../utils/error-boundary/useErrorBoundary';
 import axios from 'axios';
 import { ConfigurationModel } from "./ConfigurationModel";
 import DeleteConfirmation from "./DeleteConfirmation";
 import ImportConfiguration from './ImportConfiguration';
-import ErrorBoundaryContextProvider from '../../utils/error-boundary/ErrorBoundaryContextProvider';
-import ErrorBoundary from '../../utils/error-boundary/ErrorBoundary';
-
+import ConfigurationDataEditForm from './ConfigurationDataEditForm';
+import ConfigurationDataCreateForm from './ConfigurationDataCreateForm';
+import ConfigurationAppDetails from './ConfigurationAppDetails';
 interface Translation {
   [key: string]: any;
 }
 
 export const SpringConfig: React.FunctionComponent = () => {
     // const [cookies] = useCookies(['XSRF-TOKEN']);
-    const { showBoundary } = useErrorBoundary();
+    // const { showBoundary } = useErrorBoundary();
 
     const navigate = useNavigate(); 
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
@@ -59,14 +63,14 @@ export const SpringConfig: React.FunctionComponent = () => {
               // 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
-      axios.post("/api/import", formData, config).then((response) => {
+      axios.post("/my-camel/admin/api/spring-config/import", formData, config).then((response) => {
           console.log(response.data);
           setconfigurations(() => response.data);
           setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setDisplayImportConfirmationModal(() => false);
       }).catch((error) => {
           console.error("Error uploading spring config: ", error);
-          showBoundary(error);
+          // showBoundary(error);
           setDisplayImportConfirmationModal(false);
       });
     }
@@ -95,14 +99,14 @@ export const SpringConfig: React.FunctionComponent = () => {
               // 'X-XSRF-TOKEN': cookies['XSRF-TOKEN']
           },
       };
-      axios.post("/api/sql", formData, config).then((response) => {
+      axios.post("/my-camel/admin/api/spring-config/sql", formData, config).then((response) => {
           console.log(response.data);
           setconfigurations(() => response.data);
           setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setDisplayImportSqlConfirmationModal(() => false);
       }).catch((error) => {
           console.error("Error uploading spring config: ", error);
-          showBoundary(error);
+          // showBoundary(error);
           setDisplayImportSqlConfirmationModal(false);
       });
     }
@@ -156,13 +160,13 @@ export const SpringConfig: React.FunctionComponent = () => {
       document.body.removeChild(link);
     }
     const addAppConfiurationDetails = () => {
-      navigate("/integrator/configuration-form-create")
+      navigate("create")
     }
     const editAppConfiurationDetails = (row: ConfigurationModel) => {
-      navigate("/integrator/configuration-form-edit", {state: {...row}})
+      navigate("edit", {state: {...row}})
     }
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
-      navigate("/integrator/configuration-app-details", {state: {...row}}) 
+      navigate("details", {state: {...row}}) 
     }
     const showImportConfigurationModal = () => {
       setDisplayImportConfirmationModal(true);
@@ -189,7 +193,7 @@ export const SpringConfig: React.FunctionComponent = () => {
               body: JSON.stringify([{application: row.application, profile: row.profile}]),
           };
           setLoading(() => true);
-          await fetch("/api/configurations", requestOptions)
+          await fetch("/my-camel/admin/api/spring-config/configurations", requestOptions)
                     .then(response => response.json())
                     .then((data: ConfigurationModel[]) => {
                       setconfigurations(() => data);
@@ -200,7 +204,7 @@ export const SpringConfig: React.FunctionComponent = () => {
           console.log("deleted");
       } catch (err) {
           console.log(err);
-          showBoundary(err);
+          // showBoundary(err);
       }
     }
 
@@ -293,22 +297,35 @@ export const SpringConfig: React.FunctionComponent = () => {
 
     useEffect(() => {
       setLoading(() => true);
-      fetch('api/configurations')
+      fetch('/my-camel/admin/api/spring-config/configurations')
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
           setconfigurations(() => data);
           setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setLoading(() => false);
         }).catch(error => {
-          showBoundary(error);
+          // showBoundary(error);
+          console.log('... load config error', error);
         });
     }, []);
+    
+    const navItems = [
+      { id: 'create', title: 'Create', element: ConfigurationDataCreateForm },
+      { id: 'edit', title: 'Edit', element: ConfigurationDataEditForm },
+      { id: 'details', title: 'Details', element: ConfigurationAppDetails},
+    ]
+  
+    const routes = navItems.map(({ id, element }) => (
+      <Route key={id} path={id} element={React.createElement(element)} />
+    ))
+  
     if (loading) {
       return <p>Loading...</p>;
     } else {
       return (
-        <ErrorBoundaryContextProvider>
-        <ErrorBoundary>
+        <>
+
+        <PageGroup>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
               <Text component="h1">Camel Integrator Configurations</Text>
@@ -325,6 +342,7 @@ export const SpringConfig: React.FunctionComponent = () => {
                 <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
               </div>
           </PageSection>
+          <Divider />
           <PageSection>
             <Card>
             <Table variant="compact" aria-label="Spring configurations">
@@ -350,12 +368,18 @@ export const SpringConfig: React.FunctionComponent = () => {
               {renderPagination(PaginationVariant.bottom)}
             </Card>
             </PageSection>
+            <Divider />
+            </PageGroup>
             <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal}
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
             <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
             <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />
-        </ErrorBoundary>
-        </ErrorBoundaryContextProvider>
+        <PageSection id='connect-main' variant={PageSectionVariants.light}>
+             <Routes>
+               {routes}
+             </Routes>
+        </PageSection>
+        </>
       );
     }
 }

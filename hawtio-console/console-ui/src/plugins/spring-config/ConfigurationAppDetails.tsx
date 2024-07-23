@@ -14,15 +14,13 @@ import {
 } from '@patternfly/react-core';
 
 import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-table';
-import ErrorBoundaryContextProvider from "../../utils/error-boundary/ErrorBoundaryContextProvider";
-import ErrorBoundary from "../../utils/error-boundary/ErrorBoundary";
 import { ConfigurationProperty } from "./ConfigurationModel";
 
 function ConfigurationAppDetails() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const editConfig = () => {
-    navigate("/integrator/configuration-form-edit", {state: {...state}})
+    navigate("edit", {state: {...state}})
   }
   const appConfigColumns = [
     {
@@ -99,8 +97,7 @@ function ConfigurationAppDetails() {
   }
 
   return (
-    <ErrorBoundaryContextProvider>
-    <ErrorBoundary>
+      <>
       <PageSection variant={PageSectionVariants.light}>
         <TextContent>
           <Text component="h4">Application Configuration: {state.application}/{state.profile} </Text><Button onClick={() => {editConfig();}}>Edit</Button>
@@ -134,15 +131,14 @@ function ConfigurationAppDetails() {
           </CardBody>
           <CardFooter>
             <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-              <Link to="/integrator/configuration-data">
+              <Link to="/spring-config">
                 Go to configurations page
               </Link>
             </div>
           </CardFooter>
         </Card>
       </PageSection>
-    </ErrorBoundary>
-    </ErrorBoundaryContextProvider>
+      </> 
   );
 }
 
