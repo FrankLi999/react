@@ -1,6 +1,24 @@
 import React, { useEffect, useState } from 'react';
 // import { useCookies } from 'react-cookie';
-import { Button, Card, CardHeader, CardTitle, CardBody, CardFooter, Grid, GridItem, PageSection,  PageSectionVariants, Text, TextContent, Toolbar, ToolbarContent } from '@patternfly/react-core';
+import { 
+  Button, 
+  Card, 
+  CardHeader, 
+  CardTitle, 
+  CardBody, 
+  CardFooter, 
+  Grid, 
+  GridItem, 
+  Pagination, 
+  PaginationVariant,
+  PageSection,  
+  PageSectionVariants, 
+  Text, 
+  TextContent,  
+  Toolbar, 
+  ToolbarContent 
+} from '@patternfly/react-core';
+import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-table';
 import { useNavigate } from "react-router-dom";
 import { useErrorBoundary } from '../../utils/error-boundary/useErrorBoundary';
 import axios from 'axios';
@@ -9,6 +27,11 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import ImportConfiguration from './ImportConfiguration';
 import ErrorBoundaryContextProvider from '../../utils/error-boundary/ErrorBoundaryContextProvider';
 import ErrorBoundary from '../../utils/error-boundary/ErrorBoundary';
+
+interface Translation {
+  [key: string]: any;
+}
+
 export const SpringConfig: React.FunctionComponent = () => {
     // const [cookies] = useCookies(['XSRF-TOKEN']);
     const { showBoundary } = useErrorBoundary();
@@ -47,8 +70,9 @@ export const SpringConfig: React.FunctionComponent = () => {
       };
       axios.post("/api/import", formData, config).then((response) => {
           console.log(response.data);
-          setconfigurations(response.data);
-          setDisplayImportConfirmationModal(false);
+          setconfigurations(() => response.data);
+          setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
+          setDisplayImportConfirmationModal(() => false);
       }).catch((error) => {
           
           console.error("Error uploading spring config: ", error);
@@ -85,8 +109,9 @@ export const SpringConfig: React.FunctionComponent = () => {
       };
       axios.post("/api/sql", formData, config).then((response) => {
           console.log(response.data);
-          setconfigurations(response.data);
-          setDisplayImportSqlConfirmationModal(false);
+          setconfigurations(() => response.data);
+          setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
+          setDisplayImportSqlConfirmationModal(() => false);
       }).catch((error) => {
           console.error("Error uploading spring config: ", error);
           showBoundary(error);
@@ -103,7 +128,7 @@ export const SpringConfig: React.FunctionComponent = () => {
     const hideDeleteConfirmationModal = () => {
       setDisplayDeleteConfirmationModal(false);
     };
-    const detailsLink = (cell: any, row: any, rowIndex: number, formatExtraData: any) => {
+    const detailsLink = (row: any): JSX.Element => {
       return (
         <>
         <Button
@@ -183,6 +208,7 @@ export const SpringConfig: React.FunctionComponent = () => {
                     .then(response => response.json())
                     .then((data: ConfigurationModel[]) => {
                       setconfigurations(() => data);
+                      setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
                       setLoading(() => false);
                       setDisplayDeleteConfirmationModal(() => false);
                     });
@@ -192,6 +218,7 @@ export const SpringConfig: React.FunctionComponent = () => {
           showBoundary(err);
       }
     }
+
     const configurationTableColumns = [
       {
         dataField: "application",
@@ -221,33 +248,67 @@ export const SpringConfig: React.FunctionComponent = () => {
 
       }
     ];
-    
-    const paginationOptions = {
-      // custom: true,
-      sizePerPage: 5,
-      paginationSize: 5,
-      pageStartIndex: 1,
-      firstPageText: "First",
-      prePageText: "Back",
-      nextPageText: "Next",
-      lastPageText: "Last",
-      nextPageTitle: "First page",
-      prePageTitle: "Pre page",
-      firstPageTitle: "Next page",
-      lastPageTitle: "Last page",
-      showTotal: false,
-      // totalSize: 3
-      totalSize: configurations.length,
-      sizePerPageList: [ {
-        text: '5', value: 5
-      }, {
-        text: '10', value: 10
-      }, {
-        text: '30', value: 10
-      },{
-        text: 'All', value: configurations.length
-      } ]
+    const [page, setPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(5);
+    const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationModel[]>([]);
+    const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
+    // Sort direction of the currently sorted column
+    const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
+    const handleSetPage = (
+      _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+      newPage: number,
+      _perPage: number | undefined,
+      startIdx: number | undefined,
+      endIdx: number | undefined
+    ) => {
+      setPaginatedRows(configurations.slice(startIdx, endIdx));
+      setPage(newPage);
     };
+  
+    const handlePerPageSelect = (
+      _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+      newPerPage: number,
+      _newPage: number,
+      startIdx: number | undefined,
+      endIdx: number | undefined
+    ) => {
+      setPaginatedRows(configurations.slice(startIdx, endIdx));
+      setPerPage(newPerPage);
+    };
+    
+    const renderPagination = (variant: PaginationVariant) => {
+      return (
+        <Pagination
+          itemCount={configurations.length}
+          page={page}
+          perPage={perPage}
+          onSetPage={handleSetPage}
+          onPerPageSelect={handlePerPageSelect}
+          variant={variant}
+        />
+      );
+    };
+
+    const renderColum = (column: any, row: any) => {
+      if (column.formatter) {
+        return <>{row[column['dataField']]}</>
+      } else {
+        return <>{column['formatter'](row)}</>
+      }      
+    }
+    
+    const getSortParams = (columnIndex: number): ThProps['sort'] => ({
+      sortBy: {
+        index: activeSortIndex,
+        direction: activeSortDirection,
+        defaultDirection: 'asc' // starting sort direction when first sorting a column. Defaults to 'asc'
+      },
+      onSort: (_event, index, direction) => {
+        setActiveSortIndex(index);
+        setActiveSortDirection(direction);
+      },
+      columnIndex
+    });
 
     useEffect(() => {
       setLoading(() => true);
@@ -256,6 +317,7 @@ export const SpringConfig: React.FunctionComponent = () => {
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
           setconfigurations(() => data);
+          setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setLoading(() => false);
         }).catch(error => {
           showBoundary(error);
@@ -287,15 +349,30 @@ export const SpringConfig: React.FunctionComponent = () => {
                 </div>
             </PageSection>  
 
-            <PageSection isFilled>
-              <BootstrapTable
-                bootstrap4
-                keyField="key"
-                data={configurations}
-                columns={configurationTableColumns}
-                pagination={paginationFactory(paginationOptions)}
-                noDataIndication={"Table is empty"}
-              />
+            <PageSection>
+            <Card>
+            <Table variant="compact" aria-label="Spring configurations">
+            </Table>
+              <Thead>
+                <Tr>
+                  {configurationTableColumns.map((column, columnIndex) => (
+                    <Th key={columnIndex} sort={column.sort ? getSortParams(columnIndex) : undefined}>{column.text}</Th>
+                  ))}
+                </Tr>
+              </Thead>
+              <Tbody>
+              {paginatedRows.map((row: any, rowIndex: number) => (  
+                <Tr key={rowIndex}>
+                  {configurationTableColumns.map((column, columnIndex) => (
+                    <Td key={column.dataField}>
+                        {renderColum(column, row)}                      
+                    </Td>
+                  ))}
+                </Tr>
+              ))}
+              </Tbody>
+              {renderPagination(PaginationVariant.bottom)}
+            </Card>
             </PageSection>                      
             <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal} 
               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
