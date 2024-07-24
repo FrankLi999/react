@@ -160,13 +160,13 @@ export const SpringConfig: React.FunctionComponent = () => {
       document.body.removeChild(link);
     }
     const addAppConfiurationDetails = () => {
-      navigate("create")
+      navigate("/spring-config/create")
     }
     const editAppConfiurationDetails = (row: ConfigurationModel) => {
-      navigate("edit", {state: {...row}})
+      navigate("/spring-config/edit", {state: {...row}})
     }
     const showAppConfiurationDetails = (row: ConfigurationModel) => {
-      navigate("details", {state: {...row}}) 
+      navigate("/spring-config/details", {state: {...row}}) 
     }
     const showImportConfigurationModal = () => {
       setDisplayImportConfirmationModal(true);
@@ -238,7 +238,7 @@ export const SpringConfig: React.FunctionComponent = () => {
       }
     ];
     const [page, setPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(5);
+    const [perPage, setPerPage] = React.useState(10);
     const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationModel[]>([]);
     const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
     // Sort direction of the currently sorted column
@@ -277,9 +277,9 @@ export const SpringConfig: React.FunctionComponent = () => {
     };
     const renderColum = (column: any, row: any) => {
       if (column.formatter) {
-        return <>{row[column['dataField']]}</>
-      } else {
         return <>{column['formatter'](row)}</>
+      } else {
+        return <>{row[column['dataField']]}</>
       }
     }
     const getSortParams = (columnIndex: number): ThProps['sort'] => ({
@@ -319,6 +319,10 @@ export const SpringConfig: React.FunctionComponent = () => {
       <Route key={id} path={id} element={React.createElement(element)} />
     ))
   
+    console.log(">>>>>>>>paginatedRows>>>>>>>>", paginatedRows);
+    console.log(">>>>>>>>configurations>>>>>>>>", configurations);
+    console.log(">>>>>>>>perPage>>>>>>>>", perPage);
+    console.log(">>>>>>>>page>>>>>>>>", page);
     if (loading) {
       return <p>Loading...</p>;
     } else {

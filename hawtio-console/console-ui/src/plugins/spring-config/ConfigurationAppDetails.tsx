@@ -20,7 +20,7 @@ function ConfigurationAppDetails() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const editConfig = () => {
-    navigate("edit", {state: {...state}})
+    navigate("/spring-config/edit", {state: {...state}})
   }
   const appConfigColumns = [
     {
