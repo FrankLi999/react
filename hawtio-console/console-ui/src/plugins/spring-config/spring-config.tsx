@@ -39,7 +39,14 @@ export const SpringConfig: React.FunctionComponent = () => {
     const [deleteRow, setDeleteRow] = useState<ConfigurationModel|null>(null);
     const [configurations, setconfigurations] = useState<ConfigurationModel[]>([]);
     const [loading, setLoading] = useState(false);
+    const [page, setPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(10);
+    const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationModel[]>([]);
+    const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
+    // Sort direction of the currently sorted column
+    const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
 
+    console.log("1111111111111111111>>>", paginatedRows)
     const importConfigurations = (configIle: File) => {
       // data: ConfigurationModel[]| null
       console.log(">>>>>>>> import configuration:", configIle);
@@ -64,14 +71,14 @@ export const SpringConfig: React.FunctionComponent = () => {
           },
       };
       axios.post("/my-camel/admin/api/spring-config/import", formData, config).then((response) => {
-          console.log(response.data);
+          console.log(">>>>>>1>>>>>>>>", response.data);
           setconfigurations(() => response.data);
           setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
           setDisplayImportConfirmationModal(() => false);
       }).catch((error) => {
           console.error("Error uploading spring config: ", error);
           // showBoundary(error);
-          setDisplayImportConfirmationModal(false);
+          setDisplayImportConfirmationModal(() =>false);
       });
     }
 
@@ -237,12 +244,8 @@ export const SpringConfig: React.FunctionComponent = () => {
 
       }
     ];
-    const [page, setPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(10);
-    const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationModel[]>([]);
-    const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
-    // Sort direction of the currently sorted column
-    const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
+
+    console.log("222222222222222>>>>>>", paginatedRows)
     const handleSetPage = (
       _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,
       newPage: number,
@@ -301,7 +304,8 @@ export const SpringConfig: React.FunctionComponent = () => {
         .then(response => response.json())
         .then((data: ConfigurationModel[]) => {
           setconfigurations(() => data);
-          setPaginatedRows(() => configurations.slice((page - 1) * perPage, page * perPage));
+          console.log(">>>>>>>>>>>>>>>33333", page, perPage, data);
+          setPaginatedRows(() =>data.slice((page - 1) * perPage, page * perPage));
           setLoading(() => false);
         }).catch(error => {
           // showBoundary(error);
