@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css",
-    "main.js": "/my-camel/admin/actuator/hawtio/static/js/main.9d9237c9.js",
-    "static/js/118.c29a7214.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/118.c29a7214.chunk.js",
-    "static/js/567.7f5c6022.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/567.7f5c6022.chunk.js",
-    "static/js/3.44808114.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/3.44808114.chunk.js",
-    "static/js/518.b237564b.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/518.b237564b.chunk.js",
-    "static/js/546.4e4e65fe.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/546.4e4e65fe.chunk.js",
-    "static/css/823.52b920c0.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/823.52b920c0.chunk.css",
-    "static/js/823.383cabac.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/823.383cabac.chunk.js",
+    "main.js": "/my-camel/admin/actuator/hawtio/static/js/main.dec44ef6.js",
+    "static/js/902.5c21812b.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/902.5c21812b.chunk.js",
+    "static/js/567.f57b0164.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/567.f57b0164.chunk.js",
+    "static/js/3.9c8a7ae3.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/3.9c8a7ae3.chunk.js",
+    "static/js/518.0800f986.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/518.0800f986.chunk.js",
+    "static/js/546.239fd5b2.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/546.239fd5b2.chunk.js",
+    "static/css/589.ccb0700e.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/589.ccb0700e.chunk.css",
+    "static/js/589.62978743.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/589.62978743.chunk.js",
     "static/media/RedHatDisplayVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF-Italic.813182e673c38ef5ee4b.woff2",
     "static/media/RedHatTextVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatTextVF-Italic.078865af129336cde269.woff2",
     "static/media/RedHatDisplayVF.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF.18ca482120faaa701d8b.woff2",
@@ -27,16 +27,17 @@
     "static/media/RedHatMono-Regular.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMono-Regular.57234ce675330fa60781.woff2",
     "static/media/pf-v5-pficon.woff2": "/my-camel/admin/actuator/hawtio/static/media/pf-v5-pficon.c06f4d6490c387fd1d92.woff2",
     "index.html": "/my-camel/admin/actuator/hawtio/index.html",
+    "static/media/getFetch.cjs": "/my-camel/admin/actuator/hawtio/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
     "main.3cc5694f.css.map": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css.map",
-    "main.9d9237c9.js.map": "/my-camel/admin/actuator/hawtio/static/js/main.9d9237c9.js.map",
-    "118.c29a7214.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/118.c29a7214.chunk.js.map",
-    "518.b237564b.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/518.b237564b.chunk.js.map",
-    "546.4e4e65fe.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/546.4e4e65fe.chunk.js.map",
-    "823.52b920c0.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/823.52b920c0.chunk.css.map",
-    "823.383cabac.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/823.383cabac.chunk.js.map"
+    "main.dec44ef6.js.map": "/my-camel/admin/actuator/hawtio/static/js/main.dec44ef6.js.map",
+    "902.5c21812b.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/902.5c21812b.chunk.js.map",
+    "518.0800f986.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/518.0800f986.chunk.js.map",
+    "546.239fd5b2.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/546.239fd5b2.chunk.js.map",
+    "589.ccb0700e.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/589.ccb0700e.chunk.css.map",
+    "589.62978743.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/589.62978743.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3cc5694f.css",
-    "static/js/main.9d9237c9.js"
+    "static/js/main.dec44ef6.js"
   ]
 }

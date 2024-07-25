@@ -52,7 +52,7 @@ public class HawtioEndpoint implements WebMvcConfigurer {
 	 * for other Hawtio resources.
 	 * @return The Spring Web forward directive for the Hawtio index.html resource.
 	 */
-	@RequestMapping(value = { "", "{path:^(?:(?!\\bjolokia\\b|auth|css|fonts|img|js|user|static|\\.).)*$}/**" },
+	@RequestMapping(value = { "", "{path:^(?:(?!\\bjolokia\\b|auth|css|fonts|i18next|img|js|user|static|\\.).)*$}/**" },
 			produces = MediaType.TEXT_HTML_VALUE)
 	public String forwardHawtioRequestToIndexHtml(HttpServletRequest request) {
 		final String path = endpointPath.resolve("hawtio");
@@ -92,6 +92,9 @@ public class HawtioEndpoint implements WebMvcConfigurer {
         registry
             .addResourceHandler(endpointPath.resolveUrlMapping("hawtio", "/img/**"))
             .addResourceLocations("classpath:/hawtio-static/img/");
+		registry
+				.addResourceHandler(endpointPath.resolveUrlMapping("hawtio", "/i18next/**"))
+				.addResourceLocations("classpath:/static/ii8n/");
         // @formatter:on
 	}
 

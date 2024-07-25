@@ -25,4 +25,11 @@ module.exports = function(app) {
       changeOrigin: true
     })
   );
+  app.use(
+      '/my-camel/admin/web/i18next',
+      createProxyMiddleware({
+        target: 'http://localhost:8080/my-camel/admin/web/i18next',
+        changeOrigin: true
+      })
+    );
 };

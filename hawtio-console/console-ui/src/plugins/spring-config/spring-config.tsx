@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+import {MyConfigProvider} from "../../utils/config/context";
+
 // import { useCookies } from 'react-cookie';
 import {
   Button,
@@ -24,6 +27,8 @@ import ImportConfiguration from './ImportConfiguration';
 import ConfigurationDataEditForm from './ConfigurationDataEditForm';
 import ConfigurationDataCreateForm from './ConfigurationDataCreateForm';
 import ConfigurationAppDetails from './ConfigurationAppDetails';
+import ErrorBoundaryContextProvider from '../../utils/error-boundary/ErrorBoundaryContextProvider';
+import ErrorBoundary from '../../utils/error-boundary/ErrorBoundary';
 interface Translation {
   [key: string]: any;
 }
@@ -327,66 +332,80 @@ export const SpringConfig: React.FunctionComponent = () => {
     console.log(">>>>>>>>configurations>>>>>>>>", configurations);
     console.log(">>>>>>>>perPage>>>>>>>>", perPage);
     console.log(">>>>>>>>page>>>>>>>>", page);
+
+    const springConfigContent = () => {
+      return <>
+         <PageGroup>
+           <PageSection variant={PageSectionVariants.light}>
+             <TextContent>
+               <Text component="h1">Camel Integrator Configurations</Text>
+               <Text component="p">Spring Application profiles</Text>
+             </TextContent>
+             <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
+                 <Button className="ml-1" onClick={() => {
+                     addAppConfiurationDetails();
+                   }}>
+                   Add Application Profile
+                 </Button>
+                 <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
+                 <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
+                 <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>
+               </div>
+           </PageSection>
+           <Divider />
+           <PageSection>
+             <Card>
+             <Table variant="compact" aria-label="Spring configurations">
+               <Thead>
+                 <Tr>
+                   {configurationTableColumns.map((column, columnIndex) => (
+                     <Th key={columnIndex} sort={column.sort ? getSortParams(columnIndex) : undefined}>{column.text}</Th>
+                   ))}
+                 </Tr>
+               </Thead>
+               <Tbody>
+               {paginatedRows.map((row: any, rowIndex: number) => (
+                 <Tr key={rowIndex}>
+                   {configurationTableColumns.map((column, columnIndex) => (
+                     <Td key={column.dataField}>
+                         {renderColum(column, row)}
+                     </Td>
+                   ))}
+                 </Tr>
+               ))}
+               </Tbody>
+             </Table>
+               {renderPagination(PaginationVariant.bottom)}
+             </Card>
+             </PageSection>
+             <Divider />
+             </PageGroup>
+             <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal}
+               row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
+             <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
+             <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />
+         <PageSection id='connect-main' variant={PageSectionVariants.light}>
+              <Routes>
+                {routes}
+              </Routes>
+         </PageSection>
+      </>;
+    }
     if (loading) {
       return <p>Loading...</p>;
     } else {
       return (
         <>
+          <CookiesProvider>
+            <MyConfigProvider>
+              <ErrorBoundaryContextProvider>
+                <ErrorBoundary>
+                  {springConfigContent()}
+                </ErrorBoundary>
+              </ErrorBoundaryContextProvider>
+            </MyConfigProvider>
+          </CookiesProvider>
 
-        <PageGroup>
-          <PageSection variant={PageSectionVariants.light}>
-            <TextContent>
-              <Text component="h1">Camel Integrator Configurations</Text>
-              <Text component="p">Spring Application profiles</Text>
-            </TextContent>
-            <div className="small form-group d-flex align-items-center justify-content-start mt-4 mb-0">
-                <Button className="ml-1" onClick={() => {
-                    addAppConfiurationDetails();
-                  }}>
-                  Add Application Profile
-                </Button>
-                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={exportConfig}>Export All Configurations</Button>
-                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportConfigurationModal();}}>Import All Configurations</Button>
-                <Button className="ml-1" style={{ 'marginLeft': '12px' }} onClick={() => { showImportSqlConfigurationModal();}}>Import SQL</Button>  
-              </div>
-          </PageSection>
-          <Divider />
-          <PageSection>
-            <Card>
-            <Table variant="compact" aria-label="Spring configurations">
-              <Thead>
-                <Tr>
-                  {configurationTableColumns.map((column, columnIndex) => (
-                    <Th key={columnIndex} sort={column.sort ? getSortParams(columnIndex) : undefined}>{column.text}</Th>
-                  ))}
-                </Tr>
-              </Thead>
-              <Tbody>
-              {paginatedRows.map((row: any, rowIndex: number) => (
-                <Tr key={rowIndex}>
-                  {configurationTableColumns.map((column, columnIndex) => (
-                    <Td key={column.dataField}>
-                        {renderColum(column, row)}
-                    </Td>
-                  ))}
-                </Tr>
-              ))}
-              </Tbody>
-            </Table>
-              {renderPagination(PaginationVariant.bottom)}
-            </Card>
-            </PageSection>
-            <Divider />
-            </PageGroup>
-            <DeleteConfirmation showModal={displayDeleteConfirmationModal} confirmModal={deleteAppConfiurationDetails} hideModal={hideDeleteConfirmationModal}
-              row={deleteRow} message={`Are you sure to delete configurations for application for ${deleteRow?.application}/${deleteRow?.profile}`}  />
-            <ImportConfiguration showModal={displayImportConfirmationModal} importConfiguration={importConfigurations} hideModal={hideImportConfigurationModal}  />
-            <ImportConfiguration showModal={displayImportSqlConfirmationModal} importConfiguration={importSqlConfigurations} hideModal={hideImportSqlConfigurationModal}  />
-        <PageSection id='connect-main' variant={PageSectionVariants.light}>
-             <Routes>
-               {routes}
-             </Routes>
-        </PageSection>
         </>
       );
     }
