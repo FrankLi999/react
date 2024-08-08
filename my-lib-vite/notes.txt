@@ -82,6 +82,7 @@ Installing Rollup plugins
 ref:
 https://harbiola.hashnode.dev/setting-up-vite-with-react-sass-and-typescript
 https://victorlillo.dev/blog/react-typescript-vite-component-library
+https://github.com/victor-lillo/react-vite-component-template
 
 npm create vite@latest my-lib-vite -- --template react-ts
 
@@ -114,6 +115,7 @@ PostCSS:
     npm i -D autoprefixer      
 Testing with Vitest
      npm i -D vitest jsdom @testing-library/react          
-
+Adding Vitest UI and coverage:
+    npm i -D @vitest/ui @vitest/coverage-v8
      npm i -D glob
 npx storybook@latest init
