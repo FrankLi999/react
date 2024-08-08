@@ -1,0 +1,24 @@
+ref:
+	https://levelup.gitconnected.com/micro-frontends-step-by-step-using-react-webpack-5-and-module-federation-e4b9d840ec71
+	https://github.com/ranyelhousieny/react-microfrontends
+
+webpack:
+	https://www.linkedin.com/pulse/understanding-micro-frontends-webpack5-configurations-rany/
+
+npx create-react-app mfe1 --template typescript 
+cd mfe1
+yarn add webpack webpack-cli webpack-server html-webpack-plugin babel-loader webpack-dev-server 
+yarn add ts-loader -D   
+
+or add typescript:
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+yarn add  @swc/core swc-loader
+
+npx create-react-app mfe2 --template typescript
+cd mfe2
+yarn add webpack webpack-cli webpack-server html-webpack-plugin babel-loader webpack-dev-server css-loader
+yarn add  @swc/core swc-loader
+
+
+
+yarn webpack serve
