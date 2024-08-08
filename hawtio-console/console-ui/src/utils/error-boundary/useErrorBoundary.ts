@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import { assertErrorBoundaryContext } from "./assertErrorBoundaryContext";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 
@@ -18,15 +18,10 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
 
   assertErrorBoundaryContext(context);
 
-//   const [state, setState] = useState<UseErrorBoundaryState<TError>>({
-//     error: null,
-//     hasError: false,
-//   });
-
   const memoized = useMemo(
     () => ({
       hasError: context.hasError,
-      error: context.error,  
+      error: context.error,
       resetBoundary: () => {
         context.resetErrorBoundary();
         // setState({ error: null, hasError: false });

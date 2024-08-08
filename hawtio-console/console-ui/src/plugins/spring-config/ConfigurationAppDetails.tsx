@@ -17,8 +17,14 @@ import { Table, Thead, Tr, Th, Tbody, Td, ThProps } from '@patternfly/react-tabl
 import { ConfigurationProperty } from "./ConfigurationModel";
 
 function ConfigurationAppDetails() {
-  const navigate = useNavigate();
   const { state } = useLocation();
+  const [page, setPage] = React.useState(1);
+  const [perPage, setPerPage] = React.useState(5);
+  const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationProperty[]>(state.props.slice((page - 1) * perPage, page * perPage));
+  const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
+  // Sort direction of the currently sorted column
+  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
+  const navigate = useNavigate();
   const editConfig = () => {
     navigate("/spring-config/edit", {state: {...state}})
   }
@@ -36,12 +42,6 @@ function ConfigurationAppDetails() {
       editable: false
     }
   ];
-  const [page, setPage] = React.useState(1);
-  const [perPage, setPerPage] = React.useState(5);
-  const [paginatedRows, setPaginatedRows] = React.useState<ConfigurationProperty[]>(state.props.slice((page - 1) * perPage, page * perPage));
-  const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
-  // Sort direction of the currently sorted column
-  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
 
   const handleSetPage = (
     _evt: React.MouseEvent | React.KeyboardEvent | MouseEvent,

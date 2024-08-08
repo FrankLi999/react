@@ -36,8 +36,6 @@ interface Translation {
 export const SpringConfig: React.FunctionComponent = () => {
     // const [cookies] = useCookies(['XSRF-TOKEN']);
     // const { showBoundary } = useErrorBoundary();
-
-    const navigate = useNavigate(); 
     const [displayDeleteConfirmationModal, setDisplayDeleteConfirmationModal] = useState(false);
     const [displayImportConfirmationModal, setDisplayImportConfirmationModal] = useState(false);
     const [displayImportSqlConfirmationModal, setDisplayImportSqlConfirmationModal] = useState(false);
@@ -50,7 +48,7 @@ export const SpringConfig: React.FunctionComponent = () => {
     const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
     // Sort direction of the currently sorted column
     const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
-
+    const navigate = useNavigate(); 
     console.log("1111111111111111111>>>", paginatedRows)
     const importConfigurations = (configIle: File) => {
       // data: ConfigurationModel[]| null
