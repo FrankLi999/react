@@ -1,0 +1,119 @@
+npx create-react-app my-lib --template typescript
+cd my-lib 
+npx sb init
+
+storybook dev -p 6006 --initial-path=/onboarding --quiet
+
+npm run storybook
+http://localhost:6006
+
+# eslint and prettier
+ref: https://dev.to/quizzes4u/how-to-set-up-eslint-and-prettier-in-react-typescript-5-project-2023-hd6
+
+npm install eslint --save-dev
+npx eslint --init
+
+add storybook eslint:
+npm install --save-dev eslint-plugin-storybook
+
+update eslint.config.mjs:
+    ```
+    import globals from "globals";
+    import pluginJs from "@eslint/js";
+    import tseslint from "typescript-eslint";
+    import pluginReact from "eslint-plugin-react";
+    import eslintPluginStorybook from "eslint-plugin-storybook";
+
+    export default [
+    // {
+    //   ignores: ["dist/**/*"],
+    // },
+    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
+    { settings: {
+        react: {
+            version: "detect",
+        },
+        }
+    },
+    { languageOptions: { globals: globals.browser } },
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
+    pluginReact.configs.flat.recommended,
+    eslintPluginStorybook.configs.flat.recommended
+    ];
+    ```
+    
+
+to use with react storybook:
+npm install --save-dev eslint-config-react-app
+
+
+npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
+
+# ref
+https://dev.to/sanchithasr/how-to-implement-storybook-in-react-typescript-material-ui-application-4om7
+https://github.com/Sanchithasharma/storybook-react-ts/tree/storybook
+
+npm install @mui/material @emotion/react @emotion/styled
+
+
+# react library with rollup
+
+npm i -D rollup
+create rollup.config.js
+Installing Babel
+  npm i -D babel-core babel-loader @babel/preset-env @babel/preset-typescript  @babel/preset-react
+Installing Rollup plugins
+    @rollup/plugin-babel
+    @rollup/plugin-node-resolve
+    rollup-plugin-peer-deps-external
+    @rollup/plugin-commonjs
+    @rollup/plugin-terser
+	@rollup/plugin-typescript
+	@rollup/plugin-terser
+	@rollup/plugin-image
+	rollup-plugin-delete
+	rollup-plugin-visualizer
+	rollup-plugin-postcss
+	sass
+    
+# react library with vite
+
+ref:
+https://harbiola.hashnode.dev/setting-up-vite-with-react-sass-and-typescript
+https://victorlillo.dev/blog/react-typescript-vite-component-library
+
+npm create vite@latest my-lib-vite -- --template react-ts
+
+    # npm 7+, extra double-dash is needed:
+    npm create vite@latest react-lib -- --template react-ts
+    # yarn
+    yarn create vite react-lib --template react-ts
+    # pnpm
+    pnpm create vite react-lib --template react-ts
+    # bun
+    bun create vite react-lib --template react-ts
+
+npm i -D sass sass-loader --force
+
+turn this app project into a component library, so the next step involves deleting the Vite dev server-related files: App.css, index.css, App.tsx, main.tsx, and index.html
+
+npm i -D @types/node
+
+add style:
+    npm i -D vite-plugin-lib-inject-css
+building library types:
+    npm i -D vite-plugin-dts
+prettier:
+    npm i -D prettier eslint-config-prettier  
+Stylelint:
+          npm i -D stylelint stylelint-config-standard
+storybook:
+    npx storybook@latest init 
+PostCSS:
+    npm i -D autoprefixer      
+Testing with Vitest
+     npm i -D vitest jsdom @testing-library/react          
+
+     npm i -D glob
+npx storybook@latest init
