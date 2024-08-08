@@ -1,3 +1,8 @@
+
+#ref 
+https://medium.com/@maayan_37411/how-to-create-a-react-multi-package-ui-library-2ba6ae0909b6
+
+#steps
 npx create-react-app my-lib --template typescript
 cd my-lib 
 npx sb init

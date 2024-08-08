@@ -1,0 +1,13 @@
+{
+  "name": "mono-vite-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:all": "pnpm run -r test",
+    "dev": "pnpm --filter website dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
