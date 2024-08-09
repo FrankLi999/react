@@ -26,17 +26,17 @@ export default function getOptionMatchingSimpleDiscriminator<T = any, S extends 
 
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
-      const discriminator = get(option, [PROPERTIES_KEY, discriminatorField], {});
-
-      if (discriminator.type === 'object' || discriminator.type === 'array') {
+      const discriminator: S = get(option, [PROPERTIES_KEY, discriminatorField], {}) as S;
+       
+      if (discriminator['type'] === 'object' || discriminator['type'] === 'array') {
         continue;
       }
 
-      if (discriminator.const === value) {
+      if (discriminator['const'] === value) {
         return i;
       }
 
-      if (discriminator.enum?.includes(value)) {
+      if (discriminator['enum']?.includes(value)) {
         return i;
       }
     }

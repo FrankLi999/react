@@ -8,3 +8,5 @@ pnpm i -D @types/lodash-es --filter utils
 
 pnpm i -D lodash @types/lodash --filter utils
 
+pnpm install typedash --filter utils
+

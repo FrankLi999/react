@@ -1,6 +1,5 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import get from 'lodash-es/get';
-import set from 'lodash-es/set';
+import { get, set } from 'lodash-es';
 
 import { ErrorSchema } from './types';
 import { ERRORS_KEY } from './constants';
