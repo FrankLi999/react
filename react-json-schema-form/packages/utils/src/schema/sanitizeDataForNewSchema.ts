@@ -1,5 +1,5 @@
-import get from 'lodash/get';
-import has from 'lodash/has';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
 
 import { FormContextType, GenericObjectType, RJSFSchema, StrictRJSFSchema, ValidatorType } from '../types';
 import { PROPERTIES_KEY, REF_KEY } from '../constants';

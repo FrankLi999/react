@@ -1,4 +1,4 @@
-import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
+import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@react-jsf/utils';
 import Button, { ButtonProps } from 'react-bootstrap/Button';
 import { IoIosCopy } from 'react-icons/io';
 import { IoIosRemove } from 'react-icons/io';

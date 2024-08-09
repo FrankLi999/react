@@ -8,8 +8,8 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   TranslatableString,
-} from '@rjsf/utils';
-import isObject from 'lodash/isObject';
+} from '@react-jsf/utils';
+import isObject from 'lodash-es/isObject';
 
 /** The `BooleanField` component is used to render a field in the schema is boolean. It constructs `enumOptions` for the
  * two boolean values based on the various alternatives in the schema.

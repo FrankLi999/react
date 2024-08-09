@@ -1,5 +1,5 @@
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
+import get from 'lodash-es/get';
+import isEqual from 'lodash-es/isEqual';
 
 import { ID_KEY } from '../constants';
 import hashForSchema from '../hashForSchema';

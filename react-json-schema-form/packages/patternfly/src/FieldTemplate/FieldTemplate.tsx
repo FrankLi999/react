@@ -5,7 +5,7 @@ import {
   getUiOptions,
   RJSFSchema,
   StrictRJSFSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import { Form, FormGroup, TextInput } from '@patternfly/react-core';
 
 export default function FieldTemplate<

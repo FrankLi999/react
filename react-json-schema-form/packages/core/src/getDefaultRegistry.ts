@@ -1,4 +1,4 @@
-import { englishStringTranslator, FormContextType, Registry, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
+import { englishStringTranslator, FormContextType, Registry, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
 import fields from './components/fields';
 import templates from './components/templates';

@@ -1,5 +1,5 @@
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import get from 'lodash-es/get';
+import isEmpty from 'lodash-es/isEmpty';
 
 import {
   ANY_OF_KEY,

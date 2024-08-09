@@ -16,13 +16,13 @@ import {
   REF_KEY,
   ANY_OF_KEY,
   ONE_OF_KEY,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import Markdown from 'markdown-to-jsx';
-import get from 'lodash/get';
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
-import set from 'lodash/set';
-import unset from 'lodash/unset';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
+import isObject from 'lodash-es/isObject';
+import set from 'lodash-es/set';
+import unset from 'lodash-es/unset';
 
 /** Type used for the state of the `ObjectField` component */
 type ObjectFieldState = {

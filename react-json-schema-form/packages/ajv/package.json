@@ -1,5 +1,6 @@
 {
-  "name": "ajv",
+  "name": "@react-jsf/ajv",
+  "main": "src/index.ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-jsf/ajv": "file:",
+    "ajv": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

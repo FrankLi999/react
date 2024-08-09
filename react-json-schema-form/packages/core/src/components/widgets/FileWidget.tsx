@@ -9,7 +9,7 @@ import {
   TranslatableString,
   UIOptionsType,
   WidgetProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import Markdown from 'markdown-to-jsx';
 
 function addNameToDataURL(dataURL: string, name: string) {

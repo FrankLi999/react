@@ -6,7 +6,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   WrapIfAdditionalTemplateProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { FormGroup, TextInput } from '@patternfly/react-core';
 

@@ -1,4 +1,4 @@
-import isString from 'lodash/isString';
+import isString from 'lodash-es/isString';
 
 import { IdSchema } from './types';
 import { ID_KEY } from './constants';

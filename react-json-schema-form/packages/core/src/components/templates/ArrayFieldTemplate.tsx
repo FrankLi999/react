@@ -6,7 +6,7 @@ import {
   FormContextType,
   RJSFSchema,
   StrictRJSFSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 /** The `ArrayFieldTemplate` component is the template used to render all items in an array.
  *

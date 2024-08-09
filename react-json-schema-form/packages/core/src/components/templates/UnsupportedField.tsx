@@ -1,4 +1,4 @@
-import { FormContextType, RJSFSchema, StrictRJSFSchema, TranslatableString, UnsupportedFieldProps } from '@rjsf/utils';
+import { FormContextType, RJSFSchema, StrictRJSFSchema, TranslatableString, UnsupportedFieldProps } from '@react-jsf/utils';
 import Markdown from 'markdown-to-jsx';
 
 /** The `UnsupportedField` component is used to render a field in the schema is one that is not supported by

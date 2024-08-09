@@ -1,6 +1,6 @@
 import { EnumOptionsType, RJSFSchema, StrictRJSFSchema } from './types';
 import enumOptionsValueForIndex from './enumOptionsValueForIndex';
-import isNil from 'lodash/isNil';
+import isNil from 'lodash-es/isNil';
 
 /** Add the enum option value at the `valueIndex` to the list of `selected` values in the proper order as defined by
  * `allEnumOptions`

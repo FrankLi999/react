@@ -19,9 +19,9 @@ import {
   TranslatableString,
   UI_OPTIONS_KEY,
   UIOptionsType,
-} from '@rjsf/utils';
-import isObject from 'lodash/isObject';
-import omit from 'lodash/omit';
+} from '@react-jsf/utils';
+import isObject from 'lodash-es/isObject';
+import omit from 'lodash-es/omit';
 import Markdown from 'markdown-to-jsx';
 
 /** The map of component type to FieldName */

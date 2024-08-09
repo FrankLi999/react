@@ -1,4 +1,4 @@
-import union from 'lodash/union';
+import union from 'lodash-es/union';
 
 import { REQUIRED_KEY } from './constants';
 import getSchemaType from './getSchemaType';

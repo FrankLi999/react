@@ -1,4 +1,4 @@
-import { getTemplate, FormContextType, RJSFSchema, StrictRJSFSchema, WidgetProps } from '@rjsf/utils';
+import { getTemplate, FormContextType, RJSFSchema, StrictRJSFSchema, WidgetProps } from '@react-jsf/utils';
 
 /** The `ColorWidget` component uses the `BaseInputTemplate` changing the type to `color` and disables it when it is
  * either disabled or readonly.

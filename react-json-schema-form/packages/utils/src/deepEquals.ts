@@ -1,4 +1,4 @@
-import isEqualWith from 'lodash/isEqualWith';
+import isEqualWith from 'lodash-es/isEqualWith';
 
 /** Implements a deep equals using the `lodash.isEqualWith` function, that provides a customized comparator that
  * assumes all functions are equivalent.

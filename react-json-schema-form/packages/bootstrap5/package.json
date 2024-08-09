@@ -1,5 +1,6 @@
 {
-  "name": "bootstrap5",
+  "name": "@react-jsf/bootstrap5",
+  "main": "src/index.ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-jsf/bootstrap5": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

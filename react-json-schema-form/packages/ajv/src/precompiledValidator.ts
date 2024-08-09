@@ -1,6 +1,6 @@
 import { ErrorObject } from 'ajv';
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
+import get from 'lodash-es/get';
+import isEqual from 'lodash-es/isEqual';
 import {
   CustomValidator,
   ErrorSchema,
@@ -16,13 +16,13 @@ import {
   ValidationData,
   ValidatorType,
   retrieveSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 import { CompiledValidateFunction, Localizer, ValidatorFunctions } from './types';
 import processRawValidationErrors, { RawValidationErrorsType } from './processRawValidationErrors';
 
 /** `ValidatorType` implementation that uses an AJV 8 precompiled validator as created by the
- * `compileSchemaValidators()` function provided by the `@rjsf/validator-ajv8` library.
+ * `compileSchemaValidators()` function provided by the `@react-jsf/validator-ajv8` library.
  */
 export default class AJV8PrecompiledValidator<
   T = any,
@@ -108,7 +108,7 @@ export default class AJV8PrecompiledValidator<
    *
    * @param errorSchema - The `ErrorSchema` instance to convert
    * @param [fieldPath=[]] - The current field path, defaults to [] if not specified
-   * @deprecated - Use the `toErrorList()` function provided by `@rjsf/utils` instead. This function will be removed in
+   * @deprecated - Use the `toErrorList()` function provided by `@rereact-jsf/utils` instead. This function will be removed in
    *        the next major release.
    */
   toErrorList(errorSchema?: ErrorSchema<T>, fieldPath: string[] = []) {

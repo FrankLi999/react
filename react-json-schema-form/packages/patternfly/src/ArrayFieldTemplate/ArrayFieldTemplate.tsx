@@ -9,7 +9,7 @@ import {
   getUiOptions,
   RJSFSchema,
   StrictRJSFSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 export default function ArrayFieldTemplate<
   T = any,

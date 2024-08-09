@@ -1,4 +1,4 @@
-import { DescriptionFieldProps, FormContextType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
+import { DescriptionFieldProps, FormContextType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
 export default function DescriptionField<
   T = any,

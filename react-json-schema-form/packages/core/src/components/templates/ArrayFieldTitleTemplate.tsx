@@ -7,7 +7,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   TemplatesType,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 /** The `ArrayFieldTitleTemplate` component renders a `TitleFieldTemplate` with an `id` derived from
  * the `idSchema`.

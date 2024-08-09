@@ -5,7 +5,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   TranslatableString,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 /** The `ErrorList` component is the template that renders the all the errors associated with the fields in the `Form`
  *

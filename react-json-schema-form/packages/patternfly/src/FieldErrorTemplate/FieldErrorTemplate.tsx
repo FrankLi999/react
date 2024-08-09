@@ -1,4 +1,4 @@
-import { FieldErrorProps, FormContextType, RJSFSchema, StrictRJSFSchema, errorId } from '@rjsf/utils';
+import { FieldErrorProps, FormContextType, RJSFSchema, StrictRJSFSchema, errorId } from '@react-jsf/utils';
 import { FormHelperText, HelperText, HelperTextItem } from '@patternfly/react-core';
 
 /** The `FieldErrorTemplate` component renders the errors local to the particular field

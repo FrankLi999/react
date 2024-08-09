@@ -1,5 +1,5 @@
 import { ErrorObject } from 'ajv';
-import get from 'lodash/get';
+import get from 'lodash-es/get';
 import {
   createErrorHandler,
   CustomValidator,
@@ -16,11 +16,11 @@ import {
   unwrapErrorHandler,
   validationDataMerge,
   ValidatorType,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 export type RawValidationErrorsType<Result = any> = { errors?: Result[]; validationError?: Error };
 
-/** Transforming the error output from ajv to format used by @rjsf/utils.
+/** Transforming the error output from ajv to format used by @react-jsf/utils.
  * At some point, components should be updated to support ajv.
  *
  * @param errors - The list of AJV errors to convert to `RJSFValidationErrors`

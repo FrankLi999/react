@@ -1,6 +1,6 @@
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import set from 'lodash/set';
+import get from 'lodash-es/get';
+import isEqual from 'lodash-es/isEqual';
+import set from 'lodash-es/set';
 
 import {
   ALL_OF_KEY,

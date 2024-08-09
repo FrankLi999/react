@@ -1,6 +1,6 @@
-import get from 'lodash/get';
-import has from 'lodash/has';
-import isNumber from 'lodash/isNumber';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
+import isNumber from 'lodash-es/isNumber';
 
 import { PROPERTIES_KEY } from '../constants';
 import { FormContextType, RJSFSchema, StrictRJSFSchema, ValidatorType } from '../types';

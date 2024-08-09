@@ -5,7 +5,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   WrapIfAdditionalTemplateProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 import Label from './FieldTemplate/Label';
 

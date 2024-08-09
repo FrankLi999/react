@@ -1,4 +1,4 @@
-import { FormContextType, RJSFSchema, StrictRJSFSchema, TemplatesType } from '@rjsf/utils';
+import { FormContextType, RJSFSchema, StrictRJSFSchema, TemplatesType } from '@react-jsf/utils';
 
 import SubmitButton from './SubmitButton';
 import AddButton from './AddButton';

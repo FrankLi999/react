@@ -1,4 +1,4 @@
-import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
+import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@react-jsf/utils';
 import Button from 'react-bootstrap/Button';
 import { BsPlus } from 'react-icons/bs';
 

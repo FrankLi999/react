@@ -33,12 +33,12 @@ import {
   validationDataMerge,
   ValidatorType,
   Experimental_DefaultFormStateBehavior,
-} from '@rjsf/utils';
-import _forEach from 'lodash/forEach';
-import _get from 'lodash/get';
-import _isEmpty from 'lodash/isEmpty';
-import _pick from 'lodash/pick';
-import _toPath from 'lodash/toPath';
+} from '@react-jsf/utils';
+import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
+import _isEmpty from 'lodash-es/isEmpty';
+import _pick from 'lodash-es/pick';
+import _toPath from 'lodash-es/toPath';
 
 import getDefaultRegistry from '../getDefaultRegistry';
 
@@ -532,7 +532,7 @@ export default class Form<
       return formData;
     }
 
-    // _pick has incorrect type definition, it works with string[][], because lodash/hasIn supports it
+    // _pick has incorrect type definition, it works with string[][], because lodash-es/hasIn supports it
     const data: GenericObjectType = _pick(formData, fields as unknown as string[]);
     if (Array.isArray(formData)) {
       return Object.keys(data).map((key: string) => data[key]) as unknown as T;

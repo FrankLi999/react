@@ -1,5 +1,5 @@
 import jsonpointer from 'jsonpointer';
-import omit from 'lodash/omit';
+import omit from 'lodash-es/omit';
 
 import { REF_KEY } from './constants';
 import { GenericObjectType, RJSFSchema, StrictRJSFSchema } from './types';

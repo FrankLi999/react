@@ -1,4 +1,4 @@
-/** An enumeration of all the translatable strings used by `@rjsf/core` and its themes. The value of each of the
+/** An enumeration of all the translatable strings used by `@react-jsf/core` and its themes. The value of each of the
  * enumeration keys is expected to be the actual english string. Some strings contain replaceable parameter values
  * as indicated by `%1`, `%2`, etc. The number after the `%` indicates the order of the parameter. The ordering of
  * parameters is important because some languages may choose to put the second parameter before the first in its

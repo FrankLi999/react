@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import omit from 'lodash/omit';
+import get from 'lodash-es/get';
+import isEmpty from 'lodash-es/isEmpty';
+import omit from 'lodash-es/omit';
 import {
   ANY_OF_KEY,
   deepEquals,
@@ -17,7 +17,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   UiSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 /** Type used for the state of the `AnyOfField` component */
 type AnyOfFieldState<S extends StrictRJSFSchema = RJSFSchema> = {

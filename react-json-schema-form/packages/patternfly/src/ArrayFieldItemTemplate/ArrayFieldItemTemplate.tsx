@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { ArrayFieldTemplateItemType, FormContextType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
+import { ArrayFieldTemplateItemType, FormContextType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
 export default function ArrayFieldItemTemplate<
   T = any,

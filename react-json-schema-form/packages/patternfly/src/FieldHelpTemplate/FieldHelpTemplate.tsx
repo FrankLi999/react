@@ -1,4 +1,4 @@
-import { FieldHelpProps, FormContextType, RJSFSchema, StrictRJSFSchema, helpId } from '@rjsf/utils';
+import { FieldHelpProps, FormContextType, RJSFSchema, StrictRJSFSchema, helpId } from '@react-jsf/utils';
 import { FormHelperText, HelperText, HelperTextItem } from '@patternfly/react-core';
 
 /** The `FieldHelpTemplate` component renders any help desired for a field

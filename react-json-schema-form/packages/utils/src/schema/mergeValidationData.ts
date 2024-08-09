@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash-es/isEmpty';
 
 import mergeObjects from '../mergeObjects';
 import { ErrorSchema, FormContextType, RJSFSchema, StrictRJSFSchema, ValidationData, ValidatorType } from '../types';
@@ -12,7 +12,7 @@ import { ErrorSchema, FormContextType, RJSFSchema, StrictRJSFSchema, ValidationD
  * @param validationData - The current `ValidationData` into which to merge the additional errors
  * @param [additionalErrorSchema] - The additional set of errors in an `ErrorSchema`
  * @returns - The `validationData` with the additional errors from `additionalErrorSchema` merged into it, if provided.
- * @deprecated - Use the `validationDataMerge()` function exported from `@rjsf/utils` instead. This function will be
+ * @deprecated - Use the `validationDataMerge()` function exported from `@react-jsf/utils` instead. This function will be
  *        removed in the next major release.
  */
 export default function mergeValidationData<

@@ -1,11 +1,11 @@
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import set from 'lodash/set';
-import times from 'lodash/times';
-import transform from 'lodash/transform';
-import merge from 'lodash/merge';
-import flattenDeep from 'lodash/flattenDeep';
-import uniq from 'lodash/uniq';
+import get from 'lodash-es/get';
+import isEqual from 'lodash-es/isEqual';
+import set from 'lodash-es/set';
+import times from 'lodash-es/times';
+import transform from 'lodash-es/transform';
+import merge from 'lodash-es/merge';
+import flattenDeep from 'lodash-es/flattenDeep';
+import uniq from 'lodash-es/uniq';
 import mergeAllOf, { Options } from 'json-schema-merge-allof';
 
 import {

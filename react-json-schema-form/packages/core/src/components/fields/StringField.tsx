@@ -7,7 +7,7 @@ import {
   FormContextType,
   RJSFSchema,
   StrictRJSFSchema,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 /** The `StringField` component is used to render a schema field that represents a string type
  *

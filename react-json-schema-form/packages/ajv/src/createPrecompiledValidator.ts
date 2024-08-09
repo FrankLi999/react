@@ -1,4 +1,4 @@
-import { FormContextType, RJSFSchema, StrictRJSFSchema, ValidatorType } from '@rjsf/utils';
+import { FormContextType, RJSFSchema, StrictRJSFSchema, ValidatorType } from '@react-jsf/utils';
 
 import { Localizer, ValidatorFunctions } from './types';
 import AJV8PrecompiledValidator from './precompiledValidator';

@@ -1,5 +1,5 @@
-import forEach from 'lodash/forEach';
-import isEqual from 'lodash/isEqual';
+import forEach from 'lodash-es/forEach';
+import isEqual from 'lodash-es/isEqual';
 
 import { FormContextType, RJSFSchema, StrictRJSFSchema } from '../types';
 import { PROPERTIES_KEY, ITEMS_KEY } from '../constants';

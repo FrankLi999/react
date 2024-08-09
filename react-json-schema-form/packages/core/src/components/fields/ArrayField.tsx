@@ -17,11 +17,11 @@ import {
   TranslatableString,
   UiSchema,
   ITEMS_KEY,
-} from '@rjsf/utils';
-import cloneDeep from 'lodash/cloneDeep';
-import get from 'lodash/get';
-import isObject from 'lodash/isObject';
-import set from 'lodash/set';
+} from '@react-jsf/utils';
+import cloneDeep from 'lodash-es/cloneDeep';
+import get from 'lodash-es/get';
+import isObject from 'lodash-es/isObject';
+import set from 'lodash-es/set';
 import { nanoid } from 'nanoid';
 
 /** Type used to represent the keyed form data used in the state */

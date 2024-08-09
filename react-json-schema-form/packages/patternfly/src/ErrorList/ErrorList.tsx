@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardTitle, CardBody, CardFooter } from '@patternfly/react-core';
 import {  List, ListItem, FormHelperText, HelperText, HelperTextItem } from '@patternfly/react-core';
 
-import { ErrorListProps, FormContextType, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
+import { ErrorListProps, FormContextType, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@react-jsf/utils';
 
 export default function ErrorList<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>({
   errors,

@@ -9,7 +9,7 @@ import {
   StrictRJSFSchema,
   RJSFSchema,
   FormContextType,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import { FormGroup, Checkbox } from '@patternfly/react-core';
 export default function CheckboxWidget<
   T = any,

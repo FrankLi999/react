@@ -1,4 +1,4 @@
-import { FormContextType, RegistryWidgetsType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
+import { FormContextType, RegistryWidgetsType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
 import AltDateWidget from './AltDateWidget';
 import AltDateTimeWidget from './AltDateTimeWidget';

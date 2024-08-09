@@ -11,7 +11,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   WidgetProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 export default function CheckboxesWidget<
   T = any,

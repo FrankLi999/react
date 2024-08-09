@@ -1,4 +1,4 @@
-import toPath from 'lodash/toPath';
+import toPath from 'lodash-es/toPath';
 
 import { ErrorSchema, RJSFValidationError } from './types';
 import ErrorSchemaBuilder from './ErrorSchemaBuilder';

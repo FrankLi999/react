@@ -10,7 +10,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   WidgetProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 export default function SelectWidget<
   T = any,

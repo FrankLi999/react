@@ -9,7 +9,7 @@ import {
   StrictRJSFSchema,
   RJSFSchema,
   FormContextType,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 import Form from 'react-bootstrap/Form';
 
 export default function CheckboxWidget<

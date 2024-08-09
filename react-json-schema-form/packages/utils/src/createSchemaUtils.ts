@@ -32,7 +32,7 @@ import {
 /** The `SchemaUtils` class provides a wrapper around the publicly exported APIs in the `utils/schema` directory such
  * that one does not have to explicitly pass the `validator`, `rootSchema`, or `experimental_defaultFormStateBehavior` to each method.
  * Since these generally do not change across a `Form`, this allows for providing a simplified set of APIs to the
- * `@rjsf/core` components and the various themes as well. This class implements the `SchemaUtilsType` interface.
+ * `@react-jsf/core` components and the various themes as well. This class implements the `SchemaUtilsType` interface.
  */
 class SchemaUtils<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>
   implements SchemaUtilsType<T, S, F>
@@ -218,7 +218,7 @@ class SchemaUtils<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    * @param validationData - The current `ValidationData` into which to merge the additional errors
    * @param [additionalErrorSchema] - The additional set of errors
    * @returns - The `validationData` with the additional errors from `additionalErrorSchema` merged into it, if provided.
-   * @deprecated - Use the `validationDataMerge()` function exported from `@rjsf/utils` instead. This function will be
+   * @deprecated - Use the `validationDataMerge()` function exported from `@react-jsf/utils` instead. This function will be
    *        removed in the next major release.
    */
   mergeValidationData(validationData: ValidationData<T>, additionalErrorSchema?: ErrorSchema<T>): ValidationData<T> {

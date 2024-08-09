@@ -1,4 +1,4 @@
-import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@rjsf/utils';
+import { FormContextType, IconButtonProps, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@react-jsf/utils';
 import { Button, ButtonProps } from '@patternfly/react-core';
 
 import { IoIosCopy } from 'react-icons/io';

@@ -12,7 +12,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
   titleId,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 export default function ObjectFieldTemplate<
   T = any,

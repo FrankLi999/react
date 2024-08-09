@@ -1,10 +1,10 @@
-import get from 'lodash/get';
-import has from 'lodash/has';
-import isNumber from 'lodash/isNumber';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import reduce from 'lodash/reduce';
-import times from 'lodash/times';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
+import isNumber from 'lodash-es/isNumber';
+import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
+import reduce from 'lodash-es/reduce';
+import times from 'lodash-es/times';
 
 import getFirstMatchingOption from './getFirstMatchingOption';
 import retrieveSchema, { resolveAllReferences } from './retrieveSchema';

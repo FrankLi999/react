@@ -1,4 +1,4 @@
-import { FormContextType, getTemplate, labelValue, RJSFSchema, StrictRJSFSchema, WidgetProps } from '@rjsf/utils';
+import { FormContextType, getTemplate, labelValue, RJSFSchema, StrictRJSFSchema, WidgetProps } from '@react-jsf/utils';
 
 export default function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: WidgetProps<T, S, F>

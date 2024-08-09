@@ -1,8 +1,8 @@
-import { ThemeProps } from '@rjsf/core';
+import { ThemeProps } from '@react-jsf/core';
 
 import { generateTemplates } from '../Templates';
 import { generateWidgets } from '../Widgets';
-import { FormContextType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
+import { FormContextType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
 export function generateTheme<
   T = any,

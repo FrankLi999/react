@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash/isPlainObject';
+import isPlainObject from 'lodash-es/isPlainObject';
 
 import { ERRORS_KEY } from './constants';
 import { FieldValidation, FormValidation, GenericObjectType } from './types';

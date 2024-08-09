@@ -353,7 +353,7 @@ export interface Registry<T = any, S extends StrictRJSFSchema = RJSFSchema, F ex
   formContext: F;
   /** The root schema, as passed to the `Form`, which can contain referenced definitions */
   rootSchema: S;
-  /** The current implementation of the `SchemaUtilsType` (from `@rjsf/utils`) in use by the `Form`.  Used to call any
+  /** The current implementation of the `SchemaUtilsType` (from `@react-jsf/utils`) in use by the `Form`.  Used to call any
    * of the validation-schema-based utility functions
    */
   schemaUtils: SchemaUtilsType<T, S>;
@@ -986,7 +986,7 @@ export interface ValidatorType<T = any, S extends StrictRJSFSchema = RJSFSchema,
    *
    * @param errorSchema - The `ErrorSchema` instance to convert
    * @param [fieldPath=[]] - The current field path, defaults to [] if not specified
-   * @deprecated - Use the `toErrorList()` function provided by `@rjsf/utils` instead. This function will be removed in
+   * @deprecated - Use the `toErrorList()` function provided by `@react-jsf/utils` instead. This function will be removed in
    *        the next major release.
    */
   toErrorList(errorSchema?: ErrorSchema<T>, fieldPath?: string[]): RJSFValidationError[];
@@ -1012,10 +1012,10 @@ export interface ValidatorType<T = any, S extends StrictRJSFSchema = RJSFSchema,
   reset?: () => void;
 }
 
-/** The `SchemaUtilsType` interface provides a wrapper around the publicly exported APIs in the `@rjsf/utils/schema`
+/** The `SchemaUtilsType` interface provides a wrapper around the publicly exported APIs in the `@react-jsf/utils/schema`
  * directory such that one does not have to explicitly pass the `validator` or `rootSchema` to each method. Since both
  * the `validator` and `rootSchema` generally does not change across a `Form`, this allows for providing a simplified
- * set of APIs to the `@rjsf/core` components and the various themes as well.
+ * set of APIs to the `@react-jsf/core` components and the various themes as well.
  */
 export interface SchemaUtilsType<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any> {
   /** Returns the `ValidatorType` in the `SchemaUtilsType`
@@ -1128,7 +1128,7 @@ export interface SchemaUtilsType<T = any, S extends StrictRJSFSchema = RJSFSchem
    * @param validationData - The current `ValidationData` into which to merge the additional errors
    * @param [additionalErrorSchema] - The additional set of errors
    * @returns - The `validationData` with the additional errors from `additionalErrorSchema` merged into it, if provided
-   * @deprecated - Use the `validationDataMerge()` function exported from `@rjsf/utils` instead. This function will be
+   * @deprecated - Use the `validationDataMerge()` function exported from `@react-jsf/utils` instead. This function will be
    *        removed in the next major release.
    */
   mergeValidationData(validationData: ValidationData<T>, additionalErrorSchema?: ErrorSchema<T>): ValidationData<T>;

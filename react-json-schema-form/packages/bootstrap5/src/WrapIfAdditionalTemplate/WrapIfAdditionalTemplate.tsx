@@ -6,7 +6,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   WrapIfAdditionalTemplateProps,
-} from '@rjsf/utils';
+} from '@react-jsf/utils';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
