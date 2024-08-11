@@ -1,5 +1,3 @@
-https://dev.to/vinomanick/create-a-typescript-utility-library-using-vite-916
-
 npx create-react-app my-lib --template typescript
 cd my-lib 
 npx sb init

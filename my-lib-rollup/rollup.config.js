@@ -4,6 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import image from '@rollup/plugin-image';
 import postcss from 'rollup-plugin-postcss';
+import dts from "rollup-plugin-dts";
 import del from 'rollup-plugin-delete';
 import { terser } from 'rollup-plugin-terser'; //minify
 import visualizer from 'rollup-plugin-visualizer';
@@ -43,6 +44,7 @@ export default [{
 {
   input: "src/index.ts",
   output: [{ file: packageJson.types, format: "esm" }],
+  plugins: [dts()],
   external: [/\.(css|less|scss)$/],
 },
 ];

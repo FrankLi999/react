@@ -5,9 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test:all": "pnpm run -r test",
-    "dev": "pnpm --filter website dev"
+    "dev": "pnpm --filter website dev",
+    "build-utils": "pnpm --filter utils build",
+    "build-ui": "pnpm --filter ui build",
+    "build-website": "pnpm --filter website build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mono-vite-repo": "file:"
+  }
 }

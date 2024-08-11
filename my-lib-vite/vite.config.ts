@@ -14,18 +14,22 @@ export default defineConfig({
     react(),
     // https://github.com/vitejs/vite/issues/1579#issuecomment-1483756199
     libInjectCss(),
-    dts({ exclude: ['**/*.stories.ts', 'src/test', '**/*.test.tsx'] }),
+    dts({
+      insertTypesEntry: true,
+      exclude: ['**/*.stories.ts', 'src/test', '**/*.test.tsx']
+    }),
+    // dts({ exclude: ['**/*.stories.ts', 'src/test', '**/*.test.tsx'] }),
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       // https://rollupjs.org/configuration-options/#input
       input: Object.fromEntries(
-        globSync(['src/components/**/index.tsx', 'src/main.ts']).map((file) => {
+        globSync(['src/components/**/index.tsx', 'src/index.ts']).map((file) => {
           // This remove `src/` as well as the file extension from each
           // file, so e.g. src/nested/foo.js becomes nested/foo
           const entryName = path.relative(
