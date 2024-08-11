@@ -1,7 +1,7 @@
-import customizeValidator from './customizeValidator';
-import createPrecompiledValidator from './createPrecompiledValidator';
+import customizeValidator from './utils/customizeValidator';
+import createPrecompiledValidator from './utils/createPrecompiledValidator';
 
 export { customizeValidator, createPrecompiledValidator };
-export * from './types';
+export * from './utils/types';
 
 export default customizeValidator();

@@ -1,3 +1,9 @@
+
+
+pnpm i ajv ajv-formats lodash-es --filter ajv
+pnpm i -D @types/lodash-es @types/node @react-jsf/utils --filter ajv
+pnpm i -D @types/node vite-plugin-lib-inject-css vite-plugin-dts eslint-plugin-react-hooks prettier eslint-config-prettier stylelint stylelint-config-standard autoprefixer vitest jsdom @testing-library/react @vitest/ui @vitest/coverage-v8 --filter ajv
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
