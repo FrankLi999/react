@@ -1,4 +1,4 @@
-import { ComponentType, ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 import Form, { FormProps } from './components/Form';
 import { FormContextType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
 
@@ -13,7 +13,8 @@ export type ThemeProps<T = any, S extends StrictRJSFSchema = RJSFSchema, F exten
 /** A Higher-Order component that creates a wrapper around a `Form` with the overrides from the `WithThemeProps` */
 export default function withTheme<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   themeProps: ThemeProps<T, S, F>
-): ComponentType<FormProps<T, S, F>> {
+) {  
+// ): ComponentType<FormProps<T, S, F>> {
   return forwardRef(
     ({ fields, widgets, templates, ...directProps }: FormProps<T, S, F>, ref: ForwardedRef<Form<T, S, F>>) => {
       fields = { ...themeProps?.fields, ...fields };
