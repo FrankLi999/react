@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardBody, CardFooter } from '@patternfly/react-core';
+import { Card, CardHeader, CardBody } from '@patternfly/react-core';
 import {  List, ListItem, FormHelperText, HelperText, HelperTextItem } from '@patternfly/react-core';
 
 import { ErrorListProps, FormContextType, RJSFSchema, StrictRJSFSchema, TranslatableString } from '@react-jsf/utils';

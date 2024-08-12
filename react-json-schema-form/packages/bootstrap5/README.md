@@ -1,3 +1,11 @@
+
+pnpm i bootstrap react-bootstrap @react-jsf/utils @react-jsf/core @react-jsf/ajv react-icons --filter bootstrap5
+
+pnpm i -D  @types/node --filter bootstrap5
+
+pnpm i -D @types/node vite-plugin-lib-inject-css glob vite-plugin-dts eslint-plugin-react-hooks prettier eslint-config-prettier stylelint stylelint-config-standard autoprefixer vitest jsdom @testing-library/react @vitest/ui @vitest/coverage-v8 sass --filter bootstrap5
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

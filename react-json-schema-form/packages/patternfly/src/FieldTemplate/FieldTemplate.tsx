@@ -6,7 +6,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
 } from '@react-jsf/utils';
-import { Form, FormGroup, TextInput } from '@patternfly/react-core';
+import { FormGroup, TextInput } from '@patternfly/react-core';
 
 export default function FieldTemplate<
   T = any,

@@ -1,5 +1,5 @@
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Card, Panel } from '@patternfly/react-core';
+import { Panel } from '@patternfly/react-core';
 
 import {
   canExpand,

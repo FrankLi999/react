@@ -15,7 +15,6 @@ export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSc
   id,
   options,
   value,
-  required,
   disabled,
   readonly,
   onChange,
