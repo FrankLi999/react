@@ -68,10 +68,15 @@ pnpm run dev
 ## packages/ui
 
    cd packages
+   npm create vite@latest ui -- --template react-ts
+
+   or 
    pnpm create vite
+
          project name: ui
         framework: react
-        variant: Typescript + SWC
+        variant: Typescript
+        
    delete unnecessary files: all files under src, public dir, index.html      
 
    from root, run pnpm install

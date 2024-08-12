@@ -8,6 +8,8 @@
 https://victorlillo.dev/blog/react-typescript-vite-component-library
 https://github.com/victor-lillo/react-vite-component-template
 
+https://harbiola.hashnode.dev/setting-up-vite-with-react-sass-and-typescript
+
 https://dev.to/lico/react-monorepo-setup-tutorial-with-pnpm-and-vite-react-project-ui-utils-5705
 
 # Techs
@@ -195,14 +197,46 @@ under package folder,
       cleanup()
     })
     ```
-# Vitest UI and coverage    
+## Vitest UI and coverage    
   pnpm i -D @vitest/ui @vitest/coverage-v8 --filter
 
   package.json
     "test": "vitest --ui",
     "coverage": "vitest run --coverage"
 
+## SASS
+according to https://vitejs.dev/guide/features,  Because Vite targets modern browsers only, it is recommended to use native CSS variables with PostCSS plugins that implement CSSWG drafts (e.g. postcss-nesting) and author plain, future-standards-compliant CSS. That said, Vite does provide built-in support for .scss, .sass, .less, .styl and .stylus files. There is no need to install Vite-specific plugins for them, but the corresponding pre-processor itself must be installed:
 
+
+  for .scss and .sass
+  ```
+  pnpm add -D sass-embedded --force # or sass
+  ```
+
+or 
+https://victorlillo.dev/blog/react-typescript-vite-component-library
+pnpm i -D sass sass-loader --filter utils
+
+vite config
+```
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import sass from 'sass'
+
+
+export default defineConfig({
+  plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        implementation: sass,
+      },
+    },
+  },
+});
+
+
+```
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

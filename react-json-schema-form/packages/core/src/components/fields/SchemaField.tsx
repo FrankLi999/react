@@ -1,4 +1,4 @@
-import { useCallback, Component } from 'react';
+import { useCallback, Component, ComponentType } from 'react';
 import {
   ADDITIONAL_PROPERTY_FLAG,
   deepEquals,
@@ -18,7 +18,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   UI_OPTIONS_KEY,
-  UIOptionsType,
+  UIOptionsType
 } from '@react-jsf/utils';
 import isObject from 'lodash-es/isObject';
 import omit from 'lodash-es/omit';
@@ -123,7 +123,7 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   } = props;
   const { formContext, schemaUtils, globalUiOptions } = registry;
   const uiOptions = getUiOptions<T, S, F>(uiSchema, globalUiOptions);
-  const FieldTemplate = getTemplate<'FieldTemplate', T, S, F>('FieldTemplate', registry, uiOptions);
+  const FieldTemplate: ComponentType<FieldTemplateProps<T, S, F>> = getTemplate<'FieldTemplate', T, S, F>('FieldTemplate', registry, uiOptions) as ComponentType<FieldTemplateProps<T, S, F>>;
   const DescriptionFieldTemplate = getTemplate<'DescriptionFieldTemplate', T, S, F>(
     'DescriptionFieldTemplate',
     registry,
@@ -148,8 +148,8 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
     },
     [fieldId, onChange]
   );
-
-  const FieldComponent = getFieldComponent<T, S, F>(schema, uiOptions, idSchema, registry);
+  
+  const FieldComponent: ComponentType<FieldProps<T, S, F>> = getFieldComponent<T, S, F>(schema, uiOptions, idSchema, registry) as ComponentType<FieldProps<T, S, F>>;
   const disabled = Boolean(uiOptions.disabled ?? props.disabled);
   const readonly = Boolean(uiOptions.readonly ?? (props.readonly || props.schema.readOnly || schema.readOnly));
   const uiSchemaHideError = uiOptions.hideError;
@@ -180,7 +180,7 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
       readonly={readonly}
       hideError={hideError}
       autofocus={autofocus}
-      errorSchema={fieldErrorSchema}
+      errorSchema={fieldErrorSchema as ErrorSchema<T>}
       formContext={formContext}
       rawErrors={__errors}
     />

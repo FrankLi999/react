@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, ComponentType } from 'react';
 import {
   getTemplate,
   getUiOptions,
@@ -248,6 +248,7 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
     } = this.props;
 
     const { fields, formContext, schemaUtils, translateString, globalUiOptions } = registry;
+    
     const { SchemaField } = fields;
     const schema: S = schemaUtils.retrieveSchema(rawSchema, formData);
     const uiOptions = getUiOptions<T, S, F>(uiSchema, globalUiOptions);
@@ -284,13 +285,15 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
         const hidden = getUiOptions<T, S, F>(fieldUiSchema).widget === 'hidden';
         const fieldIdSchema: IdSchema<T> = get(idSchema, [name], {});
 
+        const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
+        const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
         return {
           content: (
-            <SchemaField
+            <Field
               key={name}
               name={name}
               required={this.isRequired(name)}
-              schema={get(schema, [PROPERTIES_KEY, name], {})}
+              schema={fieldSchema}
               uiSchema={fieldUiSchema}
               errorSchema={get(errorSchema, name)}
               idSchema={fieldIdSchema}

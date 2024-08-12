@@ -58,6 +58,8 @@
     "globals": "^15.9.0",
     "jsdom": "^24.1.1",
     "prettier": "^3.3.3",
+    "sass": "^1.77.8",
+    "sass-loader": "^16.0.0",
     "stylelint": "^16.8.1",
     "stylelint-config-standard": "^36.0.1",
     "typescript": "^5.5.3",

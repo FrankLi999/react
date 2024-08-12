@@ -3,7 +3,7 @@ pnpm i lodash-es markdown-to-jsx nanoid prop-types @react-jsf/utils @react-jsf/a
 
 pnpm i -D @types/lodash-es @types/node @types/react-test-renderer ajv --filter core
 
-pnpm i -D @types/node vite-plugin-lib-inject-css glob vite-plugin-dts eslint-plugin-react-hooks prettier eslint-config-prettier stylelint stylelint-config-standard autoprefixer vitest jsdom @testing-library/react @vitest/ui @vitest/coverage-v8 --filter core
+pnpm i -D @types/node vite-plugin-lib-inject-css glob vite-plugin-dts eslint-plugin-react-hooks prettier eslint-config-prettier stylelint stylelint-config-standard autoprefixer vitest jsdom @testing-library/react @vitest/ui @vitest/coverage-v8 sass --filter core
 
 
 # React + TypeScript + Vite
