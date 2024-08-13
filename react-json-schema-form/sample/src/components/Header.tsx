@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import Form, { IChangeEvent } from '@react-jsf/core';
 import { RJSFSchema, UiSchema, ValidatorType } from '@react-jsf/utils';
-import localValidator from '@react-jsf/validator-ajv8';
+import localValidator from '@react-jsf/ajv';
 import base64 from '../utils/base64';
 
 import CopyLink from './CopyLink';

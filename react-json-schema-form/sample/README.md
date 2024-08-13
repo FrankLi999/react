@@ -1,3 +1,12 @@
+pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/bootstrap5 @react-jsf/patternfly --filter sample
+
+pnpm i @fluentui/react @patternfly/react-core @patternfly/react-icons bootstrap react-icons ajv ajv-formats ajv-i18n dayjs lodash-es react-bootstrap react-is react-portal --filter sample
+
+pnpm i -D @types/node @types/lodash-es --filter sample
+
+pnpm i -D vite-plugin-lib-inject-css glob vite-plugin-dts eslint-plugin-react-hooks prettier eslint-config-prettier stylelint stylelint-config-standard autoprefixer vitest jsdom @testing-library/react @vitest/ui @vitest/coverage-v8 sass --filter sample
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

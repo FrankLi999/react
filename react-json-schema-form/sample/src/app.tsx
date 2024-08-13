@@ -1,6 +1,6 @@
-import { Theme as Bootstrap5Theme } from '@react-jsf/bootstrap5';
-import { Theme as PatternFlyTheme } from '@react-jsf/patternfly';
-import v8Validator, { customizeValidator } from '@react-jsf/validator-ajv8';
+import { Theme as Bootstrap4Theme } from '@react-jsf/bootstrap5';
+import { Theme as ChakraUITheme } from '@react-jsf/patternfly';
+import v8Validator, { customizeValidator } from '@react-jsf/ajv';
 import localize_es from 'ajv-i18n/localize/es';
 import Ajv2019 from 'ajv/dist/2019.js';
 import Ajv2020 from 'ajv/dist/2020.js';
@@ -19,11 +19,12 @@ const validators: PlaygroundProps['validators'] = {
   'AJV8 (discriminator)': AJV8_DISC,
   AJV8_es: esV8Validator,
   AJV8_2019,
-  AJV8_2020
+  AJV8_2020,
+  'AJV6 (deprecated)': v6Validator,
 };
 
 const themes: PlaygroundProps['themes'] = {
-  default: { // bootstrap 5
+  default: {
     stylesheet: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
     theme: {},
     subthemes: {
@@ -83,11 +84,38 @@ const themes: PlaygroundProps['themes'] = {
       },
     },
   },
-  patternfly: {
+  antd: {
     stylesheet: '//cdnjs.cloudflare.com/ajax/libs/antd/4.1.4/antd.min.css',
-    theme: PatternFlyTheme,
+    theme: AntdTheme,
   },
-
+  'bootstrap-4': {
+    stylesheet: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css',
+    theme: Bootstrap4Theme,
+  },
+  'chakra-ui': {
+    stylesheet: '',
+    theme: ChakraUITheme,
+  },
+  'fluent-ui': {
+    stylesheet: '//static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css',
+    theme: FluentUITheme,
+  },
+  'fluentui-rc': {
+    stylesheet: '',
+    theme: FluentUIRCTheme,
+  },
+  'material-ui-4': {
+    stylesheet: '',
+    theme: MuiV4Theme,
+  },
+  'material-ui-5': {
+    stylesheet: '',
+    theme: MuiV5Theme,
+  },
+  'semantic-ui': {
+    stylesheet: '//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css',
+    theme: SuiTheme,
+  },
 };
 
 export default function App() {

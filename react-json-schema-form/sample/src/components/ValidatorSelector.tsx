@@ -1,6 +1,6 @@
 import Form, { IChangeEvent } from '@react-jsf/core';
 import { GenericObjectType, RJSFSchema, UiSchema } from '@react-jsf/utils';
-import localValidator from '@react-jsf/validator-ajv8';
+import localValidator from '@react-jsf/ajv';
 
 interface ValidatorSelectorProps {
   validator: string;

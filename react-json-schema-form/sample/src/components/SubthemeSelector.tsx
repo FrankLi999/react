@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import Form, { IChangeEvent } from '@react-jsf/core';
 import { RJSFSchema, UiSchema } from '@react-jsf/utils';
-import localValidator from '@react-jsf/validator-ajv8';
+import localValidator from '@react-jsf/ajv';
 
 const uiSchema: UiSchema = {
   'ui:placeholder': 'Select subtheme',
