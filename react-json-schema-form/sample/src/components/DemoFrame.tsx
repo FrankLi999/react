@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, ReactElement, ReactNode, useEffect } from 'react';
+import { useRef, ReactElement, ReactNode } from 'react';
 import Frame, { FrameComponentProps } from 'react-frame-component';
 
 /*
@@ -37,38 +37,13 @@ interface DemoFrameProps extends FrameComponentProps {
 
 export default function DemoFrame(props: DemoFrameProps) {
   const { children, head, theme, ...frameProps } = props;
-
-  //const [jss, setJss] = useState<Jss>();
-  const [ready, setReady] = useState(false);
-  const [sheetsManager, setSheetsManager] = useState(new Map());
-  const [container, setContainer] = useState();
-  const [window, setWindow] = useState();
-
   const instanceRef = useRef<any>();
-
-  const handleRef = useCallback(
-    (ref: any) => {
-      instanceRef.current = {
-        contentDocument: ref ? ref.node.contentDocument : null,
-        contentWindow: ref ? ref.node.contentWindow : null,
-      };
-    },
-    [instanceRef]
-  );
-
-  const onContentDidMount = useCallback(() => {
-    setReady(true);
-    setSheetsManager(new Map());
-    setContainer(instanceRef.current.contentDocument.body);
-    setWindow(() => instanceRef.current.contentWindow);
-  }, []);
-
   let body: ReactNode = children;  
 
   return (
-    <Frame ref={handleRef} contentDidMount={onContentDidMount} head={head} {...frameProps}>
+    <Frame ref={instanceRef}  head={head} {...frameProps}>      
       <div id='demo-frame-jss' />
-      {body}
+      {body}      
     </Frame>
   );
 }
