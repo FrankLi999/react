@@ -1,4 +1,4 @@
-import { Component, ComponentType } from 'react';
+import { Component, ComponentType, useState } from 'react';
 import {
   getTemplate,
   getUiOptions,
@@ -32,28 +32,43 @@ type ObjectFieldState = {
   additionalProperties: object;
 };
 
-/** The `ObjectField` component is used to render a field in the schema that is of type `object`. It tracks whether an
- * additional property key was modified and what it was modified to
- *
- * @param props - The `FieldProps` for this template
- */
-class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any> extends Component<
-  FieldProps<T, S, F>,
-  ObjectFieldState
-> {
-  /** Set up the initial state */
-  state = {
+function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: FieldProps<T, S, F> & ObjectFieldState
+) {
+  const {
+    schema: rawSchema,
+    uiSchema = {},
+    formData,
+    errorSchema,
+    idSchema,
+    name,
+    required = false,
+    disabled,
+    readonly,
+    hideError,
+    idPrefix,
+    idSeparator,
+    onBlur,
+    onFocus,
+    registry,
+    title,
+    onChange
+  } = props;
+  
+  const { fields, formContext, schemaUtils, translateString, globalUiOptions } = registry;
+  
+  const { SchemaField } = fields;
+  const [state, setState] = useState<ObjectFieldState>({
     wasPropertyKeyModified: false,
     additionalProperties: {},
-  };
+  });
 
   /** Returns a flag indicating whether the `name` field is required in the object schema
    *
    * @param name - The name of the field to check for required-ness
    * @returns - True if the field `name` is required, false otherwise
    */
-  isRequired(name: string) {
-    const { schema } = this.props;
+  function isRequired(name: string) {
     return Array.isArray(schema.required) && schema.required.indexOf(name) !== -1;
   }
 
@@ -65,9 +80,9 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    * @param addedByAdditionalProperties - Flag indicating whether this property is an additional property
    * @returns - The onPropertyChange callback for the `name` property
    */
-  onPropertyChange = (name: string, addedByAdditionalProperties = false) => {
+  const onPropertyChange = (name: string, addedByAdditionalProperties = false) => {
     return (value: T | undefined, newErrorSchema?: ErrorSchema<T>, id?: string) => {
-      const { formData, onChange, errorSchema } = this.props;
+      
       if (value === undefined && addedByAdditionalProperties) {
         // Don't set value = undefined for fields added by
         // additionalProperties. Doing so removes them from the
@@ -97,10 +112,10 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    * @param key - The key for which the drop callback is desired
    * @returns - The drop property click callback
    */
-  onDropPropertyClick = (key: string) => {
+  const onDropPropertyClick = (key: string) => {
     return (event: DragEvent) => {
       event.preventDefault();
-      const { onChange, formData } = this.props;
+      const { onChange, formData } = props;
       const copiedFormData = { ...formData } as T;
       unset(copiedFormData, key);
       onChange(copiedFormData);
@@ -114,8 +129,7 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    * @param [formData] - The form data in which to check if the desired key already exists
    * @returns - The name of the next available key from `preferredKey`
    */
-  getAvailableKey = (preferredKey: string, formData?: T) => {
-    const { uiSchema, registry } = this.props;
+  const getAvailableKey = (preferredKey: string, formData?: T) => {
     const { duplicateKeySuffixSeparator = '-' } = getUiOptions<T, S, F>(uiSchema, registry.globalUiOptions);
 
     let index = 0;
@@ -132,14 +146,14 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    * @param oldValue - The old value of a field
    * @returns - The key change callback function
    */
-  onKeyChange = (oldValue: any) => {
+  const onKeyChange = (oldValue: any) => {
     return (value: any, newErrorSchema: ErrorSchema<T>) => {
       if (oldValue === value) {
         return;
       }
-      const { formData, onChange, errorSchema } = this.props;
+      const { formData, onChange, errorSchema } = props;
 
-      value = this.getAvailableKey(value, formData);
+      value = getAvailableKey(value, formData);
       const newFormData: GenericObjectType = {
         ...(formData as GenericObjectType),
       };
@@ -150,7 +164,10 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
       });
       const renamedObj = Object.assign({}, ...keyValues);
 
-      this.setState({ wasPropertyKeyModified: true });
+      setState({ 
+        ...state,
+        wasPropertyKeyModified: true 
+      });
 
       onChange(
         renamedObj,
@@ -167,10 +184,7 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    *
    * @param type - The type of the new additional schema property
    */
-  getDefaultValue(type?: RJSFSchema['type']) {
-    const {
-      registry: { translateString },
-    } = this.props;
+  function getDefaultValue(type?: RJSFSchema['type']) {
     switch (type) {
       case 'array':
         return [];
@@ -194,11 +208,11 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
    *
    * @param schema - The schema element to which the new property is being added
    */
-  handleAddClick = (schema: S) => () => {
+  const handleAddClick = (schema: S) => () => {
     if (!schema.additionalProperties) {
       return;
     }
-    const { formData, onChange, registry } = this.props;
+    const { formData, onChange, registry } = props;
     const newFormData = { ...formData } as T;
 
     let type: RJSFSchema['type'] = undefined;
@@ -218,81 +232,57 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
       }
     }
 
-    const newKey = this.getAvailableKey('newKey', newFormData);
+    const newKey = getAvailableKey('newKey', newFormData);
     // Cast this to make the `set` work properly
-    set(newFormData as GenericObjectType, newKey, defaultValue ?? this.getDefaultValue(type));
+    set(newFormData as GenericObjectType, newKey, defaultValue ?? getDefaultValue(type));
 
     onChange(newFormData);
   };
+  
+  const schema: S = schemaUtils.retrieveSchema(rawSchema, formData);
+  const uiOptions = getUiOptions<T, S, F>(uiSchema, globalUiOptions);
+  const { properties: schemaProperties = {} } = schema;
 
-  /** Renders the `ObjectField` from the given props
-   */
-  render() {
-    const {
-      schema: rawSchema,
-      uiSchema = {},
-      formData,
-      errorSchema,
-      idSchema,
-      name,
-      required = false,
-      disabled,
-      readonly,
-      hideError,
-      idPrefix,
-      idSeparator,
-      onBlur,
-      onFocus,
-      registry,
-      title,
-    } = this.props;
+  const templateTitle = uiOptions.title ?? schema.title ?? title ?? name;
+  const description = uiOptions.description ?? schema.description;
+  let orderedProperties: string[];
+  try {
+    const properties = Object.keys(schemaProperties);
+    orderedProperties = orderProperties(properties, uiOptions.order);
+  } catch (err) {
+    return (
+      <div>
+        <p className='config-error' style={{ color: 'red' }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
+            {translateString(TranslatableString.InvalidObjectField, [name || 'root', (err as Error).message])}
+          </Markdown>
+        </p>
+        <pre>{JSON.stringify(schema)}</pre>
+      </div>
+    );
+  }
 
-    const { fields, formContext, schemaUtils, translateString, globalUiOptions } = registry;
-    
-    const { SchemaField } = fields;
-    const schema: S = schemaUtils.retrieveSchema(rawSchema, formData);
-    const uiOptions = getUiOptions<T, S, F>(uiSchema, globalUiOptions);
-    const { properties: schemaProperties = {} } = schema;
+  const Template = getTemplate<'ObjectFieldTemplate', T, S, F>('ObjectFieldTemplate', registry, uiOptions);
 
-    const templateTitle = uiOptions.title ?? schema.title ?? title ?? name;
-    const description = uiOptions.description ?? schema.description;
-    let orderedProperties: string[];
-    try {
-      const properties = Object.keys(schemaProperties);
-      orderedProperties = orderProperties(properties, uiOptions.order);
-    } catch (err) {
-      return (
-        <div>
-          <p className='config-error' style={{ color: 'red' }}>
-            <Markdown options={{ disableParsingRawHTML: true }}>
-              {translateString(TranslatableString.InvalidObjectField, [name || 'root', (err as Error).message])}
-            </Markdown>
-          </p>
-          <pre>{JSON.stringify(schema)}</pre>
-        </div>
-      );
-    }
+  const templateProps = {
+    // getDisplayLabel() always returns false for object types, so just check the `uiOptions.label`
+    title: uiOptions.label === false ? '' : templateTitle,
+    description: uiOptions.label === false ? undefined : description,
+    properties: orderedProperties.map((name) => {
+    const addedByAdditionalProperties = has(schema, [PROPERTIES_KEY, name, ADDITIONAL_PROPERTY_FLAG]);
+    const fieldUiSchema = addedByAdditionalProperties ? uiSchema.additionalProperties : uiSchema[name];
+    const hidden = getUiOptions<T, S, F>(fieldUiSchema).widget === 'hidden';
+    const fieldIdSchema: IdSchema<T> = get(idSchema, [name], {});
 
-    const Template = getTemplate<'ObjectFieldTemplate', T, S, F>('ObjectFieldTemplate', registry, uiOptions);
-
-    const templateProps = {
-      // getDisplayLabel() always returns false for object types, so just check the `uiOptions.label`
-      title: uiOptions.label === false ? '' : templateTitle,
-      description: uiOptions.label === false ? undefined : description,
-      properties: orderedProperties.map((name) => {
-        const addedByAdditionalProperties = has(schema, [PROPERTIES_KEY, name, ADDITIONAL_PROPERTY_FLAG]);
-        const fieldUiSchema = addedByAdditionalProperties ? uiSchema.additionalProperties : uiSchema[name];
-        const hidden = getUiOptions<T, S, F>(fieldUiSchema).widget === 'hidden';
-        const fieldIdSchema: IdSchema<T> = get(idSchema, [name], {});
-
-        const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
-        const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
-        return {
+    const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
+    const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
+        
+    return {
           content: (
             <Field
               key={name}
               name={name}
-              required={this.isRequired(name)}
+              required={isRequired(name)}
               schema={fieldSchema}
               uiSchema={fieldUiSchema}
               errorSchema={get(errorSchema, name)}
@@ -301,16 +291,16 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
               idSeparator={idSeparator}
               formData={get(formData, name)}
               formContext={formContext}
-              wasPropertyKeyModified={this.state.wasPropertyKeyModified}
-              onKeyChange={this.onKeyChange(name)}
-              onChange={this.onPropertyChange(name, addedByAdditionalProperties)}
+              wasPropertyKeyModified={state.wasPropertyKeyModified}
+              onKeyChange={onKeyChange(name)}
+              onChange={onPropertyChange(name, addedByAdditionalProperties)}
               onBlur={onBlur}
               onFocus={onFocus}
               registry={registry}
               disabled={disabled}
               readonly={readonly}
               hideError={hideError}
-              onDropPropertyClick={this.onDropPropertyClick}
+              onDropPropertyClick={onDropPropertyClick}
             />
           ),
           name,
@@ -331,8 +321,8 @@ class ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends Fo
       formContext,
       registry,
     };
-    return <Template {...templateProps} onAddClick={this.handleAddClick} />;
-  }
+    return <Template {...templateProps} onAddClick={handleAddClick} />;
+  
 }
 
 export default ObjectField;

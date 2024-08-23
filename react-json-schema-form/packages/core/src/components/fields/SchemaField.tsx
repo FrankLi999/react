@@ -1,4 +1,4 @@
-import { useCallback, Component, ComponentType } from 'react';
+import React, { useCallback, Component, ComponentType } from 'react';
 import {
   ADDITIONAL_PROPERTY_FLAG,
   deepEquals,
@@ -352,16 +352,15 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
 /** The `SchemaField` component determines whether it is necessary to rerender the component based on any props changes
  * and if so, calls the `SchemaFieldRender` component with the props.
  */
-class SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any> extends Component<
-  FieldProps<T, S, F>
-> {
-  shouldComponentUpdate(nextProps: Readonly<FieldProps<T, S, F>>) {
-    return !deepEquals(this.props, nextProps);
-  }
 
-  render() {
-    return <SchemaFieldRender<T, S, F> {...this.props} />;
-  }
+function shouldComponentUpdate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(props: Readonly<FieldProps<T, S, F>>, nextProps: Readonly<FieldProps<T, S, F>>) {
+  return !deepEquals(props, nextProps);
 }
 
-export default SchemaField;
+function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+  props: FieldProps<T, S, F>
+) {
+  return <SchemaFieldRender<T, S, F> {...props} />;
+}
+
+export default React.memo(SchemaField, shouldComponentUpdate);
