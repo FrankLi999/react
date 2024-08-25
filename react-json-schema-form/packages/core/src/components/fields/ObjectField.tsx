@@ -1,4 +1,4 @@
-import { Component, ComponentType, useState } from 'react';
+import { ComponentType, useState } from 'react';
 import {
   getTemplate,
   getUiOptions,
@@ -33,7 +33,7 @@ type ObjectFieldState = {
 };
 
 function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
-  props: FieldProps<T, S, F> & ObjectFieldState
+  props: FieldProps<T, S, F>
 ) {
   const {
     schema: rawSchema,
@@ -115,7 +115,6 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   const onDropPropertyClick = (key: string) => {
     return (event: DragEvent) => {
       event.preventDefault();
-      const { onChange, formData } = props;
       const copiedFormData = { ...formData } as T;
       unset(copiedFormData, key);
       onChange(copiedFormData);
@@ -212,7 +211,6 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
     if (!schema.additionalProperties) {
       return;
     }
-    const { formData, onChange, registry } = props;
     const newFormData = { ...formData } as T;
 
     let type: RJSFSchema['type'] = undefined;

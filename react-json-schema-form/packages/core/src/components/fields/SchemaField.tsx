@@ -1,7 +1,6 @@
-import React, { useCallback, Component, ComponentType } from 'react';
+import { ComponentType, useCallback } from 'react';
 import {
   ADDITIONAL_PROPERTY_FLAG,
-  deepEquals,
   descriptionId,
   ErrorSchema,
   FieldProps,
@@ -18,7 +17,7 @@ import {
   StrictRJSFSchema,
   TranslatableString,
   UI_OPTIONS_KEY,
-  UIOptionsType
+  UIOptionsType,
 } from '@react-jsf/utils';
 import isObject from 'lodash-es/isObject';
 import omit from 'lodash-es/omit';
@@ -123,7 +122,7 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   } = props;
   const { formContext, schemaUtils, globalUiOptions } = registry;
   const uiOptions = getUiOptions<T, S, F>(uiSchema, globalUiOptions);
-  const FieldTemplate: ComponentType<FieldTemplateProps<T, S, F>> = getTemplate<'FieldTemplate', T, S, F>('FieldTemplate', registry, uiOptions) as ComponentType<FieldTemplateProps<T, S, F>>;
+  const FieldTemplate = getTemplate<'FieldTemplate', T, S, F>('FieldTemplate', registry, uiOptions);
   const DescriptionFieldTemplate = getTemplate<'DescriptionFieldTemplate', T, S, F>(
     'DescriptionFieldTemplate',
     registry,
@@ -148,8 +147,8 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
     },
     [fieldId, onChange]
   );
-  
-  const FieldComponent: ComponentType<FieldProps<T, S, F>> = getFieldComponent<T, S, F>(schema, uiOptions, idSchema, registry) as ComponentType<FieldProps<T, S, F>>;
+
+  const FieldComponent = getFieldComponent<T, S, F>(schema, uiOptions, idSchema, registry) as ComponentType;
   const disabled = Boolean(uiOptions.disabled ?? props.disabled);
   const readonly = Boolean(uiOptions.readonly ?? (props.readonly || props.schema.readOnly || schema.readOnly));
   const uiSchemaHideError = uiOptions.hideError;
@@ -167,10 +166,10 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   const fieldUiSchema = omit(uiSchema, ['ui:classNames', 'classNames', 'ui:style']);
   if (UI_OPTIONS_KEY in fieldUiSchema) {
     fieldUiSchema[UI_OPTIONS_KEY] = omit(fieldUiSchema[UI_OPTIONS_KEY], ['classNames', 'style']);
-  }
-
+  } 
+  const TheFieldComponent = FieldComponent as ComponentType<FieldProps<T, S, F>>;
   const field = (
-    <FieldComponent
+    <TheFieldComponent
       {...props}
       onChange={handleFieldComponentChange}
       idSchema={idSchema}
@@ -180,7 +179,7 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
       readonly={readonly}
       hideError={hideError}
       autofocus={autofocus}
-      errorSchema={fieldErrorSchema as ErrorSchema<T>}
+      errorSchema={fieldErrorSchema as ErrorSchema} 
       formContext={formContext}
       rawErrors={__errors}
     />
@@ -349,13 +348,10 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   );
 }
 
-/** The `SchemaField` component determines whether it is necessary to rerender the component based on any props changes
- * and if so, calls the `SchemaFieldRender` component with the props.
- */
+// function shouldComponentUpdate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(props: Readonly<FieldProps<T, S, F>>, nextProps: Readonly<FieldProps<T, S, F>>) {
+//   return !deepEquals(props, nextProps);
+// }
 
-function shouldComponentUpdate<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(props: Readonly<FieldProps<T, S, F>>, nextProps: Readonly<FieldProps<T, S, F>>) {
-  return !deepEquals(props, nextProps);
-}
 
 function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
@@ -363,4 +359,5 @@ function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   return <SchemaFieldRender<T, S, F> {...props} />;
 }
 
-export default React.memo(SchemaField, shouldComponentUpdate);
+// export default React.memo(SchemaField, shouldComponentUpdate);
+export default SchemaField;

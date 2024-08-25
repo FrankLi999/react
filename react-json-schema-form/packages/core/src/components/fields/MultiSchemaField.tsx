@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import get from 'lodash-es/get';
 import isEmpty from 'lodash-es/isEmpty';
 import omit from 'lodash-es/omit';
 import {
   ANY_OF_KEY,
-  deepEquals,
   ERRORS_KEY,
   FieldProps,
   FormContextType,
@@ -27,10 +26,18 @@ type AnyOfFieldState<S extends StrictRJSFSchema = RJSFSchema> = {
   retrievedOptions: S[];
 };
 
+/** The `AnyOfField` component is used to render a field in the schema that is an `anyOf`, `allOf` or `oneOf`. It tracks
+ * the currently selected option and cleans up any irrelevant data in `formData`.
+ *
+ * @param props - The `FieldProps` for this template
+ */
 function AnyOfField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
-  props: FieldProps<T, S, F> & AnyOfFieldState<S>
-) {
+  props: FieldProps<T, S, F>
+) {  
+ 
   const {
+    formData,
+    options,
     name,
     disabled = false,
     errorSchema = {},
@@ -38,58 +45,26 @@ function AnyOfField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
     onBlur,
     onFocus,
     registry,
+    idSchema,
     schema,
     uiSchema,
-    formData,
-    options,
-    idSchema
+    onChange
   } = props;
 
   const { widgets, fields, translateString, globalUiOptions, schemaUtils } = registry;
   const { SchemaField: _SchemaField } = fields;
   
-  
-  const retrievedOptionsFromProps = options.map((opt: S) => schemaUtils.retrieveSchema(opt, formData));
-  const [state, setState] = useState<AnyOfFieldState<S>>({
-     // cache the retrieved options in state in case they have $refs to save doing it later
-    retrievedOptions: retrievedOptionsFromProps,
-    selectedOption: getMatchingOption(0, formData, retrievedOptionsFromProps)
-  });
-  const [prevState, setPrevState] = useState({
-    state,
-    options,
-    formData,
-    idSchema
-  });
+  const [state, setState] = useState<AnyOfFieldState<S>>(getInitialState());
   const { selectedOption, retrievedOptions } = state;
-  /** React lifecycle method that is called when the props and/or state for this component is updated. It recomputes the
-   * currently selected option based on the overall `formData`
-   *
-   * @param prevProps - The previous `FieldProps` for this template
-   * @param prevState - The previous `AnyOfFieldState` for this template
-   */
-  useEffect(() => {
-  // componentDidUpdate(prevProps: Readonly<FieldProps<T, S, F>>, prevState: Readonly<AnyOfFieldState>) {
-    const { selectedOption } = state;
-    let newState = state;
-    if (!deepEquals(prevState.options, options)) {
-      // re-cache the retrieved options in state in case they have $refs to save doing it later
-      const retrievedOptions = options.map((opt: S) => schemaUtils.retrieveSchema(opt, formData));
-      newState = { selectedOption, retrievedOptions };
-    }
-    if (!deepEquals(formData, prevState.formData) && idSchema.$id === prevState.idSchema.$id) {
-      const { retrievedOptions } = newState;
-      const matchingOption = getMatchingOption(selectedOption, formData, retrievedOptions);
 
-      if (prevState && matchingOption !== selectedOption) {
-        newState = { selectedOption: matchingOption, retrievedOptions };
-      }
-    }
-    if (newState !== state) {
-      setState(newState);
-    }
-  });
-
+  function getInitialState(): AnyOfFieldState<S> {
+    const retrievedOptions = options.map((opt: S) => schemaUtils.retrieveSchema(opt, formData as T));
+    return {
+      retrievedOptions,
+      selectedOption: getMatchingOption(0, formData, retrievedOptions),
+    };
+  }
+  
   /** Determines the best matching option for the given `formData` and `options`.
    *
    * @param formData - The new formData
@@ -114,9 +89,6 @@ function AnyOfField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
    * @param option - The new option value being selected
    */
   const onOptionChange = (option?: string) => {
-    const { selectedOption, retrievedOptions } = state;
-    const { formData, onChange, registry } = props;
-    const { schemaUtils } = registry;
     const intOption = option !== undefined ? parseInt(option, 10) : -1;
     if (intOption === selectedOption) {
       return;
@@ -139,10 +111,13 @@ function AnyOfField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   };
 
   function getFieldId() {
-    const { idSchema, schema } = props;
     return `${idSchema.$id}${schema.oneOf ? '__oneof_select' : '__anyof_select'}`;
   }
 
+  /** Renders the `AnyOfField` selector along with a `SchemaField` for the value of the `formData`
+   */
+  // render() {
+    
   const {
     widget = 'select',
     placeholder,
@@ -228,7 +203,7 @@ function AnyOfField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends 
       {optionSchema && <_SchemaField {...props} schema={optionSchema} uiSchema={optionUiSchema} />}
     </div>
   );
-  
+  // }
 }
 
 export default AnyOfField;
