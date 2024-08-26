@@ -52,7 +52,7 @@ export default function CheckboxesWidget<
               id={optionId(id, index)}
               name={id}
               label={option.label}
-              autoFocus={autofocus && index === 0}
+              // autoFocus={autofocus && index === 0}
               onChange={() => _onChange(index)}
               onBlur={_onBlur}
               onFocus={_onFocus}

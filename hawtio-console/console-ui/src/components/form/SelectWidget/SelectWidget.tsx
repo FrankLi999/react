@@ -58,7 +58,7 @@ export default function SelectWidget<
       isRequired={required}
       multiple={multiple}
       isDisabled={disabled || readonly}
-      autoFocus={autofocus}
+      // autoFocus={autofocus}
       className={rawErrors.length > 0 ? 'is-invalid' : ''}
       onBlur={
         onBlur &&

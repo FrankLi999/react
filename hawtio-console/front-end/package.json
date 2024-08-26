@@ -1,5 +1,5 @@
 {
-  "name": "react-json-schema-form",
+  "name": "hawtio-frent-end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react-json-schema-form": "file:"
+    "hawtio-frent-end": "file:"
   }
 }

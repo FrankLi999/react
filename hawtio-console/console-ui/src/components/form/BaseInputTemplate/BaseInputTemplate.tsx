@@ -49,7 +49,7 @@ export default function BaseInputTemplate<
         id={id}
         name={id}
         placeholder={placeholder}
-        autoFocus={autofocus}
+        // autoFocus={autofocus}
         isRequired={required}
         isDisabled={disabled}
         readOnly={readonly}

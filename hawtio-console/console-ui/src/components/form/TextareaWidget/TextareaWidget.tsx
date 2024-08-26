@@ -41,7 +41,7 @@ export default function TextareaWidget<
         readOnly={readonly}
         value={value}
         isRequired={required}
-        autoFocus={autofocus}
+        // autoFocus={autofocus}
         rows={options.rows || 5}
         onChange={() => _onChange}
         onBlur={() => _onBlur}
