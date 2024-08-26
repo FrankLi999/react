@@ -1,4 +1,4 @@
-import { useRef, ElementType, FormEvent, ReactNode, useEffect, useState } from 'react';
+import { ElementType, FormEvent, ReactNode, useEffect, useState } from 'react';
 import {
   createSchemaUtils,
   CustomValidator,
@@ -211,10 +211,10 @@ export interface FormProps<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
    * Use at your own risk as this prop is private and may change at any time without notice.
    */
   _internalFormWrapper?: ElementType;
-  /** Support receiving a React ref to the Form
+  /** Support receiving a React formRef to the Form
    */
-  // ref?: Ref<Form<T, S, F>>;
-  ref?: any;
+  // formRef?: Ref<Form<T, S, F>>;
+  formRef?: any;
 }
 
 /** The data that is contained within the state for the `Form` */
@@ -248,6 +248,7 @@ export interface FormState<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   retrievedSchema: S;
 }
 
+
 /** The event data passed when changes have been made to the form, includes everything from the `FormState` except
  * the schema validation errors. An additional `status` is added when returned from `onSubmit`
  */
@@ -258,16 +259,13 @@ export interface IChangeEvent<T = any, S extends StrictRJSFSchema = RJSFSchema, 
 }
 
 /** The `Form` component renders the outer form and all the fields defined in the `schema` */
-function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
-    props: FormProps<T, S, F>
-) {  
-  /** The ref used to hold the `form` element, this needs to be `any` because `tagName` or `_internalFormWrapper` can
+const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(props: FormProps<T, S, F>) => {  
+  /** The formRef used to hold the `form` element, this needs to be `any` because `tagName` or `_internalFormWrapper` can
    * provide any possible type here
    */
   if (!props.validator) {
     throw new Error('A validator is required for Form functionality to work');
   }
-  const formElement = useRef<HTMLFormElement>(); 
   const {
     children,
     id,
@@ -289,7 +287,9 @@ function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormCo
     formContext,
     showErrorList = 'top',
     _internalFormWrapper,
+    formRef
   } = props;
+  
   const [state, setState] = useState<FormState<T, S, F>>(getStateFromProps(undefined, props, props.formData));
   const { schema, schemaUtils, retrievedSchema, uiSchema, formData, errorSchema, idSchema } = state;
   const registry = getRegistry();
@@ -793,19 +793,19 @@ function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormCo
   // TODO
   /** Provides a function that can be used to programmatically submit the `Form` */
   // const submit = () => {
-  //   if (formElement.current) {
+  //   if (formRef.current) {
   //     const submitCustomEvent = new CustomEvent('submit', {
   //       cancelable: true,
   //     });
   //     submitCustomEvent.preventDefault();
-  //     formElement.current.dispatchEvent(submitCustomEvent);
-  //     formElement.current.requestSubmit();
+  //     formRef.current.dispatchEvent(submitCustomEvent);
+  //     formRef.current.requestSubmit();
   //   }
   // };
 
   /** Attempts to focus on the field associated with the `error`. Uses the `property` field to compute path of the error
    * field, then, using the `idPrefix` and `idSeparator` converts that path into an id. Then the input element with that
-   * id is attempted to be found using the `formElement` ref. If it is located, then it is focused.
+   * id is attempted to be found using the `formRef` ref. If it is located, then it is focused.
    *
    * @param error - The error on which to focus
    */
@@ -822,10 +822,10 @@ function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormCo
     }
 
     const elementId = path.join(idSeparator);
-    // let field = formElement?.current?.elements[elementId];
+    // let field = formRef?.current?.elements[elementId];
     // if (!field) {
       // if not an exact match, try finding an input starting with the element id (like radio buttons or checkboxes)
-    const field = formElement?.current?.querySelector(`input[id^=${elementId}`) as HTMLElement;
+    const field = formRef?.current?.querySelector(`input[id^=${elementId}`) as HTMLElement;
     // }
     // if (field && field.length) {
       // If we got a list with length > 0
@@ -931,7 +931,7 @@ function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormCo
       noValidate={noHtml5Validate}
       onSubmit={doOnSubmit}
       as={as}
-      ref={formElement}
+      ref={formRef}
     >
       {showErrorList === 'top' && renderErrors(registry)}
       <_SchemaField
@@ -957,7 +957,7 @@ function Form<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormCo
     </FormTag>
   );
 
-}
+};
   /** Renders the `Form` fields inside the <form> | `tagName` or `_internalFormWrapper`, rendering any errors if
    * needed along with the submit button or any children of the form.
    */
