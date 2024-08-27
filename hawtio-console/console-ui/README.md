@@ -1,11 +1,42 @@
+## CRACO path alias
+https://blog.logrocket.com/using-path-aliases-cleaner-react-typescript-imports/  
+Create React App Configuration Override.  
+
+npm i -D @craco/craco  
+
+craco.config.js:
+```
+const path = require('path');
+module.exports = {
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+};
+```
+script:
+```
+"scripts": {
+-  "start": "react-scripts start"
++  "start": "craco start"
+-  "build": "react-scripts build"
++  "build": "craco build"
+-  "test": "react-scripts test"
++  "test": "craco test"
+}
+```
 # dev
 
 set PUBLIC_URL=/my-camel/admin/console
 npm run start
+http://localhost:5173/my-camel/admin/console
 
 # Build
 set PUBLIC_URL=/my-camel/admin/actuator/hawtio
 npm run build
+
+http://localhost:8080/my-camel/admin/actuator/hawtio
 
 ## rjsf/patternfly
 

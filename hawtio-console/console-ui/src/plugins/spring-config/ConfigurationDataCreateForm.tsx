@@ -11,9 +11,9 @@ import {
     Text,
     TextContent,
   } from '@patternfly/react-core';
-import { RJSFSchema } from '@rjsf/utils';
-import validator from '@rjsf/validator-ajv8';
-import Form from "../../components/form/Form";
+import { RJSFSchema } from '@react-jsf/utils';
+import validator from '@react-jsf/ajv';
+import Form from "@react-jsf/patternfly";
 
 function ConfigurationDataCreateForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);

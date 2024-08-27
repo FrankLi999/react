@@ -6,6 +6,13 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@react-jsf/utils": ["src/lib/utils/src/index"], // this doesn't work for @pages/smth
+      "@react-jsf/ajv": ["src/lib/ajv/src/index"],
+      "@react-jsf/core": ["src/lib/core/src/index"],
+      "@react-jsf/patternfly": ["src/lib/patternfly/src/index"],
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

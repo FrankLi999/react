@@ -1,7 +1,7 @@
 import React from "react";
 import { useCookies } from 'react-cookie';
 import { Link, useLocation } from "react-router-dom";
-import { RJSFSchema } from '@rjsf/utils';
+import { RJSFSchema } from '@react-jsf/utils';
 import { 
     Card,
     CardBody,
@@ -11,8 +11,8 @@ import {
     Text,
     TextContent,
   } from '@patternfly/react-core';
-import validator from '@rjsf/validator-ajv8';
-import Form from "../../components/form/Form";
+import validator from '@react-jsf/ajv';
+import Form from "@react-jsf/patternfly";
 
 function ConfigurationDataEditForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
