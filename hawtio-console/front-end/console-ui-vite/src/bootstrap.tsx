@@ -7,6 +7,14 @@ const hawtioVersion = '4.1.0'
 const log = Logger.get('hawtio-console');
 log.info('Hawtio console:', hawtioVersion);
 
+// const setBaseHref = () => {
+//   console.log(import.meta.env.VITE_APP_BASE_URL);
+//   const base = document.createElement('base');
+//   base.setAttribute('href', import.meta.env.VITE_APP_BASE_URL);
+//   document.head.insertBefore(base, document.head.firstChild);
+// }
+
+// setBaseHref();
 // Register builtin plugins
 registerPlugins();
 registerMyPlugins();

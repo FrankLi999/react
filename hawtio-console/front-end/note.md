@@ -155,12 +155,12 @@ pnpm i jolokia.js@2.0.3 keycloak-js@23.0.7 --filter console-ui-vite
    pnpm i react-router-dom@6.26.1 --filter console-ui-vite
 
 
- pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/patternfly --filter console-ui
+ pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/patternfly --filter console-ui-vite
 
 
 
-pnpm i -D @types/json-schema @types/json-schema-merge-allof @types/lodash-es @types/react-is --filter console-ui
+pnpm i -D @types/json-schema @types/json-schema-merge-allof @types/lodash-es @types/react-is --filter console-ui-vite
 
-pnpm i lodash-es react-is ajv ajv-formats ajv-i18n axios --filter console-ui
-pnpm i markdown-to-jsx --filter console-ui
-pnpm i ajv-formats nanoid jsonpointer --filter console-ui 
+pnpm i lodash-es react-is ajv ajv-formats ajv-i18n axios --filter console-ui-vite
+pnpm i markdown-to-jsx --filter console-ui-vite
+pnpm i ajv-formats nanoid jsonpointer --filter console-ui-vite 

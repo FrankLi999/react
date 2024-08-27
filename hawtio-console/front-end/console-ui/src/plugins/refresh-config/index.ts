@@ -5,7 +5,7 @@ export const registerRefreshConfig: HawtioPlugin = () => {
   hawtio.addPlugin({
     id: 'refresh-configurations',
     title: 'Refresh Configurations',
-    path: '/refresh',
+    path: '/refresh-config',
     component: RefreshConfig,
     isActive: async () => true,
   })
