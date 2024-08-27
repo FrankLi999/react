@@ -138,21 +138,21 @@ pnpm run dev
 pnpm create react-app console-ui --template typescript
 
 
-pnpm i @hawtio/react --filter console-ui
+pnpm i @hawtio/react --filter console-ui-vite
 
-pnpm i @patternfly/react-core --filter console-ui
+pnpm i @patternfly/react-core --filter console-ui-vite
 
-pnpm i jolokia.js@2.0.3 keycloak-js@23.0.7 --filter console-ui
+pnpm i jolokia.js@2.0.3 keycloak-js@23.0.7 --filter console-ui-vite
 
 
  
 
 
- pnpm i @fortawesome/fontawesome-free @patternfly/react-icons @patternfly/react-table axios http-proxy-middleware i18next i18next-browser-languagedetector i18next-http-backend --filter console-ui react-cookie  react-i18next react-icons --filter console-ui
+ pnpm i @fortawesome/fontawesome-free @patternfly/react-icons @patternfly/react-table axios http-proxy-middleware i18next i18next-browser-languagedetector i18next-http-backend --filter console-ui react-cookie  react-i18next react-icons --filter console-ui-vite
 
 
     
-   pnpm i react-router-dom@6.26.1 --filter console-ui
+   pnpm i react-router-dom@6.26.1 --filter console-ui-vite
 
 
  pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/patternfly --filter console-ui
