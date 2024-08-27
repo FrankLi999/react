@@ -132,3 +132,35 @@ pnpm run dev
     pnpm test:all
 
 ## Using packages on the website
+
+## hawtio console-ui
+
+pnpm create react-app console-ui --template typescript
+
+
+pnpm i @hawtio/react --filter console-ui
+
+pnpm i @patternfly/react-core --filter console-ui
+
+pnpm i jolokia.js@2.0.3 keycloak-js@23.0.7 --filter console-ui
+
+
+ 
+
+
+ pnpm i @fortawesome/fontawesome-free @patternfly/react-icons @patternfly/react-table axios http-proxy-middleware i18next i18next-browser-languagedetector i18next-http-backend --filter console-ui react-cookie  react-i18next react-icons --filter console-ui
+
+
+    
+   pnpm i react-router-dom@6.26.1 --filter console-ui
+
+
+ pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/patternfly --filter console-ui
+
+
+
+pnpm i -D @types/json-schema @types/json-schema-merge-allof @types/lodash-es @types/react-is --filter console-ui
+
+pnpm i lodash-es react-is ajv ajv-formats ajv-i18n axios --filter console-ui
+pnpm i markdown-to-jsx --filter console-ui
+pnpm i ajv-formats nanoid jsonpointer --filter console-ui 
