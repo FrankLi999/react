@@ -1,4 +1,4 @@
-{
+const ConfigDataFormUISchemaCreate = {
   "ui:submitButtonOptions": {
     "submitText": "Submit Configuration Data",
     "norender": false,
@@ -11,22 +11,19 @@
     "ui:title": "Application",
     "ui:autofocus": true,
     "ui:emptyValue": "",
-    "ui:autocomplete": "my-camel-integrator",
-    "ui:disabled": true
+    "ui:autocomplete": "my-camel-integrator"
   },
   "profile": {
     "ui:title": "Profile",
     "ui:emptyValue": "",
     "ui:autocomplete": "default",
-    "ui:placeholder": "Spring profile",
-    "ui:disabled": true
+    "ui:placeholder": "Spring profile"
   },
   "label": {
     "ui:title": "Label",
     "ui:emptyValue": "",
     "ui:autocomplete": "master",
-    "ui:placeholder": "master",
-    "ui:disabled": true
+    "ui:placeholder": "master"
   },
 
   "props": {
@@ -39,4 +36,5 @@
       }
     }
   }
-}
+};
+export default ConfigDataFormUISchemaCreate;

@@ -13,16 +13,14 @@ import {
   } from '@patternfly/react-core';
 import validator from '@react-jsf/ajv';
 import Form from "@react-jsf/patternfly";
+import ConfigDataSchema from "./form/config-data-schema";
+import ConfigDataFormUISchemaEdit from './form/config-data-form-uischema-edit';
 
 function ConfigurationDataEditForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
-    const schema: RJSFSchema = require("./json-files/config-data-schema.json");
-    const uiSchema = require("./json-files/config-data-form-uischema-edit.json");
     const { state } = useLocation();
     const formData = {...state};
     const log = (type: any) => console.log.bind(console, type);
-    // const schema: RJSFSchema = schemaForm;
-    // const formData = require("./json-files/config-data-form-data.json")
     async function submitData(data: any) {
         console.log('submitted data', data)
         console.log('submitted for data', data.formData)
@@ -53,7 +51,7 @@ function ConfigurationDataEditForm() {
           <PageSection>
             <Card>
               <CardBody>
-                <Form schema={schema} uiSchema={uiSchema} formData={formData} validator={validator} onSubmit={data => submitData(data)} />
+                <Form schema={ConfigDataSchema} uiSchema={ConfigDataSchema} formData={formData} validator={validator} onSubmit={data => submitData(data)} />
               </CardBody>
               <CardFooter>
                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">

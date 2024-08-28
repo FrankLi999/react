@@ -11,17 +11,16 @@ import {
     Text,
     TextContent,
   } from '@patternfly/react-core';
-import { RJSFSchema } from '@react-jsf/utils';
+// import { RJSFSchema } from '@react-jsf/utils';
 import validator from '@react-jsf/ajv';
 import Form from "@react-jsf/patternfly";
-
+import ConfigDataSchema from "./form/config-data-schema";
+import ConfigDataFormUISchemaCreate from './form/config-data-form-uischema-create';
+import ConfigDataFormData from './form/config-data-form-data';
 function ConfigurationDataCreateForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
-    const schema: RJSFSchema = require("./json-files/config-data-schema.json");
-    const uiSchema = require("./json-files/config-data-form-uischema-create.json");
     const log = (type: any) => console.log.bind(console, type);
-    // const schema: RJSFSchema = schemaForm;
-    const formData = require("./json-files/config-data-form-data.json")
+    
     async function submitData(data: any) {
         console.log('submitted data', data)
         console.log('submitted for data', data.formData)
@@ -52,7 +51,7 @@ function ConfigurationDataCreateForm() {
           <PageSection>
             <Card>
               <CardBody>
-                <Form schema={schema} uiSchema={uiSchema} formData={formData} validator={validator} onSubmit={data => submitData(data)} />
+                <Form schema={ConfigDataSchema} uiSchema={ConfigDataFormUISchemaCreate} formData={ConfigDataFormData} validator={validator} onSubmit={data => submitData(data)} />
               </CardBody>
               <CardFooter>
                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">

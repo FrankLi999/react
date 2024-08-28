@@ -1,4 +1,4 @@
-{
+const ConfigDataFormUISchemaEdit ={
   "ui:submitButtonOptions": {
     "submitText": "Submit Configuration Data",
     "norender": false,
@@ -11,19 +11,22 @@
     "ui:title": "Application",
     "ui:autofocus": true,
     "ui:emptyValue": "",
-    "ui:autocomplete": "my-camel-integrator"
+    "ui:autocomplete": "my-camel-integrator",
+    "ui:disabled": true
   },
   "profile": {
     "ui:title": "Profile",
     "ui:emptyValue": "",
     "ui:autocomplete": "default",
-    "ui:placeholder": "Spring profile"
+    "ui:placeholder": "Spring profile",
+    "ui:disabled": true
   },
   "label": {
     "ui:title": "Label",
     "ui:emptyValue": "",
     "ui:autocomplete": "master",
-    "ui:placeholder": "master"
+    "ui:placeholder": "master",
+    "ui:disabled": true
   },
 
   "props": {
@@ -36,4 +39,5 @@
       }
     }
   }
-}
+};
+export default ConfigDataFormUISchemaEdit;
