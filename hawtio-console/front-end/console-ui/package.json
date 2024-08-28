@@ -68,5 +68,13 @@
     "@types/json-schema-merge-allof": "^0.6.5",
     "@types/lodash-es": "^4.17.12",
     "@types/react-is": "^18.3.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:jsx-a11y/recommended"
+    ],
+    "plugins": ["jsx-a11y"]
   }
 }

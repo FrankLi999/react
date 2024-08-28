@@ -51,7 +51,7 @@ function ConfigurationDataEditForm() {
           <PageSection>
             <Card>
               <CardBody>
-                <Form schema={ConfigDataSchema} uiSchema={ConfigDataSchema} formData={formData} validator={validator} onSubmit={data => submitData(data)} />
+                <Form schema={ConfigDataSchema} uiSchema={ConfigDataFormUISchemaEdit} formData={formData} validator={validator} onSubmit={data => submitData(data)} />
               </CardBody>
               <CardFooter>
                 <div className="small form-group d-flex align-items-center justify-content-between mt-4 mb-0">
