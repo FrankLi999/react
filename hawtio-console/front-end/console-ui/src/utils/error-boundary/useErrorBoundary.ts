@@ -1,14 +1,14 @@
-import { useContext, useMemo } from "react";
-import { assertErrorBoundaryContext } from "./assertErrorBoundaryContext";
-import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
+import { useContext, useMemo } from 'react';
+import { assertErrorBoundaryContext } from './assertErrorBoundaryContext';
+import { ErrorBoundaryContext } from './ErrorBoundaryContext';
 
 // type UseErrorBoundaryState<TError> =
 //   | { error: TError; hasError: true }
 //   | { error: null; hasError: false };
 
 export type UseErrorBoundaryApi<TError> = {
-  hasError: boolean,
-  error: any,   
+  hasError: boolean;
+  error: any;
   resetBoundary: () => void;
   showBoundary: (error: TError) => void;
 };
@@ -32,14 +32,14 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
         //    error,
         //    hasError: true,
         // })
-      }
+      },
     }),
     [context.resetErrorBoundary]
   );
 
-//   if (state.hasError) {
-//     throw state.error;
-//   }
+  //   if (state.hasError) {
+  //     throw state.error;
+  //   }
 
   return memoized;
 }

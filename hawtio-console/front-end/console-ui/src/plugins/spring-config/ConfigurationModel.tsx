@@ -1,14 +1,14 @@
 export interface ConfigurationModel {
-    application: string;
-    profile: string;
-    label: string;
-    key: string;
-    props: ConfigurationProperty[];
+  application: string;
+  profile: string;
+  label: string;
+  key: string;
+  props: ConfigurationProperty[];
 }
 
 export interface ConfigurationProperty {
-    propKey: string;
-    propValue: string;
+  propKey: string;
+  propValue: string;
 }
 
 export interface DeleteModalProp {
@@ -19,9 +19,8 @@ export interface DeleteModalProp {
   message: any;
 }
 
-
 export interface ImportModalProp {
-    showModal: boolean;
-    hideModal: any;
-    importConfiguration: any;
-  }
+  showModal: boolean;
+  hideModal: any;
+  importConfiguration: any;
+}
