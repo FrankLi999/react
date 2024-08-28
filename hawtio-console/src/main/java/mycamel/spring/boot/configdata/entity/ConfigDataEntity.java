@@ -8,7 +8,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 @Entity
-@Table(name = "APP_PROPERTIES")
+@Table(name = "MY_PROPERTIES")
 @Getter
 @Setter
 @ToString

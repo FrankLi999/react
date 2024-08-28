@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, Long> {
 
-	@Query(value = "SELECT * FROM APP_PROPERTIES p ORDER BY p.APPLICATION asc, p.PROFILE asc, p.LABEL asc, p.PROP_KEY asc",
+	@Query(value = "SELECT * FROM MY_PROPERTIES p ORDER BY p.APPLICATION asc, p.PROFILE asc, p.LABEL asc, p.PROP_KEY asc",
 			nativeQuery = true)
 	List<ConfigDataEntity> findAll();
 
@@ -20,7 +20,7 @@ public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, L
 	List<ConfigDataEntity> findConfigData(@Param("application") String application);
 
 	// @Modifying
-	// @Query("DELETE FROM APP_PROPERTIES WHERE application = :application and profile =
+	// @Query("DELETE FROM MY_PROPERTIES WHERE application = :application and profile =
 	// :profile and label = :label and PROP_KEY = :propKey")
 	// Mono<Void> deletePropertyValue(String application, String profile, String label,
 	// String propKey);
@@ -30,7 +30,7 @@ public interface ConfigDataRepository extends CrudRepository<ConfigDataEntity, L
 	void deleteApplicationProfile(@Param("application") String application, @Param("profile") String profile);
 
 	@Modifying
-	@Query(value = "UPDATE APP_PROPERTIES SET PROP_VALUE = :propValue WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey",
+	@Query(value = "UPDATE MY_PROPERTIES SET PROP_VALUE = :propValue WHERE application = :application and profile = :profile and label = :label and PROP_KEY = :propKey",
 			nativeQuery = true)
 	void updatePropertyValue(String application, String profile, String label, String propKey, String propValue);
 
