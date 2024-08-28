@@ -1,3 +1,9 @@
+## DISABLE esline
+
+set DISABLE_ESLINT_PLUGIN=true
+
+export DISABLE_ESLINT_PLUGIN=true
+
 ## CRACO path alias
 
 https://blog.logrocket.com/using-path-aliases-cleaner-react-typescript-imports/  
