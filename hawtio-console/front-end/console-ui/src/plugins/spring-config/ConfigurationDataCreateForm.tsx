@@ -11,7 +11,6 @@ import {
   Text,
   TextContent,
 } from '@patternfly/react-core';
-import { RJSFSchema } from '@react-jsf/utils';
 import validator from '@react-jsf/ajv';
 import Form from '@react-jsf/patternfly';
 import ConfigDataSchema from './form/config-data-schema';

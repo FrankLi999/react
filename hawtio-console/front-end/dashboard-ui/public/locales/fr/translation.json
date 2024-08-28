@@ -1,0 +1,10 @@
+{
+    "nav": {
+        "springConfig": "Configurations de printemps",
+        "configData": "Données de configuration",
+        "reloadConfig": "Recharger les configurations",
+        "public": "Publique",
+        "login": "Se connecter",
+        "lockScreen": "Écran verrouillé"
+    }
+}

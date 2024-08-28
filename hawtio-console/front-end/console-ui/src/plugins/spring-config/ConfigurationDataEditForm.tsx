@@ -1,7 +1,6 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useLocation } from 'react-router-dom';
-import { RJSFSchema } from '@react-jsf/utils';
 import {
   Card,
   CardBody,
