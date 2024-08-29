@@ -145,29 +145,30 @@ update package.json and add these scripts:
 ```
 
 ## sass style lint and postcss
+
 https://esausilva.com/2020/07/23/how-to-use-sass-and-css-modules-with-create-react-app-cra/  
 pnpm i -D sass --filter console-ui
 
 pnpm i -D stylelint stylelint-config-prettier stylelint-config-standard stylelint-config-standard-scss stylelint-prettier stylelint-scss --filter console-ui
 
 When you build the app, create-react-app will use PostCSS with the Autoprefixer plugin to automatically add the required vendor prefixes.
-This works with the browsers list in your package.json. 
-
+This works with the browsers list in your package.json.
 
 .stylelintrc.js  
-.stylelintignore  
+.stylelintignore
 
 ## unit test
 
-https://create-react-app.dev/docs/running-tests/  
+https://create-react-app.dev/docs/running-tests/
 
 ## story book
 
 ## husky and lint staged
 
-npm i -D husky lint-staged --filter console-ui  
+npm i -D husky lint-staged --filter console-ui
 
 in package.json,
+
 ```
 "husky": {
     "hooks": {
