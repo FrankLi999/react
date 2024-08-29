@@ -1,18 +1,18 @@
 
 import { createHashRouter, createBrowserRouter, redirect } from "react-router-dom";
-import PublicSite from "./views/public/PublicSite";
-import AuthGuard from "./views/protected/AuthGuard";
-import Error404 from "./views/error/Error404";
+import PublicSite from "./pages/public/PublicSite";
+import AuthGuard from "./pages/protected/AuthGuard";
+import Error404 from "./pages/error/Error404";
 import { lazy } from "react";
-import { ConfigurationModel } from "./views/protected/configuration-data/ConfigurationModel";
-import Oauth2LoginRedirect from "./views/public/Oauth2LoginRedirect";
-const ConfigurationDataEditForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataEditForm"));
-const ConfigurationDataCreateForm = lazy(() => import("./views/protected/configuration-data/ConfigurationDataCreateForm"));
-const Configurations = lazy(() => import("./views/protected/configuration-data/Configurations"));
-const ConfigurationAppDetails = lazy(() => import("./views/protected/configuration-data/ConfigurationAppDetails"));
-const RefreshConfiguration = lazy(() => import("./views/protected/configuration-data/RefreshConfiguration"));
-const Login = lazy(() => import("./views/public/Login"));
-const LockScreen = lazy(() => import("./views/public/LockScreen"));
+import { ConfigurationModel } from "./pages/protected/configuration-data/ConfigurationModel";
+import Oauth2LoginRedirect from "./pages/public/Oauth2LoginRedirect";
+const ConfigurationDataEditForm = lazy(() => import("./pages/protected/configuration-data/ConfigurationDataEditForm"));
+const ConfigurationDataCreateForm = lazy(() => import("./pages/protected/configuration-data/ConfigurationDataCreateForm"));
+const Configurations = lazy(() => import("./pages/protected/configuration-data/Configurations"));
+const ConfigurationAppDetails = lazy(() => import("./pages/protected/configuration-data/ConfigurationAppDetails"));
+const RefreshConfiguration = lazy(() => import("./pages/protected/configuration-data/RefreshConfiguration"));
+const Login = lazy(() => import("./pages/public/Login"));
+const LockScreen = lazy(() => import("./pages/public/LockScreen"));
 // var routes = createBrowserRouter([
 // // var routes = createHashRouter([    
 //     {
