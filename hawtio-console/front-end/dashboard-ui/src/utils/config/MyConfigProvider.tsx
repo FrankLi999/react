@@ -8,7 +8,7 @@ export function MyConfigProvider({ children }) {
     const dataFetch = async () => {
       const data = await (
         await fetch(
-          '/api/myconfig',
+          '/my-camel/admin/api/react-config',
         )
       ).json();
       console.log("myConfig: ", data);

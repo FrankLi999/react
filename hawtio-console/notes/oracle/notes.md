@@ -28,6 +28,7 @@ CREATE INDEX DATA_INDEX
 ON MY_PROPERTIES(APPLICATION, PROFILE, LABEL);
 
 ###########
+
 ## Account expired
 SELECT username, account_status FROM dba_users;
 SELECT username, account_status, expiry_date FROM dba_users

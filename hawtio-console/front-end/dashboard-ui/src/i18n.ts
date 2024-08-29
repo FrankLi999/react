@@ -26,7 +26,7 @@ i18n
   .init<HttpBackendOptions>({
     // resources,
     backend: {
-      loadPath: '/my/camel/i18n/{{lng}}/{{ns}}.json',
+      loadPath: '/my-camel/admin/web/i18next/{{lng}}/{{ns}}.json',
     },    
     fallbackLng: 'en',
     debug: true,

@@ -1,0 +1,20 @@
+to connect to mongo docker container from external. need to update 
+mongo.conf, set net.bindIp to 0.0.0.0 or just set net.bindIpAll to true
+
+mongo compass: use one of the following connection strings:
+    mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+
+    mongodb://localhost:27017/?readPreference=primary&ssl=false
+
+    mongodb://localhost:27017
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl enable mongod
+
+> mongo
+> sudo vi /etc/mongod.conf
+bindIp: 127.0.0.1, 192.168.0.138
+sudo systemctl restart mongod
+
