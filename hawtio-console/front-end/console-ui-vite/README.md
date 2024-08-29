@@ -1,3 +1,12 @@
+## dev and build 
+set VITE_APP_CONSOLE_BASE_URL=/my-camel/admin/actuator/hawtio
+export VITE_APP_CONSOLE_BASE_URL=/my-camel/admin/actuator/hawtio
+pnpm run dev
+pnpm run build
+
+http://localhost:8080/my-camel/admin/actuator/hawtio/
+http://localhost:3000/my-camel/admin/actuator/hawtio/
+## misc
 pnpm i @react-jsf/utils @react-jsf/ajv @react-jsf/core @react-jsf/bootstrap5 @react-jsf/patternfly --filter sample
 
 pnpm i @fluentui/react @patternfly/react-core @patternfly/react-icons bootstrap react-icons ajv ajv-formats ajv-i18n dayjs lodash-es react-bootstrap react-is react-portal --filter sample
