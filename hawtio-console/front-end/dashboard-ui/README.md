@@ -1,6 +1,12 @@
+## DISABLE esline
+
+set DISABLE_ESLINT_PLUGIN=true
+export DISABLE_ESLINT_PLUGIN=true
+
 ## dev and build
 
 set PUBLIC_URL=/my-camel/admin/dashboard
+export PUBLIC_URL=/my-camel/admin/dashboard
 pnpm run start
 pnpm run build
 
