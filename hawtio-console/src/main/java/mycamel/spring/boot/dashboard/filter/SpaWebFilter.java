@@ -45,6 +45,7 @@ public class SpaWebFilter extends OncePerRequestFilter {
 //        }
         if (isDashboard && !isFilename) {
             req.getRequestDispatcher("/my-camel/admin/dashboard/index.html").forward(req, res);
+            // req.getRequestDispatcher("dashboard/index.html").forward(req, res);
         } else {
             chain.doFilter(req, res);
         }

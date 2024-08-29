@@ -1,4 +1,4 @@
-package mycamel.spring.boot.configdata.config;
+package mycamel.spring.boot.hawtio.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

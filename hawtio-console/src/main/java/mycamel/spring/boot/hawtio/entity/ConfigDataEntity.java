@@ -1,4 +1,4 @@
-package mycamel.spring.boot.configdata.entity;
+package mycamel.spring.boot.hawtio.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

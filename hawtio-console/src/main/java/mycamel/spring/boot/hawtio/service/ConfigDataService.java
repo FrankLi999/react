@@ -1,12 +1,12 @@
-package mycamel.spring.boot.configdata.service;
+package mycamel.spring.boot.hawtio.service;
 
 import lombok.RequiredArgsConstructor;
-import mycamel.spring.boot.configdata.dto.ApplicationProfile;
-import mycamel.spring.boot.configdata.dto.ConfigData;
-import mycamel.spring.boot.configdata.dto.ConfigurationProperty;
-import mycamel.spring.boot.configdata.entity.ConfigDataEntity;
-import mycamel.spring.boot.configdata.entity.ConfigDataEntityKey;
-import mycamel.spring.boot.configdata.repository.ConfigDataRepository;
+import mycamel.spring.boot.hawtio.dto.ApplicationProfile;
+import mycamel.spring.boot.hawtio.dto.ConfigData;
+import mycamel.spring.boot.hawtio.dto.ConfigurationProperty;
+import mycamel.spring.boot.hawtio.entity.ConfigDataEntity;
+import mycamel.spring.boot.hawtio.entity.ConfigDataEntityKey;
+import mycamel.spring.boot.hawtio.repository.ConfigDataRepository;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

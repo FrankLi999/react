@@ -1,6 +1,6 @@
-package mycamel.spring.boot.configdata.repository;
+package mycamel.spring.boot.hawtio.repository;
 
-import mycamel.spring.boot.configdata.entity.ConfigDataEntity;
+import mycamel.spring.boot.hawtio.entity.ConfigDataEntity;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -1,4 +1,4 @@
-package mycamel.spring.boot.configdata.controller;
+package mycamel.spring.boot.hawtio.controller;
 
 import lombok.RequiredArgsConstructor;
 import mycamel.spring.boot.camel.dto.MyConfig;
@@ -20,8 +20,7 @@ public class ReactConfigController {
     @ResponseStatus(HttpStatus.OK)
     public MyConfig myConfig() {
         Map config = new HashMap();
-        config.put("a", "b");
-        config.put("c", "d");
+        config.put("dashboard_basename", "/my-camel/admin/dashboard");
         return MyConfig.builder().config(config).build();
     }
 

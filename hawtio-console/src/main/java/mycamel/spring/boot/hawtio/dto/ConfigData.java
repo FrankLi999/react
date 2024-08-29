@@ -1,4 +1,4 @@
-package mycamel.spring.boot.configdata.dto;
+package mycamel.spring.boot.hawtio.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

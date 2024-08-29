@@ -1,9 +1,9 @@
-package mycamel.spring.boot.configdata.controller;
+package mycamel.spring.boot.hawtio.controller;
 
 import lombok.RequiredArgsConstructor;
-import mycamel.spring.boot.configdata.dto.ApplicationProfile;
-import mycamel.spring.boot.configdata.dto.ConfigData;
-import mycamel.spring.boot.configdata.service.ConfigDataService;
+import mycamel.spring.boot.hawtio.dto.ApplicationProfile;
+import mycamel.spring.boot.hawtio.dto.ConfigData;
+import mycamel.spring.boot.hawtio.service.ConfigDataService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 // import org.springframework.security.web.csrf.CsrfToken;
