@@ -87,3 +87,9 @@ The URLs for accessing the application and Hawtio are as follows:
 - Hawtio: http://localhost:10001/management/actuator/hawtio
 
 (`/actuator` prefix can be configured using `management.endpoints.web.base-path` property as described earlier.)
+
+
+## urls
+
+- Hawtio: http://localhost:8080/my-camel/admin/actuator/hawtio
+- Dashboard: http://localhost:8080/my-camel/admin/dashboard

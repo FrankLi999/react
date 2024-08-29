@@ -4,7 +4,6 @@ import PublicSite from "./pages/public/PublicSite";
 import AuthGuard from "./pages/protected/AuthGuard";
 import Error404 from "./pages/error/Error404";
 import { lazy } from "react";
-import { ConfigurationModel } from "./pages/protected/configuration-data/ConfigurationModel";
 import Oauth2LoginRedirect from "./pages/public/Oauth2LoginRedirect";
 const ConfigurationDataEditForm = lazy(() => import("./pages/protected/configuration-data/ConfigurationDataEditForm"));
 const ConfigurationDataCreateForm = lazy(() => import("./pages/protected/configuration-data/ConfigurationDataCreateForm"));

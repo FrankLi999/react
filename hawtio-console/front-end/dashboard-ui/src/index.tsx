@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter,  createBrowserRouter,  redirect, Route, RouterProvider, Routes  } from 'react-router-dom';
+import { createBrowserRouter, Route, RouterProvider  } from 'react-router-dom';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/my-camel-dashboard.scss";
 import routes from "./routes";
@@ -57,12 +57,12 @@ const getRoutes = (routes) => {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const basename = ''; // '/my/camel/spring/admin/dashboard'
+const basename = '/my-camel/admin/dashboard';
 root.render(
   <React.StrictMode>
     <CookiesProvider>    
       <MyConfigProvider>
-        <RouterProvider router={createBrowserRouter(getReactRoutes(routes))} />
+        <RouterProvider router={createBrowserRouter(getReactRoutes(routes), {basename})}/>
         {/* <BrowserRouter basename={basename}>
           <React.Suspense fallback={<Loader/>}>
             <Routes>

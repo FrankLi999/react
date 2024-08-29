@@ -1,3 +1,9 @@
+## dev and build
+
+set PUBLIC_URL=/my-camel/admin/dashboard
+pnpm run start
+pnpm run build
+
 # Error handling 
 ## react-error-boundary
 
