@@ -80,9 +80,9 @@ public class HawtioEndpoint implements WebMvcConfigurer {
 		// @formatter:off
         // Hawtio React static resources
 		// for vite build
-		registry
-				.addResourceHandler(endpointPath.resolveUrlMapping("hawtio", "/assets/**"))
-				.addResourceLocations("classpath:/hawtio-static/assets/");
+//		registry
+//				.addResourceHandler(endpointPath.resolveUrlMapping("hawtio", "/assets/**"))
+//				.addResourceLocations("classpath:/hawtio-static/assets/");
 		// for cra build
         registry
             .addResourceHandler(endpointPath.resolveUrlMapping("hawtio", "/static/**"))
