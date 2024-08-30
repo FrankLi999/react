@@ -1,5 +1,5 @@
-import React from "react";
-import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
+import React from 'react';
+import { ErrorBoundaryContext } from './ErrorBoundaryContext';
 type ErrorBoundaryState =
   | {
       hasError: true;
@@ -15,25 +15,28 @@ const initialState: ErrorBoundaryState = {
   error: null,
 };
 
-const ErrorBoundaryContextProvider= ({ children }: {children: React.ReactNode}) => {
+const ErrorBoundaryContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = React.useState<ErrorBoundaryState>(initialState);
   const resetErrorBoundary = () => {
-     setState(initialState);
-  }
+    setState(initialState);
+  };
   const showBoundary = (error: any) => {
     setState({
-        hasError: true,
-        error: error
-        
+      hasError: true,
+      error: error,
     });
- }
-  return <ErrorBoundaryContext.Provider value={{
-    hasError: state.hasError,
-    error: state.error,
-    resetErrorBoundary: resetErrorBoundary,
-    showBoundary: showBoundary
-  }}>
-    {children}
-    </ErrorBoundaryContext.Provider>;
+  };
+  return (
+    <ErrorBoundaryContext.Provider
+      value={{
+        hasError: state.hasError,
+        error: state.error,
+        resetErrorBoundary: resetErrorBoundary,
+        showBoundary: showBoundary,
+      }}
+    >
+      {children}
+    </ErrorBoundaryContext.Provider>
+  );
 };
 export default ErrorBoundaryContextProvider;

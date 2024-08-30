@@ -1,15 +1,18 @@
-import React from "react";
-import { useErrorBoundary  } from './useErrorBoundary';
-const ErrorBoundary = ({ children} : {children: React.ReactNode}) => {
+import React from 'react';
+import { useErrorBoundary } from './useErrorBoundary';
+const ErrorBoundary = ({ children }: { children: React.ReactNode }) => {
   const { hasError, error, resetBoundary } = useErrorBoundary();
-  return <>
-    {hasError && (
-       <div role="alert">
+  return (
+    <>
+      {hasError && (
+        <div role='alert'>
           <p>Place holder for error handling:</p>
-          <pre>{error["message"]}</pre>
+          <pre>{error['message']}</pre>
           <button onClick={resetBoundary}>Try again</button>
-      </div>)}
-    {children}
-    </>;
+        </div>
+      )}
+      {children}
+    </>
+  );
 };
 export default ErrorBoundary;

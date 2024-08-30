@@ -4,4 +4,4 @@ import './index.css';
 import './utils/i18n';
 import('./bootstrap');
 
-export {}
+export {};

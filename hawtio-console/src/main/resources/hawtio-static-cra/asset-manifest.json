@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css",
-    "main.js": "/my-camel/admin/actuator/hawtio/static/js/main.ac920121.js",
-    "static/js/296.082ed853.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/296.082ed853.chunk.js",
-    "static/js/567.f57b0164.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/567.f57b0164.chunk.js",
-    "static/js/3.9c8a7ae3.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/3.9c8a7ae3.chunk.js",
-    "static/js/518.0800f986.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/518.0800f986.chunk.js",
-    "static/js/546.239fd5b2.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/546.239fd5b2.chunk.js",
-    "static/css/381.18c899a3.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/381.18c899a3.chunk.css",
-    "static/js/381.d56cec69.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/381.d56cec69.chunk.js",
+    "main.css": "/my-camel/admin/actuator/hawtio/static/css/main.d2115909.css",
+    "main.js": "/my-camel/admin/actuator/hawtio/static/js/main.252572b9.js",
+    "static/css/790.7ae30b84.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/790.7ae30b84.chunk.css",
+    "static/js/790.f9640da8.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/790.f9640da8.chunk.js",
+    "static/js/529.e29954b0.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/529.e29954b0.chunk.js",
+    "static/js/803.5399033d.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/803.5399033d.chunk.js",
+    "static/js/331.1c5142c8.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/331.1c5142c8.chunk.js",
+    "static/js/617.208c7c95.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/617.208c7c95.chunk.js",
+    "static/css/150.d1a6b9c0.chunk.css": "/my-camel/admin/actuator/hawtio/static/css/150.d1a6b9c0.chunk.css",
+    "static/js/150.6de56e62.chunk.js": "/my-camel/admin/actuator/hawtio/static/js/150.6de56e62.chunk.js",
     "static/media/RedHatDisplayVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF-Italic.813182e673c38ef5ee4b.woff2",
     "static/media/RedHatTextVF-Italic.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatTextVF-Italic.078865af129336cde269.woff2",
     "static/media/RedHatDisplayVF.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplayVF.18ca482120faaa701d8b.woff2",
@@ -25,19 +26,20 @@
     "static/media/RedHatDisplay-Bold.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatDisplay-Bold.d8d66dd2281610675aca.woff2",
     "static/media/RedHatText-Regular.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatText-Regular.b36d694117bf12672d49.woff2",
     "static/media/RedHatMono-Regular.woff2": "/my-camel/admin/actuator/hawtio/static/media/RedHatMono-Regular.57234ce675330fa60781.woff2",
-    "static/media/pf-v5-pficon.woff2": "/my-camel/admin/actuator/hawtio/static/media/pf-v5-pficon.c06f4d6490c387fd1d92.woff2",
+    "static/media/pf-v5-pficon.woff2": "/my-camel/admin/actuator/hawtio/static/media/pf-v5-pficon.ccb70de4bdff4c207d35.woff2",
     "index.html": "/my-camel/admin/actuator/hawtio/index.html",
     "static/media/getFetch.cjs": "/my-camel/admin/actuator/hawtio/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
-    "main.3cc5694f.css.map": "/my-camel/admin/actuator/hawtio/static/css/main.3cc5694f.css.map",
-    "main.ac920121.js.map": "/my-camel/admin/actuator/hawtio/static/js/main.ac920121.js.map",
-    "296.082ed853.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/296.082ed853.chunk.js.map",
-    "518.0800f986.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/518.0800f986.chunk.js.map",
-    "546.239fd5b2.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/546.239fd5b2.chunk.js.map",
-    "381.18c899a3.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/381.18c899a3.chunk.css.map",
-    "381.d56cec69.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/381.d56cec69.chunk.js.map"
+    "main.d2115909.css.map": "/my-camel/admin/actuator/hawtio/static/css/main.d2115909.css.map",
+    "main.252572b9.js.map": "/my-camel/admin/actuator/hawtio/static/js/main.252572b9.js.map",
+    "790.7ae30b84.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/790.7ae30b84.chunk.css.map",
+    "790.f9640da8.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/790.f9640da8.chunk.js.map",
+    "331.1c5142c8.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/331.1c5142c8.chunk.js.map",
+    "617.208c7c95.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/617.208c7c95.chunk.js.map",
+    "150.d1a6b9c0.chunk.css.map": "/my-camel/admin/actuator/hawtio/static/css/150.d1a6b9c0.chunk.css.map",
+    "150.6de56e62.chunk.js.map": "/my-camel/admin/actuator/hawtio/static/js/150.6de56e62.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3cc5694f.css",
-    "static/js/main.ac920121.js"
+    "static/css/main.d2115909.css",
+    "static/js/main.252572b9.js"
   ]
 }
