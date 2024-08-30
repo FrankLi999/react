@@ -194,9 +194,10 @@ eslint-plugin-react-refresh - validates that your components can safely be updat
 eslint.config.js
 
 ### vitest
-pnpm add -D --filter console-ui-vite @testing-library/jest-dom vitest jsdom @testing-library/react
-         
-packages/ui/vitte.config.ts:
+
+pnpm i -D --filter console-ui-vite vitest jsdom @testing-library/jest-dom @testing-library/react @testing-library/user-event
+
+packages/ui/vite.config.ts:
       ```
         import { defineConfig } from 'vite';
         import react from '@vitejs/plugin-react';
@@ -213,9 +214,16 @@ packages/ui/vitte.config.ts:
       ```
 
     src/setupTests.js
-          ```
-          import '@testing-library/jest-dom/vitest';
-          ```
+        ```
+        import { afterEach } from 'vitest'
+        import { cleanup } from '@testing-library/react'
+        import '@testing-library/jest-dom/vitest'
+
+        // runs a clean after each test case (e.g. clearing jsdom)
+        afterEach(() => {
+          cleanup();
+        })
+        ```
 
     [packages/ui/tsconfig.app.json]
 
