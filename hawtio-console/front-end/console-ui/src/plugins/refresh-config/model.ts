@@ -1,4 +1,5 @@
 export interface RefreshConfigModel {
-  pod: string;
-  refreshUrl: string;
+   pod: string;
+   refreshUrl: string
 }
+

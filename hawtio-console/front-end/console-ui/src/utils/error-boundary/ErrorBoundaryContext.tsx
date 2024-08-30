@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export type ErrorBoundaryContextType = {
   hasError: boolean;
@@ -7,4 +7,5 @@ export type ErrorBoundaryContextType = {
   showBoundary: (error: any[]) => void;
 };
 
-export const ErrorBoundaryContext = createContext<ErrorBoundaryContextType | null>(null);
+export const ErrorBoundaryContext =
+  createContext<ErrorBoundaryContextType | null>(null);

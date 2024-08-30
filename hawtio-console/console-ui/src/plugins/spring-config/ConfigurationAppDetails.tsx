@@ -118,7 +118,8 @@ function ConfigurationAppDetails() {
               <Tbody>
                 {paginatedRows.map((row: any, rowIndex: number) => (
                 <Tr key={rowIndex}>
-                  {appConfigColumns.map((column, columnIndex) => (
+                  {appConfigColumns.map((column) => (
+
                   <Td key={column.dataField}>
                   {renderColum(column, row)}
                   </Td>

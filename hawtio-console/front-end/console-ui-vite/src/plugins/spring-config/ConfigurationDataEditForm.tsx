@@ -1,7 +1,5 @@
-import React from "react";
 import { useCookies } from 'react-cookie';
 import { Link, useLocation } from "react-router-dom";
-import { RJSFSchema } from '@react-jsf/utils';
 import { 
     Card,
     CardBody,
@@ -20,7 +18,7 @@ function ConfigurationDataEditForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
     const { state } = useLocation();
     const formData = {...state};
-    const log = (type: any) => console.log.bind(console, type);
+    // const log = (type: any) => console.log.bind(console, type);
     async function submitData(data: any) {
         console.log('submitted data', data)
         console.log('submitted for data', data.formData)

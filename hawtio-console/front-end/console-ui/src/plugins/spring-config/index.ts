@@ -1,5 +1,5 @@
-import { hawtio, HawtioPlugin } from '@hawtio/react';
-import { SpringConfig } from './spring-config';
+import { hawtio, HawtioPlugin } from '@hawtio/react'
+import { SpringConfig } from './spring-config'
 
 export const registerSpringConfig: HawtioPlugin = () => {
   hawtio.addPlugin({
@@ -8,5 +8,5 @@ export const registerSpringConfig: HawtioPlugin = () => {
     path: '/spring-config',
     component: SpringConfig,
     isActive: async () => true,
-  });
-};
+  })
+}

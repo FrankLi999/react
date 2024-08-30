@@ -1,6 +1,3 @@
-import React from "react";
-import { useCookies } from 'react-cookie';
-import { CookiesProvider } from 'react-cookie';
 import { Link } from "react-router-dom";
 import {
     Card,
@@ -19,7 +16,7 @@ function ConfigurationDataCreateForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
     const schema: RJSFSchema = require("./json-files/config-data-schema.json");
     const uiSchema = require("./json-files/config-data-form-uischema-create.json");
-    const log = (type: any) => console.log.bind(console, type);
+    // const log = (type: any) => console.log.bind(console, type);
     // const schema: RJSFSchema = schemaForm;
     const formData = require("./json-files/config-data-form-data.json")
     async function submitData(data: any) {

@@ -1,4 +1,3 @@
-import { useCookies } from 'react-cookie';
 import {
   PageSection, 
   PageSectionVariants, 
@@ -22,6 +21,7 @@ export const RefreshConfig: React.FunctionComponent = () => {
   const [servicePods, setServicePods] = React.useState('');
   const [isRefreshing, setIsRefreshing] = React.useState<boolean>(false);
   const [refreshResult, setRefreshResult] = React.useState('');
+  console.log(refreshResult)
   interface RefreshingPropsType {
     spinnerAriaValueText: string;
     spinnerAriaLabelledBy?: string;

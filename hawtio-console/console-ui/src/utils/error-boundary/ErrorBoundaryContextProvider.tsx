@@ -1,5 +1,4 @@
 import React from "react";
-import { useErrorBoundary  } from './useErrorBoundary';
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 type ErrorBoundaryState =
   | {

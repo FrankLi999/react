@@ -1,5 +1,5 @@
-import { hawtio, HawtioPlugin } from '@hawtio/react';
-import { RefreshConfig } from './refresh-config';
+import { hawtio, HawtioPlugin } from '@hawtio/react'
+import { RefreshConfig } from './refresh-config'
 
 export const registerRefreshConfig: HawtioPlugin = () => {
   hawtio.addPlugin({
@@ -8,5 +8,5 @@ export const registerRefreshConfig: HawtioPlugin = () => {
     path: '/refresh-config',
     component: RefreshConfig,
     isActive: async () => true,
-  });
-};
+  })
+}

@@ -83,7 +83,7 @@ pnpm run dev
    create src/index.ts, src/components/Button.tsx and , src/components/Button.test.tsx
 
 
-   pnpm add -D --filter ui @testing-library/jest-dom vitest jsdom @testing-library/react
+   pnpm add -D --filter console-ui-vite @testing-library/jest-dom vitest jsdom @testing-library/react
 
    packages/ui/vitest.config.ts:
       ```

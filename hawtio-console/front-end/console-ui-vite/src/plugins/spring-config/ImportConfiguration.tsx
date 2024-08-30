@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Modal, ModalVariant, Button } from '@patternfly/react-core';
 import { ImportModalProp } from "./ConfigurationModel";
 

@@ -29,9 +29,9 @@ import ConfigurationDataCreateForm from './ConfigurationDataCreateForm';
 import ConfigurationAppDetails from './ConfigurationAppDetails';
 import ErrorBoundaryContextProvider from '../../utils/error-boundary/ErrorBoundaryContextProvider';
 import ErrorBoundary from '../../utils/error-boundary/ErrorBoundary';
-interface Translation {
-  [key: string]: any;
-}
+// interface Translation {
+//   [key: string]: any;
+// }
 
 export const SpringConfig: React.FunctionComponent = () => {
     // const [cookies] = useCookies(['XSRF-TOKEN']);
@@ -364,7 +364,7 @@ export const SpringConfig: React.FunctionComponent = () => {
                <Tbody>
                {paginatedRows.map((row: any, rowIndex: number) => (
                  <Tr key={rowIndex}>
-                   {configurationTableColumns.map((column, columnIndex) => (
+                   {configurationTableColumns.map((column) => (
                      <Td key={column.dataField}>
                          {renderColum(column, row)}
                      </Td>

@@ -1,6 +1,4 @@
-import React from "react";
 import { useCookies } from 'react-cookie';
-import { CookiesProvider } from 'react-cookie';
 import { Link } from "react-router-dom";
 import {
     Card,
@@ -19,7 +17,7 @@ import ConfigDataFormUISchemaCreate from './form/config-data-form-uischema-creat
 import ConfigDataFormData from './form/config-data-form-data';
 function ConfigurationDataCreateForm() {
     const [cookies] = useCookies(['XSRF-TOKEN']);
-    const log = (type: any) => console.log.bind(console, type);
+    // const log = (type: any) => console.log.bind(console, type);
     
     async function submitData(data: any) {
         console.log('submitted data', data)

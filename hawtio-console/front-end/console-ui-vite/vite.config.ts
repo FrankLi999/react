@@ -1,5 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+/// <reference types="vite/client" />
+/// <reference types="vitest" />
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import sass from 'sass';
 
 // https://vitejs.dev/config/
 const VITE_APP_CONSOLE_BASE_URL = process.env.VITE_APP_CONSOLE_BASE_URL;
@@ -7,6 +10,13 @@ export default defineConfig({
   // base: "/my-camel/admin/console",
   base: `${VITE_APP_CONSOLE_BASE_URL}/`,
   plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        implementation: sass,
+      },
+    },
+  },
   server: {
     port:3000,
     proxy: {
@@ -63,5 +73,10 @@ export default defineConfig({
         secure: false
       }
     }
-  }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['src/setupTests.ts'],
+  },
 })
