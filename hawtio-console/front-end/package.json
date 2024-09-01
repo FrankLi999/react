@@ -2,6 +2,7 @@
   "name": "hawtio-frent-end",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test:all": "pnpm run -r test",

@@ -39,9 +39,9 @@ script:
 
 # dev
 
-set PUBLIC_URL=/my-camel/admin/console
+set PUBLIC_URL=/my-camel/admin/actuator/hawtio
 pnpm run start
-http://localhost:3000/my-camel/admin/console
+http://localhost:3000/my-camel/admin/actuator/hawtio
 
 # Build
 

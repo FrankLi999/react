@@ -1,0 +1,16 @@
+{
+  "name": "hawttio-front-end",
+  "private": true,
+  "workspaces":[
+    "./packages/*",
+    "./sample",
+    "./console-ui-vite",
+    "./console-ui"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.3"
+  }
+}
