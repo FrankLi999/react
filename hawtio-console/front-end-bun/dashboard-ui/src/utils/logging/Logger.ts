@@ -11,12 +11,8 @@ export interface Logger {
 }
 
 export type LogLevel = 'log' | 'warn' | 'error';
-export const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {
-  // TODO - for build
-  if (message) {
-    console.log(message, ...optionalParams);
-  }
-};
+// @ts-ignore
+export const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {};
 
 /** The App environment */
 export type Environment = 'development' | 'production';

@@ -20,14 +20,14 @@ export const NO_OP: LogFn = (message?: any, ...optionalParams: any[]) => {
 
 /** The App environment */
 export type Environment = 'development' | 'production';
+
 /*
  * yarn start  # Will show all logs
  * REACT_APP_APP_ENV='production' yarn start  # Will show only 'warn' and'error' logs
  * # Remember to build the production App with:
- * REACT_APP_APP_ENV='production' yarn build
+ * REACT_APP_APP_ENV='production' yarn build 
  */
-export const APP_ENV: Environment =
-  process.env.REACT_APP_APP_ENV === 'production' ? 'production' : 'development';
+export const APP_ENV: Environment = process.env.REACT_APP_APP_ENV === 'production' ? 'production' : 'development';
 export const LOG_LEVEL: LogLevel = APP_ENV === 'production' ? 'warn' : 'log';
 
 /**

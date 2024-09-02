@@ -1,6 +1,0 @@
-packages:
-  - "packages/*"
-  - "sample"
-  - "console-ui"
-  - "console-ui-vite"
-  - "dashboard-ui"
