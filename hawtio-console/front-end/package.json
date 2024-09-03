@@ -6,7 +6,7 @@
     "./sample",
     "./console-ui-vite",
     "./console-ui",
-	  "./dashboard-ui"
+	"./dashboard-ui"
   ],
   "devDependencies": {
     "@types/bun": "latest"
