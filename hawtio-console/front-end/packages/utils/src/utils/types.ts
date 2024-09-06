@@ -353,7 +353,7 @@ export interface Registry<T = any, S extends StrictRJSFSchema = RJSFSchema, F ex
   formContext: F;
   /** The root schema, as passed to the `Form`, which can contain referenced definitions */
   rootSchema: S;
-  /** The current implementation of the `SchemaUtilsType` (from `@rjsf/utils`) in use by the `Form`.  Used to call any
+  /** The current implementation of the `SchemaUtilsType` (from `@react-jsf/utils`) in use by the `Form`.  Used to call any
    * of the validation-schema-based utility functions
    */
   schemaUtils: SchemaUtilsType<T, S>;
