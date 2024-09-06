@@ -986,7 +986,7 @@ export interface ValidatorType<T = any, S extends StrictRJSFSchema = RJSFSchema,
    *
    * @param errorSchema - The `ErrorSchema` instance to convert
    * @param [fieldPath=[]] - The current field path, defaults to [] if not specified
-   * @deprecated - Use the `toErrorList()` function provided by `@rjsf/utils` instead. This function will be removed in
+   * @deprecated - Use the `toErrorList()` function provided by `@react-jsf/utils` instead. This function will be removed in
    *        the next major release.
    */
   toErrorList(errorSchema?: ErrorSchema<T>, fieldPath?: string[]): RJSFValidationError[];
@@ -1100,7 +1100,7 @@ export interface SchemaUtilsType<T = any, S extends StrictRJSFSchema = RJSFSchem
    * @returns - The index of the matched option or 0 if none is available
    * @deprecated
    */
-  getMatchingOption(formData: T | undefined, options: S[], discriminatorField?: string): number;
+  // getMatchingOption(formData: T | undefined, options: S[], discriminatorField?: string): number;
   /** Checks to see if the `schema` and `uiSchema` combination represents an array of files
    *
    * @param schema - The schema for which check for array of files flag is desired
@@ -1128,10 +1128,10 @@ export interface SchemaUtilsType<T = any, S extends StrictRJSFSchema = RJSFSchem
    * @param validationData - The current `ValidationData` into which to merge the additional errors
    * @param [additionalErrorSchema] - The additional set of errors
    * @returns - The `validationData` with the additional errors from `additionalErrorSchema` merged into it, if provided
-   * @deprecated - Use the `validationDataMerge()` function exported from `@rjsf/utils` instead. This function will be
+   * @deprecated - Use the `validationDataMerge()` function exported from `@react-jsf/utils` instead. This function will be
    *        removed in the next major release.
    */
-  mergeValidationData(validationData: ValidationData<T>, additionalErrorSchema?: ErrorSchema<T>): ValidationData<T>;
+  // mergeValidationData(validationData: ValidationData<T>, additionalErrorSchema?: ErrorSchema<T>): ValidationData<T>;
   /** Retrieves an expanded schema that has had all of its conditions, additional properties, references and
    * dependencies resolved and merged into the `schema` given a `rawFormData` that is used to do the potentially
    * recursive resolution.
