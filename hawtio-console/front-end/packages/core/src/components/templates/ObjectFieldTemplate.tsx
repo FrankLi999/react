@@ -47,6 +47,7 @@ export default function ObjectFieldTemplate<
   const {
     ButtonTemplates: { AddButton },
   } = registry.templates;
+  console.log("<<<<<<<<<<<<<<<< object template:", JSON.stringify(props.schema, null, 2));   
   return (
     <fieldset id={idSchema.$id}>
       {title && (

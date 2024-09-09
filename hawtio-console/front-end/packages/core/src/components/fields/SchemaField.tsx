@@ -104,6 +104,7 @@ function getFieldComponent<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
 function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
 ) {
+  console.log("<<<<<<<<<<<<<<<< schema >>>:", JSON.stringify(props.schema, null, 2));
   const {
     schema: _schema,
     idSchema: _idSchema,
@@ -212,14 +213,14 @@ function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   if (!hideError && __errors && __errors.length > 0) {
     classNames.push('field-error has-error has-danger');
   }
-  if (uiSchema?.classNames) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        "'uiSchema.classNames' is deprecated and may be removed in a major release; Use 'ui:classNames' instead."
-      );
-    }
-    classNames.push(uiSchema.classNames);
-  }
+  // if (uiSchema?.classNames) {
+  //   if (process.env.NODE_ENV !== 'production') {
+  //     console.warn(
+  //       "'uiSchema.classNames' is deprecated and may be removed in a major release; Use 'ui:classNames' instead."
+  //     );
+  //   }
+  //   classNames.push(uiSchema.classNames);
+  // }
   if (uiOptions.classNames) {
     classNames.push(uiOptions.classNames);
   }
@@ -287,7 +288,7 @@ function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   const _AnyOfField = registry.fields.AnyOfField;
   const _OneOfField = registry.fields.OneOfField;
   const isReplacingAnyOrOneOf = uiSchema?.['ui:field'] && uiSchema?.['ui:fieldReplacesAnyOrOneOf'] === true;
-
+  console.log("<<<<<<<<<<<<<<<< schema FieldTemplate >>>:", JSON.stringify(fieldProps.schema, null, 2));
   return (
     <FieldTemplate {...fieldProps}>
       <>

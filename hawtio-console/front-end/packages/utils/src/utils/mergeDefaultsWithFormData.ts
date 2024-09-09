@@ -47,7 +47,7 @@ export default function mergeDefaultsWithFormData<T = any>(
         mergeExtraArrayDefaults
       );
       return acc;
-    }, acc);
+    }, acc) as T;
   }
   return formData;
 }

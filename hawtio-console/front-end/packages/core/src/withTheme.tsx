@@ -29,6 +29,7 @@ export default function withTheme<T = any, S extends StrictRJSFSchema = RJSFSche
           ...templates?.ButtonTemplates,
         },
       };
+      console.log(">>>>>>>>>> with theme>>>>>>", directProps);
       return (
         <Form
           {...themeProps}

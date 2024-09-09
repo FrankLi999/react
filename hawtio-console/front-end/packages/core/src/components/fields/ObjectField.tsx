@@ -35,6 +35,7 @@ type ObjectFieldState = {
 function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
 ) {
+  console.log(">>>>>>>>>>>>>>>> object field:", JSON.stringify(props.schema, null, 2));     
   const {
     schema: rawSchema,
     uiSchema = {},
@@ -274,7 +275,9 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
 
     const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
     const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
-        
+    console.log(">>>>object >>name>> ", name)
+    console.log(">>>>object >>fieldSchema>> ", JSON.stringify(fieldSchema, null, 2))
+    console.log(">>>>object >>fieldUiSchema>> ", JSON.stringify(fieldUiSchema, null, 2));
     return {
           content: (
             <Field
@@ -319,6 +322,7 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
       formContext,
       registry,
     };
+    console.log(">>>>object >>xxxxx>> ", templateProps)
     return <Template {...templateProps} onAddClick={handleAddClick} />;
   
 }

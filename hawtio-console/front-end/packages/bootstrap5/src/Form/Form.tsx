@@ -7,6 +7,7 @@ export function generateForm<
   S extends StrictRJSFSchema = RJSFSchema,
   F extends FormContextType = any
 >() {  
+  console.log(">>>>>>Bootstrap 5 form>>>>>>>>>>>>>>>>>>");
 // >(): ComponentType<FormProps<T, S, F>> {
   return withTheme<T, S, F>(generateTheme<T, S, F>());
 }

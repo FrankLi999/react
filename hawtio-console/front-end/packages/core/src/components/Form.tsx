@@ -47,7 +47,7 @@ export interface FormProps<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   /** The JSON schema object for the form */
   schema: S;
   /** An implementation of the `ValidatorType` interface that is needed for form validation to work */
-  validator: ValidatorType<T, S, F>;
+  validator?: ValidatorType<T, S, F>;
   /** The optional children for the form, if provided, it will replace the default `SubmitButton` */
   children?: ReactNode;
   /** The uiSchema for the form */
@@ -267,7 +267,7 @@ const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   // if (!propsvalidator) {
   //   throw new Error('A validator is required for Form functionality to work');    
   // }
-  
+  console.log("<<<<<<<<<<<<<<<< form >>>:", JSON.stringify(props.schema, null, 2));
   const {
     children,
     id,
@@ -297,8 +297,9 @@ const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   const { schema, schemaUtils, retrievedSchema, uiSchema, formData, errorSchema, idSchema } = state;
   const registry = getRegistry();
   const { SchemaField: _SchemaField } = registry.fields;
-
-  useEffect(() => {
+  console.log("<<<<<<<<<<<<<<<< form state >>>:", JSON.stringify(state.schema, null, 2));
+  console.log("<<<<<<<<<<<<<<<< form state 1 >>>:", JSON.stringify(state.formData, null, 2));
+  useEffect(() => {    
     if (props.onChange) {
       props.onChange(state);
     }

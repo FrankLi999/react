@@ -1,0 +1,299 @@
+<<<<<<<<<<<<<<<< form >>>: {
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}
+index.js:9585 <<<<<<<<<<<<<<<< form state >>>: {
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}
+index.js:9585 <<<<<<<<<<<<<<<< form state 1 >>>: {
+  "firstName": "Chuck",
+  "lastName": "Norris",
+  "age": 75,
+  "bio": "Roundhouse kicking asses since 1940",
+  "password": "noneed",
+  "telephone": "1-800-KICKASS"
+
+
+<<<<<<<<<<<<<<<< schema >>>: {
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}
+index-DvBWwGmb.js:1813 <<<<<<<<<<<<<<<< schema FieldTemplate >>>: {
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}  
+
+>>>>>>>>>>>>>>>> object field: {
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  firstName
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "string",
+  "title": "First name",
+  "default": "Chuck"
+}
+
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:autofocus": true,
+  "ui:emptyValue": "",
+  "ui:placeholder": "ui:emptyValue causes this field to always be valid despite being required",
+  "ui:autocomplete": "family-name",
+  "ui:enableMarkdownInDescription": true,
+  "ui:description": "Make text **bold** or *italic*. Take a look at other options [here](https://markdown-to-jsx.quantizor.dev/)."
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  lastName
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "string",
+  "title": "Last name"
+}
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:autocomplete": "given-name",
+  "ui:enableMarkdownInDescription": true,
+  "ui:description": "Make things **bold** or *italic*. Embed snippets of `code`. <small>And this is a small texts.</small> "
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  age
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "integer",
+  "title": "Age"
+}
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:widget": "updown",
+  "ui:title": "Age of person",
+  "ui:description": "(earth year)"
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  bio
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "string",
+  "title": "Bio"
+}
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:widget": "textarea"
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  password
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "string",
+  "title": "Password",
+  "minLength": 3
+}
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:widget": "password",
+  "ui:help": "Hint: Make it strong!"
+}
+index-DvBWwGmb.js:1624 >>>>object >>name>>  telephone
+index-DvBWwGmb.js:1624 >>>>object >>fieldSchema>>  {
+  "type": "string",
+  "title": "Telephone",
+  "minLength": 10
+}
+index-DvBWwGmb.js:1624 >>>>object >>fieldUiSchema>>  {
+  "ui:options": {
+    "inputType": "tel"
+  }
+}
+
+>>>>object >>xxxxx>>  {title: 'A registration form', description: 'A simple form example.', properties: Array(6), readonly: false, disabled: false, …}
+index-DvBWwGmb.js:1508 >>>>>>>>>>>>>>>> object field: {
+
+
+<<<<<<<<<<<<<<<< schema >>>: {
+  "type": "string",
+  "title": "First name",
+  "default": "Chuck"
+}
+index-DvBWwGmb.js:1813 <<<<<<<<<<<<<<<< schema FieldTemplate >>>: {
+  "type": "string",
+  "title": "First name",
+  "default": "Chuck"
+}
+
+<<<<<<<<<<<<<<<< schema >>>: {
+  "type": "string",
+  "title": "Last name"
+}
+index-DvBWwGmb.js:1813 <<<<<<<<<<<<<<<< schema FieldTemplate >>>: {
+  "type": "string",
+  "title": "Last name"
+}
+
+  "type": "integer",
+  "title": "Age"
+}
+index-DvBWwGmb.js:1813 <<<<<<<<<<<<<<<< schema FieldTemplate >>>: {
+  "type": "integer",
+  "title": "Age"
+}
+
+
+
