@@ -4,7 +4,6 @@
   "workspaces":[
     "./packages/*",
     "./sample",
-    "./console-ui-vite",
     "./console-ui",
 	"./dashboard-ui"
   ],

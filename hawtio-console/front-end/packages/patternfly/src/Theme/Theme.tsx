@@ -2,7 +2,8 @@ import { ThemeProps } from '@react-jsf/core';
 import { generateTemplates } from '../Templates';
 import { generateWidgets } from '../Widgets';
 import { FormContextType, RJSFSchema, StrictRJSFSchema } from '@react-jsf/utils';
-import {Form } from '@patternfly/react-core';export function generateTheme<
+// import {Form } from '@patternfly/react-core';
+export function generateTheme<
   T = any,
   S extends StrictRJSFSchema = RJSFSchema,
   F extends FormContextType = any
@@ -10,7 +11,7 @@ import {Form } from '@patternfly/react-core';export function generateTheme<
   return {
     templates: generateTemplates<T, S, F>(),
     widgets: generateWidgets<T, S, F>(),
-    _internalFormWrapper: Form,
+    //_internalFormWrapper: Form,
   };
 }
 

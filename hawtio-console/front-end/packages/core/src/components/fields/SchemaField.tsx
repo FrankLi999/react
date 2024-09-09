@@ -95,13 +95,13 @@ function getFieldComponent<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
       };
 }
 
-/** The `SchemaFieldRender` component is the work-horse of react-jsonschema-form, determining what kind of real field to
+/** The `SchemaField` component is the work-horse of react-jsonschema-form, determining what kind of real field to
  * render based on the `schema`, `uiSchema` and all the other props. It also deals with rendering the `anyOf` and
  * `oneOf` fields.
  *
  * @param props - The `FieldProps` for this component
  */
-function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
 ) {
   const {
@@ -353,11 +353,11 @@ function SchemaFieldRender<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
 // }
 
 
-function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
-  props: FieldProps<T, S, F>
-) {
-  return <SchemaFieldRender<T, S, F> {...props} />;
-}
+// function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
+//   props: FieldProps<T, S, F>
+// ) {
+//   return <SchemaFieldRender<T, S, F> {...props} />;
+// }
 
 // export default React.memo(SchemaField, shouldComponentUpdate);
 export default SchemaField;

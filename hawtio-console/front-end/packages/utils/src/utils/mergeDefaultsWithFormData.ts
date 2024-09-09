@@ -39,7 +39,7 @@ export default function mergeDefaultsWithFormData<T = any>(
     return mapped as unknown as T;
   }
   if (isObject(formData)) {
-    const acc: { [key in keyof T]: any } = Object.assign({}, defaults); // Prevent mutation of source object.
+    const acc: { [key in keyof T]: unknown } = Object.assign({}, defaults); // Prevent mutation of source object.
     return Object.keys(formData as GenericObjectType).reduce((acc, key) => {
       acc[key as keyof T] = mergeDefaultsWithFormData<T>(
         defaults ? get(defaults, key) : {},
