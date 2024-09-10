@@ -36,7 +36,6 @@ export default function WrapIfAdditionalTemplate<
   const { RemoveButton } = templates.ButtonTemplates;
   const keyLabel = translateString(TranslatableString.KeyLabel, [label]);
   const additional = ADDITIONAL_PROPERTY_FLAG in schema;
-
   if (!additional) {
     return (
       <div className={classNames} style={style}>
@@ -47,7 +46,6 @@ export default function WrapIfAdditionalTemplate<
 
   const handleBlur = ({ target }: FocusEvent<HTMLInputElement>) => onKeyChange(target.value);
   const keyId = `${id}-key`;
-
   return (
     <Row className={classNames} style={style} key={keyId}>
       <Col xs={5}>

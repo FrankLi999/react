@@ -58,6 +58,7 @@ export default function FieldTemplate<
       uiSchema={uiSchema}
       registry={registry}
     >
+
       <Form.Group>
         {displayLabel && (
           <Form.Label htmlFor={id} className={rawErrors.length > 0 ? 'text-danger' : ''}>
@@ -70,7 +71,7 @@ export default function FieldTemplate<
           <Form.Text className={rawErrors.length > 0 ? 'text-danger' : 'text-muted'}>{description}</Form.Text>
         )}
         {errors}
-        {help}
+        {help}      
       </Form.Group>
     </WrapIfAdditionalTemplate>
   );

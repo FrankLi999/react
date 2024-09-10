@@ -35,7 +35,6 @@ type ObjectFieldState = {
 function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
 ) {
-  console.log(">>>>>>>>>>>>>>>> object field:", JSON.stringify(props.schema, null, 2));     
   const {
     schema: rawSchema,
     uiSchema = {},
@@ -268,17 +267,14 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
     title: uiOptions.label === false ? '' : templateTitle,
     description: uiOptions.label === false ? undefined : description,
     properties: orderedProperties.map((name) => {
-    const addedByAdditionalProperties = has(schema, [PROPERTIES_KEY, name, ADDITIONAL_PROPERTY_FLAG]);
-    const fieldUiSchema = addedByAdditionalProperties ? uiSchema.additionalProperties : uiSchema[name];
-    const hidden = getUiOptions<T, S, F>(fieldUiSchema).widget === 'hidden';
-    const fieldIdSchema: IdSchema<T> = get(idSchema, [name], {});
+      const addedByAdditionalProperties = has(schema, [PROPERTIES_KEY, name, ADDITIONAL_PROPERTY_FLAG]);
+      const fieldUiSchema = addedByAdditionalProperties ? uiSchema.additionalProperties : uiSchema[name];
+      const hidden = getUiOptions<T, S, F>(fieldUiSchema).widget === 'hidden';
+      const fieldIdSchema: IdSchema<T> = get(idSchema, [name], {});
 
-    const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
-    const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
-    console.log(">>>>object >>name>> ", name)
-    console.log(">>>>object >>fieldSchema>> ", JSON.stringify(fieldSchema, null, 2))
-    console.log(">>>>object >>fieldUiSchema>> ", JSON.stringify(fieldUiSchema, null, 2));
-    return {
+      const Field: ComponentType<FieldProps<T, S, F>> = SchemaField as ComponentType<FieldProps<T, S, F>>;
+      const fieldSchema: S = get(schema, [PROPERTIES_KEY, name], {}) as S;
+      return {
           content: (
             <Field
               key={name}
@@ -322,7 +318,6 @@ function ObjectField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
       formContext,
       registry,
     };
-    console.log(">>>>object >>xxxxx>> ", templateProps)
     return <Template {...templateProps} onAddClick={handleAddClick} />;
   
 }

@@ -61,9 +61,8 @@ function getFieldComponent<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
 
   const schemaType = getSchemaType(schema);
   const type: string = Array.isArray(schemaType) ? schemaType[0] : schemaType || '';
-
-  const schemaId = schema.$id;
-
+    const schemaId = schema.$id;
+  
   let componentName = COMPONENT_TYPES[type];
   if (schemaId && schemaId in fields) {
     componentName = schemaId;
@@ -74,7 +73,6 @@ function getFieldComponent<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
   if (!componentName && (schema.anyOf || schema.oneOf)) {
     return () => null;
   }
-
   return componentName in fields
     ? fields[componentName]
     : () => {
@@ -104,7 +102,6 @@ function getFieldComponent<T = any, S extends StrictRJSFSchema = RJSFSchema, F e
 function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>(
   props: FieldProps<T, S, F>
 ) {
-  console.log("<<<<<<<<<<<<<<<< schema >>>:", JSON.stringify(props.schema, null, 2));
   const {
     schema: _schema,
     idSchema: _idSchema,
@@ -288,7 +285,6 @@ function SchemaField<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends
   const _AnyOfField = registry.fields.AnyOfField;
   const _OneOfField = registry.fields.OneOfField;
   const isReplacingAnyOrOneOf = uiSchema?.['ui:field'] && uiSchema?.['ui:fieldReplacesAnyOrOneOf'] === true;
-  console.log("<<<<<<<<<<<<<<<< schema FieldTemplate >>>:", JSON.stringify(fieldProps.schema, null, 2));
   return (
     <FieldTemplate {...fieldProps}>
       <>

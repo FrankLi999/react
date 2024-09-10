@@ -267,7 +267,6 @@ const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   // if (!propsvalidator) {
   //   throw new Error('A validator is required for Form functionality to work');    
   // }
-  console.log("<<<<<<<<<<<<<<<< form >>>:", JSON.stringify(props.schema, null, 2));
   const {
     children,
     id,
@@ -297,8 +296,6 @@ const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends 
   const { schema, schemaUtils, retrievedSchema, uiSchema, formData, errorSchema, idSchema } = state;
   const registry = getRegistry();
   const { SchemaField: _SchemaField } = registry.fields;
-  console.log("<<<<<<<<<<<<<<<< form state >>>:", JSON.stringify(state.schema, null, 2));
-  console.log("<<<<<<<<<<<<<<<< form state 1 >>>:", JSON.stringify(state.formData, null, 2));
   useEffect(() => {    
     if (props.onChange) {
       props.onChange(state);
@@ -688,7 +685,6 @@ const Form = <T extends any, S extends StrictRJSFSchema = RJSFSchema, F extends 
       newFormData = doOmitExtraData(newFormData);
     }
 
-    console.log(">>>>>>>>>>>>Form data submitted:>>>>>>>>", newFormData);
     if (noHtml5Validate || validateFormWithFormData(newFormData)) {
       // There are no errors generated through schema validation.
       // Check for user provided errors and update state accordingly.
