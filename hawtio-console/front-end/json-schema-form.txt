@@ -1,0 +1,154 @@
+ref:
+
+   json-pointer lib:
+      "jsonpointer": "^5.0.1", https://github.com/janl/node-jsonpointer.git
+   jsonschema lib:
+      "@testing-library/react": "^16.0.0",
+      "@types/json-schema": "^7.0.15",
+steps:
+
+1. init - set widget library/theme/framework
+
+2. pre-process schema
+
+    resolve reference/dependencies, merge allOf
+        resolveAllReferences
+           findSchemaDefinition
+              findSchemaDefinitionRecursive  -> check for circular references
+ 
+  schema:
+    $ref: resolveSchemaReferences, TODO: external ref
+        schemaRefLibrary,
+        schemaRecursiveRefMap
+        dataRecursiveRefMap
+        arrayMap
+        dataMap
+
+    oneOf
+
+    anyOf
+
+    allOf
+
+    array
+
+    object
+
+  resolve default form data
+  resolve titles
+
+
+3. calculate layout
+
+   ***
+   when dataPointer==="*"
+   layout.functions: line 215
+   return buildLayoutFromSchema(jsf, widgetLibrary, jsf.formValues);
+   ***
+
+   let newNode: any = {
+    _id: forRefLibrary ? null : uniqueId(),
+    arrayItem: arrayItem, // true or false
+    dataPointer: JsonPointer.toGenericPointer(dataPointer, jsf.arrayMap),
+    dataType: schema.type || (hasOwn(schema, "$ref") ? "$ref" : null),
+    options: {},
+    required: isInputRequired(jsf.schema, schemaPointer),
+    type: newNodeType,
+    widget: widgetLibrary.getWidget(newNodeType),
+
+    name: lastDataKey,
+    optoins: {
+      minItems, ...
+    }
+  };
+
+
+   =======================================================
+  json data pointer for array ends with "/-"
+                  layoutNode.name is last key of the data pointer
+  layout:[]
+  rwo/column, tab, steps, section, array
+
+    field:  // titleMap
+      {
+        key or dataPointer: "address.street",      // data pointer, The dot notatin to the attribute on the model
+        type: "text",               // Type of field
+        title: "Street",            // Title of field, taken from schema if available
+        name
+        schemaPointer
+        notitle: false,             // Set to true to hide title
+        description: "Street name", // A description, taken from schema if available, can be HTML
+        validationMessage: "Oh noes, please write a proper address",  // A custom validation error message
+           string ir {}
+           keys: type, enum, multipleOf, minimum, maximum, exclusiveMaximum, minLength, maxLength, pattern, minProxerties, maxProperties,
+                 required, dependencies, minItems, maxItems, uniqueItems, format
+        onChange: "valueChanged(form.key,modelValue)", // onChange event hand ler, expression or function
+        feedback: false,             // Inline feedback icons
+        disableSuccessState: false,  // Set true to NOT apply 'has-success' class to a field that was validated successfully
+        disableErrorState: false,    // Set true to NOT apply 'has-error' class to a field that failed validation
+        placeholder: "Input...",     // placeholder on inputs and textarea
+        ngModelOptions: { ... },     // Passed along to ng-model-options
+        readonly: true,              // Same effect as readOnly in schema. Put on a fieldset or array
+                                    // and their items will inherit it.
+        htmlClass: "street foobar",  // CSS Class(es) to be added to the container div
+        fieldHtmlClass: "street"     // CSS Class(es) to be added to field input (or similar)
+        labelHtmlClass: "street"     // CSS Class(es) to be added to the label of the field (or similar)
+        copyValueTo: ["address.street"],     // Copy values to these schema keys.
+        condition: "person.age < 18" // Show or hide field depending on an angular expression
+        destroyStrategy: "remove"    // One of "null", "empty" , "remove", or 'retain'. Changes model on $destroy event. default is "remove".
+
+
+
+      }
+
+    none options:
+      "_id",
+      "$ref",
+      "arrayItem",
+      "arrayItemType",
+      "dataPointer",
+      "dataType",
+      "items",
+      "key",
+      "name",
+      "options",
+      "recursiveReference",
+      "type",
+      // "widget",
+
+4. angular/react
+
+5.1. angular
+Prepare validators
+construct form structure -> FormGroup
+
+generate form -> use Widget selector vs switch case
+
+5.2. react
+Prepare validators
+construct form structure
+react form using Widget selector vs switch case
+
+
+6. field types
+
+fieldset	  a fieldset with legend
+section 	  just a div
+actions   	horizontal button list, can only submit and buttons as items
+text	      input with type text
+textarea  	a textarea
+number	    input type number
+password	  input type password
+checkbox	  a checkbox
+checkboxes	list of checkboxes
+select	    a select (single value)
+submit	    a submit button
+button	    a button
+radios	        radio buttons
+radios-inline	  radio buttons in one line
+radiobuttons	  radio buttons with bootstrap buttons
+help	          insert arbitrary html
+template	      insert an angular template
+tab	            tabs with content
+array	          a list you can add, remove and reorder
+tabarray	      a tabbed version of array
