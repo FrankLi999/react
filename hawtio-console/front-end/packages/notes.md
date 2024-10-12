@@ -16,11 +16,64 @@ json-schema
     AJV8Validator
     compileSchemaValidators -> compileSchemaValidatorsCode -> schemaParser ->parseSchema ->ParserValidator
 	
-	
-	SchemaField 
-	   FieldTemplate
-	   FiedlErrorTemplate
-	   FieldHelpTemplate
+Render form:
+
+    Framework specific Form component:
+	  core Form compoment
+
+	    ErrorListTemplate: ErrorList,
+		SchemaField 
+		   <FieldTemplate>
+		       - select field -> Object, String, Null, AnyOf, Array, OneOf, schema, boolean, number
+			   
+			    ArrayField:
+					ArrayFieldTemplate
+					  ArrayFieldItemTemplate
+					    ArrayFieldTitleTemplate
+						  TitleFieldTemplate: TitleField,
+					    ArrayFieldDescriptionTemplate 
+						
+					Multiple choice - array of string (enum) - renderMultiSelect
+					    SelectWidget
+                    List with fixed items + additional items -  renderFixedArray()
+					custom widget: renderCustomWidget	
+						<Widget>
+					files array: renderFiles
+					    FilesWidget
+				    List with Minumum ahd rest: renderNormalArray
+					  <ArrayFieldTemplate {...arrayProps} />
+  
+				ObjectField: fieldset
+				  ObjectFieldTemplate
+				   TitleFieldTemplate: TitleField,
+				   DescriptionFieldTemplate
+				   {properties.map((prop: ObjectFieldTemplatePropertyType) => prop.content)}
+				       each property -> SchemaField
+				   AddButton
+				MultiSchemaField-> 
+				  AnyOfField
+                    Number Widget
+                    SchemaField					
+				  OneOfField
+				    Number Widget
+                    SchemaField
+					Add Button
+		   <FieldTemplate>
+		   - select fields -> Object, String, Null, AnyOf, Array, OneOf, schema, boolean, number
+		   - select template
+		   - select widgets
+		
+Template:		
+		  FieldTemplate
+		    <WrapIfAdditionalTemplate {...props}>
+			  {displayLabel && <Label label={label} required={required} id={id} />}
+			  {displayLabel && description ? description : null}  // DescriptionFieldTemplate: DescriptionField,
+			  {children}
+			  {errors} - // FieldErrorTemplate
+			  {help}     // FieldHelpTemplate
+			</WrapIfAdditionalTemplate>
+		  FiedlErrorTemplate
+		  FieldHelpTemplate
 	   
 	   
 	   
@@ -37,6 +90,18 @@ Error:
 
            ErrorSchema
            errors: Array<string|ReactElement>		   
+
+
+COMPONENT_TYPES:
+	const COMPONENT_TYPES: { [key: string]: string } = {
+	  array: 'ArrayField',
+	  boolean: 'BooleanField',
+	  integer: 'NumberField',
+	  number: 'NumberField',
+	  object: 'ObjectField',
+	  string: 'StringField',
+	  null: 'NullField',
+	};
 		   
 Registry:
 
