@@ -36,6 +36,7 @@ Render form:
 					Multiple choice - array of string (enum) - renderMultiSelect
 					    SelectWidget
                     List with fixed items + additional items -  renderFixedArray()
+					    ArrayFieldTemplate
 					custom widget: renderCustomWidget	
 						<Widget>
 					files array: renderFiles
