@@ -1,7 +1,8 @@
 # create user
 
+
 create user C##Camel identified by Passw0rd;
-grant sysdba to C##Camel container=all
+GRANT sysdba to C##Camel container=all;
 
 GRANT CREATE SESSION TO C##Camel;
 
